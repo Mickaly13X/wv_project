@@ -1,0 +1,425 @@
+Running solver...
+Choice set:¬(dom1) ∨ dom2 ([1,9))
+Choice set:dom2 ∨ dom1 ([5,6] | [9,15])
+----------
+Solving 12 vars:
+	universe ([1,15])
+	universe ([1,15])
+	universe ([1,15])
+	universe ([1,15])
+	universe ([1,15])
+	¬(dom1) ∨ dom2 ([1,9))
+	universe ([1,15])
+	dom2 ∨ dom1 ([5,6] | [9,15])
+	universe ([1,15])
+	universe ([1,15])
+	universe ([1,15])
+	universe ([1,15])
+Choice constraints:
+	Position 6: ¬(dom1) ∨ dom2 ([1,9))
+	Position 8: dom2 ∨ dom1 ([5,6] | [9,15])
+Count constraints:
+	Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) >= 5
+----------
+Counting non-exchangeable...
+Solving combination 0: ['Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 0'] // ['Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) >= 5']
+Split class :
+	Subproblem:
+	----------
+	Solving 10 vars:
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+	Choice constraints:
+	Count constraints:
+		Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 0
+	----------
+	Counting exchangeable...
+	Propagating Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 0
+		Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 0 is unsat here
+	==========
+	Unsat: 0
+Solving combination 1: ['Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 1'] // ['Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) >= 4']
+Split class :
+	Subproblem:
+	----------
+	Solving 10 vars:
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+	Choice constraints:
+	Count constraints:
+		Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 1
+	----------
+	Counting exchangeable...
+	Propagating Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 1
+		Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 1 is unsat here
+	==========
+	Unsat: 0
+Solving combination 2: ['Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 2'] // ['Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) >= 3']
+Split class :
+	Subproblem:
+	----------
+	Solving 10 vars:
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+	Choice constraints:
+	Count constraints:
+		Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 2
+	----------
+	Counting exchangeable...
+	Propagating Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 2
+		Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 2 is unsat here
+	==========
+	Unsat: 0
+Solving combination 3: ['Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 3'] // ['Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) >= 2']
+Split class :
+	Subproblem:
+	----------
+	Solving 10 vars:
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+	Choice constraints:
+	Count constraints:
+		Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 3
+	----------
+	Counting exchangeable...
+	Propagating Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 3
+		Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 3 is unsat here
+	==========
+	Unsat: 0
+Solving combination 4: ['Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 4'] // ['Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) >= 1']
+Split class :
+	Subproblem:
+	----------
+	Solving 10 vars:
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+	Choice constraints:
+	Count constraints:
+		Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 4
+	----------
+	Counting exchangeable...
+	Propagating Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 4
+		Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 4 is unsat here
+	==========
+	Unsat: 0
+Solving combination 5: ['Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) >= 5'] // ['Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) >= 0']
+Split class :
+	Subproblem:
+	----------
+	Solving 10 vars:
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+	Choice constraints:
+	Count constraints:
+		Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) >= 5
+	----------
+	Counting exchangeable...
+	Propagating Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) >= 5
+		Expanding bounds [5,10]...
+			Subproblem:
+			----------
+			Solving 10 vars:
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+			Choice constraints:
+			Count constraints:
+				Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 5
+			----------
+			Counting exchangeable...
+			Propagating Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 5
+				Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 5 is unsat here
+			==========
+			Unsat: 0
+			Subproblem:
+			----------
+			Solving 10 vars:
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+			Choice constraints:
+			Count constraints:
+				Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 6
+			----------
+			Counting exchangeable...
+			Propagating Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 6
+				Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 6 is unsat here
+			==========
+			Unsat: 0
+			Subproblem:
+			----------
+			Solving 10 vars:
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+			Choice constraints:
+			Count constraints:
+				Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 7
+			----------
+			Counting exchangeable...
+			Propagating Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 7
+				Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 7 is unsat here
+			==========
+			Unsat: 0
+			Subproblem:
+			----------
+			Solving 10 vars:
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+			Choice constraints:
+			Count constraints:
+				Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 8
+			----------
+			Counting exchangeable...
+			Propagating Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 8
+				Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 8 is unsat here
+			==========
+			Unsat: 0
+			Subproblem:
+			----------
+			Solving 10 vars:
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+			Choice constraints:
+			Count constraints:
+				Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 9
+			----------
+			Counting exchangeable...
+			Propagating Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 9
+				Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 9 is unsat here
+			==========
+			Unsat: 0
+			Subproblem:
+			----------
+			Solving 10 vars:
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+			Choice constraints:
+			Count constraints:
+				Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 10
+			----------
+			Counting exchangeable...
+			Propagating Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 10
+				Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 10 already satisfied
+				Splitting on other constraints...
+				... no other constraints
+				Counting sequences:
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+					Domain product: 576650390625
+				Counting domains: 576650390625
+			=========
+			tot:576650390625
+	=========
+	tot:576650390625
+Rest class: 
+	Subproblem:
+	----------
+	Solving 2 vars:
+		¬(dom1) ∨ dom2 ([1,9))
+		dom2 ∨ dom1 ([5,6] | [9,15])
+	Choice constraints:
+	Count constraints:
+		Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) >= 0
+	----------
+	Counting non-exchangeable...
+	Solving combination 0: ['Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) >= 0'] // ['Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) >= 0']
+	Split class :
+		Subproblem:
+		----------
+		Solving 1 vars:
+			¬(dom1) ∨ dom2 ([1,9))
+		Choice constraints:
+		Count constraints:
+			Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) >= 0
+		----------
+		Counting exchangeable...
+		Propagating Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) >= 0
+			Expanding bounds [0,1]...
+				Subproblem:
+				----------
+				Solving 1 vars:
+					¬(dom1) ∨ dom2 ([1,9))
+				Choice constraints:
+				Count constraints:
+					Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 0
+				----------
+				Counting exchangeable...
+				Propagating Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 0
+					Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 0 is unsat here
+				==========
+				Unsat: 0
+				Subproblem:
+				----------
+				Solving 1 vars:
+					¬(dom1) ∨ dom2 ([1,9))
+				Choice constraints:
+				Count constraints:
+					Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 1
+				----------
+				Counting exchangeable...
+				Propagating Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 1
+					Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 1 already satisfied
+					Splitting on other constraints...
+					... no other constraints
+					Counting sequences:
+					¬(dom1) ∨ dom2 ([1,9))
+						Domain product: 8
+					Counting domains: 8
+				=========
+				tot:8
+		=========
+		tot:8
+	Rest class: 
+		Subproblem:
+		----------
+		Solving 1 vars:
+			dom2 ∨ dom1 ([5,6] | [9,15])
+		Choice constraints:
+		Count constraints:
+			Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) >= 0
+		----------
+		Counting exchangeable...
+		Propagating Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) >= 0
+			Expanding bounds [0,1]...
+				Subproblem:
+				----------
+				Solving 1 vars:
+					dom2 ∨ dom1 ([5,6] | [9,15])
+				Choice constraints:
+				Count constraints:
+					Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 0
+				----------
+				Counting exchangeable...
+				Propagating Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 0
+					Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 0 is unsat here
+				==========
+				Unsat: 0
+				Subproblem:
+				----------
+				Solving 1 vars:
+					dom2 ∨ dom1 ([5,6] | [9,15])
+				Choice constraints:
+				Count constraints:
+					Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 1
+				----------
+				Counting exchangeable...
+				Propagating Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 1
+					Nr. ¬(dom1) ∨ ¬(dom2) ([1,15]) == 1 already satisfied
+					Splitting on other constraints...
+					... no other constraints
+					Counting sequences:
+					dom2 ∨ dom1 ([5,6] | [9,15])
+						Domain product: 9
+					Counting domains: 9
+				=========
+				tot:9
+		=========
+		tot:9
+	==========
+	=========
+	tot:72
+==========
+=========
+tot:41518828125000

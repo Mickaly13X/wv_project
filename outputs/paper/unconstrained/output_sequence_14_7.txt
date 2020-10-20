@@ -1,0 +1,25 @@
+Running solver...
+----------
+Solving 7 vars:
+	universe ([1,14])
+	universe ([1,14])
+	universe ([1,14])
+	universe ([1,14])
+	universe ([1,14])
+	universe ([1,14])
+	universe ([1,14])
+Choice constraints:
+Count constraints:
+----------
+Counting sequences:
+universe ([1,14])
+universe ([1,14])
+universe ([1,14])
+universe ([1,14])
+universe ([1,14])
+universe ([1,14])
+universe ([1,14])
+	Domain product: 105413504
+Counting domains: 105413504
+=========
+tot:105413504

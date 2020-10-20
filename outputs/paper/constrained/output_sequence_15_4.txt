@@ -1,0 +1,242 @@
+Running solver...
+Choice set:dom2 ∧ ¬(dom1) ([5,7) | (13,15])
+----------
+Solving 4 vars:
+	universe ([1,15])
+	universe ([1,15])
+	universe ([1,15])
+	dom2 ∧ ¬(dom1) ([5,7) | (13,15])
+Choice constraints:
+	Position 4: dom2 ∧ ¬(dom1) ([5,7) | (13,15])
+Count constraints:
+	Nr. dom2 ([5,15]) > 2
+----------
+Counting non-exchangeable...
+Solving combination 0: ['Nr. dom2 ([5,15]) == 0'] // ['Nr. dom2 ([5,15]) > 2']
+Split class :
+	Subproblem:
+	----------
+	Solving 3 vars:
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+	Choice constraints:
+	Count constraints:
+		Nr. dom2 ([5,15]) == 0
+	----------
+	Counting exchangeable...
+	Propagating Nr. dom2 ([5,15]) == 0
+		3 exchangeable free vars: universe ([1,15])
+		Splitting on other constraints...
+		... no other constraints
+		Counting sequences:
+		¬(dom2) ([1,5))
+		¬(dom2) ([1,5))
+		¬(dom2) ([1,5))
+			Domain product: 64
+		Counting domains: 64
+	=========
+	tot:64
+Rest class: 
+	Subproblem:
+	----------
+	Solving 1 vars:
+		dom2 ∧ ¬(dom1) ([5,7) | (13,15])
+	Choice constraints:
+	Count constraints:
+		Nr. dom2 ([5,15]) > 2
+	----------
+	Counting exchangeable...
+	Propagating Nr. dom2 ([5,15]) > 2
+		Expanding bounds [3,1]...
+	=========
+	tot:0
+==========
+Solving combination 1: ['Nr. dom2 ([5,15]) == 1'] // ['Nr. dom2 ([5,15]) > 1']
+Split class :
+	Subproblem:
+	----------
+	Solving 3 vars:
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+	Choice constraints:
+	Count constraints:
+		Nr. dom2 ([5,15]) == 1
+	----------
+	Counting exchangeable...
+	Propagating Nr. dom2 ([5,15]) == 1
+		3 exchangeable free vars: universe ([1,15])
+		Splitting on other constraints...
+		... no other constraints
+		Counting sequences:
+		dom2 ([5,15])
+		¬(dom2) ([1,5))
+		¬(dom2) ([1,5))
+			Domain product: 176
+		Counting domains: 176
+	=========
+	tot:528
+Rest class: 
+	Subproblem:
+	----------
+	Solving 1 vars:
+		dom2 ∧ ¬(dom1) ([5,7) | (13,15])
+	Choice constraints:
+	Count constraints:
+		Nr. dom2 ([5,15]) > 1
+	----------
+	Counting exchangeable...
+	Propagating Nr. dom2 ([5,15]) > 1
+		Expanding bounds [2,1]...
+	=========
+	tot:0
+==========
+Solving combination 2: ['Nr. dom2 ([5,15]) == 2'] // ['Nr. dom2 ([5,15]) > 0']
+Split class :
+	Subproblem:
+	----------
+	Solving 3 vars:
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+	Choice constraints:
+	Count constraints:
+		Nr. dom2 ([5,15]) == 2
+	----------
+	Counting exchangeable...
+	Propagating Nr. dom2 ([5,15]) == 2
+		3 exchangeable free vars: universe ([1,15])
+		Splitting on other constraints...
+		... no other constraints
+		Counting sequences:
+		dom2 ([5,15])
+		dom2 ([5,15])
+		¬(dom2) ([1,5))
+			Domain product: 484
+		Counting domains: 484
+	=========
+	tot:1452
+Rest class: 
+	Subproblem:
+	----------
+	Solving 1 vars:
+		dom2 ∧ ¬(dom1) ([5,7) | (13,15])
+	Choice constraints:
+	Count constraints:
+		Nr. dom2 ([5,15]) > 0
+	----------
+	Counting exchangeable...
+	Propagating Nr. dom2 ([5,15]) > 0
+		Expanding bounds [1,1]...
+			Subproblem:
+			----------
+			Solving 1 vars:
+				dom2 ∧ ¬(dom1) ([5,7) | (13,15])
+			Choice constraints:
+			Count constraints:
+				Nr. dom2 ([5,15]) == 1
+			----------
+			Counting exchangeable...
+			Propagating Nr. dom2 ([5,15]) == 1
+				Nr. dom2 ([5,15]) == 1 already satisfied
+				Splitting on other constraints...
+				... no other constraints
+				Counting sequences:
+				dom2 ∧ ¬(dom1) ([5,7) | (13,15])
+					Domain product: 4
+				Counting domains: 4
+			=========
+			tot:4
+	=========
+	tot:4
+==========
+Solving combination 3: ['Nr. dom2 ([5,15]) > 2'] // ['Nr. dom2 ([5,15]) > -1']
+Split class :
+	Subproblem:
+	----------
+	Solving 3 vars:
+		universe ([1,15])
+		universe ([1,15])
+		universe ([1,15])
+	Choice constraints:
+	Count constraints:
+		Nr. dom2 ([5,15]) > 2
+	----------
+	Counting exchangeable...
+	Propagating Nr. dom2 ([5,15]) > 2
+		Expanding bounds [3,3]...
+			Subproblem:
+			----------
+			Solving 3 vars:
+				universe ([1,15])
+				universe ([1,15])
+				universe ([1,15])
+			Choice constraints:
+			Count constraints:
+				Nr. dom2 ([5,15]) == 3
+			----------
+			Counting exchangeable...
+			Propagating Nr. dom2 ([5,15]) == 3
+				3 exchangeable free vars: universe ([1,15])
+				Splitting on other constraints...
+				... no other constraints
+				Counting sequences:
+				dom2 ([5,15])
+				dom2 ([5,15])
+				dom2 ([5,15])
+					Domain product: 1331
+				Counting domains: 1331
+			=========
+			tot:1331
+	=========
+	tot:1331
+Rest class: 
+	Subproblem:
+	----------
+	Solving 1 vars:
+		dom2 ∧ ¬(dom1) ([5,7) | (13,15])
+	Choice constraints:
+	Count constraints:
+		Nr. dom2 ([5,15]) > -1
+	----------
+	Counting exchangeable...
+	Propagating Nr. dom2 ([5,15]) > -1
+		Expanding bounds [0,1]...
+			Subproblem:
+			----------
+			Solving 1 vars:
+				dom2 ∧ ¬(dom1) ([5,7) | (13,15])
+			Choice constraints:
+			Count constraints:
+				Nr. dom2 ([5,15]) == 0
+			----------
+			Counting exchangeable...
+			Propagating Nr. dom2 ([5,15]) == 0
+				Nr. dom2 ([5,15]) == 0 is unsat here
+			==========
+			Unsat: 0
+			Subproblem:
+			----------
+			Solving 1 vars:
+				dom2 ∧ ¬(dom1) ([5,7) | (13,15])
+			Choice constraints:
+			Count constraints:
+				Nr. dom2 ([5,15]) == 1
+			----------
+			Counting exchangeable...
+			Propagating Nr. dom2 ([5,15]) == 1
+				Nr. dom2 ([5,15]) == 1 already satisfied
+				Splitting on other constraints...
+				... no other constraints
+				Counting sequences:
+				dom2 ∧ ¬(dom1) ([5,7) | (13,15])
+					Domain product: 4
+				Counting domains: 4
+			=========
+			tot:4
+	=========
+	tot:4
+==========
+=========
+tot:11132

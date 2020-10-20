@@ -1,0 +1,4232 @@
+Running solver...
+----------
+Solving 16 vars:
+	universe ([1,30])
+	universe ([1,30])
+	universe ([1,30])
+	universe ([1,30])
+	universe ([1,30])
+	universe ([1,30])
+	universe ([1,30])
+	universe ([1,30])
+	universe ([1,30])
+	universe ([1,30])
+	universe ([1,30])
+	universe ([1,30])
+	universe ([1,30])
+	universe ([1,30])
+	universe ([1,30])
+	universe ([1,30])
+Choice constraints:
+Count constraints:
+	Nr. dom2 ([6,28]) =< 14
+----------
+Counting exchangeable...
+Propagating Nr. dom2 ([6,28]) =< 14
+	Expanding bounds [0,14]...
+		Subproblem:
+		----------
+		Solving 16 vars:
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+		Choice constraints:
+		Count constraints:
+			Nr. dom2 ([6,28]) == 0
+		----------
+		Counting exchangeable...
+		Propagating Nr. dom2 ([6,28]) == 0
+			16 exchangeable free vars: universe ([1,30])
+			Splitting on other constraints...
+			... no other constraints
+			There are 0 fixed elements
+			Counting domains: 0
+		=========
+		tot:0
+		Subproblem:
+		----------
+		Solving 16 vars:
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+		Choice constraints:
+		Count constraints:
+			Nr. dom2 ([6,28]) == 1
+		----------
+		Counting exchangeable...
+		Propagating Nr. dom2 ([6,28]) == 1
+			16 exchangeable free vars: universe ([1,30])
+			Splitting on other constraints...
+			... no other constraints
+			There are 0 fixed elements
+			Splitting injectivity...
+				Split class: dom2 ([6,28])
+				Computing case combinations of rest classes...
+				Case (1, 0)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 1', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 0']:
+					Subproblem:
+					----------
+					Solving 1 vars:
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 1
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 1
+						Nr. dom2 ([6,28]) == 1 already satisfied
+						Splitting on other constraints...
+							Subproblem:
+							----------
+							Solving 1 vars:
+								dom2 ([6,28])
+							Choice constraints:
+							Count constraints:
+								Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+							----------
+							Counting exchangeable...
+							Propagating Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+								Nr. ¬(dom2) ([1,6) | (28,30]) == 0 already satisfied
+								Splitting on other constraints...
+								... no other constraints
+								There are 0 fixed elements
+								Counting domains: 23
+							=========
+							tot:23
+					=========
+					tot:23
+				Filtering domains...
+				  Case dom2 ([6,28])
+				  Filtering 1 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 1 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 1 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 1 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 1 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 1 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 1 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 1 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 1 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 1 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 1 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 1 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 1 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 1 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 1 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Case ¬(dom2) ([1,6) | (28,30])
+					Subproblem:
+					----------
+					Solving 15 vars:
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+					Choice constraints:
+					Count constraints:
+					----------
+					There are 0 fixed elements
+					Counting domains: 0
+					=========
+					tot:0
+				Split result = 0
+				Case (0, 1)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 0', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 1']:
+					Subproblem:
+					----------
+					Solving 1 vars:
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 0
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 1
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 0
+						Nr. dom2 ([6,28]) == 0 is unsat here
+					==========
+					Unsat: 0
+			Counting domains: 0
+		=========
+		tot:0
+		Subproblem:
+		----------
+		Solving 16 vars:
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+		Choice constraints:
+		Count constraints:
+			Nr. dom2 ([6,28]) == 2
+		----------
+		Counting exchangeable...
+		Propagating Nr. dom2 ([6,28]) == 2
+			16 exchangeable free vars: universe ([1,30])
+			Splitting on other constraints...
+			... no other constraints
+			There are 0 fixed elements
+			Splitting injectivity...
+				Split class: dom2 ([6,28])
+				Computing case combinations of rest classes...
+				Case (1, 1)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 1', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 1']:
+					Subproblem:
+					----------
+					Solving 2 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 1
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 1
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 1
+						Nr. dom2 ([6,28]) == 1 is unsat here
+					==========
+					Unsat: 0
+				Case (0, 2)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 0', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 2']:
+					Subproblem:
+					----------
+					Solving 2 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 0
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 2
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 0
+						Nr. dom2 ([6,28]) == 0 is unsat here
+					==========
+					Unsat: 0
+				Case (2, 0)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 2', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 0']:
+					Subproblem:
+					----------
+					Solving 2 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 2
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 2
+						Nr. dom2 ([6,28]) == 2 already satisfied
+						Splitting on other constraints...
+							Subproblem:
+							----------
+							Solving 2 vars:
+								dom2 ([6,28])
+								dom2 ([6,28])
+							Choice constraints:
+							Count constraints:
+								Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+							----------
+							Counting exchangeable...
+							Propagating Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+								Nr. ¬(dom2) ([1,6) | (28,30]) == 0 already satisfied
+								Splitting on other constraints...
+								... no other constraints
+								There are 0 fixed elements
+								Counting domains: 253
+							=========
+							tot:253
+					=========
+					tot:253
+				Filtering domains...
+				  Case dom2 ([6,28])
+				  Filtering 2 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 2 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 2 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 2 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 2 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 2 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 2 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 2 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 2 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 2 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 2 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 2 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 2 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 2 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Case ¬(dom2) ([1,6) | (28,30])
+					Subproblem:
+					----------
+					Solving 14 vars:
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+					Choice constraints:
+					Count constraints:
+					----------
+					There are 0 fixed elements
+					Counting domains: 0
+					=========
+					tot:0
+				Split result = 0
+			Counting domains: 0
+		=========
+		tot:0
+		Subproblem:
+		----------
+		Solving 16 vars:
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+		Choice constraints:
+		Count constraints:
+			Nr. dom2 ([6,28]) == 3
+		----------
+		Counting exchangeable...
+		Propagating Nr. dom2 ([6,28]) == 3
+			16 exchangeable free vars: universe ([1,30])
+			Splitting on other constraints...
+			... no other constraints
+			There are 0 fixed elements
+			Splitting injectivity...
+				Split class: dom2 ([6,28])
+				Computing case combinations of rest classes...
+				Case (1, 2)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 1', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 2']:
+					Subproblem:
+					----------
+					Solving 3 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 1
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 2
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 1
+						Nr. dom2 ([6,28]) == 1 is unsat here
+					==========
+					Unsat: 0
+				Case (2, 1)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 2', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 1']:
+					Subproblem:
+					----------
+					Solving 3 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 2
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 1
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 2
+						Nr. dom2 ([6,28]) == 2 is unsat here
+					==========
+					Unsat: 0
+				Case (0, 3)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 0', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 3']:
+					Subproblem:
+					----------
+					Solving 3 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 0
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 3
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 0
+						Nr. dom2 ([6,28]) == 0 is unsat here
+					==========
+					Unsat: 0
+				Case (3, 0)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 3', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 0']:
+					Subproblem:
+					----------
+					Solving 3 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 3
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 3
+						Nr. dom2 ([6,28]) == 3 already satisfied
+						Splitting on other constraints...
+							Subproblem:
+							----------
+							Solving 3 vars:
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+							Choice constraints:
+							Count constraints:
+								Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+							----------
+							Counting exchangeable...
+							Propagating Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+								Nr. ¬(dom2) ([1,6) | (28,30]) == 0 already satisfied
+								Splitting on other constraints...
+								... no other constraints
+								There are 0 fixed elements
+								Counting domains: 1771
+							=========
+							tot:1771
+					=========
+					tot:1771
+				Filtering domains...
+				  Case dom2 ([6,28])
+				  Filtering 3 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 3 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 3 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 3 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 3 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 3 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 3 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 3 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 3 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 3 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 3 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 3 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 3 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Case ¬(dom2) ([1,6) | (28,30])
+					Subproblem:
+					----------
+					Solving 13 vars:
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+					Choice constraints:
+					Count constraints:
+					----------
+					There are 0 fixed elements
+					Counting domains: 0
+					=========
+					tot:0
+				Split result = 0
+			Counting domains: 0
+		=========
+		tot:0
+		Subproblem:
+		----------
+		Solving 16 vars:
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+		Choice constraints:
+		Count constraints:
+			Nr. dom2 ([6,28]) == 4
+		----------
+		Counting exchangeable...
+		Propagating Nr. dom2 ([6,28]) == 4
+			16 exchangeable free vars: universe ([1,30])
+			Splitting on other constraints...
+			... no other constraints
+			There are 0 fixed elements
+			Splitting injectivity...
+				Split class: dom2 ([6,28])
+				Computing case combinations of rest classes...
+				Case (3, 1)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 3', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 1']:
+					Subproblem:
+					----------
+					Solving 4 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 3
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 1
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 3
+						Nr. dom2 ([6,28]) == 3 is unsat here
+					==========
+					Unsat: 0
+				Case (1, 3)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 1', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 3']:
+					Subproblem:
+					----------
+					Solving 4 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 1
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 3
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 1
+						Nr. dom2 ([6,28]) == 1 is unsat here
+					==========
+					Unsat: 0
+				Case (2, 2)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 2', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 2']:
+					Subproblem:
+					----------
+					Solving 4 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 2
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 2
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 2
+						Nr. dom2 ([6,28]) == 2 is unsat here
+					==========
+					Unsat: 0
+				Case (4, 0)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 4', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 0']:
+					Subproblem:
+					----------
+					Solving 4 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 4
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 4
+						Nr. dom2 ([6,28]) == 4 already satisfied
+						Splitting on other constraints...
+							Subproblem:
+							----------
+							Solving 4 vars:
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+							Choice constraints:
+							Count constraints:
+								Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+							----------
+							Counting exchangeable...
+							Propagating Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+								Nr. ¬(dom2) ([1,6) | (28,30]) == 0 already satisfied
+								Splitting on other constraints...
+								... no other constraints
+								There are 0 fixed elements
+								Counting domains: 8855
+							=========
+							tot:8855
+					=========
+					tot:8855
+				Filtering domains...
+				  Case dom2 ([6,28])
+				  Filtering 4 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 4 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 4 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 4 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 4 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 4 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 4 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 4 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 4 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 4 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 4 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 4 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Case ¬(dom2) ([1,6) | (28,30])
+					Subproblem:
+					----------
+					Solving 12 vars:
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+					Choice constraints:
+					Count constraints:
+					----------
+					There are 0 fixed elements
+					Counting domains: 0
+					=========
+					tot:0
+				Split result = 0
+				Case (0, 4)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 0', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 4']:
+					Subproblem:
+					----------
+					Solving 4 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 0
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 4
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 0
+						Nr. dom2 ([6,28]) == 0 is unsat here
+					==========
+					Unsat: 0
+			Counting domains: 0
+		=========
+		tot:0
+		Subproblem:
+		----------
+		Solving 16 vars:
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+		Choice constraints:
+		Count constraints:
+			Nr. dom2 ([6,28]) == 5
+		----------
+		Counting exchangeable...
+		Propagating Nr. dom2 ([6,28]) == 5
+			16 exchangeable free vars: universe ([1,30])
+			Splitting on other constraints...
+			... no other constraints
+			There are 0 fixed elements
+			Splitting injectivity...
+				Split class: dom2 ([6,28])
+				Computing case combinations of rest classes...
+				Case (4, 1)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 4', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 1']:
+					Subproblem:
+					----------
+					Solving 5 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 4
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 1
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 4
+						Nr. dom2 ([6,28]) == 4 is unsat here
+					==========
+					Unsat: 0
+				Case (1, 4)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 1', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 4']:
+					Subproblem:
+					----------
+					Solving 5 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 1
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 4
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 1
+						Nr. dom2 ([6,28]) == 1 is unsat here
+					==========
+					Unsat: 0
+				Case (2, 3)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 2', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 3']:
+					Subproblem:
+					----------
+					Solving 5 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 2
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 3
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 2
+						Nr. dom2 ([6,28]) == 2 is unsat here
+					==========
+					Unsat: 0
+				Case (3, 2)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 3', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 2']:
+					Subproblem:
+					----------
+					Solving 5 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 3
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 2
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 3
+						Nr. dom2 ([6,28]) == 3 is unsat here
+					==========
+					Unsat: 0
+				Case (5, 0)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 5', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 0']:
+					Subproblem:
+					----------
+					Solving 5 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 5
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 5
+						Nr. dom2 ([6,28]) == 5 already satisfied
+						Splitting on other constraints...
+							Subproblem:
+							----------
+							Solving 5 vars:
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+							Choice constraints:
+							Count constraints:
+								Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+							----------
+							Counting exchangeable...
+							Propagating Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+								Nr. ¬(dom2) ([1,6) | (28,30]) == 0 already satisfied
+								Splitting on other constraints...
+								... no other constraints
+								There are 0 fixed elements
+								Counting domains: 33649
+							=========
+							tot:33649
+					=========
+					tot:33649
+				Filtering domains...
+				  Case dom2 ([6,28])
+				  Filtering 5 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 5 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 5 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 5 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 5 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 5 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 5 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 5 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 5 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 5 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 5 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Case ¬(dom2) ([1,6) | (28,30])
+					Subproblem:
+					----------
+					Solving 11 vars:
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+					Choice constraints:
+					Count constraints:
+					----------
+					There are 0 fixed elements
+					Counting domains: 0
+					=========
+					tot:0
+				Split result = 0
+				Case (0, 5)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 0', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 5']:
+					Subproblem:
+					----------
+					Solving 5 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 0
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 5
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 0
+						Nr. dom2 ([6,28]) == 0 is unsat here
+					==========
+					Unsat: 0
+			Counting domains: 0
+		=========
+		tot:0
+		Subproblem:
+		----------
+		Solving 16 vars:
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+		Choice constraints:
+		Count constraints:
+			Nr. dom2 ([6,28]) == 6
+		----------
+		Counting exchangeable...
+		Propagating Nr. dom2 ([6,28]) == 6
+			16 exchangeable free vars: universe ([1,30])
+			Splitting on other constraints...
+			... no other constraints
+			There are 0 fixed elements
+			Splitting injectivity...
+				Split class: dom2 ([6,28])
+				Computing case combinations of rest classes...
+				Case (5, 1)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 5', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 1']:
+					Subproblem:
+					----------
+					Solving 6 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 5
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 1
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 5
+						Nr. dom2 ([6,28]) == 5 is unsat here
+					==========
+					Unsat: 0
+				Case (1, 5)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 1', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 5']:
+					Subproblem:
+					----------
+					Solving 6 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 1
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 5
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 1
+						Nr. dom2 ([6,28]) == 1 is unsat here
+					==========
+					Unsat: 0
+				Case (2, 4)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 2', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 4']:
+					Subproblem:
+					----------
+					Solving 6 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 2
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 4
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 2
+						Nr. dom2 ([6,28]) == 2 is unsat here
+					==========
+					Unsat: 0
+				Case (4, 2)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 4', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 2']:
+					Subproblem:
+					----------
+					Solving 6 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 4
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 2
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 4
+						Nr. dom2 ([6,28]) == 4 is unsat here
+					==========
+					Unsat: 0
+				Case (3, 3)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 3', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 3']:
+					Subproblem:
+					----------
+					Solving 6 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 3
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 3
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 3
+						Nr. dom2 ([6,28]) == 3 is unsat here
+					==========
+					Unsat: 0
+				Case (0, 6)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 0', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 6']:
+					Subproblem:
+					----------
+					Solving 6 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 0
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 6
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 0
+						Nr. dom2 ([6,28]) == 0 is unsat here
+					==========
+					Unsat: 0
+				Case (6, 0)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 6', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 0']:
+					Subproblem:
+					----------
+					Solving 6 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 6
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 6
+						Nr. dom2 ([6,28]) == 6 already satisfied
+						Splitting on other constraints...
+							Subproblem:
+							----------
+							Solving 6 vars:
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+							Choice constraints:
+							Count constraints:
+								Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+							----------
+							Counting exchangeable...
+							Propagating Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+								Nr. ¬(dom2) ([1,6) | (28,30]) == 0 already satisfied
+								Splitting on other constraints...
+								... no other constraints
+								There are 0 fixed elements
+								Counting domains: 100947
+							=========
+							tot:100947
+					=========
+					tot:100947
+				Filtering domains...
+				  Case dom2 ([6,28])
+				  Filtering 6 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 6 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 6 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 6 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 6 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 6 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 6 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 6 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 6 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 6 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Case ¬(dom2) ([1,6) | (28,30])
+					Subproblem:
+					----------
+					Solving 10 vars:
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+					Choice constraints:
+					Count constraints:
+					----------
+					There are 0 fixed elements
+					Counting domains: 0
+					=========
+					tot:0
+				Split result = 0
+			Counting domains: 0
+		=========
+		tot:0
+		Subproblem:
+		----------
+		Solving 16 vars:
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+		Choice constraints:
+		Count constraints:
+			Nr. dom2 ([6,28]) == 7
+		----------
+		Counting exchangeable...
+		Propagating Nr. dom2 ([6,28]) == 7
+			16 exchangeable free vars: universe ([1,30])
+			Splitting on other constraints...
+			... no other constraints
+			There are 0 fixed elements
+			Splitting injectivity...
+				Split class: dom2 ([6,28])
+				Computing case combinations of rest classes...
+				Case (1, 6)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 1', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 6']:
+					Subproblem:
+					----------
+					Solving 7 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 1
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 6
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 1
+						Nr. dom2 ([6,28]) == 1 is unsat here
+					==========
+					Unsat: 0
+				Case (6, 1)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 6', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 1']:
+					Subproblem:
+					----------
+					Solving 7 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 6
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 1
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 6
+						Nr. dom2 ([6,28]) == 6 is unsat here
+					==========
+					Unsat: 0
+				Case (2, 5)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 2', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 5']:
+					Subproblem:
+					----------
+					Solving 7 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 2
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 5
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 2
+						Nr. dom2 ([6,28]) == 2 is unsat here
+					==========
+					Unsat: 0
+				Case (5, 2)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 5', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 2']:
+					Subproblem:
+					----------
+					Solving 7 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 5
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 2
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 5
+						Nr. dom2 ([6,28]) == 5 is unsat here
+					==========
+					Unsat: 0
+				Case (3, 4)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 3', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 4']:
+					Subproblem:
+					----------
+					Solving 7 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 3
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 4
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 3
+						Nr. dom2 ([6,28]) == 3 is unsat here
+					==========
+					Unsat: 0
+				Case (4, 3)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 4', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 3']:
+					Subproblem:
+					----------
+					Solving 7 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 4
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 3
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 4
+						Nr. dom2 ([6,28]) == 4 is unsat here
+					==========
+					Unsat: 0
+				Case (0, 7)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 0', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 7']:
+					Subproblem:
+					----------
+					Solving 7 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 0
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 7
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 0
+						Nr. dom2 ([6,28]) == 0 is unsat here
+					==========
+					Unsat: 0
+				Case (7, 0)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 7', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 0']:
+					Subproblem:
+					----------
+					Solving 7 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 7
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 7
+						Nr. dom2 ([6,28]) == 7 already satisfied
+						Splitting on other constraints...
+							Subproblem:
+							----------
+							Solving 7 vars:
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+							Choice constraints:
+							Count constraints:
+								Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+							----------
+							Counting exchangeable...
+							Propagating Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+								Nr. ¬(dom2) ([1,6) | (28,30]) == 0 already satisfied
+								Splitting on other constraints...
+								... no other constraints
+								There are 0 fixed elements
+								Counting domains: 245157
+							=========
+							tot:245157
+					=========
+					tot:245157
+				Filtering domains...
+				  Case dom2 ([6,28])
+				  Filtering 7 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 7 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 7 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 7 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 7 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 7 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 7 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 7 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 7 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Case ¬(dom2) ([1,6) | (28,30])
+					Subproblem:
+					----------
+					Solving 9 vars:
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+					Choice constraints:
+					Count constraints:
+					----------
+					There are 0 fixed elements
+					Counting domains: 0
+					=========
+					tot:0
+				Split result = 0
+			Counting domains: 0
+		=========
+		tot:0
+		Subproblem:
+		----------
+		Solving 16 vars:
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+		Choice constraints:
+		Count constraints:
+			Nr. dom2 ([6,28]) == 8
+		----------
+		Counting exchangeable...
+		Propagating Nr. dom2 ([6,28]) == 8
+			16 exchangeable free vars: universe ([1,30])
+			Splitting on other constraints...
+			... no other constraints
+			There are 0 fixed elements
+			Splitting injectivity...
+				Split class: dom2 ([6,28])
+				Computing case combinations of rest classes...
+				Case (1, 7)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 1', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 7']:
+					Subproblem:
+					----------
+					Solving 8 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 1
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 7
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 1
+						Nr. dom2 ([6,28]) == 1 is unsat here
+					==========
+					Unsat: 0
+				Case (7, 1)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 7', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 1']:
+					Subproblem:
+					----------
+					Solving 8 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 7
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 1
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 7
+						Nr. dom2 ([6,28]) == 7 is unsat here
+					==========
+					Unsat: 0
+				Case (6, 2)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 6', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 2']:
+					Subproblem:
+					----------
+					Solving 8 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 6
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 2
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 6
+						Nr. dom2 ([6,28]) == 6 is unsat here
+					==========
+					Unsat: 0
+				Case (2, 6)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 2', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 6']:
+					Subproblem:
+					----------
+					Solving 8 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 2
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 6
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 2
+						Nr. dom2 ([6,28]) == 2 is unsat here
+					==========
+					Unsat: 0
+				Case (5, 3)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 5', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 3']:
+					Subproblem:
+					----------
+					Solving 8 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 5
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 3
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 5
+						Nr. dom2 ([6,28]) == 5 is unsat here
+					==========
+					Unsat: 0
+				Case (3, 5)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 3', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 5']:
+					Subproblem:
+					----------
+					Solving 8 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 3
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 5
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 3
+						Nr. dom2 ([6,28]) == 3 is unsat here
+					==========
+					Unsat: 0
+				Case (4, 4)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 4', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 4']:
+					Subproblem:
+					----------
+					Solving 8 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 4
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 4
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 4
+						Nr. dom2 ([6,28]) == 4 is unsat here
+					==========
+					Unsat: 0
+				Case (0, 8)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 0', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 8']:
+					Subproblem:
+					----------
+					Solving 8 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 0
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 8
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 0
+						Nr. dom2 ([6,28]) == 0 is unsat here
+					==========
+					Unsat: 0
+				Case (8, 0)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 8', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 0']:
+					Subproblem:
+					----------
+					Solving 8 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 8
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 8
+						Nr. dom2 ([6,28]) == 8 already satisfied
+						Splitting on other constraints...
+							Subproblem:
+							----------
+							Solving 8 vars:
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+							Choice constraints:
+							Count constraints:
+								Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+							----------
+							Counting exchangeable...
+							Propagating Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+								Nr. ¬(dom2) ([1,6) | (28,30]) == 0 already satisfied
+								Splitting on other constraints...
+								... no other constraints
+								There are 0 fixed elements
+								Counting domains: 490314
+							=========
+							tot:490314
+					=========
+					tot:490314
+				Filtering domains...
+				  Case dom2 ([6,28])
+				  Filtering 8 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 8 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 8 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 8 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 8 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 8 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 8 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 8 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Case ¬(dom2) ([1,6) | (28,30])
+					Subproblem:
+					----------
+					Solving 8 vars:
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+					Choice constraints:
+					Count constraints:
+					----------
+					There are 0 fixed elements
+					Counting domains: 0
+					=========
+					tot:0
+				Split result = 0
+			Counting domains: 0
+		=========
+		tot:0
+		Subproblem:
+		----------
+		Solving 16 vars:
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+		Choice constraints:
+		Count constraints:
+			Nr. dom2 ([6,28]) == 9
+		----------
+		Counting exchangeable...
+		Propagating Nr. dom2 ([6,28]) == 9
+			16 exchangeable free vars: universe ([1,30])
+			Splitting on other constraints...
+			... no other constraints
+			There are 0 fixed elements
+			Splitting injectivity...
+				Split class: dom2 ([6,28])
+				Computing case combinations of rest classes...
+				Case (1, 8)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 1', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 8']:
+					Subproblem:
+					----------
+					Solving 9 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 1
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 8
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 1
+						Nr. dom2 ([6,28]) == 1 is unsat here
+					==========
+					Unsat: 0
+				Case (8, 1)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 8', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 1']:
+					Subproblem:
+					----------
+					Solving 9 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 8
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 1
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 8
+						Nr. dom2 ([6,28]) == 8 is unsat here
+					==========
+					Unsat: 0
+				Case (7, 2)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 7', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 2']:
+					Subproblem:
+					----------
+					Solving 9 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 7
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 2
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 7
+						Nr. dom2 ([6,28]) == 7 is unsat here
+					==========
+					Unsat: 0
+				Case (2, 7)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 2', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 7']:
+					Subproblem:
+					----------
+					Solving 9 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 2
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 7
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 2
+						Nr. dom2 ([6,28]) == 2 is unsat here
+					==========
+					Unsat: 0
+				Case (6, 3)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 6', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 3']:
+					Subproblem:
+					----------
+					Solving 9 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 6
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 3
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 6
+						Nr. dom2 ([6,28]) == 6 is unsat here
+					==========
+					Unsat: 0
+				Case (3, 6)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 3', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 6']:
+					Subproblem:
+					----------
+					Solving 9 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 3
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 6
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 3
+						Nr. dom2 ([6,28]) == 3 is unsat here
+					==========
+					Unsat: 0
+				Case (4, 5)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 4', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 5']:
+					Subproblem:
+					----------
+					Solving 9 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 4
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 5
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 4
+						Nr. dom2 ([6,28]) == 4 is unsat here
+					==========
+					Unsat: 0
+				Case (5, 4)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 5', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 4']:
+					Subproblem:
+					----------
+					Solving 9 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 5
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 4
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 5
+						Nr. dom2 ([6,28]) == 5 is unsat here
+					==========
+					Unsat: 0
+				Case (9, 0)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 9', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 0']:
+					Subproblem:
+					----------
+					Solving 9 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 9
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 9
+						Nr. dom2 ([6,28]) == 9 already satisfied
+						Splitting on other constraints...
+							Subproblem:
+							----------
+							Solving 9 vars:
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+							Choice constraints:
+							Count constraints:
+								Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+							----------
+							Counting exchangeable...
+							Propagating Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+								Nr. ¬(dom2) ([1,6) | (28,30]) == 0 already satisfied
+								Splitting on other constraints...
+								... no other constraints
+								There are 0 fixed elements
+								Counting domains: 817190
+							=========
+							tot:817190
+					=========
+					tot:817190
+				Filtering domains...
+				  Case dom2 ([6,28])
+				  Filtering 9 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 9 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 9 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 9 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 9 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 9 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 9 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Case ¬(dom2) ([1,6) | (28,30])
+					Subproblem:
+					----------
+					Solving 7 vars:
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+					Choice constraints:
+					Count constraints:
+					----------
+					There are 0 fixed elements
+					Counting domains: 1
+					=========
+					tot:1
+				Split result = 817190
+				Case (0, 9)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 0', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 9']:
+					Subproblem:
+					----------
+					Solving 9 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 0
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 9
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 0
+						Nr. dom2 ([6,28]) == 0 is unsat here
+					==========
+					Unsat: 0
+			Counting domains: 817190
+		=========
+		tot:817190
+		Subproblem:
+		----------
+		Solving 16 vars:
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+		Choice constraints:
+		Count constraints:
+			Nr. dom2 ([6,28]) == 10
+		----------
+		Counting exchangeable...
+		Propagating Nr. dom2 ([6,28]) == 10
+			16 exchangeable free vars: universe ([1,30])
+			Splitting on other constraints...
+			... no other constraints
+			There are 0 fixed elements
+			Splitting injectivity...
+				Split class: dom2 ([6,28])
+				Computing case combinations of rest classes...
+				Case (9, 1)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 9', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 1']:
+					Subproblem:
+					----------
+					Solving 10 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 9
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 1
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 9
+						Nr. dom2 ([6,28]) == 9 is unsat here
+					==========
+					Unsat: 0
+				Case (1, 9)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 1', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 9']:
+					Subproblem:
+					----------
+					Solving 10 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 1
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 9
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 1
+						Nr. dom2 ([6,28]) == 1 is unsat here
+					==========
+					Unsat: 0
+				Case (8, 2)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 8', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 2']:
+					Subproblem:
+					----------
+					Solving 10 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 8
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 2
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 8
+						Nr. dom2 ([6,28]) == 8 is unsat here
+					==========
+					Unsat: 0
+				Case (2, 8)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 2', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 8']:
+					Subproblem:
+					----------
+					Solving 10 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 2
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 8
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 2
+						Nr. dom2 ([6,28]) == 2 is unsat here
+					==========
+					Unsat: 0
+				Case (3, 7)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 3', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 7']:
+					Subproblem:
+					----------
+					Solving 10 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 3
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 7
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 3
+						Nr. dom2 ([6,28]) == 3 is unsat here
+					==========
+					Unsat: 0
+				Case (7, 3)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 7', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 3']:
+					Subproblem:
+					----------
+					Solving 10 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 7
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 3
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 7
+						Nr. dom2 ([6,28]) == 7 is unsat here
+					==========
+					Unsat: 0
+				Case (4, 6)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 4', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 6']:
+					Subproblem:
+					----------
+					Solving 10 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 4
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 6
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 4
+						Nr. dom2 ([6,28]) == 4 is unsat here
+					==========
+					Unsat: 0
+				Case (6, 4)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 6', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 4']:
+					Subproblem:
+					----------
+					Solving 10 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 6
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 4
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 6
+						Nr. dom2 ([6,28]) == 6 is unsat here
+					==========
+					Unsat: 0
+				Case (5, 5)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 5', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 5']:
+					Subproblem:
+					----------
+					Solving 10 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 5
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 5
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 5
+						Nr. dom2 ([6,28]) == 5 is unsat here
+					==========
+					Unsat: 0
+				Case (10, 0)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 10', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 0']:
+					Subproblem:
+					----------
+					Solving 10 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 10
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 10
+						Nr. dom2 ([6,28]) == 10 already satisfied
+						Splitting on other constraints...
+							Subproblem:
+							----------
+							Solving 10 vars:
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+							Choice constraints:
+							Count constraints:
+								Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+							----------
+							Counting exchangeable...
+							Propagating Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+								Nr. ¬(dom2) ([1,6) | (28,30]) == 0 already satisfied
+								Splitting on other constraints...
+								... no other constraints
+								There are 0 fixed elements
+								Counting domains: 1144066
+							=========
+							tot:1144066
+					=========
+					tot:1144066
+				Filtering domains...
+				  Case dom2 ([6,28])
+				  Filtering 10 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 10 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 10 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 10 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 10 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 10 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Case ¬(dom2) ([1,6) | (28,30])
+					Subproblem:
+					----------
+					Solving 6 vars:
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+					Choice constraints:
+					Count constraints:
+					----------
+					There are 0 fixed elements
+					Counting domains: 7
+					=========
+					tot:7
+				Split result = 8008462
+				Case (0, 10)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 0', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 10']:
+					Subproblem:
+					----------
+					Solving 10 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 0
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 10
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 0
+						Nr. dom2 ([6,28]) == 0 is unsat here
+					==========
+					Unsat: 0
+			Counting domains: 8008462
+		=========
+		tot:8008462
+		Subproblem:
+		----------
+		Solving 16 vars:
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+		Choice constraints:
+		Count constraints:
+			Nr. dom2 ([6,28]) == 11
+		----------
+		Counting exchangeable...
+		Propagating Nr. dom2 ([6,28]) == 11
+			16 exchangeable free vars: universe ([1,30])
+			Splitting on other constraints...
+			... no other constraints
+			There are 0 fixed elements
+			Splitting injectivity...
+				Split class: dom2 ([6,28])
+				Computing case combinations of rest classes...
+				Case (10, 1)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 10', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 1']:
+					Subproblem:
+					----------
+					Solving 11 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 10
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 1
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 10
+						Nr. dom2 ([6,28]) == 10 is unsat here
+					==========
+					Unsat: 0
+				Case (1, 10)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 1', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 10']:
+					Subproblem:
+					----------
+					Solving 11 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 1
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 10
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 1
+						Nr. dom2 ([6,28]) == 1 is unsat here
+					==========
+					Unsat: 0
+				Case (2, 9)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 2', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 9']:
+					Subproblem:
+					----------
+					Solving 11 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 2
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 9
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 2
+						Nr. dom2 ([6,28]) == 2 is unsat here
+					==========
+					Unsat: 0
+				Case (9, 2)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 9', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 2']:
+					Subproblem:
+					----------
+					Solving 11 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 9
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 2
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 9
+						Nr. dom2 ([6,28]) == 9 is unsat here
+					==========
+					Unsat: 0
+				Case (3, 8)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 3', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 8']:
+					Subproblem:
+					----------
+					Solving 11 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 3
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 8
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 3
+						Nr. dom2 ([6,28]) == 3 is unsat here
+					==========
+					Unsat: 0
+				Case (8, 3)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 8', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 3']:
+					Subproblem:
+					----------
+					Solving 11 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 8
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 3
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 8
+						Nr. dom2 ([6,28]) == 8 is unsat here
+					==========
+					Unsat: 0
+				Case (7, 4)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 7', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 4']:
+					Subproblem:
+					----------
+					Solving 11 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 7
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 4
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 7
+						Nr. dom2 ([6,28]) == 7 is unsat here
+					==========
+					Unsat: 0
+				Case (4, 7)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 4', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 7']:
+					Subproblem:
+					----------
+					Solving 11 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 4
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 7
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 4
+						Nr. dom2 ([6,28]) == 4 is unsat here
+					==========
+					Unsat: 0
+				Case (5, 6)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 5', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 6']:
+					Subproblem:
+					----------
+					Solving 11 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 5
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 6
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 5
+						Nr. dom2 ([6,28]) == 5 is unsat here
+					==========
+					Unsat: 0
+				Case (6, 5)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 6', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 5']:
+					Subproblem:
+					----------
+					Solving 11 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 6
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 5
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 6
+						Nr. dom2 ([6,28]) == 6 is unsat here
+					==========
+					Unsat: 0
+				Case (0, 11)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 0', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 11']:
+					Subproblem:
+					----------
+					Solving 11 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 0
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 11
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 0
+						Nr. dom2 ([6,28]) == 0 is unsat here
+					==========
+					Unsat: 0
+				Case (11, 0)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 11', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 0']:
+					Subproblem:
+					----------
+					Solving 11 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 11
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 11
+						Nr. dom2 ([6,28]) == 11 already satisfied
+						Splitting on other constraints...
+							Subproblem:
+							----------
+							Solving 11 vars:
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+							Choice constraints:
+							Count constraints:
+								Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+							----------
+							Counting exchangeable...
+							Propagating Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+								Nr. ¬(dom2) ([1,6) | (28,30]) == 0 already satisfied
+								Splitting on other constraints...
+								... no other constraints
+								There are 0 fixed elements
+								Counting domains: 1352078
+							=========
+							tot:1352078
+					=========
+					tot:1352078
+				Filtering domains...
+				  Case dom2 ([6,28])
+				  Filtering 11 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 11 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 11 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 11 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 11 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Case ¬(dom2) ([1,6) | (28,30])
+					Subproblem:
+					----------
+					Solving 5 vars:
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+					Choice constraints:
+					Count constraints:
+					----------
+					There are 0 fixed elements
+					Counting domains: 21
+					=========
+					tot:21
+				Split result = 28393638
+			Counting domains: 28393638
+		=========
+		tot:28393638
+		Subproblem:
+		----------
+		Solving 16 vars:
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+		Choice constraints:
+		Count constraints:
+			Nr. dom2 ([6,28]) == 12
+		----------
+		Counting exchangeable...
+		Propagating Nr. dom2 ([6,28]) == 12
+			16 exchangeable free vars: universe ([1,30])
+			Splitting on other constraints...
+			... no other constraints
+			There are 0 fixed elements
+			Splitting injectivity...
+				Split class: dom2 ([6,28])
+				Computing case combinations of rest classes...
+				Case (1, 11)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 1', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 11']:
+					Subproblem:
+					----------
+					Solving 12 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 1
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 11
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 1
+						Nr. dom2 ([6,28]) == 1 is unsat here
+					==========
+					Unsat: 0
+				Case (11, 1)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 11', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 1']:
+					Subproblem:
+					----------
+					Solving 12 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 11
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 1
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 11
+						Nr. dom2 ([6,28]) == 11 is unsat here
+					==========
+					Unsat: 0
+				Case (2, 10)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 2', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 10']:
+					Subproblem:
+					----------
+					Solving 12 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 2
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 10
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 2
+						Nr. dom2 ([6,28]) == 2 is unsat here
+					==========
+					Unsat: 0
+				Case (10, 2)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 10', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 2']:
+					Subproblem:
+					----------
+					Solving 12 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 10
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 2
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 10
+						Nr. dom2 ([6,28]) == 10 is unsat here
+					==========
+					Unsat: 0
+				Case (3, 9)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 3', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 9']:
+					Subproblem:
+					----------
+					Solving 12 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 3
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 9
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 3
+						Nr. dom2 ([6,28]) == 3 is unsat here
+					==========
+					Unsat: 0
+				Case (9, 3)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 9', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 3']:
+					Subproblem:
+					----------
+					Solving 12 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 9
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 3
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 9
+						Nr. dom2 ([6,28]) == 9 is unsat here
+					==========
+					Unsat: 0
+				Case (8, 4)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 8', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 4']:
+					Subproblem:
+					----------
+					Solving 12 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 8
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 4
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 8
+						Nr. dom2 ([6,28]) == 8 is unsat here
+					==========
+					Unsat: 0
+				Case (4, 8)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 4', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 8']:
+					Subproblem:
+					----------
+					Solving 12 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 4
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 8
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 4
+						Nr. dom2 ([6,28]) == 4 is unsat here
+					==========
+					Unsat: 0
+				Case (7, 5)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 7', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 5']:
+					Subproblem:
+					----------
+					Solving 12 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 7
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 5
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 7
+						Nr. dom2 ([6,28]) == 7 is unsat here
+					==========
+					Unsat: 0
+				Case (5, 7)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 5', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 7']:
+					Subproblem:
+					----------
+					Solving 12 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 5
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 7
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 5
+						Nr. dom2 ([6,28]) == 5 is unsat here
+					==========
+					Unsat: 0
+				Case (6, 6)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 6', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 6']:
+					Subproblem:
+					----------
+					Solving 12 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 6
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 6
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 6
+						Nr. dom2 ([6,28]) == 6 is unsat here
+					==========
+					Unsat: 0
+				Case (0, 12)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 0', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 12']:
+					Subproblem:
+					----------
+					Solving 12 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 0
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 12
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 0
+						Nr. dom2 ([6,28]) == 0 is unsat here
+					==========
+					Unsat: 0
+				Case (12, 0)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 12', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 0']:
+					Subproblem:
+					----------
+					Solving 12 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 12
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 12
+						Nr. dom2 ([6,28]) == 12 already satisfied
+						Splitting on other constraints...
+							Subproblem:
+							----------
+							Solving 12 vars:
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+							Choice constraints:
+							Count constraints:
+								Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+							----------
+							Counting exchangeable...
+							Propagating Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+								Nr. ¬(dom2) ([1,6) | (28,30]) == 0 already satisfied
+								Splitting on other constraints...
+								... no other constraints
+								There are 0 fixed elements
+								Counting domains: 1352078
+							=========
+							tot:1352078
+					=========
+					tot:1352078
+				Filtering domains...
+				  Case dom2 ([6,28])
+				  Filtering 12 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 12 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 12 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 12 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Case ¬(dom2) ([1,6) | (28,30])
+					Subproblem:
+					----------
+					Solving 4 vars:
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+					Choice constraints:
+					Count constraints:
+					----------
+					There are 0 fixed elements
+					Counting domains: 35
+					=========
+					tot:35
+				Split result = 47322730
+			Counting domains: 47322730
+		=========
+		tot:47322730
+		Subproblem:
+		----------
+		Solving 16 vars:
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+		Choice constraints:
+		Count constraints:
+			Nr. dom2 ([6,28]) == 13
+		----------
+		Counting exchangeable...
+		Propagating Nr. dom2 ([6,28]) == 13
+			16 exchangeable free vars: universe ([1,30])
+			Splitting on other constraints...
+			... no other constraints
+			There are 0 fixed elements
+			Splitting injectivity...
+				Split class: dom2 ([6,28])
+				Computing case combinations of rest classes...
+				Case (1, 12)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 1', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 12']:
+					Subproblem:
+					----------
+					Solving 13 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 1
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 12
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 1
+						Nr. dom2 ([6,28]) == 1 is unsat here
+					==========
+					Unsat: 0
+				Case (12, 1)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 12', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 1']:
+					Subproblem:
+					----------
+					Solving 13 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 12
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 1
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 12
+						Nr. dom2 ([6,28]) == 12 is unsat here
+					==========
+					Unsat: 0
+				Case (11, 2)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 11', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 2']:
+					Subproblem:
+					----------
+					Solving 13 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 11
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 2
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 11
+						Nr. dom2 ([6,28]) == 11 is unsat here
+					==========
+					Unsat: 0
+				Case (2, 11)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 2', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 11']:
+					Subproblem:
+					----------
+					Solving 13 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 2
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 11
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 2
+						Nr. dom2 ([6,28]) == 2 is unsat here
+					==========
+					Unsat: 0
+				Case (3, 10)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 3', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 10']:
+					Subproblem:
+					----------
+					Solving 13 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 3
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 10
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 3
+						Nr. dom2 ([6,28]) == 3 is unsat here
+					==========
+					Unsat: 0
+				Case (10, 3)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 10', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 3']:
+					Subproblem:
+					----------
+					Solving 13 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 10
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 3
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 10
+						Nr. dom2 ([6,28]) == 10 is unsat here
+					==========
+					Unsat: 0
+				Case (4, 9)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 4', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 9']:
+					Subproblem:
+					----------
+					Solving 13 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 4
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 9
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 4
+						Nr. dom2 ([6,28]) == 4 is unsat here
+					==========
+					Unsat: 0
+				Case (9, 4)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 9', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 4']:
+					Subproblem:
+					----------
+					Solving 13 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 9
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 4
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 9
+						Nr. dom2 ([6,28]) == 9 is unsat here
+					==========
+					Unsat: 0
+				Case (8, 5)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 8', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 5']:
+					Subproblem:
+					----------
+					Solving 13 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 8
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 5
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 8
+						Nr. dom2 ([6,28]) == 8 is unsat here
+					==========
+					Unsat: 0
+				Case (5, 8)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 5', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 8']:
+					Subproblem:
+					----------
+					Solving 13 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 5
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 8
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 5
+						Nr. dom2 ([6,28]) == 5 is unsat here
+					==========
+					Unsat: 0
+				Case (6, 7)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 6', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 7']:
+					Subproblem:
+					----------
+					Solving 13 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 6
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 7
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 6
+						Nr. dom2 ([6,28]) == 6 is unsat here
+					==========
+					Unsat: 0
+				Case (7, 6)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 7', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 6']:
+					Subproblem:
+					----------
+					Solving 13 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 7
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 6
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 7
+						Nr. dom2 ([6,28]) == 7 is unsat here
+					==========
+					Unsat: 0
+				Case (0, 13)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 0', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 13']:
+					Subproblem:
+					----------
+					Solving 13 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 0
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 13
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 0
+						Nr. dom2 ([6,28]) == 0 is unsat here
+					==========
+					Unsat: 0
+				Case (13, 0)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 13', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 0']:
+					Subproblem:
+					----------
+					Solving 13 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 13
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 13
+						Nr. dom2 ([6,28]) == 13 already satisfied
+						Splitting on other constraints...
+							Subproblem:
+							----------
+							Solving 13 vars:
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+							Choice constraints:
+							Count constraints:
+								Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+							----------
+							Counting exchangeable...
+							Propagating Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+								Nr. ¬(dom2) ([1,6) | (28,30]) == 0 already satisfied
+								Splitting on other constraints...
+								... no other constraints
+								There are 0 fixed elements
+								Counting domains: 1144066
+							=========
+							tot:1144066
+					=========
+					tot:1144066
+				Filtering domains...
+				  Case dom2 ([6,28])
+				  Filtering 13 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 13 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 13 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Case ¬(dom2) ([1,6) | (28,30])
+					Subproblem:
+					----------
+					Solving 3 vars:
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+					Choice constraints:
+					Count constraints:
+					----------
+					There are 0 fixed elements
+					Counting domains: 35
+					=========
+					tot:35
+				Split result = 40042310
+			Counting domains: 40042310
+		=========
+		tot:40042310
+		Subproblem:
+		----------
+		Solving 16 vars:
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+			universe ([1,30])
+		Choice constraints:
+		Count constraints:
+			Nr. dom2 ([6,28]) == 14
+		----------
+		Counting exchangeable...
+		Propagating Nr. dom2 ([6,28]) == 14
+			16 exchangeable free vars: universe ([1,30])
+			Splitting on other constraints...
+			... no other constraints
+			There are 0 fixed elements
+			Splitting injectivity...
+				Split class: dom2 ([6,28])
+				Computing case combinations of rest classes...
+				Case (1, 13)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 1', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 13']:
+					Subproblem:
+					----------
+					Solving 14 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 1
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 13
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 1
+						Nr. dom2 ([6,28]) == 1 is unsat here
+					==========
+					Unsat: 0
+				Case (13, 1)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 13', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 1']:
+					Subproblem:
+					----------
+					Solving 14 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 13
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 1
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 13
+						Nr. dom2 ([6,28]) == 13 is unsat here
+					==========
+					Unsat: 0
+				Case (12, 2)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 12', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 2']:
+					Subproblem:
+					----------
+					Solving 14 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 12
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 2
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 12
+						Nr. dom2 ([6,28]) == 12 is unsat here
+					==========
+					Unsat: 0
+				Case (2, 12)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 2', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 12']:
+					Subproblem:
+					----------
+					Solving 14 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 2
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 12
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 2
+						Nr. dom2 ([6,28]) == 2 is unsat here
+					==========
+					Unsat: 0
+				Case (11, 3)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 11', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 3']:
+					Subproblem:
+					----------
+					Solving 14 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 11
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 3
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 11
+						Nr. dom2 ([6,28]) == 11 is unsat here
+					==========
+					Unsat: 0
+				Case (3, 11)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 3', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 11']:
+					Subproblem:
+					----------
+					Solving 14 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 3
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 11
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 3
+						Nr. dom2 ([6,28]) == 3 is unsat here
+					==========
+					Unsat: 0
+				Case (4, 10)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 4', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 10']:
+					Subproblem:
+					----------
+					Solving 14 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 4
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 10
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 4
+						Nr. dom2 ([6,28]) == 4 is unsat here
+					==========
+					Unsat: 0
+				Case (10, 4)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 10', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 4']:
+					Subproblem:
+					----------
+					Solving 14 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 10
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 4
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 10
+						Nr. dom2 ([6,28]) == 10 is unsat here
+					==========
+					Unsat: 0
+				Case (5, 9)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 5', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 9']:
+					Subproblem:
+					----------
+					Solving 14 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 5
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 9
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 5
+						Nr. dom2 ([6,28]) == 5 is unsat here
+					==========
+					Unsat: 0
+				Case (9, 5)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 9', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 5']:
+					Subproblem:
+					----------
+					Solving 14 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 9
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 5
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 9
+						Nr. dom2 ([6,28]) == 9 is unsat here
+					==========
+					Unsat: 0
+				Case (6, 8)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 6', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 8']:
+					Subproblem:
+					----------
+					Solving 14 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 6
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 8
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 6
+						Nr. dom2 ([6,28]) == 6 is unsat here
+					==========
+					Unsat: 0
+				Case (8, 6)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 8', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 6']:
+					Subproblem:
+					----------
+					Solving 14 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 8
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 6
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 8
+						Nr. dom2 ([6,28]) == 8 is unsat here
+					==========
+					Unsat: 0
+				Case (7, 7)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 7', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 7']:
+					Subproblem:
+					----------
+					Solving 14 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 7
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 7
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 7
+						Nr. dom2 ([6,28]) == 7 is unsat here
+					==========
+					Unsat: 0
+				Case (0, 14)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 0', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 14']:
+					Subproblem:
+					----------
+					Solving 14 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 0
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 14
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 0
+						Nr. dom2 ([6,28]) == 0 is unsat here
+					==========
+					Unsat: 0
+				Case (14, 0)
+				Case dom2 ([6,28]) are ['Nr. dom2 ([6,28]) == 14', 'Nr. ¬(dom2) ([1,6) | (28,30]) == 0']:
+					Subproblem:
+					----------
+					Solving 14 vars:
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+						dom2 ([6,28])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([6,28]) == 14
+						Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([6,28]) == 14
+						Nr. dom2 ([6,28]) == 14 already satisfied
+						Splitting on other constraints...
+							Subproblem:
+							----------
+							Solving 14 vars:
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+								dom2 ([6,28])
+							Choice constraints:
+							Count constraints:
+								Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+							----------
+							Counting exchangeable...
+							Propagating Nr. ¬(dom2) ([1,6) | (28,30]) == 0
+								Nr. ¬(dom2) ([1,6) | (28,30]) == 0 already satisfied
+								Splitting on other constraints...
+								... no other constraints
+								There are 0 fixed elements
+								Counting domains: 817190
+							=========
+							tot:817190
+					=========
+					tot:817190
+				Filtering domains...
+				  Case dom2 ([6,28])
+				  Filtering 14 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Filtering 14 dom2 ([6,28]) out of ¬(dom2) ([1,6) | (28,30]):
+				  Case ¬(dom2) ([1,6) | (28,30])
+					Subproblem:
+					----------
+					Solving 2 vars:
+						¬(dom2) ([1,6) | (28,30])
+						¬(dom2) ([1,6) | (28,30])
+					Choice constraints:
+					Count constraints:
+					----------
+					There are 0 fixed elements
+					Counting domains: 21
+					=========
+					tot:21
+				Split result = 17160990
+			Counting domains: 17160990
+		=========
+		tot:17160990
+=========
+tot:141745320

@@ -40,11 +40,12 @@ func set_diagram(sizes : Array):
 	
 	if len(sizes) >= 1:
 		
-			var new_circle = {}
-			new_circle.radius = sizes[0]
-			new_circle.pos = Vector2.ONE * sizes[0]
-			new_circle.color = COLORS[0]
-			diagram.append(new_circle)
+		var new_circle = {}
+		new_circle.radius = sizes[0]
+		new_circle.pos = Vector2.ONE * sizes[0]
+		new_circle.color = COLORS[0]
+		diagram.append(new_circle)
 	
-	if len(sizes) >= 2:
+	elif len(sizes) >= 2:
+		#nothing
 	

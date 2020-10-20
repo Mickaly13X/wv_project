@@ -1,0 +1,17 @@
+Running solver...
+----------
+Solving 7 vars:
+	universe ([1,14])
+	universe ([1,14])
+	universe ([1,14])
+	universe ([1,14])
+	universe ([1,14])
+	universe ([1,14])
+	universe ([1,14])
+Choice constraints:
+Count constraints:
+----------
+There are 0 fixed elements
+Counting domains: 3432
+=========
+tot:3432

@@ -1,0 +1,1397 @@
+Running solver...
+----------
+Solving 8 vars:
+	universe ([1,20])
+	universe ([1,20])
+	universe ([1,20])
+	universe ([1,20])
+	universe ([1,20])
+	universe ([1,20])
+	universe ([1,20])
+	universe ([1,20])
+Choice constraints:
+Count constraints:
+	Nr. ¬(dom2) ∧ ¬(dom1) ([1,4)) > 1
+	Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6
+----------
+Counting exchangeable...
+Propagating Nr. ¬(dom2) ∧ ¬(dom1) ([1,4)) > 1
+	Expanding bounds [2,8]...
+		Subproblem:
+		----------
+		Solving 8 vars:
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+		Choice constraints:
+		Count constraints:
+			Nr. ¬(dom2) ∧ ¬(dom1) ([1,4)) == 2
+			Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6
+		----------
+		Counting exchangeable...
+		Propagating Nr. ¬(dom2) ∧ ¬(dom1) ([1,4)) == 2
+			8 exchangeable free vars: universe ([1,20])
+			Splitting on other constraints...
+				Subproblem:
+				----------
+				Solving 8 vars:
+					¬(dom2) ∧ ¬(dom1) ([1,4))
+					¬(dom2) ∧ ¬(dom1) ([1,4))
+					¬(¬(dom2) ∧ ¬(dom1)) ([4,20])
+					¬(¬(dom2) ∧ ¬(dom1)) ([4,20])
+					¬(¬(dom2) ∧ ¬(dom1)) ([4,20])
+					¬(¬(dom2) ∧ ¬(dom1)) ([4,20])
+					¬(¬(dom2) ∧ ¬(dom1)) ([4,20])
+					¬(¬(dom2) ∧ ¬(dom1)) ([4,20])
+				Choice constraints:
+				Count constraints:
+					Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6
+				----------
+				Counting non-exchangeable...
+				Solving combination 0: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 0'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6']
+				Split class :
+					Subproblem:
+					----------
+					Solving 2 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 0
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 0
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 0 is unsat here
+					==========
+					Unsat: 0
+				Solving combination 1: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 1'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 5']
+				Split class :
+					Subproblem:
+					----------
+					Solving 2 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 1
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 1
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 1 is unsat here
+					==========
+					Unsat: 0
+				Solving combination 2: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 2'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 4']
+				Split class :
+					Subproblem:
+					----------
+					Solving 2 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 2
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 2
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 2 already satisfied
+						Splitting on other constraints...
+						... no other constraints
+						There are 0 fixed elements
+						Counting domains: 3
+					=========
+					tot:3
+				Rest class: 
+					Subproblem:
+					----------
+					Solving 6 vars:
+						¬(¬(dom2) ∧ ¬(dom1)) ([4,20])
+						¬(¬(dom2) ∧ ¬(dom1)) ([4,20])
+						¬(¬(dom2) ∧ ¬(dom1)) ([4,20])
+						¬(¬(dom2) ∧ ¬(dom1)) ([4,20])
+						¬(¬(dom2) ∧ ¬(dom1)) ([4,20])
+						¬(¬(dom2) ∧ ¬(dom1)) ([4,20])
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 4
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 4
+						6 exchangeable free vars: ¬(¬(dom2) ∧ ¬(dom1)) ([4,20])
+						Splitting on other constraints...
+						... no other constraints
+						There are 0 fixed elements
+						Splitting injectivity...
+							Split class: ¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+							Computing case combinations of rest classes...
+							Case (3, 1)
+							Case ¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16]) are ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3', 'Nr. ¬(dom1 ∨ ¬(dom2)) ((16,20]) == 1']:
+								Subproblem:
+								----------
+								Solving 4 vars:
+									¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+									¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+									¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+									¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+								Choice constraints:
+								Count constraints:
+									Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3
+									Nr. ¬(dom1 ∨ ¬(dom2)) ((16,20]) == 1
+								----------
+								Counting exchangeable...
+								Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3
+									Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3 is unsat here
+								==========
+								Unsat: 0
+							Case (1, 3)
+							Case ¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16]) are ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 1', 'Nr. ¬(dom1 ∨ ¬(dom2)) ((16,20]) == 3']:
+								Subproblem:
+								----------
+								Solving 4 vars:
+									¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+									¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+									¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+									¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+								Choice constraints:
+								Count constraints:
+									Nr. dom1 ∨ ¬(dom2) ([1,16]) == 1
+									Nr. ¬(dom1 ∨ ¬(dom2)) ((16,20]) == 3
+								----------
+								Counting exchangeable...
+								Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 1
+									Nr. dom1 ∨ ¬(dom2) ([1,16]) == 1 is unsat here
+								==========
+								Unsat: 0
+							Case (2, 2)
+							Case ¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16]) are ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 2', 'Nr. ¬(dom1 ∨ ¬(dom2)) ((16,20]) == 2']:
+								Subproblem:
+								----------
+								Solving 4 vars:
+									¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+									¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+									¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+									¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+								Choice constraints:
+								Count constraints:
+									Nr. dom1 ∨ ¬(dom2) ([1,16]) == 2
+									Nr. ¬(dom1 ∨ ¬(dom2)) ((16,20]) == 2
+								----------
+								Counting exchangeable...
+								Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 2
+									Nr. dom1 ∨ ¬(dom2) ([1,16]) == 2 is unsat here
+								==========
+								Unsat: 0
+							Case (4, 0)
+							Case ¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16]) are ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 4', 'Nr. ¬(dom1 ∨ ¬(dom2)) ((16,20]) == 0']:
+								Subproblem:
+								----------
+								Solving 4 vars:
+									¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+									¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+									¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+									¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+								Choice constraints:
+								Count constraints:
+									Nr. dom1 ∨ ¬(dom2) ([1,16]) == 4
+									Nr. ¬(dom1 ∨ ¬(dom2)) ((16,20]) == 0
+								----------
+								Counting exchangeable...
+								Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 4
+									Nr. dom1 ∨ ¬(dom2) ([1,16]) == 4 already satisfied
+									Splitting on other constraints...
+										Subproblem:
+										----------
+										Solving 4 vars:
+											¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+											¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+											¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+											¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+										Choice constraints:
+										Count constraints:
+											Nr. ¬(dom1 ∨ ¬(dom2)) ((16,20]) == 0
+										----------
+										Counting exchangeable...
+										Propagating Nr. ¬(dom1 ∨ ¬(dom2)) ((16,20]) == 0
+											Nr. ¬(dom1 ∨ ¬(dom2)) ((16,20]) == 0 already satisfied
+											Splitting on other constraints...
+											... no other constraints
+											There are 0 fixed elements
+											Counting domains: 715
+										=========
+										tot:715
+								=========
+								tot:715
+							Filtering domains...
+							  Case dom1 ∨ ¬(dom2) ([1,16])
+							  Filtering 4 dom1 ∨ ¬(dom2) ([1,16]) out of ¬(dom1 ∨ ¬(dom2)) ((16,20]):
+							  Filtering 4 dom1 ∨ ¬(dom2) ([1,16]) out of ¬(dom1 ∨ ¬(dom2)) ((16,20]):
+							  Case ¬(dom1 ∨ ¬(dom2)) ((16,20])
+								Subproblem:
+								----------
+								Solving 2 vars:
+									¬(dom1 ∨ ¬(dom2)) ((16,20])
+									¬(dom1 ∨ ¬(dom2)) ((16,20])
+								Choice constraints:
+								Count constraints:
+								----------
+								There are 0 fixed elements
+								Counting domains: 6
+								=========
+								tot:6
+							Split result = 4290
+							Case (0, 4)
+							Case ¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16]) are ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 0', 'Nr. ¬(dom1 ∨ ¬(dom2)) ((16,20]) == 4']:
+								Subproblem:
+								----------
+								Solving 4 vars:
+									¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+									¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+									¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+									¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+								Choice constraints:
+								Count constraints:
+									Nr. dom1 ∨ ¬(dom2) ([1,16]) == 0
+									Nr. ¬(dom1 ∨ ¬(dom2)) ((16,20]) == 4
+								----------
+								Counting exchangeable...
+								Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 0
+									Nr. dom1 ∨ ¬(dom2) ([1,16]) == 0 is unsat here
+								==========
+								Unsat: 0
+						Counting domains: 4290
+					=========
+					tot:4290
+				==========
+				Solving combination 3: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3']
+				Split class :
+					Subproblem:
+					----------
+					Solving 2 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3 is unsat here
+					==========
+					Unsat: 0
+				Solving combination 4: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 4'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 2']
+				Split class :
+					Subproblem:
+					----------
+					Solving 2 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 4
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 4
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 4 is unsat here
+					==========
+					Unsat: 0
+				Solving combination 5: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 5'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 1']
+				Split class :
+					Subproblem:
+					----------
+					Solving 2 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 5
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 5
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 5 is unsat here
+					==========
+					Unsat: 0
+				Solving combination 6: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 0']
+				Split class :
+					Subproblem:
+					----------
+					Solving 2 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6 is unsat here
+					==========
+					Unsat: 0
+				=========
+				tot:12870
+		=========
+		tot:12870
+		Subproblem:
+		----------
+		Solving 8 vars:
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+		Choice constraints:
+		Count constraints:
+			Nr. ¬(dom2) ∧ ¬(dom1) ([1,4)) == 3
+			Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6
+		----------
+		Counting exchangeable...
+		Propagating Nr. ¬(dom2) ∧ ¬(dom1) ([1,4)) == 3
+			8 exchangeable free vars: universe ([1,20])
+			Splitting on other constraints...
+				Subproblem:
+				----------
+				Solving 8 vars:
+					¬(dom2) ∧ ¬(dom1) ([1,4))
+					¬(dom2) ∧ ¬(dom1) ([1,4))
+					¬(dom2) ∧ ¬(dom1) ([1,4))
+					¬(¬(dom2) ∧ ¬(dom1)) ([4,20])
+					¬(¬(dom2) ∧ ¬(dom1)) ([4,20])
+					¬(¬(dom2) ∧ ¬(dom1)) ([4,20])
+					¬(¬(dom2) ∧ ¬(dom1)) ([4,20])
+					¬(¬(dom2) ∧ ¬(dom1)) ([4,20])
+				Choice constraints:
+				Count constraints:
+					Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6
+				----------
+				Counting non-exchangeable...
+				Solving combination 0: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 0'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6']
+				Split class :
+					Subproblem:
+					----------
+					Solving 3 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 0
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 0
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 0 is unsat here
+					==========
+					Unsat: 0
+				Solving combination 1: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 1'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 5']
+				Split class :
+					Subproblem:
+					----------
+					Solving 3 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 1
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 1
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 1 is unsat here
+					==========
+					Unsat: 0
+				Solving combination 2: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 2'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 4']
+				Split class :
+					Subproblem:
+					----------
+					Solving 3 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 2
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 2
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 2 is unsat here
+					==========
+					Unsat: 0
+				Solving combination 3: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3']
+				Split class :
+					Subproblem:
+					----------
+					Solving 3 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3 already satisfied
+						Splitting on other constraints...
+						... no other constraints
+						There are 0 fixed elements
+						Counting domains: 1
+					=========
+					tot:1
+				Rest class: 
+					Subproblem:
+					----------
+					Solving 5 vars:
+						¬(¬(dom2) ∧ ¬(dom1)) ([4,20])
+						¬(¬(dom2) ∧ ¬(dom1)) ([4,20])
+						¬(¬(dom2) ∧ ¬(dom1)) ([4,20])
+						¬(¬(dom2) ∧ ¬(dom1)) ([4,20])
+						¬(¬(dom2) ∧ ¬(dom1)) ([4,20])
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3
+						5 exchangeable free vars: ¬(¬(dom2) ∧ ¬(dom1)) ([4,20])
+						Splitting on other constraints...
+						... no other constraints
+						There are 0 fixed elements
+						Splitting injectivity...
+							Split class: ¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+							Computing case combinations of rest classes...
+							Case (1, 2)
+							Case ¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16]) are ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 1', 'Nr. ¬(dom1 ∨ ¬(dom2)) ((16,20]) == 2']:
+								Subproblem:
+								----------
+								Solving 3 vars:
+									¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+									¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+									¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+								Choice constraints:
+								Count constraints:
+									Nr. dom1 ∨ ¬(dom2) ([1,16]) == 1
+									Nr. ¬(dom1 ∨ ¬(dom2)) ((16,20]) == 2
+								----------
+								Counting exchangeable...
+								Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 1
+									Nr. dom1 ∨ ¬(dom2) ([1,16]) == 1 is unsat here
+								==========
+								Unsat: 0
+							Case (2, 1)
+							Case ¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16]) are ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 2', 'Nr. ¬(dom1 ∨ ¬(dom2)) ((16,20]) == 1']:
+								Subproblem:
+								----------
+								Solving 3 vars:
+									¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+									¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+									¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+								Choice constraints:
+								Count constraints:
+									Nr. dom1 ∨ ¬(dom2) ([1,16]) == 2
+									Nr. ¬(dom1 ∨ ¬(dom2)) ((16,20]) == 1
+								----------
+								Counting exchangeable...
+								Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 2
+									Nr. dom1 ∨ ¬(dom2) ([1,16]) == 2 is unsat here
+								==========
+								Unsat: 0
+							Case (0, 3)
+							Case ¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16]) are ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 0', 'Nr. ¬(dom1 ∨ ¬(dom2)) ((16,20]) == 3']:
+								Subproblem:
+								----------
+								Solving 3 vars:
+									¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+									¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+									¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+								Choice constraints:
+								Count constraints:
+									Nr. dom1 ∨ ¬(dom2) ([1,16]) == 0
+									Nr. ¬(dom1 ∨ ¬(dom2)) ((16,20]) == 3
+								----------
+								Counting exchangeable...
+								Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 0
+									Nr. dom1 ∨ ¬(dom2) ([1,16]) == 0 is unsat here
+								==========
+								Unsat: 0
+							Case (3, 0)
+							Case ¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16]) are ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3', 'Nr. ¬(dom1 ∨ ¬(dom2)) ((16,20]) == 0']:
+								Subproblem:
+								----------
+								Solving 3 vars:
+									¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+									¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+									¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+								Choice constraints:
+								Count constraints:
+									Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3
+									Nr. ¬(dom1 ∨ ¬(dom2)) ((16,20]) == 0
+								----------
+								Counting exchangeable...
+								Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3
+									Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3 already satisfied
+									Splitting on other constraints...
+										Subproblem:
+										----------
+										Solving 3 vars:
+											¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+											¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+											¬(¬(dom2) ∧ ¬(dom1)) ∧ dom1 ∨ ¬(dom2) ([4,16])
+										Choice constraints:
+										Count constraints:
+											Nr. ¬(dom1 ∨ ¬(dom2)) ((16,20]) == 0
+										----------
+										Counting exchangeable...
+										Propagating Nr. ¬(dom1 ∨ ¬(dom2)) ((16,20]) == 0
+											Nr. ¬(dom1 ∨ ¬(dom2)) ((16,20]) == 0 already satisfied
+											Splitting on other constraints...
+											... no other constraints
+											There are 0 fixed elements
+											Counting domains: 286
+										=========
+										tot:286
+								=========
+								tot:286
+							Filtering domains...
+							  Case dom1 ∨ ¬(dom2) ([1,16])
+							  Filtering 3 dom1 ∨ ¬(dom2) ([1,16]) out of ¬(dom1 ∨ ¬(dom2)) ((16,20]):
+							  Filtering 3 dom1 ∨ ¬(dom2) ([1,16]) out of ¬(dom1 ∨ ¬(dom2)) ((16,20]):
+							  Case ¬(dom1 ∨ ¬(dom2)) ((16,20])
+								Subproblem:
+								----------
+								Solving 2 vars:
+									¬(dom1 ∨ ¬(dom2)) ((16,20])
+									¬(dom1 ∨ ¬(dom2)) ((16,20])
+								Choice constraints:
+								Count constraints:
+								----------
+								There are 0 fixed elements
+								Counting domains: 6
+								=========
+								tot:6
+							Split result = 1716
+						Counting domains: 1716
+					=========
+					tot:1716
+				==========
+				Solving combination 4: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 4'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 2']
+				Split class :
+					Subproblem:
+					----------
+					Solving 3 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 4
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 4
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 4 is unsat here
+					==========
+					Unsat: 0
+				Solving combination 5: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 5'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 1']
+				Split class :
+					Subproblem:
+					----------
+					Solving 3 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 5
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 5
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 5 is unsat here
+					==========
+					Unsat: 0
+				Solving combination 6: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 0']
+				Split class :
+					Subproblem:
+					----------
+					Solving 3 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6 is unsat here
+					==========
+					Unsat: 0
+				=========
+				tot:1716
+		=========
+		tot:1716
+		Subproblem:
+		----------
+		Solving 8 vars:
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+		Choice constraints:
+		Count constraints:
+			Nr. ¬(dom2) ∧ ¬(dom1) ([1,4)) == 4
+			Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6
+		----------
+		Counting exchangeable...
+		Propagating Nr. ¬(dom2) ∧ ¬(dom1) ([1,4)) == 4
+			8 exchangeable free vars: universe ([1,20])
+			Splitting on other constraints...
+				Subproblem:
+				----------
+				Solving 8 vars:
+					¬(dom2) ∧ ¬(dom1) ([1,4))
+					¬(dom2) ∧ ¬(dom1) ([1,4))
+					¬(dom2) ∧ ¬(dom1) ([1,4))
+					¬(dom2) ∧ ¬(dom1) ([1,4))
+					¬(¬(dom2) ∧ ¬(dom1)) ([4,20])
+					¬(¬(dom2) ∧ ¬(dom1)) ([4,20])
+					¬(¬(dom2) ∧ ¬(dom1)) ([4,20])
+					¬(¬(dom2) ∧ ¬(dom1)) ([4,20])
+				Choice constraints:
+				Count constraints:
+					Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6
+				----------
+				Counting non-exchangeable...
+				Solving combination 0: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 0'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6']
+				Split class :
+					Subproblem:
+					----------
+					Solving 4 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 0
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 0
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 0 is unsat here
+					==========
+					Unsat: 0
+				Solving combination 1: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 1'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 5']
+				Split class :
+					Subproblem:
+					----------
+					Solving 4 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 1
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 1
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 1 is unsat here
+					==========
+					Unsat: 0
+				Solving combination 2: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 2'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 4']
+				Split class :
+					Subproblem:
+					----------
+					Solving 4 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 2
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 2
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 2 is unsat here
+					==========
+					Unsat: 0
+				Solving combination 3: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3']
+				Split class :
+					Subproblem:
+					----------
+					Solving 4 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3 is unsat here
+					==========
+					Unsat: 0
+				Solving combination 4: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 4'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 2']
+				Split class :
+					Subproblem:
+					----------
+					Solving 4 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 4
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 4
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 4 already satisfied
+						Splitting on other constraints...
+						... no other constraints
+						There are 0 fixed elements
+						Counting domains: 0
+					=========
+					tot:0
+				Solving combination 5: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 5'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 1']
+				Split class :
+					Subproblem:
+					----------
+					Solving 4 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 5
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 5
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 5 is unsat here
+					==========
+					Unsat: 0
+				Solving combination 6: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 0']
+				Split class :
+					Subproblem:
+					----------
+					Solving 4 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6 is unsat here
+					==========
+					Unsat: 0
+				=========
+				tot:0
+		=========
+		tot:0
+		Subproblem:
+		----------
+		Solving 8 vars:
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+		Choice constraints:
+		Count constraints:
+			Nr. ¬(dom2) ∧ ¬(dom1) ([1,4)) == 5
+			Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6
+		----------
+		Counting exchangeable...
+		Propagating Nr. ¬(dom2) ∧ ¬(dom1) ([1,4)) == 5
+			8 exchangeable free vars: universe ([1,20])
+			Splitting on other constraints...
+				Subproblem:
+				----------
+				Solving 8 vars:
+					¬(dom2) ∧ ¬(dom1) ([1,4))
+					¬(dom2) ∧ ¬(dom1) ([1,4))
+					¬(dom2) ∧ ¬(dom1) ([1,4))
+					¬(dom2) ∧ ¬(dom1) ([1,4))
+					¬(dom2) ∧ ¬(dom1) ([1,4))
+					¬(¬(dom2) ∧ ¬(dom1)) ([4,20])
+					¬(¬(dom2) ∧ ¬(dom1)) ([4,20])
+					¬(¬(dom2) ∧ ¬(dom1)) ([4,20])
+				Choice constraints:
+				Count constraints:
+					Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6
+				----------
+				Counting non-exchangeable...
+				Solving combination 0: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 0'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6']
+				Split class :
+					Subproblem:
+					----------
+					Solving 5 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 0
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 0
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 0 is unsat here
+					==========
+					Unsat: 0
+				Solving combination 1: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 1'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 5']
+				Split class :
+					Subproblem:
+					----------
+					Solving 5 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 1
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 1
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 1 is unsat here
+					==========
+					Unsat: 0
+				Solving combination 2: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 2'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 4']
+				Split class :
+					Subproblem:
+					----------
+					Solving 5 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 2
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 2
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 2 is unsat here
+					==========
+					Unsat: 0
+				Solving combination 3: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3']
+				Split class :
+					Subproblem:
+					----------
+					Solving 5 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3 is unsat here
+					==========
+					Unsat: 0
+				Solving combination 4: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 4'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 2']
+				Split class :
+					Subproblem:
+					----------
+					Solving 5 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 4
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 4
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 4 is unsat here
+					==========
+					Unsat: 0
+				Solving combination 5: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 5'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 1']
+				Split class :
+					Subproblem:
+					----------
+					Solving 5 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 5
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 5
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 5 already satisfied
+						Splitting on other constraints...
+						... no other constraints
+						There are 0 fixed elements
+						Counting domains: 0
+					=========
+					tot:0
+				Solving combination 6: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 0']
+				Split class :
+					Subproblem:
+					----------
+					Solving 5 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6 is unsat here
+					==========
+					Unsat: 0
+				=========
+				tot:0
+		=========
+		tot:0
+		Subproblem:
+		----------
+		Solving 8 vars:
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+		Choice constraints:
+		Count constraints:
+			Nr. ¬(dom2) ∧ ¬(dom1) ([1,4)) == 6
+			Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6
+		----------
+		Counting exchangeable...
+		Propagating Nr. ¬(dom2) ∧ ¬(dom1) ([1,4)) == 6
+			8 exchangeable free vars: universe ([1,20])
+			Splitting on other constraints...
+				Subproblem:
+				----------
+				Solving 8 vars:
+					¬(dom2) ∧ ¬(dom1) ([1,4))
+					¬(dom2) ∧ ¬(dom1) ([1,4))
+					¬(dom2) ∧ ¬(dom1) ([1,4))
+					¬(dom2) ∧ ¬(dom1) ([1,4))
+					¬(dom2) ∧ ¬(dom1) ([1,4))
+					¬(dom2) ∧ ¬(dom1) ([1,4))
+					¬(¬(dom2) ∧ ¬(dom1)) ([4,20])
+					¬(¬(dom2) ∧ ¬(dom1)) ([4,20])
+				Choice constraints:
+				Count constraints:
+					Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6
+				----------
+				Counting non-exchangeable...
+				Solving combination 0: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 0'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6']
+				Split class :
+					Subproblem:
+					----------
+					Solving 6 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 0
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 0
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 0 is unsat here
+					==========
+					Unsat: 0
+				Solving combination 1: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 1'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 5']
+				Split class :
+					Subproblem:
+					----------
+					Solving 6 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 1
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 1
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 1 is unsat here
+					==========
+					Unsat: 0
+				Solving combination 2: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 2'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 4']
+				Split class :
+					Subproblem:
+					----------
+					Solving 6 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 2
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 2
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 2 is unsat here
+					==========
+					Unsat: 0
+				Solving combination 3: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3']
+				Split class :
+					Subproblem:
+					----------
+					Solving 6 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3 is unsat here
+					==========
+					Unsat: 0
+				Solving combination 4: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 4'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 2']
+				Split class :
+					Subproblem:
+					----------
+					Solving 6 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 4
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 4
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 4 is unsat here
+					==========
+					Unsat: 0
+				Solving combination 5: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 5'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 1']
+				Split class :
+					Subproblem:
+					----------
+					Solving 6 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 5
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 5
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 5 is unsat here
+					==========
+					Unsat: 0
+				Solving combination 6: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 0']
+				Split class :
+					Subproblem:
+					----------
+					Solving 6 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6 already satisfied
+						Splitting on other constraints...
+						... no other constraints
+						There are 0 fixed elements
+						Counting domains: 0
+					=========
+					tot:0
+				=========
+				tot:0
+		=========
+		tot:0
+		Subproblem:
+		----------
+		Solving 8 vars:
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+		Choice constraints:
+		Count constraints:
+			Nr. ¬(dom2) ∧ ¬(dom1) ([1,4)) == 7
+			Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6
+		----------
+		Counting exchangeable...
+		Propagating Nr. ¬(dom2) ∧ ¬(dom1) ([1,4)) == 7
+			8 exchangeable free vars: universe ([1,20])
+			Splitting on other constraints...
+				Subproblem:
+				----------
+				Solving 8 vars:
+					¬(dom2) ∧ ¬(dom1) ([1,4))
+					¬(dom2) ∧ ¬(dom1) ([1,4))
+					¬(dom2) ∧ ¬(dom1) ([1,4))
+					¬(dom2) ∧ ¬(dom1) ([1,4))
+					¬(dom2) ∧ ¬(dom1) ([1,4))
+					¬(dom2) ∧ ¬(dom1) ([1,4))
+					¬(dom2) ∧ ¬(dom1) ([1,4))
+					¬(¬(dom2) ∧ ¬(dom1)) ([4,20])
+				Choice constraints:
+				Count constraints:
+					Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6
+				----------
+				Counting non-exchangeable...
+				Solving combination 0: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 0'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6']
+				Split class :
+					Subproblem:
+					----------
+					Solving 7 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 0
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 0
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 0 is unsat here
+					==========
+					Unsat: 0
+				Solving combination 1: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 1'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 5']
+				Split class :
+					Subproblem:
+					----------
+					Solving 7 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 1
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 1
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 1 is unsat here
+					==========
+					Unsat: 0
+				Solving combination 2: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 2'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 4']
+				Split class :
+					Subproblem:
+					----------
+					Solving 7 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 2
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 2
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 2 is unsat here
+					==========
+					Unsat: 0
+				Solving combination 3: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3']
+				Split class :
+					Subproblem:
+					----------
+					Solving 7 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 3 is unsat here
+					==========
+					Unsat: 0
+				Solving combination 4: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 4'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 2']
+				Split class :
+					Subproblem:
+					----------
+					Solving 7 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 4
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 4
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 4 is unsat here
+					==========
+					Unsat: 0
+				Solving combination 5: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 5'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 1']
+				Split class :
+					Subproblem:
+					----------
+					Solving 7 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 5
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 5
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 5 is unsat here
+					==========
+					Unsat: 0
+				Solving combination 6: ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6'] // ['Nr. dom1 ∨ ¬(dom2) ([1,16]) == 0']
+				Split class :
+					Subproblem:
+					----------
+					Solving 7 vars:
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+						¬(dom2) ∧ ¬(dom1) ([1,4))
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6
+						Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6 is unsat here
+					==========
+					Unsat: 0
+				=========
+				tot:0
+		=========
+		tot:0
+		Subproblem:
+		----------
+		Solving 8 vars:
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+			universe ([1,20])
+		Choice constraints:
+		Count constraints:
+			Nr. ¬(dom2) ∧ ¬(dom1) ([1,4)) == 8
+			Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6
+		----------
+		Counting exchangeable...
+		Propagating Nr. ¬(dom2) ∧ ¬(dom1) ([1,4)) == 8
+			8 exchangeable free vars: universe ([1,20])
+			Splitting on other constraints...
+				Subproblem:
+				----------
+				Solving 8 vars:
+					¬(dom2) ∧ ¬(dom1) ([1,4))
+					¬(dom2) ∧ ¬(dom1) ([1,4))
+					¬(dom2) ∧ ¬(dom1) ([1,4))
+					¬(dom2) ∧ ¬(dom1) ([1,4))
+					¬(dom2) ∧ ¬(dom1) ([1,4))
+					¬(dom2) ∧ ¬(dom1) ([1,4))
+					¬(dom2) ∧ ¬(dom1) ([1,4))
+					¬(dom2) ∧ ¬(dom1) ([1,4))
+				Choice constraints:
+				Count constraints:
+					Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6
+				----------
+				Counting exchangeable...
+				Propagating Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6
+					Nr. dom1 ∨ ¬(dom2) ([1,16]) == 6 is unsat here
+				==========
+				Unsat: 0
+		=========
+		tot:0
+=========
+tot:14586

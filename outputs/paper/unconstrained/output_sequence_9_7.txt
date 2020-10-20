@@ -1,0 +1,25 @@
+Running solver...
+----------
+Solving 7 vars:
+	universe ([1,9])
+	universe ([1,9])
+	universe ([1,9])
+	universe ([1,9])
+	universe ([1,9])
+	universe ([1,9])
+	universe ([1,9])
+Choice constraints:
+Count constraints:
+----------
+Counting sequences:
+universe ([1,9])
+universe ([1,9])
+universe ([1,9])
+universe ([1,9])
+universe ([1,9])
+universe ([1,9])
+universe ([1,9])
+	Domain product: 4782969
+Counting domains: 4782969
+=========
+tot:4782969

@@ -1,0 +1,21 @@
+Running solver...
+----------
+Solving 10 vars:
+	universe ([1,14])
+	universe ([1,14])
+	universe ([1,14])
+	universe ([1,14])
+	universe ([1,14])
+	universe ([1,14])
+	universe ([1,14])
+	universe ([1,14])
+	universe ([1,14])
+	universe ([1,14])
+Choice constraints:
+Count constraints:
+----------
+Counting permutations:
+Falling factorial: 3632428800
+Counting domains: 3632428800
+=========
+tot:3632428800

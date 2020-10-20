@@ -1,0 +1,4056 @@
+Running solver...
+Choice set:dutch ([1,6])
+----------
+Solving 4 vars:
+	students ([1,8])
+	students ([1,8])
+	dutch ([1,6])
+	students ([1,8])
+Choice constraints:
+	Position 3: dutch ([1,6])
+Count constraints:
+	Nr. dutch ([1,6]) >= 2
+----------
+Counting non-exchangeable...
+Solving combination 0: ['Nr. dutch ([1,6]) == 0'] // ['Nr. dutch ([1,6]) >= 2']
+	Split class: students ([1,8])
+	Computing case combinations of rest classes...
+	Case (1, 2)
+	Case students ([1,8]) are ['Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 2']:
+		Subproblem:
+		----------
+		Solving 3 vars:
+			students ([1,8])
+			students ([1,8])
+			students ([1,8])
+		Choice constraints:
+		Count constraints:
+			Nr. dutch ([1,6]) == 0
+			Nr. ¬(dutch) ((6,8]) == 1
+			Nr. dutch ([1,6]) == 2
+		----------
+		Counting exchangeable...
+		Propagating Nr. dutch ([1,6]) == 0
+			3 exchangeable free vars: students ([1,8])
+			Splitting on other constraints...
+				Subproblem:
+				----------
+				Solving 3 vars:
+					¬(dutch) ((6,8])
+					¬(dutch) ((6,8])
+					¬(dutch) ((6,8])
+				Choice constraints:
+				Count constraints:
+					Nr. ¬(dutch) ((6,8]) == 1
+					Nr. dutch ([1,6]) == 2
+				----------
+				Counting exchangeable...
+				Propagating Nr. ¬(dutch) ((6,8]) == 1
+					Nr. ¬(dutch) ((6,8]) == 1 is unsat here
+				==========
+				Unsat: 0
+		=========
+		tot:0
+	Case (2, 1)
+	Case students ([1,8]) are ['Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 2', 'Nr. dutch ([1,6]) == 1']:
+		Subproblem:
+		----------
+		Solving 3 vars:
+			students ([1,8])
+			students ([1,8])
+			students ([1,8])
+		Choice constraints:
+		Count constraints:
+			Nr. dutch ([1,6]) == 0
+			Nr. ¬(dutch) ((6,8]) == 2
+			Nr. dutch ([1,6]) == 1
+		----------
+		Counting exchangeable...
+		Propagating Nr. dutch ([1,6]) == 0
+			3 exchangeable free vars: students ([1,8])
+			Splitting on other constraints...
+				Subproblem:
+				----------
+				Solving 3 vars:
+					¬(dutch) ((6,8])
+					¬(dutch) ((6,8])
+					¬(dutch) ((6,8])
+				Choice constraints:
+				Count constraints:
+					Nr. ¬(dutch) ((6,8]) == 2
+					Nr. dutch ([1,6]) == 1
+				----------
+				Counting exchangeable...
+				Propagating Nr. ¬(dutch) ((6,8]) == 2
+					Nr. ¬(dutch) ((6,8]) == 2 is unsat here
+				==========
+				Unsat: 0
+		=========
+		tot:0
+	Case (0, 3)
+	Case students ([1,8]) are ['Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 3']:
+		Subproblem:
+		----------
+		Solving 3 vars:
+			students ([1,8])
+			students ([1,8])
+			students ([1,8])
+		Choice constraints:
+		Count constraints:
+			Nr. dutch ([1,6]) == 0
+			Nr. ¬(dutch) ((6,8]) == 0
+			Nr. dutch ([1,6]) == 3
+		----------
+		Counting exchangeable...
+		Propagating Nr. dutch ([1,6]) == 0
+			3 exchangeable free vars: students ([1,8])
+			Splitting on other constraints...
+				Subproblem:
+				----------
+				Solving 3 vars:
+					¬(dutch) ((6,8])
+					¬(dutch) ((6,8])
+					¬(dutch) ((6,8])
+				Choice constraints:
+				Count constraints:
+					Nr. ¬(dutch) ((6,8]) == 0
+					Nr. dutch ([1,6]) == 3
+				----------
+				Counting exchangeable...
+				Propagating Nr. ¬(dutch) ((6,8]) == 0
+					Nr. ¬(dutch) ((6,8]) == 0 is unsat here
+				==========
+				Unsat: 0
+		=========
+		tot:0
+	Case (3, 0)
+	Case students ([1,8]) are ['Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 3', 'Nr. dutch ([1,6]) == 0']:
+		Subproblem:
+		----------
+		Solving 3 vars:
+			students ([1,8])
+			students ([1,8])
+			students ([1,8])
+		Choice constraints:
+		Count constraints:
+			Nr. dutch ([1,6]) == 0
+			Nr. ¬(dutch) ((6,8]) == 3
+			Nr. dutch ([1,6]) == 0
+		----------
+		Counting exchangeable...
+		Propagating Nr. dutch ([1,6]) == 0
+			3 exchangeable free vars: students ([1,8])
+			Splitting on other constraints...
+				Subproblem:
+				----------
+				Solving 3 vars:
+					¬(dutch) ((6,8])
+					¬(dutch) ((6,8])
+					¬(dutch) ((6,8])
+				Choice constraints:
+				Count constraints:
+					Nr. ¬(dutch) ((6,8]) == 3
+					Nr. dutch ([1,6]) == 0
+				----------
+				Counting exchangeable...
+				Propagating Nr. ¬(dutch) ((6,8]) == 3
+					Nr. ¬(dutch) ((6,8]) == 3 already satisfied
+					Splitting on other constraints...
+						Subproblem:
+						----------
+						Solving 3 vars:
+							¬(dutch) ((6,8])
+							¬(dutch) ((6,8])
+							¬(dutch) ((6,8])
+						Choice constraints:
+						Count constraints:
+							Nr. dutch ([1,6]) == 0
+						----------
+						Counting exchangeable...
+						Propagating Nr. dutch ([1,6]) == 0
+							Nr. dutch ([1,6]) == 0 already satisfied
+							Splitting on other constraints...
+							... no other constraints
+							Counting permutations:
+							3 different vars for 2 values!
+							Counting domains: 0
+						=========
+						tot:0
+				=========
+				tot:0
+		=========
+		tot:0
+Solving combination 1: ['Nr. dutch ([1,6]) == 1'] // ['Nr. dutch ([1,6]) >= 1']
+	Split class: students ([1,8])
+	Computing case combinations of rest classes...
+	Case (1, 2)
+	Case students ([1,8]) are ['Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 2']:
+		Subproblem:
+		----------
+		Solving 3 vars:
+			students ([1,8])
+			students ([1,8])
+			students ([1,8])
+		Choice constraints:
+		Count constraints:
+			Nr. dutch ([1,6]) == 1
+			Nr. ¬(dutch) ((6,8]) == 1
+			Nr. dutch ([1,6]) == 2
+		----------
+		Counting exchangeable...
+		Propagating Nr. dutch ([1,6]) == 1
+			3 exchangeable free vars: students ([1,8])
+			Splitting on other constraints...
+				Subproblem:
+				----------
+				Solving 3 vars:
+					dutch ([1,6])
+					¬(dutch) ((6,8])
+					¬(dutch) ((6,8])
+				Choice constraints:
+				Count constraints:
+					Nr. ¬(dutch) ((6,8]) == 1
+					Nr. dutch ([1,6]) == 2
+				----------
+				Counting non-exchangeable...
+				Solving combination 0: ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 0'] // ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 2']
+					Split class: dutch ([1,6])
+					Computing case combinations of rest classes...
+					Case (1, 0)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 0']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 0
+							Nr. dutch ([1,6]) == 0
+							Nr. dutch ([1,6]) == 1
+							Nr. ¬(dutch) ((6,8]) == 0
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 0
+							Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+							Splitting on other constraints...
+								Subproblem:
+								----------
+								Solving 1 vars:
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 1
+									Nr. ¬(dutch) ((6,8]) == 0
+								----------
+								Counting exchangeable...
+								Propagating Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 0 is unsat here
+								==========
+								Unsat: 0
+						=========
+						tot:0
+					Case (0, 1)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 1']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 0
+							Nr. dutch ([1,6]) == 0
+							Nr. dutch ([1,6]) == 0
+							Nr. ¬(dutch) ((6,8]) == 1
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 0
+							Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+							Splitting on other constraints...
+								Subproblem:
+								----------
+								Solving 1 vars:
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 0
+									Nr. ¬(dutch) ((6,8]) == 1
+								----------
+								Counting exchangeable...
+								Propagating Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 0 is unsat here
+								==========
+								Unsat: 0
+						=========
+						tot:0
+				Solving combination 1: ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 1'] // ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 1']
+					Split class: dutch ([1,6])
+					Computing case combinations of rest classes...
+					Case (1, 0)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 1', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 0']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 0
+							Nr. dutch ([1,6]) == 1
+							Nr. dutch ([1,6]) == 1
+							Nr. ¬(dutch) ((6,8]) == 0
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 0
+							Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+							Splitting on other constraints...
+								Subproblem:
+								----------
+								Solving 1 vars:
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. dutch ([1,6]) == 1
+									Nr. dutch ([1,6]) == 1
+									Nr. ¬(dutch) ((6,8]) == 0
+								----------
+								Counting exchangeable...
+								Propagating Nr. dutch ([1,6]) == 1
+									Nr. dutch ([1,6]) == 1 already satisfied
+									Splitting on other constraints...
+										Subproblem:
+										----------
+										Solving 1 vars:
+											dutch ([1,6])
+										Choice constraints:
+										Count constraints:
+											Nr. dutch ([1,6]) == 1
+											Nr. ¬(dutch) ((6,8]) == 0
+										----------
+										Counting exchangeable...
+										Propagating Nr. dutch ([1,6]) == 1
+											Nr. dutch ([1,6]) == 1 already satisfied
+											Splitting on other constraints...
+												Subproblem:
+												----------
+												Solving 1 vars:
+													dutch ([1,6])
+												Choice constraints:
+												Count constraints:
+													Nr. ¬(dutch) ((6,8]) == 0
+												----------
+												Counting exchangeable...
+												Propagating Nr. ¬(dutch) ((6,8]) == 0
+													Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+													Splitting on other constraints...
+													... no other constraints
+													Counting permutations:
+													Falling factorial: 6
+													Counting domains: 6
+												=========
+												tot:6
+										=========
+										tot:6
+								=========
+								tot:6
+						=========
+						tot:6
+					Filtering domains...
+					  Case dutch ([1,6])
+					  Filtering 1 dutch ([1,6]) out of ¬(dutch) ((6,8]):
+					  Filtering 1 dutch ([1,6]) out of ¬(dutch) ((6,8]):
+					  Case ¬(dutch) ((6,8])
+						Subproblem:
+						----------
+						Solving 2 vars:
+							¬(dutch) ((6,8])
+							¬(dutch) ((6,8])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 1
+							Nr. dutch ([1,6]) == 1
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 1
+							Nr. ¬(dutch) ((6,8]) == 1 is unsat here
+						==========
+						Unsat: 0
+					Split result = 0
+					Case (0, 1)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 1', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 1']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 0
+							Nr. dutch ([1,6]) == 1
+							Nr. dutch ([1,6]) == 0
+							Nr. ¬(dutch) ((6,8]) == 1
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 0
+							Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+							Splitting on other constraints...
+								Subproblem:
+								----------
+								Solving 1 vars:
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. dutch ([1,6]) == 1
+									Nr. dutch ([1,6]) == 0
+									Nr. ¬(dutch) ((6,8]) == 1
+								----------
+								Counting exchangeable...
+								Propagating Nr. dutch ([1,6]) == 1
+									Nr. dutch ([1,6]) == 1 already satisfied
+									Splitting on other constraints...
+										Subproblem:
+										----------
+										Solving 1 vars:
+											dutch ([1,6])
+										Choice constraints:
+										Count constraints:
+											Nr. dutch ([1,6]) == 0
+											Nr. ¬(dutch) ((6,8]) == 1
+										----------
+										Counting exchangeable...
+										Propagating Nr. dutch ([1,6]) == 0
+											Nr. dutch ([1,6]) == 0 is unsat here
+										==========
+										Unsat: 0
+								=========
+								tot:0
+						=========
+						tot:0
+				Solving combination 2: ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 2'] // ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 0']
+					Split class: dutch ([1,6])
+					Computing case combinations of rest classes...
+					Case (1, 0)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 2', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 0']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 0
+							Nr. dutch ([1,6]) == 2
+							Nr. dutch ([1,6]) == 1
+							Nr. ¬(dutch) ((6,8]) == 0
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 0
+							Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+							Splitting on other constraints...
+								Subproblem:
+								----------
+								Solving 1 vars:
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. dutch ([1,6]) == 2
+									Nr. dutch ([1,6]) == 1
+									Nr. ¬(dutch) ((6,8]) == 0
+								----------
+								Counting exchangeable...
+								Propagating Nr. dutch ([1,6]) == 2
+									Nr. dutch ([1,6]) == 2 is unsat here
+								==========
+								Unsat: 0
+						=========
+						tot:0
+					Case (0, 1)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 2', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 1']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 0
+							Nr. dutch ([1,6]) == 2
+							Nr. dutch ([1,6]) == 0
+							Nr. ¬(dutch) ((6,8]) == 1
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 0
+							Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+							Splitting on other constraints...
+								Subproblem:
+								----------
+								Solving 1 vars:
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. dutch ([1,6]) == 2
+									Nr. dutch ([1,6]) == 0
+									Nr. ¬(dutch) ((6,8]) == 1
+								----------
+								Counting exchangeable...
+								Propagating Nr. dutch ([1,6]) == 2
+									Nr. dutch ([1,6]) == 2 is unsat here
+								==========
+								Unsat: 0
+						=========
+						tot:0
+				Solving combination 3: ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 0'] // ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 2']
+					Split class: dutch ([1,6])
+					Computing case combinations of rest classes...
+					Case (1, 0)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 0']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 1
+							Nr. dutch ([1,6]) == 0
+							Nr. dutch ([1,6]) == 1
+							Nr. ¬(dutch) ((6,8]) == 0
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 1
+							Nr. ¬(dutch) ((6,8]) == 1 is unsat here
+						==========
+						Unsat: 0
+					Case (0, 1)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 1']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 1
+							Nr. dutch ([1,6]) == 0
+							Nr. dutch ([1,6]) == 0
+							Nr. ¬(dutch) ((6,8]) == 1
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 1
+							Nr. ¬(dutch) ((6,8]) == 1 is unsat here
+						==========
+						Unsat: 0
+				Solving combination 4: ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 1'] // ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 1']
+					Split class: dutch ([1,6])
+					Computing case combinations of rest classes...
+					Case (1, 0)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 1', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 0']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 1
+							Nr. dutch ([1,6]) == 1
+							Nr. dutch ([1,6]) == 1
+							Nr. ¬(dutch) ((6,8]) == 0
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 1
+							Nr. ¬(dutch) ((6,8]) == 1 is unsat here
+						==========
+						Unsat: 0
+					Case (0, 1)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 1', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 1']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 1
+							Nr. dutch ([1,6]) == 1
+							Nr. dutch ([1,6]) == 0
+							Nr. ¬(dutch) ((6,8]) == 1
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 1
+							Nr. ¬(dutch) ((6,8]) == 1 is unsat here
+						==========
+						Unsat: 0
+				Solving combination 5: ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 2'] // ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 0']
+					Split class: dutch ([1,6])
+					Computing case combinations of rest classes...
+					Case (1, 0)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 2', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 0']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 1
+							Nr. dutch ([1,6]) == 2
+							Nr. dutch ([1,6]) == 1
+							Nr. ¬(dutch) ((6,8]) == 0
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 1
+							Nr. ¬(dutch) ((6,8]) == 1 is unsat here
+						==========
+						Unsat: 0
+					Case (0, 1)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 2', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 1']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 1
+							Nr. dutch ([1,6]) == 2
+							Nr. dutch ([1,6]) == 0
+							Nr. ¬(dutch) ((6,8]) == 1
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 1
+							Nr. ¬(dutch) ((6,8]) == 1 is unsat here
+						==========
+						Unsat: 0
+				=========
+				tot:0
+		=========
+		tot:0
+	Case (2, 1)
+	Case students ([1,8]) are ['Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 2', 'Nr. dutch ([1,6]) == 1']:
+		Subproblem:
+		----------
+		Solving 3 vars:
+			students ([1,8])
+			students ([1,8])
+			students ([1,8])
+		Choice constraints:
+		Count constraints:
+			Nr. dutch ([1,6]) == 1
+			Nr. ¬(dutch) ((6,8]) == 2
+			Nr. dutch ([1,6]) == 1
+		----------
+		Counting exchangeable...
+		Propagating Nr. dutch ([1,6]) == 1
+			3 exchangeable free vars: students ([1,8])
+			Splitting on other constraints...
+				Subproblem:
+				----------
+				Solving 3 vars:
+					dutch ([1,6])
+					¬(dutch) ((6,8])
+					¬(dutch) ((6,8])
+				Choice constraints:
+				Count constraints:
+					Nr. ¬(dutch) ((6,8]) == 2
+					Nr. dutch ([1,6]) == 1
+				----------
+				Counting non-exchangeable...
+				Solving combination 0: ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 0'] // ['Nr. ¬(dutch) ((6,8]) == 2', 'Nr. dutch ([1,6]) == 1']
+					Split class: dutch ([1,6])
+					Computing case combinations of rest classes...
+					Case (1, 0)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 0']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 0
+							Nr. dutch ([1,6]) == 0
+							Nr. dutch ([1,6]) == 1
+							Nr. ¬(dutch) ((6,8]) == 0
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 0
+							Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+							Splitting on other constraints...
+								Subproblem:
+								----------
+								Solving 1 vars:
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 1
+									Nr. ¬(dutch) ((6,8]) == 0
+								----------
+								Counting exchangeable...
+								Propagating Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 0 is unsat here
+								==========
+								Unsat: 0
+						=========
+						tot:0
+					Case (0, 1)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 1']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 0
+							Nr. dutch ([1,6]) == 0
+							Nr. dutch ([1,6]) == 0
+							Nr. ¬(dutch) ((6,8]) == 1
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 0
+							Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+							Splitting on other constraints...
+								Subproblem:
+								----------
+								Solving 1 vars:
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 0
+									Nr. ¬(dutch) ((6,8]) == 1
+								----------
+								Counting exchangeable...
+								Propagating Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 0 is unsat here
+								==========
+								Unsat: 0
+						=========
+						tot:0
+				Solving combination 1: ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 1'] // ['Nr. ¬(dutch) ((6,8]) == 2', 'Nr. dutch ([1,6]) == 0']
+					Split class: dutch ([1,6])
+					Computing case combinations of rest classes...
+					Case (1, 0)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 1', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 0']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 0
+							Nr. dutch ([1,6]) == 1
+							Nr. dutch ([1,6]) == 1
+							Nr. ¬(dutch) ((6,8]) == 0
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 0
+							Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+							Splitting on other constraints...
+								Subproblem:
+								----------
+								Solving 1 vars:
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. dutch ([1,6]) == 1
+									Nr. dutch ([1,6]) == 1
+									Nr. ¬(dutch) ((6,8]) == 0
+								----------
+								Counting exchangeable...
+								Propagating Nr. dutch ([1,6]) == 1
+									Nr. dutch ([1,6]) == 1 already satisfied
+									Splitting on other constraints...
+										Subproblem:
+										----------
+										Solving 1 vars:
+											dutch ([1,6])
+										Choice constraints:
+										Count constraints:
+											Nr. dutch ([1,6]) == 1
+											Nr. ¬(dutch) ((6,8]) == 0
+										----------
+										Counting exchangeable...
+										Propagating Nr. dutch ([1,6]) == 1
+											Nr. dutch ([1,6]) == 1 already satisfied
+											Splitting on other constraints...
+												Subproblem:
+												----------
+												Solving 1 vars:
+													dutch ([1,6])
+												Choice constraints:
+												Count constraints:
+													Nr. ¬(dutch) ((6,8]) == 0
+												----------
+												Counting exchangeable...
+												Propagating Nr. ¬(dutch) ((6,8]) == 0
+													Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+													Splitting on other constraints...
+													... no other constraints
+													Counting permutations:
+													Falling factorial: 6
+													Counting domains: 6
+												=========
+												tot:6
+										=========
+										tot:6
+								=========
+								tot:6
+						=========
+						tot:6
+					Filtering domains...
+					  Case dutch ([1,6])
+					  Filtering 1 dutch ([1,6]) out of ¬(dutch) ((6,8]):
+					  Filtering 1 dutch ([1,6]) out of ¬(dutch) ((6,8]):
+					  Case ¬(dutch) ((6,8])
+						Subproblem:
+						----------
+						Solving 2 vars:
+							¬(dutch) ((6,8])
+							¬(dutch) ((6,8])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 2
+							Nr. dutch ([1,6]) == 0
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 2
+							Nr. ¬(dutch) ((6,8]) == 2 already satisfied
+							Splitting on other constraints...
+								Subproblem:
+								----------
+								Solving 2 vars:
+									¬(dutch) ((6,8])
+									¬(dutch) ((6,8])
+								Choice constraints:
+								Count constraints:
+									Nr. dutch ([1,6]) == 0
+								----------
+								Counting exchangeable...
+								Propagating Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 0 already satisfied
+									Splitting on other constraints...
+									... no other constraints
+									Counting permutations:
+									Falling factorial: 2
+									Counting domains: 2
+								=========
+								tot:2
+						=========
+						tot:2
+					Split result = 12
+					Case (0, 1)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 1', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 1']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 0
+							Nr. dutch ([1,6]) == 1
+							Nr. dutch ([1,6]) == 0
+							Nr. ¬(dutch) ((6,8]) == 1
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 0
+							Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+							Splitting on other constraints...
+								Subproblem:
+								----------
+								Solving 1 vars:
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. dutch ([1,6]) == 1
+									Nr. dutch ([1,6]) == 0
+									Nr. ¬(dutch) ((6,8]) == 1
+								----------
+								Counting exchangeable...
+								Propagating Nr. dutch ([1,6]) == 1
+									Nr. dutch ([1,6]) == 1 already satisfied
+									Splitting on other constraints...
+										Subproblem:
+										----------
+										Solving 1 vars:
+											dutch ([1,6])
+										Choice constraints:
+										Count constraints:
+											Nr. dutch ([1,6]) == 0
+											Nr. ¬(dutch) ((6,8]) == 1
+										----------
+										Counting exchangeable...
+										Propagating Nr. dutch ([1,6]) == 0
+											Nr. dutch ([1,6]) == 0 is unsat here
+										==========
+										Unsat: 0
+								=========
+								tot:0
+						=========
+						tot:0
+				Solving combination 2: ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 0'] // ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 1']
+					Split class: dutch ([1,6])
+					Computing case combinations of rest classes...
+					Case (1, 0)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 0']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 1
+							Nr. dutch ([1,6]) == 0
+							Nr. dutch ([1,6]) == 1
+							Nr. ¬(dutch) ((6,8]) == 0
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 1
+							Nr. ¬(dutch) ((6,8]) == 1 is unsat here
+						==========
+						Unsat: 0
+					Case (0, 1)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 1']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 1
+							Nr. dutch ([1,6]) == 0
+							Nr. dutch ([1,6]) == 0
+							Nr. ¬(dutch) ((6,8]) == 1
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 1
+							Nr. ¬(dutch) ((6,8]) == 1 is unsat here
+						==========
+						Unsat: 0
+				Solving combination 3: ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 1'] // ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 0']
+					Split class: dutch ([1,6])
+					Computing case combinations of rest classes...
+					Case (1, 0)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 1', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 0']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 1
+							Nr. dutch ([1,6]) == 1
+							Nr. dutch ([1,6]) == 1
+							Nr. ¬(dutch) ((6,8]) == 0
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 1
+							Nr. ¬(dutch) ((6,8]) == 1 is unsat here
+						==========
+						Unsat: 0
+					Case (0, 1)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 1', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 1']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 1
+							Nr. dutch ([1,6]) == 1
+							Nr. dutch ([1,6]) == 0
+							Nr. ¬(dutch) ((6,8]) == 1
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 1
+							Nr. ¬(dutch) ((6,8]) == 1 is unsat here
+						==========
+						Unsat: 0
+				Solving combination 4: ['Nr. ¬(dutch) ((6,8]) == 2', 'Nr. dutch ([1,6]) == 0'] // ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 1']
+					Split class: dutch ([1,6])
+					Computing case combinations of rest classes...
+					Case (1, 0)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 2', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 0']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 2
+							Nr. dutch ([1,6]) == 0
+							Nr. dutch ([1,6]) == 1
+							Nr. ¬(dutch) ((6,8]) == 0
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 2
+							Nr. ¬(dutch) ((6,8]) == 2 is unsat here
+						==========
+						Unsat: 0
+					Case (0, 1)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 2', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 1']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 2
+							Nr. dutch ([1,6]) == 0
+							Nr. dutch ([1,6]) == 0
+							Nr. ¬(dutch) ((6,8]) == 1
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 2
+							Nr. ¬(dutch) ((6,8]) == 2 is unsat here
+						==========
+						Unsat: 0
+				Solving combination 5: ['Nr. ¬(dutch) ((6,8]) == 2', 'Nr. dutch ([1,6]) == 1'] // ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 0']
+					Split class: dutch ([1,6])
+					Computing case combinations of rest classes...
+					Case (1, 0)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 2', 'Nr. dutch ([1,6]) == 1', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 0']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 2
+							Nr. dutch ([1,6]) == 1
+							Nr. dutch ([1,6]) == 1
+							Nr. ¬(dutch) ((6,8]) == 0
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 2
+							Nr. ¬(dutch) ((6,8]) == 2 is unsat here
+						==========
+						Unsat: 0
+					Case (0, 1)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 2', 'Nr. dutch ([1,6]) == 1', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 1']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 2
+							Nr. dutch ([1,6]) == 1
+							Nr. dutch ([1,6]) == 0
+							Nr. ¬(dutch) ((6,8]) == 1
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 2
+							Nr. ¬(dutch) ((6,8]) == 2 is unsat here
+						==========
+						Unsat: 0
+				=========
+				tot:12
+		=========
+		tot:36
+	Filtering domains...
+	  Case ¬(dutch) ((6,8])
+	  Filtering 2 ¬(dutch) ((6,8]) out of dutch ([1,6]):
+	  Case dutch ([1,6])
+	  Filtering 1 dutch ([1,6]) out of dutch ([1,6]):
+		Subproblem:
+		----------
+		Solving 1 vars:
+			dutch ∧ ¬(dutch) ((1,6])
+		Choice constraints:
+		Count constraints:
+			Nr. dutch ([1,6]) >= 1
+		----------
+		Counting exchangeable...
+		Propagating Nr. dutch ([1,6]) >= 1
+			Expanding bounds [1,1]...
+				Subproblem:
+				----------
+				Solving 1 vars:
+					dutch ∧ ¬(dutch) ((1,6])
+				Choice constraints:
+				Count constraints:
+					Nr. dutch ([1,6]) == 1
+				----------
+				Counting exchangeable...
+				Propagating Nr. dutch ([1,6]) == 1
+					Nr. dutch ([1,6]) == 1 already satisfied
+					Splitting on other constraints...
+					... no other constraints
+					Counting permutations:
+					Falling factorial: 5
+					Counting domains: 5
+				=========
+				tot:5
+		=========
+		tot:5
+	Split result = 180
+	Case (0, 3)
+	Case students ([1,8]) are ['Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 3']:
+		Subproblem:
+		----------
+		Solving 3 vars:
+			students ([1,8])
+			students ([1,8])
+			students ([1,8])
+		Choice constraints:
+		Count constraints:
+			Nr. dutch ([1,6]) == 1
+			Nr. ¬(dutch) ((6,8]) == 0
+			Nr. dutch ([1,6]) == 3
+		----------
+		Counting exchangeable...
+		Propagating Nr. dutch ([1,6]) == 1
+			3 exchangeable free vars: students ([1,8])
+			Splitting on other constraints...
+				Subproblem:
+				----------
+				Solving 3 vars:
+					dutch ([1,6])
+					¬(dutch) ((6,8])
+					¬(dutch) ((6,8])
+				Choice constraints:
+				Count constraints:
+					Nr. ¬(dutch) ((6,8]) == 0
+					Nr. dutch ([1,6]) == 3
+				----------
+				Counting non-exchangeable...
+				Solving combination 0: ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 0'] // ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 3']
+					Split class: dutch ([1,6])
+					Computing case combinations of rest classes...
+					Case (1, 0)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 0']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 0
+							Nr. dutch ([1,6]) == 0
+							Nr. dutch ([1,6]) == 1
+							Nr. ¬(dutch) ((6,8]) == 0
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 0
+							Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+							Splitting on other constraints...
+								Subproblem:
+								----------
+								Solving 1 vars:
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 1
+									Nr. ¬(dutch) ((6,8]) == 0
+								----------
+								Counting exchangeable...
+								Propagating Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 0 is unsat here
+								==========
+								Unsat: 0
+						=========
+						tot:0
+					Case (0, 1)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 1']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 0
+							Nr. dutch ([1,6]) == 0
+							Nr. dutch ([1,6]) == 0
+							Nr. ¬(dutch) ((6,8]) == 1
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 0
+							Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+							Splitting on other constraints...
+								Subproblem:
+								----------
+								Solving 1 vars:
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 0
+									Nr. ¬(dutch) ((6,8]) == 1
+								----------
+								Counting exchangeable...
+								Propagating Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 0 is unsat here
+								==========
+								Unsat: 0
+						=========
+						tot:0
+				Solving combination 1: ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 1'] // ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 2']
+					Split class: dutch ([1,6])
+					Computing case combinations of rest classes...
+					Case (1, 0)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 1', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 0']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 0
+							Nr. dutch ([1,6]) == 1
+							Nr. dutch ([1,6]) == 1
+							Nr. ¬(dutch) ((6,8]) == 0
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 0
+							Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+							Splitting on other constraints...
+								Subproblem:
+								----------
+								Solving 1 vars:
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. dutch ([1,6]) == 1
+									Nr. dutch ([1,6]) == 1
+									Nr. ¬(dutch) ((6,8]) == 0
+								----------
+								Counting exchangeable...
+								Propagating Nr. dutch ([1,6]) == 1
+									Nr. dutch ([1,6]) == 1 already satisfied
+									Splitting on other constraints...
+										Subproblem:
+										----------
+										Solving 1 vars:
+											dutch ([1,6])
+										Choice constraints:
+										Count constraints:
+											Nr. dutch ([1,6]) == 1
+											Nr. ¬(dutch) ((6,8]) == 0
+										----------
+										Counting exchangeable...
+										Propagating Nr. dutch ([1,6]) == 1
+											Nr. dutch ([1,6]) == 1 already satisfied
+											Splitting on other constraints...
+												Subproblem:
+												----------
+												Solving 1 vars:
+													dutch ([1,6])
+												Choice constraints:
+												Count constraints:
+													Nr. ¬(dutch) ((6,8]) == 0
+												----------
+												Counting exchangeable...
+												Propagating Nr. ¬(dutch) ((6,8]) == 0
+													Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+													Splitting on other constraints...
+													... no other constraints
+													Counting permutations:
+													Falling factorial: 6
+													Counting domains: 6
+												=========
+												tot:6
+										=========
+										tot:6
+								=========
+								tot:6
+						=========
+						tot:6
+					Filtering domains...
+					  Case dutch ([1,6])
+					  Filtering 1 dutch ([1,6]) out of ¬(dutch) ((6,8]):
+					  Filtering 1 dutch ([1,6]) out of ¬(dutch) ((6,8]):
+					  Case ¬(dutch) ((6,8])
+						Subproblem:
+						----------
+						Solving 2 vars:
+							¬(dutch) ((6,8])
+							¬(dutch) ((6,8])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 0
+							Nr. dutch ([1,6]) == 2
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 0
+							Nr. ¬(dutch) ((6,8]) == 0 is unsat here
+						==========
+						Unsat: 0
+					Split result = 0
+					Case (0, 1)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 1', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 1']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 0
+							Nr. dutch ([1,6]) == 1
+							Nr. dutch ([1,6]) == 0
+							Nr. ¬(dutch) ((6,8]) == 1
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 0
+							Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+							Splitting on other constraints...
+								Subproblem:
+								----------
+								Solving 1 vars:
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. dutch ([1,6]) == 1
+									Nr. dutch ([1,6]) == 0
+									Nr. ¬(dutch) ((6,8]) == 1
+								----------
+								Counting exchangeable...
+								Propagating Nr. dutch ([1,6]) == 1
+									Nr. dutch ([1,6]) == 1 already satisfied
+									Splitting on other constraints...
+										Subproblem:
+										----------
+										Solving 1 vars:
+											dutch ([1,6])
+										Choice constraints:
+										Count constraints:
+											Nr. dutch ([1,6]) == 0
+											Nr. ¬(dutch) ((6,8]) == 1
+										----------
+										Counting exchangeable...
+										Propagating Nr. dutch ([1,6]) == 0
+											Nr. dutch ([1,6]) == 0 is unsat here
+										==========
+										Unsat: 0
+								=========
+								tot:0
+						=========
+						tot:0
+				Solving combination 2: ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 2'] // ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 1']
+					Split class: dutch ([1,6])
+					Computing case combinations of rest classes...
+					Case (1, 0)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 2', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 0']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 0
+							Nr. dutch ([1,6]) == 2
+							Nr. dutch ([1,6]) == 1
+							Nr. ¬(dutch) ((6,8]) == 0
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 0
+							Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+							Splitting on other constraints...
+								Subproblem:
+								----------
+								Solving 1 vars:
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. dutch ([1,6]) == 2
+									Nr. dutch ([1,6]) == 1
+									Nr. ¬(dutch) ((6,8]) == 0
+								----------
+								Counting exchangeable...
+								Propagating Nr. dutch ([1,6]) == 2
+									Nr. dutch ([1,6]) == 2 is unsat here
+								==========
+								Unsat: 0
+						=========
+						tot:0
+					Case (0, 1)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 2', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 1']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 0
+							Nr. dutch ([1,6]) == 2
+							Nr. dutch ([1,6]) == 0
+							Nr. ¬(dutch) ((6,8]) == 1
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 0
+							Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+							Splitting on other constraints...
+								Subproblem:
+								----------
+								Solving 1 vars:
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. dutch ([1,6]) == 2
+									Nr. dutch ([1,6]) == 0
+									Nr. ¬(dutch) ((6,8]) == 1
+								----------
+								Counting exchangeable...
+								Propagating Nr. dutch ([1,6]) == 2
+									Nr. dutch ([1,6]) == 2 is unsat here
+								==========
+								Unsat: 0
+						=========
+						tot:0
+				Solving combination 3: ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 3'] // ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 0']
+					Split class: dutch ([1,6])
+					Computing case combinations of rest classes...
+					Case (1, 0)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 3', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 0']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 0
+							Nr. dutch ([1,6]) == 3
+							Nr. dutch ([1,6]) == 1
+							Nr. ¬(dutch) ((6,8]) == 0
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 0
+							Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+							Splitting on other constraints...
+								Subproblem:
+								----------
+								Solving 1 vars:
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. dutch ([1,6]) == 3
+									Nr. dutch ([1,6]) == 1
+									Nr. ¬(dutch) ((6,8]) == 0
+								----------
+								Counting exchangeable...
+								Propagating Nr. dutch ([1,6]) == 3
+									Nr. dutch ([1,6]) == 3 is unsat here
+								==========
+								Unsat: 0
+						=========
+						tot:0
+					Case (0, 1)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 3', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 1']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 0
+							Nr. dutch ([1,6]) == 3
+							Nr. dutch ([1,6]) == 0
+							Nr. ¬(dutch) ((6,8]) == 1
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 0
+							Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+							Splitting on other constraints...
+								Subproblem:
+								----------
+								Solving 1 vars:
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. dutch ([1,6]) == 3
+									Nr. dutch ([1,6]) == 0
+									Nr. ¬(dutch) ((6,8]) == 1
+								----------
+								Counting exchangeable...
+								Propagating Nr. dutch ([1,6]) == 3
+									Nr. dutch ([1,6]) == 3 is unsat here
+								==========
+								Unsat: 0
+						=========
+						tot:0
+				=========
+				tot:0
+		=========
+		tot:0
+	Case (3, 0)
+	Case students ([1,8]) are ['Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 3', 'Nr. dutch ([1,6]) == 0']:
+		Subproblem:
+		----------
+		Solving 3 vars:
+			students ([1,8])
+			students ([1,8])
+			students ([1,8])
+		Choice constraints:
+		Count constraints:
+			Nr. dutch ([1,6]) == 1
+			Nr. ¬(dutch) ((6,8]) == 3
+			Nr. dutch ([1,6]) == 0
+		----------
+		Counting exchangeable...
+		Propagating Nr. dutch ([1,6]) == 1
+			3 exchangeable free vars: students ([1,8])
+			Splitting on other constraints...
+				Subproblem:
+				----------
+				Solving 3 vars:
+					dutch ([1,6])
+					¬(dutch) ((6,8])
+					¬(dutch) ((6,8])
+				Choice constraints:
+				Count constraints:
+					Nr. ¬(dutch) ((6,8]) == 3
+					Nr. dutch ([1,6]) == 0
+				----------
+				Counting non-exchangeable...
+				Solving combination 0: ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 0'] // ['Nr. ¬(dutch) ((6,8]) == 3', 'Nr. dutch ([1,6]) == 0']
+					Split class: dutch ([1,6])
+					Computing case combinations of rest classes...
+					Case (1, 0)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 0']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 0
+							Nr. dutch ([1,6]) == 0
+							Nr. dutch ([1,6]) == 1
+							Nr. ¬(dutch) ((6,8]) == 0
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 0
+							Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+							Splitting on other constraints...
+								Subproblem:
+								----------
+								Solving 1 vars:
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 1
+									Nr. ¬(dutch) ((6,8]) == 0
+								----------
+								Counting exchangeable...
+								Propagating Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 0 is unsat here
+								==========
+								Unsat: 0
+						=========
+						tot:0
+					Case (0, 1)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 1']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 0
+							Nr. dutch ([1,6]) == 0
+							Nr. dutch ([1,6]) == 0
+							Nr. ¬(dutch) ((6,8]) == 1
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 0
+							Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+							Splitting on other constraints...
+								Subproblem:
+								----------
+								Solving 1 vars:
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 0
+									Nr. ¬(dutch) ((6,8]) == 1
+								----------
+								Counting exchangeable...
+								Propagating Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 0 is unsat here
+								==========
+								Unsat: 0
+						=========
+						tot:0
+				Solving combination 1: ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 0'] // ['Nr. ¬(dutch) ((6,8]) == 2', 'Nr. dutch ([1,6]) == 0']
+					Split class: dutch ([1,6])
+					Computing case combinations of rest classes...
+					Case (1, 0)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 0']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 1
+							Nr. dutch ([1,6]) == 0
+							Nr. dutch ([1,6]) == 1
+							Nr. ¬(dutch) ((6,8]) == 0
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 1
+							Nr. ¬(dutch) ((6,8]) == 1 is unsat here
+						==========
+						Unsat: 0
+					Case (0, 1)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 1']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 1
+							Nr. dutch ([1,6]) == 0
+							Nr. dutch ([1,6]) == 0
+							Nr. ¬(dutch) ((6,8]) == 1
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 1
+							Nr. ¬(dutch) ((6,8]) == 1 is unsat here
+						==========
+						Unsat: 0
+				Solving combination 2: ['Nr. ¬(dutch) ((6,8]) == 2', 'Nr. dutch ([1,6]) == 0'] // ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 0']
+					Split class: dutch ([1,6])
+					Computing case combinations of rest classes...
+					Case (1, 0)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 2', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 0']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 2
+							Nr. dutch ([1,6]) == 0
+							Nr. dutch ([1,6]) == 1
+							Nr. ¬(dutch) ((6,8]) == 0
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 2
+							Nr. ¬(dutch) ((6,8]) == 2 is unsat here
+						==========
+						Unsat: 0
+					Case (0, 1)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 2', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 1']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 2
+							Nr. dutch ([1,6]) == 0
+							Nr. dutch ([1,6]) == 0
+							Nr. ¬(dutch) ((6,8]) == 1
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 2
+							Nr. ¬(dutch) ((6,8]) == 2 is unsat here
+						==========
+						Unsat: 0
+				Solving combination 3: ['Nr. ¬(dutch) ((6,8]) == 3', 'Nr. dutch ([1,6]) == 0'] // ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 0']
+					Split class: dutch ([1,6])
+					Computing case combinations of rest classes...
+					Case (1, 0)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 3', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 0']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 3
+							Nr. dutch ([1,6]) == 0
+							Nr. dutch ([1,6]) == 1
+							Nr. ¬(dutch) ((6,8]) == 0
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 3
+							Nr. ¬(dutch) ((6,8]) == 3 is unsat here
+						==========
+						Unsat: 0
+					Case (0, 1)
+					Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 3', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 1']:
+						Subproblem:
+						----------
+						Solving 1 vars:
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 3
+							Nr. dutch ([1,6]) == 0
+							Nr. dutch ([1,6]) == 0
+							Nr. ¬(dutch) ((6,8]) == 1
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 3
+							Nr. ¬(dutch) ((6,8]) == 3 is unsat here
+						==========
+						Unsat: 0
+				=========
+				tot:0
+		=========
+		tot:0
+Solving combination 2: ['Nr. dutch ([1,6]) >= 2'] // ['Nr. dutch ([1,6]) >= 0']
+	Split class: students ([1,8])
+	Computing case combinations of rest classes...
+	Case (1, 2)
+	Case students ([1,8]) are ['Nr. dutch ([1,6]) >= 2', 'Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 2']:
+		Subproblem:
+		----------
+		Solving 3 vars:
+			students ([1,8])
+			students ([1,8])
+			students ([1,8])
+		Choice constraints:
+		Count constraints:
+			Nr. dutch ([1,6]) >= 2
+			Nr. ¬(dutch) ((6,8]) == 1
+			Nr. dutch ([1,6]) == 2
+		----------
+		Counting exchangeable...
+		Propagating Nr. dutch ([1,6]) >= 2
+			Expanding bounds [2,3]...
+				Subproblem:
+				----------
+				Solving 3 vars:
+					students ([1,8])
+					students ([1,8])
+					students ([1,8])
+				Choice constraints:
+				Count constraints:
+					Nr. dutch ([1,6]) == 2
+					Nr. ¬(dutch) ((6,8]) == 1
+					Nr. dutch ([1,6]) == 2
+				----------
+				Counting exchangeable...
+				Propagating Nr. dutch ([1,6]) == 2
+					3 exchangeable free vars: students ([1,8])
+					Splitting on other constraints...
+						Subproblem:
+						----------
+						Solving 3 vars:
+							dutch ([1,6])
+							dutch ([1,6])
+							¬(dutch) ((6,8])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 1
+							Nr. dutch ([1,6]) == 2
+						----------
+						Counting non-exchangeable...
+						Solving combination 0: ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 0'] // ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 2']
+							Split class: dutch ([1,6])
+							Computing case combinations of rest classes...
+							Case (1, 1)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 1']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 0
+									Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 1
+									Nr. ¬(dutch) ((6,8]) == 1
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 0
+									Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+									Splitting on other constraints...
+										Subproblem:
+										----------
+										Solving 2 vars:
+											dutch ([1,6])
+											dutch ([1,6])
+										Choice constraints:
+										Count constraints:
+											Nr. dutch ([1,6]) == 0
+											Nr. dutch ([1,6]) == 1
+											Nr. ¬(dutch) ((6,8]) == 1
+										----------
+										Counting exchangeable...
+										Propagating Nr. dutch ([1,6]) == 0
+											Nr. dutch ([1,6]) == 0 is unsat here
+										==========
+										Unsat: 0
+								=========
+								tot:0
+							Case (0, 2)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 2']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 0
+									Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 0
+									Nr. ¬(dutch) ((6,8]) == 2
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 0
+									Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+									Splitting on other constraints...
+										Subproblem:
+										----------
+										Solving 2 vars:
+											dutch ([1,6])
+											dutch ([1,6])
+										Choice constraints:
+										Count constraints:
+											Nr. dutch ([1,6]) == 0
+											Nr. dutch ([1,6]) == 0
+											Nr. ¬(dutch) ((6,8]) == 2
+										----------
+										Counting exchangeable...
+										Propagating Nr. dutch ([1,6]) == 0
+											Nr. dutch ([1,6]) == 0 is unsat here
+										==========
+										Unsat: 0
+								=========
+								tot:0
+							Case (2, 0)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 2', 'Nr. ¬(dutch) ((6,8]) == 0']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 0
+									Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 2
+									Nr. ¬(dutch) ((6,8]) == 0
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 0
+									Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+									Splitting on other constraints...
+										Subproblem:
+										----------
+										Solving 2 vars:
+											dutch ([1,6])
+											dutch ([1,6])
+										Choice constraints:
+										Count constraints:
+											Nr. dutch ([1,6]) == 0
+											Nr. dutch ([1,6]) == 2
+											Nr. ¬(dutch) ((6,8]) == 0
+										----------
+										Counting exchangeable...
+										Propagating Nr. dutch ([1,6]) == 0
+											Nr. dutch ([1,6]) == 0 is unsat here
+										==========
+										Unsat: 0
+								=========
+								tot:0
+						Solving combination 1: ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 1'] // ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 1']
+							Split class: dutch ([1,6])
+							Computing case combinations of rest classes...
+							Case (1, 1)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 1', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 1']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 0
+									Nr. dutch ([1,6]) == 1
+									Nr. dutch ([1,6]) == 1
+									Nr. ¬(dutch) ((6,8]) == 1
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 0
+									Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+									Splitting on other constraints...
+										Subproblem:
+										----------
+										Solving 2 vars:
+											dutch ([1,6])
+											dutch ([1,6])
+										Choice constraints:
+										Count constraints:
+											Nr. dutch ([1,6]) == 1
+											Nr. dutch ([1,6]) == 1
+											Nr. ¬(dutch) ((6,8]) == 1
+										----------
+										Counting exchangeable...
+										Propagating Nr. dutch ([1,6]) == 1
+											Nr. dutch ([1,6]) == 1 is unsat here
+										==========
+										Unsat: 0
+								=========
+								tot:0
+							Case (0, 2)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 1', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 2']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 0
+									Nr. dutch ([1,6]) == 1
+									Nr. dutch ([1,6]) == 0
+									Nr. ¬(dutch) ((6,8]) == 2
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 0
+									Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+									Splitting on other constraints...
+										Subproblem:
+										----------
+										Solving 2 vars:
+											dutch ([1,6])
+											dutch ([1,6])
+										Choice constraints:
+										Count constraints:
+											Nr. dutch ([1,6]) == 1
+											Nr. dutch ([1,6]) == 0
+											Nr. ¬(dutch) ((6,8]) == 2
+										----------
+										Counting exchangeable...
+										Propagating Nr. dutch ([1,6]) == 1
+											Nr. dutch ([1,6]) == 1 is unsat here
+										==========
+										Unsat: 0
+								=========
+								tot:0
+							Case (2, 0)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 1', 'Nr. dutch ([1,6]) == 2', 'Nr. ¬(dutch) ((6,8]) == 0']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 0
+									Nr. dutch ([1,6]) == 1
+									Nr. dutch ([1,6]) == 2
+									Nr. ¬(dutch) ((6,8]) == 0
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 0
+									Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+									Splitting on other constraints...
+										Subproblem:
+										----------
+										Solving 2 vars:
+											dutch ([1,6])
+											dutch ([1,6])
+										Choice constraints:
+										Count constraints:
+											Nr. dutch ([1,6]) == 1
+											Nr. dutch ([1,6]) == 2
+											Nr. ¬(dutch) ((6,8]) == 0
+										----------
+										Counting exchangeable...
+										Propagating Nr. dutch ([1,6]) == 1
+											Nr. dutch ([1,6]) == 1 is unsat here
+										==========
+										Unsat: 0
+								=========
+								tot:0
+						Solving combination 2: ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 2'] // ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 0']
+							Split class: dutch ([1,6])
+							Computing case combinations of rest classes...
+							Case (1, 1)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 2', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 1']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 0
+									Nr. dutch ([1,6]) == 2
+									Nr. dutch ([1,6]) == 1
+									Nr. ¬(dutch) ((6,8]) == 1
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 0
+									Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+									Splitting on other constraints...
+										Subproblem:
+										----------
+										Solving 2 vars:
+											dutch ([1,6])
+											dutch ([1,6])
+										Choice constraints:
+										Count constraints:
+											Nr. dutch ([1,6]) == 2
+											Nr. dutch ([1,6]) == 1
+											Nr. ¬(dutch) ((6,8]) == 1
+										----------
+										Counting exchangeable...
+										Propagating Nr. dutch ([1,6]) == 2
+											Nr. dutch ([1,6]) == 2 already satisfied
+											Splitting on other constraints...
+												Subproblem:
+												----------
+												Solving 2 vars:
+													dutch ([1,6])
+													dutch ([1,6])
+												Choice constraints:
+												Count constraints:
+													Nr. dutch ([1,6]) == 1
+													Nr. ¬(dutch) ((6,8]) == 1
+												----------
+												Counting exchangeable...
+												Propagating Nr. dutch ([1,6]) == 1
+													Nr. dutch ([1,6]) == 1 is unsat here
+												==========
+												Unsat: 0
+										=========
+										tot:0
+								=========
+								tot:0
+							Case (0, 2)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 2', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 2']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 0
+									Nr. dutch ([1,6]) == 2
+									Nr. dutch ([1,6]) == 0
+									Nr. ¬(dutch) ((6,8]) == 2
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 0
+									Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+									Splitting on other constraints...
+										Subproblem:
+										----------
+										Solving 2 vars:
+											dutch ([1,6])
+											dutch ([1,6])
+										Choice constraints:
+										Count constraints:
+											Nr. dutch ([1,6]) == 2
+											Nr. dutch ([1,6]) == 0
+											Nr. ¬(dutch) ((6,8]) == 2
+										----------
+										Counting exchangeable...
+										Propagating Nr. dutch ([1,6]) == 2
+											Nr. dutch ([1,6]) == 2 already satisfied
+											Splitting on other constraints...
+												Subproblem:
+												----------
+												Solving 2 vars:
+													dutch ([1,6])
+													dutch ([1,6])
+												Choice constraints:
+												Count constraints:
+													Nr. dutch ([1,6]) == 0
+													Nr. ¬(dutch) ((6,8]) == 2
+												----------
+												Counting exchangeable...
+												Propagating Nr. dutch ([1,6]) == 0
+													Nr. dutch ([1,6]) == 0 is unsat here
+												==========
+												Unsat: 0
+										=========
+										tot:0
+								=========
+								tot:0
+							Case (2, 0)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 2', 'Nr. dutch ([1,6]) == 2', 'Nr. ¬(dutch) ((6,8]) == 0']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 0
+									Nr. dutch ([1,6]) == 2
+									Nr. dutch ([1,6]) == 2
+									Nr. ¬(dutch) ((6,8]) == 0
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 0
+									Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+									Splitting on other constraints...
+										Subproblem:
+										----------
+										Solving 2 vars:
+											dutch ([1,6])
+											dutch ([1,6])
+										Choice constraints:
+										Count constraints:
+											Nr. dutch ([1,6]) == 2
+											Nr. dutch ([1,6]) == 2
+											Nr. ¬(dutch) ((6,8]) == 0
+										----------
+										Counting exchangeable...
+										Propagating Nr. dutch ([1,6]) == 2
+											Nr. dutch ([1,6]) == 2 already satisfied
+											Splitting on other constraints...
+												Subproblem:
+												----------
+												Solving 2 vars:
+													dutch ([1,6])
+													dutch ([1,6])
+												Choice constraints:
+												Count constraints:
+													Nr. dutch ([1,6]) == 2
+													Nr. ¬(dutch) ((6,8]) == 0
+												----------
+												Counting exchangeable...
+												Propagating Nr. dutch ([1,6]) == 2
+													Nr. dutch ([1,6]) == 2 already satisfied
+													Splitting on other constraints...
+														Subproblem:
+														----------
+														Solving 2 vars:
+															dutch ([1,6])
+															dutch ([1,6])
+														Choice constraints:
+														Count constraints:
+															Nr. ¬(dutch) ((6,8]) == 0
+														----------
+														Counting exchangeable...
+														Propagating Nr. ¬(dutch) ((6,8]) == 0
+															Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+															Splitting on other constraints...
+															... no other constraints
+															Counting permutations:
+															Falling factorial: 30
+															Counting domains: 30
+														=========
+														tot:30
+												=========
+												tot:30
+										=========
+										tot:30
+								=========
+								tot:30
+							Filtering domains...
+							  Case dutch ([1,6])
+							  Filtering 2 dutch ([1,6]) out of ¬(dutch) ((6,8]):
+							  Case ¬(dutch) ((6,8])
+								Subproblem:
+								----------
+								Solving 1 vars:
+									¬(dutch) ((6,8])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 1
+									Nr. dutch ([1,6]) == 0
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 1
+									Nr. ¬(dutch) ((6,8]) == 1 already satisfied
+									Splitting on other constraints...
+										Subproblem:
+										----------
+										Solving 1 vars:
+											¬(dutch) ((6,8])
+										Choice constraints:
+										Count constraints:
+											Nr. dutch ([1,6]) == 0
+										----------
+										Counting exchangeable...
+										Propagating Nr. dutch ([1,6]) == 0
+											Nr. dutch ([1,6]) == 0 already satisfied
+											Splitting on other constraints...
+											... no other constraints
+											Counting permutations:
+											Falling factorial: 2
+											Counting domains: 2
+										=========
+										tot:2
+								=========
+								tot:2
+							Split result = 60
+						Solving combination 3: ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 0'] // ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 2']
+							Split class: dutch ([1,6])
+							Computing case combinations of rest classes...
+							Case (1, 1)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 1']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 1
+									Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 1
+									Nr. ¬(dutch) ((6,8]) == 1
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 1
+									Nr. ¬(dutch) ((6,8]) == 1 is unsat here
+								==========
+								Unsat: 0
+							Case (0, 2)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 2']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 1
+									Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 0
+									Nr. ¬(dutch) ((6,8]) == 2
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 1
+									Nr. ¬(dutch) ((6,8]) == 1 is unsat here
+								==========
+								Unsat: 0
+							Case (2, 0)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 2', 'Nr. ¬(dutch) ((6,8]) == 0']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 1
+									Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 2
+									Nr. ¬(dutch) ((6,8]) == 0
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 1
+									Nr. ¬(dutch) ((6,8]) == 1 is unsat here
+								==========
+								Unsat: 0
+						Solving combination 4: ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 1'] // ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 1']
+							Split class: dutch ([1,6])
+							Computing case combinations of rest classes...
+							Case (1, 1)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 1', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 1']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 1
+									Nr. dutch ([1,6]) == 1
+									Nr. dutch ([1,6]) == 1
+									Nr. ¬(dutch) ((6,8]) == 1
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 1
+									Nr. ¬(dutch) ((6,8]) == 1 is unsat here
+								==========
+								Unsat: 0
+							Case (0, 2)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 1', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 2']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 1
+									Nr. dutch ([1,6]) == 1
+									Nr. dutch ([1,6]) == 0
+									Nr. ¬(dutch) ((6,8]) == 2
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 1
+									Nr. ¬(dutch) ((6,8]) == 1 is unsat here
+								==========
+								Unsat: 0
+							Case (2, 0)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 1', 'Nr. dutch ([1,6]) == 2', 'Nr. ¬(dutch) ((6,8]) == 0']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 1
+									Nr. dutch ([1,6]) == 1
+									Nr. dutch ([1,6]) == 2
+									Nr. ¬(dutch) ((6,8]) == 0
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 1
+									Nr. ¬(dutch) ((6,8]) == 1 is unsat here
+								==========
+								Unsat: 0
+						Solving combination 5: ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 2'] // ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 0']
+							Split class: dutch ([1,6])
+							Computing case combinations of rest classes...
+							Case (1, 1)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 2', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 1']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 1
+									Nr. dutch ([1,6]) == 2
+									Nr. dutch ([1,6]) == 1
+									Nr. ¬(dutch) ((6,8]) == 1
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 1
+									Nr. ¬(dutch) ((6,8]) == 1 is unsat here
+								==========
+								Unsat: 0
+							Case (0, 2)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 2', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 2']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 1
+									Nr. dutch ([1,6]) == 2
+									Nr. dutch ([1,6]) == 0
+									Nr. ¬(dutch) ((6,8]) == 2
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 1
+									Nr. ¬(dutch) ((6,8]) == 1 is unsat here
+								==========
+								Unsat: 0
+							Case (2, 0)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 2', 'Nr. dutch ([1,6]) == 2', 'Nr. ¬(dutch) ((6,8]) == 0']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 1
+									Nr. dutch ([1,6]) == 2
+									Nr. dutch ([1,6]) == 2
+									Nr. ¬(dutch) ((6,8]) == 0
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 1
+									Nr. ¬(dutch) ((6,8]) == 1 is unsat here
+								==========
+								Unsat: 0
+						=========
+						tot:60
+				=========
+				tot:180
+				Subproblem:
+				----------
+				Solving 3 vars:
+					students ([1,8])
+					students ([1,8])
+					students ([1,8])
+				Choice constraints:
+				Count constraints:
+					Nr. dutch ([1,6]) == 3
+					Nr. ¬(dutch) ((6,8]) == 1
+					Nr. dutch ([1,6]) == 2
+				----------
+				Counting exchangeable...
+				Propagating Nr. dutch ([1,6]) == 3
+					3 exchangeable free vars: students ([1,8])
+					Splitting on other constraints...
+						Subproblem:
+						----------
+						Solving 3 vars:
+							dutch ([1,6])
+							dutch ([1,6])
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 1
+							Nr. dutch ([1,6]) == 2
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 1
+							Nr. ¬(dutch) ((6,8]) == 1 is unsat here
+						==========
+						Unsat: 0
+				=========
+				tot:0
+		=========
+		tot:180
+	Filtering domains...
+	  Case ¬(dutch) ((6,8])
+	  Filtering 1 ¬(dutch) ((6,8]) out of dutch ([1,6]):
+	  Case dutch ([1,6])
+	  Filtering 2 dutch ([1,6]) out of dutch ([1,6]):
+		Subproblem:
+		----------
+		Solving 1 vars:
+			dutch ∧ ¬(dutch) ((1,2) | (2,6])
+		Choice constraints:
+		Count constraints:
+			Nr. dutch ([1,6]) >= 0
+		----------
+		Counting exchangeable...
+		Propagating Nr. dutch ([1,6]) >= 0
+			Expanding bounds [0,1]...
+				Subproblem:
+				----------
+				Solving 1 vars:
+					dutch ∧ ¬(dutch) ((1,2) | (2,6])
+				Choice constraints:
+				Count constraints:
+					Nr. dutch ([1,6]) == 0
+				----------
+				Counting exchangeable...
+				Propagating Nr. dutch ([1,6]) == 0
+					Nr. dutch ([1,6]) == 0 is unsat here
+				==========
+				Unsat: 0
+				Subproblem:
+				----------
+				Solving 1 vars:
+					dutch ∧ ¬(dutch) ((1,2) | (2,6])
+				Choice constraints:
+				Count constraints:
+					Nr. dutch ([1,6]) == 1
+				----------
+				Counting exchangeable...
+				Propagating Nr. dutch ([1,6]) == 1
+					Nr. dutch ([1,6]) == 1 already satisfied
+					Splitting on other constraints...
+					... no other constraints
+					Counting permutations:
+					Falling factorial: 4
+					Counting domains: 4
+				=========
+				tot:4
+		=========
+		tot:4
+	Split result = 720
+	Case (2, 1)
+	Case students ([1,8]) are ['Nr. dutch ([1,6]) >= 2', 'Nr. ¬(dutch) ((6,8]) == 2', 'Nr. dutch ([1,6]) == 1']:
+		Subproblem:
+		----------
+		Solving 3 vars:
+			students ([1,8])
+			students ([1,8])
+			students ([1,8])
+		Choice constraints:
+		Count constraints:
+			Nr. dutch ([1,6]) >= 2
+			Nr. ¬(dutch) ((6,8]) == 2
+			Nr. dutch ([1,6]) == 1
+		----------
+		Counting exchangeable...
+		Propagating Nr. dutch ([1,6]) >= 2
+			Expanding bounds [2,3]...
+				Subproblem:
+				----------
+				Solving 3 vars:
+					students ([1,8])
+					students ([1,8])
+					students ([1,8])
+				Choice constraints:
+				Count constraints:
+					Nr. dutch ([1,6]) == 2
+					Nr. ¬(dutch) ((6,8]) == 2
+					Nr. dutch ([1,6]) == 1
+				----------
+				Counting exchangeable...
+				Propagating Nr. dutch ([1,6]) == 2
+					3 exchangeable free vars: students ([1,8])
+					Splitting on other constraints...
+						Subproblem:
+						----------
+						Solving 3 vars:
+							dutch ([1,6])
+							dutch ([1,6])
+							¬(dutch) ((6,8])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 2
+							Nr. dutch ([1,6]) == 1
+						----------
+						Counting non-exchangeable...
+						Solving combination 0: ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 0'] // ['Nr. ¬(dutch) ((6,8]) == 2', 'Nr. dutch ([1,6]) == 1']
+							Split class: dutch ([1,6])
+							Computing case combinations of rest classes...
+							Case (1, 1)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 1']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 0
+									Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 1
+									Nr. ¬(dutch) ((6,8]) == 1
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 0
+									Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+									Splitting on other constraints...
+										Subproblem:
+										----------
+										Solving 2 vars:
+											dutch ([1,6])
+											dutch ([1,6])
+										Choice constraints:
+										Count constraints:
+											Nr. dutch ([1,6]) == 0
+											Nr. dutch ([1,6]) == 1
+											Nr. ¬(dutch) ((6,8]) == 1
+										----------
+										Counting exchangeable...
+										Propagating Nr. dutch ([1,6]) == 0
+											Nr. dutch ([1,6]) == 0 is unsat here
+										==========
+										Unsat: 0
+								=========
+								tot:0
+							Case (0, 2)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 2']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 0
+									Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 0
+									Nr. ¬(dutch) ((6,8]) == 2
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 0
+									Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+									Splitting on other constraints...
+										Subproblem:
+										----------
+										Solving 2 vars:
+											dutch ([1,6])
+											dutch ([1,6])
+										Choice constraints:
+										Count constraints:
+											Nr. dutch ([1,6]) == 0
+											Nr. dutch ([1,6]) == 0
+											Nr. ¬(dutch) ((6,8]) == 2
+										----------
+										Counting exchangeable...
+										Propagating Nr. dutch ([1,6]) == 0
+											Nr. dutch ([1,6]) == 0 is unsat here
+										==========
+										Unsat: 0
+								=========
+								tot:0
+							Case (2, 0)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 2', 'Nr. ¬(dutch) ((6,8]) == 0']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 0
+									Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 2
+									Nr. ¬(dutch) ((6,8]) == 0
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 0
+									Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+									Splitting on other constraints...
+										Subproblem:
+										----------
+										Solving 2 vars:
+											dutch ([1,6])
+											dutch ([1,6])
+										Choice constraints:
+										Count constraints:
+											Nr. dutch ([1,6]) == 0
+											Nr. dutch ([1,6]) == 2
+											Nr. ¬(dutch) ((6,8]) == 0
+										----------
+										Counting exchangeable...
+										Propagating Nr. dutch ([1,6]) == 0
+											Nr. dutch ([1,6]) == 0 is unsat here
+										==========
+										Unsat: 0
+								=========
+								tot:0
+						Solving combination 1: ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 1'] // ['Nr. ¬(dutch) ((6,8]) == 2', 'Nr. dutch ([1,6]) == 0']
+							Split class: dutch ([1,6])
+							Computing case combinations of rest classes...
+							Case (1, 1)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 1', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 1']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 0
+									Nr. dutch ([1,6]) == 1
+									Nr. dutch ([1,6]) == 1
+									Nr. ¬(dutch) ((6,8]) == 1
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 0
+									Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+									Splitting on other constraints...
+										Subproblem:
+										----------
+										Solving 2 vars:
+											dutch ([1,6])
+											dutch ([1,6])
+										Choice constraints:
+										Count constraints:
+											Nr. dutch ([1,6]) == 1
+											Nr. dutch ([1,6]) == 1
+											Nr. ¬(dutch) ((6,8]) == 1
+										----------
+										Counting exchangeable...
+										Propagating Nr. dutch ([1,6]) == 1
+											Nr. dutch ([1,6]) == 1 is unsat here
+										==========
+										Unsat: 0
+								=========
+								tot:0
+							Case (0, 2)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 1', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 2']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 0
+									Nr. dutch ([1,6]) == 1
+									Nr. dutch ([1,6]) == 0
+									Nr. ¬(dutch) ((6,8]) == 2
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 0
+									Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+									Splitting on other constraints...
+										Subproblem:
+										----------
+										Solving 2 vars:
+											dutch ([1,6])
+											dutch ([1,6])
+										Choice constraints:
+										Count constraints:
+											Nr. dutch ([1,6]) == 1
+											Nr. dutch ([1,6]) == 0
+											Nr. ¬(dutch) ((6,8]) == 2
+										----------
+										Counting exchangeable...
+										Propagating Nr. dutch ([1,6]) == 1
+											Nr. dutch ([1,6]) == 1 is unsat here
+										==========
+										Unsat: 0
+								=========
+								tot:0
+							Case (2, 0)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 1', 'Nr. dutch ([1,6]) == 2', 'Nr. ¬(dutch) ((6,8]) == 0']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 0
+									Nr. dutch ([1,6]) == 1
+									Nr. dutch ([1,6]) == 2
+									Nr. ¬(dutch) ((6,8]) == 0
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 0
+									Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+									Splitting on other constraints...
+										Subproblem:
+										----------
+										Solving 2 vars:
+											dutch ([1,6])
+											dutch ([1,6])
+										Choice constraints:
+										Count constraints:
+											Nr. dutch ([1,6]) == 1
+											Nr. dutch ([1,6]) == 2
+											Nr. ¬(dutch) ((6,8]) == 0
+										----------
+										Counting exchangeable...
+										Propagating Nr. dutch ([1,6]) == 1
+											Nr. dutch ([1,6]) == 1 is unsat here
+										==========
+										Unsat: 0
+								=========
+								tot:0
+						Solving combination 2: ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 0'] // ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 1']
+							Split class: dutch ([1,6])
+							Computing case combinations of rest classes...
+							Case (1, 1)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 1']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 1
+									Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 1
+									Nr. ¬(dutch) ((6,8]) == 1
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 1
+									Nr. ¬(dutch) ((6,8]) == 1 is unsat here
+								==========
+								Unsat: 0
+							Case (0, 2)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 2']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 1
+									Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 0
+									Nr. ¬(dutch) ((6,8]) == 2
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 1
+									Nr. ¬(dutch) ((6,8]) == 1 is unsat here
+								==========
+								Unsat: 0
+							Case (2, 0)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 2', 'Nr. ¬(dutch) ((6,8]) == 0']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 1
+									Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 2
+									Nr. ¬(dutch) ((6,8]) == 0
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 1
+									Nr. ¬(dutch) ((6,8]) == 1 is unsat here
+								==========
+								Unsat: 0
+						Solving combination 3: ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 1'] // ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 0']
+							Split class: dutch ([1,6])
+							Computing case combinations of rest classes...
+							Case (1, 1)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 1', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 1']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 1
+									Nr. dutch ([1,6]) == 1
+									Nr. dutch ([1,6]) == 1
+									Nr. ¬(dutch) ((6,8]) == 1
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 1
+									Nr. ¬(dutch) ((6,8]) == 1 is unsat here
+								==========
+								Unsat: 0
+							Case (0, 2)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 1', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 2']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 1
+									Nr. dutch ([1,6]) == 1
+									Nr. dutch ([1,6]) == 0
+									Nr. ¬(dutch) ((6,8]) == 2
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 1
+									Nr. ¬(dutch) ((6,8]) == 1 is unsat here
+								==========
+								Unsat: 0
+							Case (2, 0)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 1', 'Nr. dutch ([1,6]) == 2', 'Nr. ¬(dutch) ((6,8]) == 0']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 1
+									Nr. dutch ([1,6]) == 1
+									Nr. dutch ([1,6]) == 2
+									Nr. ¬(dutch) ((6,8]) == 0
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 1
+									Nr. ¬(dutch) ((6,8]) == 1 is unsat here
+								==========
+								Unsat: 0
+						Solving combination 4: ['Nr. ¬(dutch) ((6,8]) == 2', 'Nr. dutch ([1,6]) == 0'] // ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 1']
+							Split class: dutch ([1,6])
+							Computing case combinations of rest classes...
+							Case (1, 1)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 2', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 1']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 2
+									Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 1
+									Nr. ¬(dutch) ((6,8]) == 1
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 2
+									Nr. ¬(dutch) ((6,8]) == 2 is unsat here
+								==========
+								Unsat: 0
+							Case (0, 2)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 2', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 2']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 2
+									Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 0
+									Nr. ¬(dutch) ((6,8]) == 2
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 2
+									Nr. ¬(dutch) ((6,8]) == 2 is unsat here
+								==========
+								Unsat: 0
+							Case (2, 0)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 2', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 2', 'Nr. ¬(dutch) ((6,8]) == 0']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 2
+									Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 2
+									Nr. ¬(dutch) ((6,8]) == 0
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 2
+									Nr. ¬(dutch) ((6,8]) == 2 is unsat here
+								==========
+								Unsat: 0
+						Solving combination 5: ['Nr. ¬(dutch) ((6,8]) == 2', 'Nr. dutch ([1,6]) == 1'] // ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 0']
+							Split class: dutch ([1,6])
+							Computing case combinations of rest classes...
+							Case (1, 1)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 2', 'Nr. dutch ([1,6]) == 1', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 1']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 2
+									Nr. dutch ([1,6]) == 1
+									Nr. dutch ([1,6]) == 1
+									Nr. ¬(dutch) ((6,8]) == 1
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 2
+									Nr. ¬(dutch) ((6,8]) == 2 is unsat here
+								==========
+								Unsat: 0
+							Case (0, 2)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 2', 'Nr. dutch ([1,6]) == 1', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 2']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 2
+									Nr. dutch ([1,6]) == 1
+									Nr. dutch ([1,6]) == 0
+									Nr. ¬(dutch) ((6,8]) == 2
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 2
+									Nr. ¬(dutch) ((6,8]) == 2 is unsat here
+								==========
+								Unsat: 0
+							Case (2, 0)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 2', 'Nr. dutch ([1,6]) == 1', 'Nr. dutch ([1,6]) == 2', 'Nr. ¬(dutch) ((6,8]) == 0']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 2
+									Nr. dutch ([1,6]) == 1
+									Nr. dutch ([1,6]) == 2
+									Nr. ¬(dutch) ((6,8]) == 0
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 2
+									Nr. ¬(dutch) ((6,8]) == 2 is unsat here
+								==========
+								Unsat: 0
+						=========
+						tot:0
+				=========
+				tot:0
+				Subproblem:
+				----------
+				Solving 3 vars:
+					students ([1,8])
+					students ([1,8])
+					students ([1,8])
+				Choice constraints:
+				Count constraints:
+					Nr. dutch ([1,6]) == 3
+					Nr. ¬(dutch) ((6,8]) == 2
+					Nr. dutch ([1,6]) == 1
+				----------
+				Counting exchangeable...
+				Propagating Nr. dutch ([1,6]) == 3
+					3 exchangeable free vars: students ([1,8])
+					Splitting on other constraints...
+						Subproblem:
+						----------
+						Solving 3 vars:
+							dutch ([1,6])
+							dutch ([1,6])
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 2
+							Nr. dutch ([1,6]) == 1
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 2
+							Nr. ¬(dutch) ((6,8]) == 2 is unsat here
+						==========
+						Unsat: 0
+				=========
+				tot:0
+		=========
+		tot:0
+	Case (0, 3)
+	Case students ([1,8]) are ['Nr. dutch ([1,6]) >= 2', 'Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 3']:
+		Subproblem:
+		----------
+		Solving 3 vars:
+			students ([1,8])
+			students ([1,8])
+			students ([1,8])
+		Choice constraints:
+		Count constraints:
+			Nr. dutch ([1,6]) >= 2
+			Nr. ¬(dutch) ((6,8]) == 0
+			Nr. dutch ([1,6]) == 3
+		----------
+		Counting exchangeable...
+		Propagating Nr. dutch ([1,6]) >= 2
+			Expanding bounds [2,3]...
+				Subproblem:
+				----------
+				Solving 3 vars:
+					students ([1,8])
+					students ([1,8])
+					students ([1,8])
+				Choice constraints:
+				Count constraints:
+					Nr. dutch ([1,6]) == 2
+					Nr. ¬(dutch) ((6,8]) == 0
+					Nr. dutch ([1,6]) == 3
+				----------
+				Counting exchangeable...
+				Propagating Nr. dutch ([1,6]) == 2
+					3 exchangeable free vars: students ([1,8])
+					Splitting on other constraints...
+						Subproblem:
+						----------
+						Solving 3 vars:
+							dutch ([1,6])
+							dutch ([1,6])
+							¬(dutch) ((6,8])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 0
+							Nr. dutch ([1,6]) == 3
+						----------
+						Counting non-exchangeable...
+						Solving combination 0: ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 0'] // ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 3']
+							Split class: dutch ([1,6])
+							Computing case combinations of rest classes...
+							Case (1, 1)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 1']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 0
+									Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 1
+									Nr. ¬(dutch) ((6,8]) == 1
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 0
+									Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+									Splitting on other constraints...
+										Subproblem:
+										----------
+										Solving 2 vars:
+											dutch ([1,6])
+											dutch ([1,6])
+										Choice constraints:
+										Count constraints:
+											Nr. dutch ([1,6]) == 0
+											Nr. dutch ([1,6]) == 1
+											Nr. ¬(dutch) ((6,8]) == 1
+										----------
+										Counting exchangeable...
+										Propagating Nr. dutch ([1,6]) == 0
+											Nr. dutch ([1,6]) == 0 is unsat here
+										==========
+										Unsat: 0
+								=========
+								tot:0
+							Case (0, 2)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 2']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 0
+									Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 0
+									Nr. ¬(dutch) ((6,8]) == 2
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 0
+									Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+									Splitting on other constraints...
+										Subproblem:
+										----------
+										Solving 2 vars:
+											dutch ([1,6])
+											dutch ([1,6])
+										Choice constraints:
+										Count constraints:
+											Nr. dutch ([1,6]) == 0
+											Nr. dutch ([1,6]) == 0
+											Nr. ¬(dutch) ((6,8]) == 2
+										----------
+										Counting exchangeable...
+										Propagating Nr. dutch ([1,6]) == 0
+											Nr. dutch ([1,6]) == 0 is unsat here
+										==========
+										Unsat: 0
+								=========
+								tot:0
+							Case (2, 0)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 2', 'Nr. ¬(dutch) ((6,8]) == 0']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 0
+									Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 2
+									Nr. ¬(dutch) ((6,8]) == 0
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 0
+									Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+									Splitting on other constraints...
+										Subproblem:
+										----------
+										Solving 2 vars:
+											dutch ([1,6])
+											dutch ([1,6])
+										Choice constraints:
+										Count constraints:
+											Nr. dutch ([1,6]) == 0
+											Nr. dutch ([1,6]) == 2
+											Nr. ¬(dutch) ((6,8]) == 0
+										----------
+										Counting exchangeable...
+										Propagating Nr. dutch ([1,6]) == 0
+											Nr. dutch ([1,6]) == 0 is unsat here
+										==========
+										Unsat: 0
+								=========
+								tot:0
+						Solving combination 1: ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 1'] // ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 2']
+							Split class: dutch ([1,6])
+							Computing case combinations of rest classes...
+							Case (1, 1)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 1', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 1']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 0
+									Nr. dutch ([1,6]) == 1
+									Nr. dutch ([1,6]) == 1
+									Nr. ¬(dutch) ((6,8]) == 1
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 0
+									Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+									Splitting on other constraints...
+										Subproblem:
+										----------
+										Solving 2 vars:
+											dutch ([1,6])
+											dutch ([1,6])
+										Choice constraints:
+										Count constraints:
+											Nr. dutch ([1,6]) == 1
+											Nr. dutch ([1,6]) == 1
+											Nr. ¬(dutch) ((6,8]) == 1
+										----------
+										Counting exchangeable...
+										Propagating Nr. dutch ([1,6]) == 1
+											Nr. dutch ([1,6]) == 1 is unsat here
+										==========
+										Unsat: 0
+								=========
+								tot:0
+							Case (0, 2)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 1', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 2']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 0
+									Nr. dutch ([1,6]) == 1
+									Nr. dutch ([1,6]) == 0
+									Nr. ¬(dutch) ((6,8]) == 2
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 0
+									Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+									Splitting on other constraints...
+										Subproblem:
+										----------
+										Solving 2 vars:
+											dutch ([1,6])
+											dutch ([1,6])
+										Choice constraints:
+										Count constraints:
+											Nr. dutch ([1,6]) == 1
+											Nr. dutch ([1,6]) == 0
+											Nr. ¬(dutch) ((6,8]) == 2
+										----------
+										Counting exchangeable...
+										Propagating Nr. dutch ([1,6]) == 1
+											Nr. dutch ([1,6]) == 1 is unsat here
+										==========
+										Unsat: 0
+								=========
+								tot:0
+							Case (2, 0)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 1', 'Nr. dutch ([1,6]) == 2', 'Nr. ¬(dutch) ((6,8]) == 0']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 0
+									Nr. dutch ([1,6]) == 1
+									Nr. dutch ([1,6]) == 2
+									Nr. ¬(dutch) ((6,8]) == 0
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 0
+									Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+									Splitting on other constraints...
+										Subproblem:
+										----------
+										Solving 2 vars:
+											dutch ([1,6])
+											dutch ([1,6])
+										Choice constraints:
+										Count constraints:
+											Nr. dutch ([1,6]) == 1
+											Nr. dutch ([1,6]) == 2
+											Nr. ¬(dutch) ((6,8]) == 0
+										----------
+										Counting exchangeable...
+										Propagating Nr. dutch ([1,6]) == 1
+											Nr. dutch ([1,6]) == 1 is unsat here
+										==========
+										Unsat: 0
+								=========
+								tot:0
+						Solving combination 2: ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 2'] // ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 1']
+							Split class: dutch ([1,6])
+							Computing case combinations of rest classes...
+							Case (1, 1)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 2', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 1']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 0
+									Nr. dutch ([1,6]) == 2
+									Nr. dutch ([1,6]) == 1
+									Nr. ¬(dutch) ((6,8]) == 1
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 0
+									Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+									Splitting on other constraints...
+										Subproblem:
+										----------
+										Solving 2 vars:
+											dutch ([1,6])
+											dutch ([1,6])
+										Choice constraints:
+										Count constraints:
+											Nr. dutch ([1,6]) == 2
+											Nr. dutch ([1,6]) == 1
+											Nr. ¬(dutch) ((6,8]) == 1
+										----------
+										Counting exchangeable...
+										Propagating Nr. dutch ([1,6]) == 2
+											Nr. dutch ([1,6]) == 2 already satisfied
+											Splitting on other constraints...
+												Subproblem:
+												----------
+												Solving 2 vars:
+													dutch ([1,6])
+													dutch ([1,6])
+												Choice constraints:
+												Count constraints:
+													Nr. dutch ([1,6]) == 1
+													Nr. ¬(dutch) ((6,8]) == 1
+												----------
+												Counting exchangeable...
+												Propagating Nr. dutch ([1,6]) == 1
+													Nr. dutch ([1,6]) == 1 is unsat here
+												==========
+												Unsat: 0
+										=========
+										tot:0
+								=========
+								tot:0
+							Case (0, 2)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 2', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 2']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 0
+									Nr. dutch ([1,6]) == 2
+									Nr. dutch ([1,6]) == 0
+									Nr. ¬(dutch) ((6,8]) == 2
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 0
+									Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+									Splitting on other constraints...
+										Subproblem:
+										----------
+										Solving 2 vars:
+											dutch ([1,6])
+											dutch ([1,6])
+										Choice constraints:
+										Count constraints:
+											Nr. dutch ([1,6]) == 2
+											Nr. dutch ([1,6]) == 0
+											Nr. ¬(dutch) ((6,8]) == 2
+										----------
+										Counting exchangeable...
+										Propagating Nr. dutch ([1,6]) == 2
+											Nr. dutch ([1,6]) == 2 already satisfied
+											Splitting on other constraints...
+												Subproblem:
+												----------
+												Solving 2 vars:
+													dutch ([1,6])
+													dutch ([1,6])
+												Choice constraints:
+												Count constraints:
+													Nr. dutch ([1,6]) == 0
+													Nr. ¬(dutch) ((6,8]) == 2
+												----------
+												Counting exchangeable...
+												Propagating Nr. dutch ([1,6]) == 0
+													Nr. dutch ([1,6]) == 0 is unsat here
+												==========
+												Unsat: 0
+										=========
+										tot:0
+								=========
+								tot:0
+							Case (2, 0)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 2', 'Nr. dutch ([1,6]) == 2', 'Nr. ¬(dutch) ((6,8]) == 0']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 0
+									Nr. dutch ([1,6]) == 2
+									Nr. dutch ([1,6]) == 2
+									Nr. ¬(dutch) ((6,8]) == 0
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 0
+									Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+									Splitting on other constraints...
+										Subproblem:
+										----------
+										Solving 2 vars:
+											dutch ([1,6])
+											dutch ([1,6])
+										Choice constraints:
+										Count constraints:
+											Nr. dutch ([1,6]) == 2
+											Nr. dutch ([1,6]) == 2
+											Nr. ¬(dutch) ((6,8]) == 0
+										----------
+										Counting exchangeable...
+										Propagating Nr. dutch ([1,6]) == 2
+											Nr. dutch ([1,6]) == 2 already satisfied
+											Splitting on other constraints...
+												Subproblem:
+												----------
+												Solving 2 vars:
+													dutch ([1,6])
+													dutch ([1,6])
+												Choice constraints:
+												Count constraints:
+													Nr. dutch ([1,6]) == 2
+													Nr. ¬(dutch) ((6,8]) == 0
+												----------
+												Counting exchangeable...
+												Propagating Nr. dutch ([1,6]) == 2
+													Nr. dutch ([1,6]) == 2 already satisfied
+													Splitting on other constraints...
+														Subproblem:
+														----------
+														Solving 2 vars:
+															dutch ([1,6])
+															dutch ([1,6])
+														Choice constraints:
+														Count constraints:
+															Nr. ¬(dutch) ((6,8]) == 0
+														----------
+														Counting exchangeable...
+														Propagating Nr. ¬(dutch) ((6,8]) == 0
+															Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+															Splitting on other constraints...
+															... no other constraints
+															Counting permutations:
+															Falling factorial: 30
+															Counting domains: 30
+														=========
+														tot:30
+												=========
+												tot:30
+										=========
+										tot:30
+								=========
+								tot:30
+							Filtering domains...
+							  Case dutch ([1,6])
+							  Filtering 2 dutch ([1,6]) out of ¬(dutch) ((6,8]):
+							  Case ¬(dutch) ((6,8])
+								Subproblem:
+								----------
+								Solving 1 vars:
+									¬(dutch) ((6,8])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 0
+									Nr. dutch ([1,6]) == 1
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 0
+									Nr. ¬(dutch) ((6,8]) == 0 is unsat here
+								==========
+								Unsat: 0
+							Split result = 0
+						Solving combination 3: ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 3'] // ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 0']
+							Split class: dutch ([1,6])
+							Computing case combinations of rest classes...
+							Case (1, 1)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 3', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 1']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 0
+									Nr. dutch ([1,6]) == 3
+									Nr. dutch ([1,6]) == 1
+									Nr. ¬(dutch) ((6,8]) == 1
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 0
+									Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+									Splitting on other constraints...
+										Subproblem:
+										----------
+										Solving 2 vars:
+											dutch ([1,6])
+											dutch ([1,6])
+										Choice constraints:
+										Count constraints:
+											Nr. dutch ([1,6]) == 3
+											Nr. dutch ([1,6]) == 1
+											Nr. ¬(dutch) ((6,8]) == 1
+										----------
+										Counting exchangeable...
+										Propagating Nr. dutch ([1,6]) == 3
+											Nr. dutch ([1,6]) == 3 is unsat here
+										==========
+										Unsat: 0
+								=========
+								tot:0
+							Case (0, 2)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 3', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 2']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 0
+									Nr. dutch ([1,6]) == 3
+									Nr. dutch ([1,6]) == 0
+									Nr. ¬(dutch) ((6,8]) == 2
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 0
+									Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+									Splitting on other constraints...
+										Subproblem:
+										----------
+										Solving 2 vars:
+											dutch ([1,6])
+											dutch ([1,6])
+										Choice constraints:
+										Count constraints:
+											Nr. dutch ([1,6]) == 3
+											Nr. dutch ([1,6]) == 0
+											Nr. ¬(dutch) ((6,8]) == 2
+										----------
+										Counting exchangeable...
+										Propagating Nr. dutch ([1,6]) == 3
+											Nr. dutch ([1,6]) == 3 is unsat here
+										==========
+										Unsat: 0
+								=========
+								tot:0
+							Case (2, 0)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 3', 'Nr. dutch ([1,6]) == 2', 'Nr. ¬(dutch) ((6,8]) == 0']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 0
+									Nr. dutch ([1,6]) == 3
+									Nr. dutch ([1,6]) == 2
+									Nr. ¬(dutch) ((6,8]) == 0
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 0
+									Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+									Splitting on other constraints...
+										Subproblem:
+										----------
+										Solving 2 vars:
+											dutch ([1,6])
+											dutch ([1,6])
+										Choice constraints:
+										Count constraints:
+											Nr. dutch ([1,6]) == 3
+											Nr. dutch ([1,6]) == 2
+											Nr. ¬(dutch) ((6,8]) == 0
+										----------
+										Counting exchangeable...
+										Propagating Nr. dutch ([1,6]) == 3
+											Nr. dutch ([1,6]) == 3 is unsat here
+										==========
+										Unsat: 0
+								=========
+								tot:0
+						=========
+						tot:0
+				=========
+				tot:0
+				Subproblem:
+				----------
+				Solving 3 vars:
+					students ([1,8])
+					students ([1,8])
+					students ([1,8])
+				Choice constraints:
+				Count constraints:
+					Nr. dutch ([1,6]) == 3
+					Nr. ¬(dutch) ((6,8]) == 0
+					Nr. dutch ([1,6]) == 3
+				----------
+				Counting exchangeable...
+				Propagating Nr. dutch ([1,6]) == 3
+					3 exchangeable free vars: students ([1,8])
+					Splitting on other constraints...
+						Subproblem:
+						----------
+						Solving 3 vars:
+							dutch ([1,6])
+							dutch ([1,6])
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 0
+							Nr. dutch ([1,6]) == 3
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 0
+							Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+							Splitting on other constraints...
+								Subproblem:
+								----------
+								Solving 3 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. dutch ([1,6]) == 3
+								----------
+								Counting exchangeable...
+								Propagating Nr. dutch ([1,6]) == 3
+									Nr. dutch ([1,6]) == 3 already satisfied
+									Splitting on other constraints...
+									... no other constraints
+									Counting permutations:
+									Falling factorial: 120
+									Counting domains: 120
+								=========
+								tot:120
+						=========
+						tot:120
+				=========
+				tot:120
+		=========
+		tot:120
+	Filtering domains...
+	  Case ¬(dutch) ((6,8])
+	  Case dutch ([1,6])
+	  Filtering 3 dutch ([1,6]) out of dutch ([1,6]):
+		Subproblem:
+		----------
+		Solving 1 vars:
+			dutch ∧ ¬(dutch) ((1,2) | (2,3) | (3,6])
+		Choice constraints:
+		Count constraints:
+			Nr. dutch ([1,6]) >= 0
+		----------
+		Counting exchangeable...
+		Propagating Nr. dutch ([1,6]) >= 0
+			Expanding bounds [0,1]...
+				Subproblem:
+				----------
+				Solving 1 vars:
+					dutch ∧ ¬(dutch) ((1,2) | (2,3) | (3,6])
+				Choice constraints:
+				Count constraints:
+					Nr. dutch ([1,6]) == 0
+				----------
+				Counting exchangeable...
+				Propagating Nr. dutch ([1,6]) == 0
+					Nr. dutch ([1,6]) == 0 is unsat here
+				==========
+				Unsat: 0
+				Subproblem:
+				----------
+				Solving 1 vars:
+					dutch ∧ ¬(dutch) ((1,2) | (2,3) | (3,6])
+				Choice constraints:
+				Count constraints:
+					Nr. dutch ([1,6]) == 1
+				----------
+				Counting exchangeable...
+				Propagating Nr. dutch ([1,6]) == 1
+					Nr. dutch ([1,6]) == 1 already satisfied
+					Splitting on other constraints...
+					... no other constraints
+					Counting permutations:
+					Falling factorial: 3
+					Counting domains: 3
+				=========
+				tot:3
+		=========
+		tot:3
+	Split result = 360
+	Case (3, 0)
+	Case students ([1,8]) are ['Nr. dutch ([1,6]) >= 2', 'Nr. ¬(dutch) ((6,8]) == 3', 'Nr. dutch ([1,6]) == 0']:
+		Subproblem:
+		----------
+		Solving 3 vars:
+			students ([1,8])
+			students ([1,8])
+			students ([1,8])
+		Choice constraints:
+		Count constraints:
+			Nr. dutch ([1,6]) >= 2
+			Nr. ¬(dutch) ((6,8]) == 3
+			Nr. dutch ([1,6]) == 0
+		----------
+		Counting exchangeable...
+		Propagating Nr. dutch ([1,6]) >= 2
+			Expanding bounds [2,3]...
+				Subproblem:
+				----------
+				Solving 3 vars:
+					students ([1,8])
+					students ([1,8])
+					students ([1,8])
+				Choice constraints:
+				Count constraints:
+					Nr. dutch ([1,6]) == 2
+					Nr. ¬(dutch) ((6,8]) == 3
+					Nr. dutch ([1,6]) == 0
+				----------
+				Counting exchangeable...
+				Propagating Nr. dutch ([1,6]) == 2
+					3 exchangeable free vars: students ([1,8])
+					Splitting on other constraints...
+						Subproblem:
+						----------
+						Solving 3 vars:
+							dutch ([1,6])
+							dutch ([1,6])
+							¬(dutch) ((6,8])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 3
+							Nr. dutch ([1,6]) == 0
+						----------
+						Counting non-exchangeable...
+						Solving combination 0: ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 0'] // ['Nr. ¬(dutch) ((6,8]) == 3', 'Nr. dutch ([1,6]) == 0']
+							Split class: dutch ([1,6])
+							Computing case combinations of rest classes...
+							Case (1, 1)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 1']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 0
+									Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 1
+									Nr. ¬(dutch) ((6,8]) == 1
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 0
+									Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+									Splitting on other constraints...
+										Subproblem:
+										----------
+										Solving 2 vars:
+											dutch ([1,6])
+											dutch ([1,6])
+										Choice constraints:
+										Count constraints:
+											Nr. dutch ([1,6]) == 0
+											Nr. dutch ([1,6]) == 1
+											Nr. ¬(dutch) ((6,8]) == 1
+										----------
+										Counting exchangeable...
+										Propagating Nr. dutch ([1,6]) == 0
+											Nr. dutch ([1,6]) == 0 is unsat here
+										==========
+										Unsat: 0
+								=========
+								tot:0
+							Case (0, 2)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 2']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 0
+									Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 0
+									Nr. ¬(dutch) ((6,8]) == 2
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 0
+									Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+									Splitting on other constraints...
+										Subproblem:
+										----------
+										Solving 2 vars:
+											dutch ([1,6])
+											dutch ([1,6])
+										Choice constraints:
+										Count constraints:
+											Nr. dutch ([1,6]) == 0
+											Nr. dutch ([1,6]) == 0
+											Nr. ¬(dutch) ((6,8]) == 2
+										----------
+										Counting exchangeable...
+										Propagating Nr. dutch ([1,6]) == 0
+											Nr. dutch ([1,6]) == 0 is unsat here
+										==========
+										Unsat: 0
+								=========
+								tot:0
+							Case (2, 0)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 2', 'Nr. ¬(dutch) ((6,8]) == 0']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 0
+									Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 2
+									Nr. ¬(dutch) ((6,8]) == 0
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 0
+									Nr. ¬(dutch) ((6,8]) == 0 already satisfied
+									Splitting on other constraints...
+										Subproblem:
+										----------
+										Solving 2 vars:
+											dutch ([1,6])
+											dutch ([1,6])
+										Choice constraints:
+										Count constraints:
+											Nr. dutch ([1,6]) == 0
+											Nr. dutch ([1,6]) == 2
+											Nr. ¬(dutch) ((6,8]) == 0
+										----------
+										Counting exchangeable...
+										Propagating Nr. dutch ([1,6]) == 0
+											Nr. dutch ([1,6]) == 0 is unsat here
+										==========
+										Unsat: 0
+								=========
+								tot:0
+						Solving combination 1: ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 0'] // ['Nr. ¬(dutch) ((6,8]) == 2', 'Nr. dutch ([1,6]) == 0']
+							Split class: dutch ([1,6])
+							Computing case combinations of rest classes...
+							Case (1, 1)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 1']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 1
+									Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 1
+									Nr. ¬(dutch) ((6,8]) == 1
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 1
+									Nr. ¬(dutch) ((6,8]) == 1 is unsat here
+								==========
+								Unsat: 0
+							Case (0, 2)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 2']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 1
+									Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 0
+									Nr. ¬(dutch) ((6,8]) == 2
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 1
+									Nr. ¬(dutch) ((6,8]) == 1 is unsat here
+								==========
+								Unsat: 0
+							Case (2, 0)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 2', 'Nr. ¬(dutch) ((6,8]) == 0']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 1
+									Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 2
+									Nr. ¬(dutch) ((6,8]) == 0
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 1
+									Nr. ¬(dutch) ((6,8]) == 1 is unsat here
+								==========
+								Unsat: 0
+						Solving combination 2: ['Nr. ¬(dutch) ((6,8]) == 2', 'Nr. dutch ([1,6]) == 0'] // ['Nr. ¬(dutch) ((6,8]) == 1', 'Nr. dutch ([1,6]) == 0']
+							Split class: dutch ([1,6])
+							Computing case combinations of rest classes...
+							Case (1, 1)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 2', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 1']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 2
+									Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 1
+									Nr. ¬(dutch) ((6,8]) == 1
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 2
+									Nr. ¬(dutch) ((6,8]) == 2 is unsat here
+								==========
+								Unsat: 0
+							Case (0, 2)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 2', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 2']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 2
+									Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 0
+									Nr. ¬(dutch) ((6,8]) == 2
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 2
+									Nr. ¬(dutch) ((6,8]) == 2 is unsat here
+								==========
+								Unsat: 0
+							Case (2, 0)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 2', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 2', 'Nr. ¬(dutch) ((6,8]) == 0']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 2
+									Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 2
+									Nr. ¬(dutch) ((6,8]) == 0
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 2
+									Nr. ¬(dutch) ((6,8]) == 2 is unsat here
+								==========
+								Unsat: 0
+						Solving combination 3: ['Nr. ¬(dutch) ((6,8]) == 3', 'Nr. dutch ([1,6]) == 0'] // ['Nr. ¬(dutch) ((6,8]) == 0', 'Nr. dutch ([1,6]) == 0']
+							Split class: dutch ([1,6])
+							Computing case combinations of rest classes...
+							Case (1, 1)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 3', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 1', 'Nr. ¬(dutch) ((6,8]) == 1']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 3
+									Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 1
+									Nr. ¬(dutch) ((6,8]) == 1
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 3
+									Nr. ¬(dutch) ((6,8]) == 3 is unsat here
+								==========
+								Unsat: 0
+							Case (0, 2)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 3', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 0', 'Nr. ¬(dutch) ((6,8]) == 2']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 3
+									Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 0
+									Nr. ¬(dutch) ((6,8]) == 2
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 3
+									Nr. ¬(dutch) ((6,8]) == 3 is unsat here
+								==========
+								Unsat: 0
+							Case (2, 0)
+							Case dutch ([1,6]) are ['Nr. ¬(dutch) ((6,8]) == 3', 'Nr. dutch ([1,6]) == 0', 'Nr. dutch ([1,6]) == 2', 'Nr. ¬(dutch) ((6,8]) == 0']:
+								Subproblem:
+								----------
+								Solving 2 vars:
+									dutch ([1,6])
+									dutch ([1,6])
+								Choice constraints:
+								Count constraints:
+									Nr. ¬(dutch) ((6,8]) == 3
+									Nr. dutch ([1,6]) == 0
+									Nr. dutch ([1,6]) == 2
+									Nr. ¬(dutch) ((6,8]) == 0
+								----------
+								Counting exchangeable...
+								Propagating Nr. ¬(dutch) ((6,8]) == 3
+									Nr. ¬(dutch) ((6,8]) == 3 is unsat here
+								==========
+								Unsat: 0
+						=========
+						tot:0
+				=========
+				tot:0
+				Subproblem:
+				----------
+				Solving 3 vars:
+					students ([1,8])
+					students ([1,8])
+					students ([1,8])
+				Choice constraints:
+				Count constraints:
+					Nr. dutch ([1,6]) == 3
+					Nr. ¬(dutch) ((6,8]) == 3
+					Nr. dutch ([1,6]) == 0
+				----------
+				Counting exchangeable...
+				Propagating Nr. dutch ([1,6]) == 3
+					3 exchangeable free vars: students ([1,8])
+					Splitting on other constraints...
+						Subproblem:
+						----------
+						Solving 3 vars:
+							dutch ([1,6])
+							dutch ([1,6])
+							dutch ([1,6])
+						Choice constraints:
+						Count constraints:
+							Nr. ¬(dutch) ((6,8]) == 3
+							Nr. dutch ([1,6]) == 0
+						----------
+						Counting exchangeable...
+						Propagating Nr. ¬(dutch) ((6,8]) == 3
+							Nr. ¬(dutch) ((6,8]) == 3 is unsat here
+						==========
+						Unsat: 0
+				=========
+				tot:0
+		=========
+		tot:0
+=========
+tot:1260

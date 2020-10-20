@@ -1,0 +1,102 @@
+Running solver...
+Choice set:dom1 ([2,3])
+----------
+Solving 4 vars:
+	universe ([1,5])
+	universe ([1,5])
+	dom1 ([2,3])
+	universe ([1,5])
+Choice constraints:
+	Position 3: dom1 ([2,3])
+Count constraints:
+	Nr. dom2 ([4,5]) == 1
+----------
+Counting non-exchangeable...
+Solving combination 0: ['Nr. dom2 ([4,5]) == 0'] // ['Nr. dom2 ([4,5]) == 1']
+Split class :
+	Subproblem:
+	----------
+	Solving 3 vars:
+		universe ([1,5])
+		universe ([1,5])
+		universe ([1,5])
+	Choice constraints:
+	Count constraints:
+		Nr. dom2 ([4,5]) == 0
+	----------
+	Counting exchangeable...
+	Propagating Nr. dom2 ([4,5]) == 0
+		3 exchangeable free vars: universe ([1,5])
+		Splitting on other constraints...
+		... no other constraints
+		Counting sequences:
+		¬(dom2) ([1,4))
+		¬(dom2) ([1,4))
+		¬(dom2) ([1,4))
+			Domain product: 27
+		Counting domains: 27
+	=========
+	tot:27
+Rest class: 
+	Subproblem:
+	----------
+	Solving 1 vars:
+		dom1 ([2,3])
+	Choice constraints:
+	Count constraints:
+		Nr. dom2 ([4,5]) == 1
+	----------
+	Counting exchangeable...
+	Propagating Nr. dom2 ([4,5]) == 1
+		Nr. dom2 ([4,5]) == 1 is unsat here
+	==========
+	Unsat: 0
+==========
+Solving combination 1: ['Nr. dom2 ([4,5]) == 1'] // ['Nr. dom2 ([4,5]) == 0']
+Split class :
+	Subproblem:
+	----------
+	Solving 3 vars:
+		universe ([1,5])
+		universe ([1,5])
+		universe ([1,5])
+	Choice constraints:
+	Count constraints:
+		Nr. dom2 ([4,5]) == 1
+	----------
+	Counting exchangeable...
+	Propagating Nr. dom2 ([4,5]) == 1
+		3 exchangeable free vars: universe ([1,5])
+		Splitting on other constraints...
+		... no other constraints
+		Counting sequences:
+		dom2 ([4,5])
+		¬(dom2) ([1,4))
+		¬(dom2) ([1,4))
+			Domain product: 18
+		Counting domains: 18
+	=========
+	tot:54
+Rest class: 
+	Subproblem:
+	----------
+	Solving 1 vars:
+		dom1 ([2,3])
+	Choice constraints:
+	Count constraints:
+		Nr. dom2 ([4,5]) == 0
+	----------
+	Counting exchangeable...
+	Propagating Nr. dom2 ([4,5]) == 0
+		Nr. dom2 ([4,5]) == 0 already satisfied
+		Splitting on other constraints...
+		... no other constraints
+		Counting sequences:
+		dom1 ([2,3])
+			Domain product: 2
+		Counting domains: 2
+	=========
+	tot:2
+==========
+=========
+tot:108

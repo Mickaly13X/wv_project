@@ -1,0 +1,217 @@
+Running solver...
+----------
+Solving 8 vars:
+	universe ([1,30])
+	universe ([1,30])
+	universe ([1,30])
+	universe ([1,30])
+	universe ([1,30])
+	universe ([1,30])
+	universe ([1,30])
+	universe ([1,30])
+Choice constraints:
+Count constraints:
+	Nr. dom1 ∧ dom2 ([18,26]) \= 6
+----------
+Counting exchangeable...
+Propagating Nr. dom1 ∧ dom2 ([18,26]) \= 6
+	There are 0 fixed elements
+	Counting domains: 5852925
+	8 exchangeable free vars: universe ([1,30])
+	Splitting on other constraints...
+	... no other constraints
+	There are 0 fixed elements
+	Splitting injectivity...
+		Split class: dom1 ∧ dom2 ([18,26])
+		Computing case combinations of rest classes...
+		Case (5, 1)
+		Case dom1 ∧ dom2 ([18,26]) are ['Nr. dom1 ∧ dom2 ([18,26]) == 5', 'Nr. ¬(dom1 ∧ dom2) ([1,18) | (26,30]) == 1']:
+			Subproblem:
+			----------
+			Solving 6 vars:
+				dom1 ∧ dom2 ([18,26])
+				dom1 ∧ dom2 ([18,26])
+				dom1 ∧ dom2 ([18,26])
+				dom1 ∧ dom2 ([18,26])
+				dom1 ∧ dom2 ([18,26])
+				dom1 ∧ dom2 ([18,26])
+			Choice constraints:
+			Count constraints:
+				Nr. dom1 ∧ dom2 ([18,26]) == 5
+				Nr. ¬(dom1 ∧ dom2) ([1,18) | (26,30]) == 1
+			----------
+			Counting exchangeable...
+			Propagating Nr. dom1 ∧ dom2 ([18,26]) == 5
+				Nr. dom1 ∧ dom2 ([18,26]) == 5 is unsat here
+			==========
+			Unsat: 0
+		Case (1, 5)
+		Case dom1 ∧ dom2 ([18,26]) are ['Nr. dom1 ∧ dom2 ([18,26]) == 1', 'Nr. ¬(dom1 ∧ dom2) ([1,18) | (26,30]) == 5']:
+			Subproblem:
+			----------
+			Solving 6 vars:
+				dom1 ∧ dom2 ([18,26])
+				dom1 ∧ dom2 ([18,26])
+				dom1 ∧ dom2 ([18,26])
+				dom1 ∧ dom2 ([18,26])
+				dom1 ∧ dom2 ([18,26])
+				dom1 ∧ dom2 ([18,26])
+			Choice constraints:
+			Count constraints:
+				Nr. dom1 ∧ dom2 ([18,26]) == 1
+				Nr. ¬(dom1 ∧ dom2) ([1,18) | (26,30]) == 5
+			----------
+			Counting exchangeable...
+			Propagating Nr. dom1 ∧ dom2 ([18,26]) == 1
+				Nr. dom1 ∧ dom2 ([18,26]) == 1 is unsat here
+			==========
+			Unsat: 0
+		Case (2, 4)
+		Case dom1 ∧ dom2 ([18,26]) are ['Nr. dom1 ∧ dom2 ([18,26]) == 2', 'Nr. ¬(dom1 ∧ dom2) ([1,18) | (26,30]) == 4']:
+			Subproblem:
+			----------
+			Solving 6 vars:
+				dom1 ∧ dom2 ([18,26])
+				dom1 ∧ dom2 ([18,26])
+				dom1 ∧ dom2 ([18,26])
+				dom1 ∧ dom2 ([18,26])
+				dom1 ∧ dom2 ([18,26])
+				dom1 ∧ dom2 ([18,26])
+			Choice constraints:
+			Count constraints:
+				Nr. dom1 ∧ dom2 ([18,26]) == 2
+				Nr. ¬(dom1 ∧ dom2) ([1,18) | (26,30]) == 4
+			----------
+			Counting exchangeable...
+			Propagating Nr. dom1 ∧ dom2 ([18,26]) == 2
+				Nr. dom1 ∧ dom2 ([18,26]) == 2 is unsat here
+			==========
+			Unsat: 0
+		Case (4, 2)
+		Case dom1 ∧ dom2 ([18,26]) are ['Nr. dom1 ∧ dom2 ([18,26]) == 4', 'Nr. ¬(dom1 ∧ dom2) ([1,18) | (26,30]) == 2']:
+			Subproblem:
+			----------
+			Solving 6 vars:
+				dom1 ∧ dom2 ([18,26])
+				dom1 ∧ dom2 ([18,26])
+				dom1 ∧ dom2 ([18,26])
+				dom1 ∧ dom2 ([18,26])
+				dom1 ∧ dom2 ([18,26])
+				dom1 ∧ dom2 ([18,26])
+			Choice constraints:
+			Count constraints:
+				Nr. dom1 ∧ dom2 ([18,26]) == 4
+				Nr. ¬(dom1 ∧ dom2) ([1,18) | (26,30]) == 2
+			----------
+			Counting exchangeable...
+			Propagating Nr. dom1 ∧ dom2 ([18,26]) == 4
+				Nr. dom1 ∧ dom2 ([18,26]) == 4 is unsat here
+			==========
+			Unsat: 0
+		Case (3, 3)
+		Case dom1 ∧ dom2 ([18,26]) are ['Nr. dom1 ∧ dom2 ([18,26]) == 3', 'Nr. ¬(dom1 ∧ dom2) ([1,18) | (26,30]) == 3']:
+			Subproblem:
+			----------
+			Solving 6 vars:
+				dom1 ∧ dom2 ([18,26])
+				dom1 ∧ dom2 ([18,26])
+				dom1 ∧ dom2 ([18,26])
+				dom1 ∧ dom2 ([18,26])
+				dom1 ∧ dom2 ([18,26])
+				dom1 ∧ dom2 ([18,26])
+			Choice constraints:
+			Count constraints:
+				Nr. dom1 ∧ dom2 ([18,26]) == 3
+				Nr. ¬(dom1 ∧ dom2) ([1,18) | (26,30]) == 3
+			----------
+			Counting exchangeable...
+			Propagating Nr. dom1 ∧ dom2 ([18,26]) == 3
+				Nr. dom1 ∧ dom2 ([18,26]) == 3 is unsat here
+			==========
+			Unsat: 0
+		Case (0, 6)
+		Case dom1 ∧ dom2 ([18,26]) are ['Nr. dom1 ∧ dom2 ([18,26]) == 0', 'Nr. ¬(dom1 ∧ dom2) ([1,18) | (26,30]) == 6']:
+			Subproblem:
+			----------
+			Solving 6 vars:
+				dom1 ∧ dom2 ([18,26])
+				dom1 ∧ dom2 ([18,26])
+				dom1 ∧ dom2 ([18,26])
+				dom1 ∧ dom2 ([18,26])
+				dom1 ∧ dom2 ([18,26])
+				dom1 ∧ dom2 ([18,26])
+			Choice constraints:
+			Count constraints:
+				Nr. dom1 ∧ dom2 ([18,26]) == 0
+				Nr. ¬(dom1 ∧ dom2) ([1,18) | (26,30]) == 6
+			----------
+			Counting exchangeable...
+			Propagating Nr. dom1 ∧ dom2 ([18,26]) == 0
+				Nr. dom1 ∧ dom2 ([18,26]) == 0 is unsat here
+			==========
+			Unsat: 0
+		Case (6, 0)
+		Case dom1 ∧ dom2 ([18,26]) are ['Nr. dom1 ∧ dom2 ([18,26]) == 6', 'Nr. ¬(dom1 ∧ dom2) ([1,18) | (26,30]) == 0']:
+			Subproblem:
+			----------
+			Solving 6 vars:
+				dom1 ∧ dom2 ([18,26])
+				dom1 ∧ dom2 ([18,26])
+				dom1 ∧ dom2 ([18,26])
+				dom1 ∧ dom2 ([18,26])
+				dom1 ∧ dom2 ([18,26])
+				dom1 ∧ dom2 ([18,26])
+			Choice constraints:
+			Count constraints:
+				Nr. dom1 ∧ dom2 ([18,26]) == 6
+				Nr. ¬(dom1 ∧ dom2) ([1,18) | (26,30]) == 0
+			----------
+			Counting exchangeable...
+			Propagating Nr. dom1 ∧ dom2 ([18,26]) == 6
+				Nr. dom1 ∧ dom2 ([18,26]) == 6 already satisfied
+				Splitting on other constraints...
+					Subproblem:
+					----------
+					Solving 6 vars:
+						dom1 ∧ dom2 ([18,26])
+						dom1 ∧ dom2 ([18,26])
+						dom1 ∧ dom2 ([18,26])
+						dom1 ∧ dom2 ([18,26])
+						dom1 ∧ dom2 ([18,26])
+						dom1 ∧ dom2 ([18,26])
+					Choice constraints:
+					Count constraints:
+						Nr. ¬(dom1 ∧ dom2) ([1,18) | (26,30]) == 0
+					----------
+					Counting exchangeable...
+					Propagating Nr. ¬(dom1 ∧ dom2) ([1,18) | (26,30]) == 0
+						Nr. ¬(dom1 ∧ dom2) ([1,18) | (26,30]) == 0 already satisfied
+						Splitting on other constraints...
+						... no other constraints
+						There are 0 fixed elements
+						Counting domains: 84
+					=========
+					tot:84
+			=========
+			tot:84
+		Filtering domains...
+		  Case dom1 ∧ dom2 ([18,26])
+		  Filtering 6 dom1 ∧ dom2 ([18,26]) out of ¬(dom1 ∧ dom2) ([1,18) | (26,30]):
+		  Filtering 6 dom1 ∧ dom2 ([18,26]) out of ¬(dom1 ∧ dom2) ([1,18) | (26,30]):
+		  Case ¬(dom1 ∧ dom2) ([1,18) | (26,30])
+			Subproblem:
+			----------
+			Solving 2 vars:
+				¬(dom1 ∧ dom2) ([1,18) | (26,30])
+				¬(dom1 ∧ dom2) ([1,18) | (26,30])
+			Choice constraints:
+			Count constraints:
+			----------
+			There are 0 fixed elements
+			Counting domains: 210
+			=========
+			tot:210
+		Split result = 17640
+	Counting domains: 17640
+=========
+tot:5835285

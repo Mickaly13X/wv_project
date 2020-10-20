@@ -1,0 +1,769 @@
+Running solver...
+----------
+Solving 8 vars:
+	universe ([1,10])
+	universe ([1,10])
+	universe ([1,10])
+	universe ([1,10])
+	universe ([1,10])
+	universe ([1,10])
+	universe ([1,10])
+	universe ([1,10])
+Choice constraints:
+Count constraints:
+	Nr. dom1 ([4,8]) < 6
+----------
+Counting exchangeable...
+Propagating Nr. dom1 ([4,8]) < 6
+	Expanding bounds [0,5]...
+		Subproblem:
+		----------
+		Solving 8 vars:
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+		Choice constraints:
+		Count constraints:
+			Nr. dom1 ([4,8]) == 0
+		----------
+		Counting exchangeable...
+		Propagating Nr. dom1 ([4,8]) == 0
+			8 exchangeable free vars: universe ([1,10])
+			Splitting on other constraints...
+			... no other constraints
+			There are 0 fixed elements
+			Counting domains: 0
+		=========
+		tot:0
+		Subproblem:
+		----------
+		Solving 8 vars:
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+		Choice constraints:
+		Count constraints:
+			Nr. dom1 ([4,8]) == 1
+		----------
+		Counting exchangeable...
+		Propagating Nr. dom1 ([4,8]) == 1
+			8 exchangeable free vars: universe ([1,10])
+			Splitting on other constraints...
+			... no other constraints
+			There are 0 fixed elements
+			Splitting injectivity...
+				Split class: dom1 ([4,8])
+				Computing case combinations of rest classes...
+				Case (1, 0)
+				Case dom1 ([4,8]) are ['Nr. dom1 ([4,8]) == 1', 'Nr. ¬(dom1) ([1,4) | (8,10]) == 0']:
+					Subproblem:
+					----------
+					Solving 1 vars:
+						dom1 ([4,8])
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ([4,8]) == 1
+						Nr. ¬(dom1) ([1,4) | (8,10]) == 0
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ([4,8]) == 1
+						Nr. dom1 ([4,8]) == 1 already satisfied
+						Splitting on other constraints...
+							Subproblem:
+							----------
+							Solving 1 vars:
+								dom1 ([4,8])
+							Choice constraints:
+							Count constraints:
+								Nr. ¬(dom1) ([1,4) | (8,10]) == 0
+							----------
+							Counting exchangeable...
+							Propagating Nr. ¬(dom1) ([1,4) | (8,10]) == 0
+								Nr. ¬(dom1) ([1,4) | (8,10]) == 0 already satisfied
+								Splitting on other constraints...
+								... no other constraints
+								There are 0 fixed elements
+								Counting domains: 5
+							=========
+							tot:5
+					=========
+					tot:5
+				Filtering domains...
+				  Case dom1 ([4,8])
+				  Filtering 1 dom1 ([4,8]) out of ¬(dom1) ([1,4) | (8,10]):
+				  Filtering 1 dom1 ([4,8]) out of ¬(dom1) ([1,4) | (8,10]):
+				  Filtering 1 dom1 ([4,8]) out of ¬(dom1) ([1,4) | (8,10]):
+				  Filtering 1 dom1 ([4,8]) out of ¬(dom1) ([1,4) | (8,10]):
+				  Filtering 1 dom1 ([4,8]) out of ¬(dom1) ([1,4) | (8,10]):
+				  Filtering 1 dom1 ([4,8]) out of ¬(dom1) ([1,4) | (8,10]):
+				  Filtering 1 dom1 ([4,8]) out of ¬(dom1) ([1,4) | (8,10]):
+				  Case ¬(dom1) ([1,4) | (8,10])
+					Subproblem:
+					----------
+					Solving 7 vars:
+						¬(dom1) ([1,4) | (8,10])
+						¬(dom1) ([1,4) | (8,10])
+						¬(dom1) ([1,4) | (8,10])
+						¬(dom1) ([1,4) | (8,10])
+						¬(dom1) ([1,4) | (8,10])
+						¬(dom1) ([1,4) | (8,10])
+						¬(dom1) ([1,4) | (8,10])
+					Choice constraints:
+					Count constraints:
+					----------
+					There are 0 fixed elements
+					Counting domains: 0
+					=========
+					tot:0
+				Split result = 0
+				Case (0, 1)
+				Case dom1 ([4,8]) are ['Nr. dom1 ([4,8]) == 0', 'Nr. ¬(dom1) ([1,4) | (8,10]) == 1']:
+					Subproblem:
+					----------
+					Solving 1 vars:
+						dom1 ([4,8])
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ([4,8]) == 0
+						Nr. ¬(dom1) ([1,4) | (8,10]) == 1
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ([4,8]) == 0
+						Nr. dom1 ([4,8]) == 0 is unsat here
+					==========
+					Unsat: 0
+			Counting domains: 0
+		=========
+		tot:0
+		Subproblem:
+		----------
+		Solving 8 vars:
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+		Choice constraints:
+		Count constraints:
+			Nr. dom1 ([4,8]) == 2
+		----------
+		Counting exchangeable...
+		Propagating Nr. dom1 ([4,8]) == 2
+			8 exchangeable free vars: universe ([1,10])
+			Splitting on other constraints...
+			... no other constraints
+			There are 0 fixed elements
+			Splitting injectivity...
+				Split class: dom1 ([4,8])
+				Computing case combinations of rest classes...
+				Case (1, 1)
+				Case dom1 ([4,8]) are ['Nr. dom1 ([4,8]) == 1', 'Nr. ¬(dom1) ([1,4) | (8,10]) == 1']:
+					Subproblem:
+					----------
+					Solving 2 vars:
+						dom1 ([4,8])
+						dom1 ([4,8])
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ([4,8]) == 1
+						Nr. ¬(dom1) ([1,4) | (8,10]) == 1
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ([4,8]) == 1
+						Nr. dom1 ([4,8]) == 1 is unsat here
+					==========
+					Unsat: 0
+				Case (0, 2)
+				Case dom1 ([4,8]) are ['Nr. dom1 ([4,8]) == 0', 'Nr. ¬(dom1) ([1,4) | (8,10]) == 2']:
+					Subproblem:
+					----------
+					Solving 2 vars:
+						dom1 ([4,8])
+						dom1 ([4,8])
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ([4,8]) == 0
+						Nr. ¬(dom1) ([1,4) | (8,10]) == 2
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ([4,8]) == 0
+						Nr. dom1 ([4,8]) == 0 is unsat here
+					==========
+					Unsat: 0
+				Case (2, 0)
+				Case dom1 ([4,8]) are ['Nr. dom1 ([4,8]) == 2', 'Nr. ¬(dom1) ([1,4) | (8,10]) == 0']:
+					Subproblem:
+					----------
+					Solving 2 vars:
+						dom1 ([4,8])
+						dom1 ([4,8])
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ([4,8]) == 2
+						Nr. ¬(dom1) ([1,4) | (8,10]) == 0
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ([4,8]) == 2
+						Nr. dom1 ([4,8]) == 2 already satisfied
+						Splitting on other constraints...
+							Subproblem:
+							----------
+							Solving 2 vars:
+								dom1 ([4,8])
+								dom1 ([4,8])
+							Choice constraints:
+							Count constraints:
+								Nr. ¬(dom1) ([1,4) | (8,10]) == 0
+							----------
+							Counting exchangeable...
+							Propagating Nr. ¬(dom1) ([1,4) | (8,10]) == 0
+								Nr. ¬(dom1) ([1,4) | (8,10]) == 0 already satisfied
+								Splitting on other constraints...
+								... no other constraints
+								There are 0 fixed elements
+								Counting domains: 10
+							=========
+							tot:10
+					=========
+					tot:10
+				Filtering domains...
+				  Case dom1 ([4,8])
+				  Filtering 2 dom1 ([4,8]) out of ¬(dom1) ([1,4) | (8,10]):
+				  Filtering 2 dom1 ([4,8]) out of ¬(dom1) ([1,4) | (8,10]):
+				  Filtering 2 dom1 ([4,8]) out of ¬(dom1) ([1,4) | (8,10]):
+				  Filtering 2 dom1 ([4,8]) out of ¬(dom1) ([1,4) | (8,10]):
+				  Filtering 2 dom1 ([4,8]) out of ¬(dom1) ([1,4) | (8,10]):
+				  Filtering 2 dom1 ([4,8]) out of ¬(dom1) ([1,4) | (8,10]):
+				  Case ¬(dom1) ([1,4) | (8,10])
+					Subproblem:
+					----------
+					Solving 6 vars:
+						¬(dom1) ([1,4) | (8,10])
+						¬(dom1) ([1,4) | (8,10])
+						¬(dom1) ([1,4) | (8,10])
+						¬(dom1) ([1,4) | (8,10])
+						¬(dom1) ([1,4) | (8,10])
+						¬(dom1) ([1,4) | (8,10])
+					Choice constraints:
+					Count constraints:
+					----------
+					There are 0 fixed elements
+					Counting domains: 0
+					=========
+					tot:0
+				Split result = 0
+			Counting domains: 0
+		=========
+		tot:0
+		Subproblem:
+		----------
+		Solving 8 vars:
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+		Choice constraints:
+		Count constraints:
+			Nr. dom1 ([4,8]) == 3
+		----------
+		Counting exchangeable...
+		Propagating Nr. dom1 ([4,8]) == 3
+			8 exchangeable free vars: universe ([1,10])
+			Splitting on other constraints...
+			... no other constraints
+			There are 0 fixed elements
+			Splitting injectivity...
+				Split class: dom1 ([4,8])
+				Computing case combinations of rest classes...
+				Case (1, 2)
+				Case dom1 ([4,8]) are ['Nr. dom1 ([4,8]) == 1', 'Nr. ¬(dom1) ([1,4) | (8,10]) == 2']:
+					Subproblem:
+					----------
+					Solving 3 vars:
+						dom1 ([4,8])
+						dom1 ([4,8])
+						dom1 ([4,8])
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ([4,8]) == 1
+						Nr. ¬(dom1) ([1,4) | (8,10]) == 2
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ([4,8]) == 1
+						Nr. dom1 ([4,8]) == 1 is unsat here
+					==========
+					Unsat: 0
+				Case (2, 1)
+				Case dom1 ([4,8]) are ['Nr. dom1 ([4,8]) == 2', 'Nr. ¬(dom1) ([1,4) | (8,10]) == 1']:
+					Subproblem:
+					----------
+					Solving 3 vars:
+						dom1 ([4,8])
+						dom1 ([4,8])
+						dom1 ([4,8])
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ([4,8]) == 2
+						Nr. ¬(dom1) ([1,4) | (8,10]) == 1
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ([4,8]) == 2
+						Nr. dom1 ([4,8]) == 2 is unsat here
+					==========
+					Unsat: 0
+				Case (0, 3)
+				Case dom1 ([4,8]) are ['Nr. dom1 ([4,8]) == 0', 'Nr. ¬(dom1) ([1,4) | (8,10]) == 3']:
+					Subproblem:
+					----------
+					Solving 3 vars:
+						dom1 ([4,8])
+						dom1 ([4,8])
+						dom1 ([4,8])
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ([4,8]) == 0
+						Nr. ¬(dom1) ([1,4) | (8,10]) == 3
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ([4,8]) == 0
+						Nr. dom1 ([4,8]) == 0 is unsat here
+					==========
+					Unsat: 0
+				Case (3, 0)
+				Case dom1 ([4,8]) are ['Nr. dom1 ([4,8]) == 3', 'Nr. ¬(dom1) ([1,4) | (8,10]) == 0']:
+					Subproblem:
+					----------
+					Solving 3 vars:
+						dom1 ([4,8])
+						dom1 ([4,8])
+						dom1 ([4,8])
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ([4,8]) == 3
+						Nr. ¬(dom1) ([1,4) | (8,10]) == 0
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ([4,8]) == 3
+						Nr. dom1 ([4,8]) == 3 already satisfied
+						Splitting on other constraints...
+							Subproblem:
+							----------
+							Solving 3 vars:
+								dom1 ([4,8])
+								dom1 ([4,8])
+								dom1 ([4,8])
+							Choice constraints:
+							Count constraints:
+								Nr. ¬(dom1) ([1,4) | (8,10]) == 0
+							----------
+							Counting exchangeable...
+							Propagating Nr. ¬(dom1) ([1,4) | (8,10]) == 0
+								Nr. ¬(dom1) ([1,4) | (8,10]) == 0 already satisfied
+								Splitting on other constraints...
+								... no other constraints
+								There are 0 fixed elements
+								Counting domains: 10
+							=========
+							tot:10
+					=========
+					tot:10
+				Filtering domains...
+				  Case dom1 ([4,8])
+				  Filtering 3 dom1 ([4,8]) out of ¬(dom1) ([1,4) | (8,10]):
+				  Filtering 3 dom1 ([4,8]) out of ¬(dom1) ([1,4) | (8,10]):
+				  Filtering 3 dom1 ([4,8]) out of ¬(dom1) ([1,4) | (8,10]):
+				  Filtering 3 dom1 ([4,8]) out of ¬(dom1) ([1,4) | (8,10]):
+				  Filtering 3 dom1 ([4,8]) out of ¬(dom1) ([1,4) | (8,10]):
+				  Case ¬(dom1) ([1,4) | (8,10])
+					Subproblem:
+					----------
+					Solving 5 vars:
+						¬(dom1) ([1,4) | (8,10])
+						¬(dom1) ([1,4) | (8,10])
+						¬(dom1) ([1,4) | (8,10])
+						¬(dom1) ([1,4) | (8,10])
+						¬(dom1) ([1,4) | (8,10])
+					Choice constraints:
+					Count constraints:
+					----------
+					There are 0 fixed elements
+					Counting domains: 1
+					=========
+					tot:1
+				Split result = 10
+			Counting domains: 10
+		=========
+		tot:10
+		Subproblem:
+		----------
+		Solving 8 vars:
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+		Choice constraints:
+		Count constraints:
+			Nr. dom1 ([4,8]) == 4
+		----------
+		Counting exchangeable...
+		Propagating Nr. dom1 ([4,8]) == 4
+			8 exchangeable free vars: universe ([1,10])
+			Splitting on other constraints...
+			... no other constraints
+			There are 0 fixed elements
+			Splitting injectivity...
+				Split class: dom1 ([4,8])
+				Computing case combinations of rest classes...
+				Case (3, 1)
+				Case dom1 ([4,8]) are ['Nr. dom1 ([4,8]) == 3', 'Nr. ¬(dom1) ([1,4) | (8,10]) == 1']:
+					Subproblem:
+					----------
+					Solving 4 vars:
+						dom1 ([4,8])
+						dom1 ([4,8])
+						dom1 ([4,8])
+						dom1 ([4,8])
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ([4,8]) == 3
+						Nr. ¬(dom1) ([1,4) | (8,10]) == 1
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ([4,8]) == 3
+						Nr. dom1 ([4,8]) == 3 is unsat here
+					==========
+					Unsat: 0
+				Case (1, 3)
+				Case dom1 ([4,8]) are ['Nr. dom1 ([4,8]) == 1', 'Nr. ¬(dom1) ([1,4) | (8,10]) == 3']:
+					Subproblem:
+					----------
+					Solving 4 vars:
+						dom1 ([4,8])
+						dom1 ([4,8])
+						dom1 ([4,8])
+						dom1 ([4,8])
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ([4,8]) == 1
+						Nr. ¬(dom1) ([1,4) | (8,10]) == 3
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ([4,8]) == 1
+						Nr. dom1 ([4,8]) == 1 is unsat here
+					==========
+					Unsat: 0
+				Case (2, 2)
+				Case dom1 ([4,8]) are ['Nr. dom1 ([4,8]) == 2', 'Nr. ¬(dom1) ([1,4) | (8,10]) == 2']:
+					Subproblem:
+					----------
+					Solving 4 vars:
+						dom1 ([4,8])
+						dom1 ([4,8])
+						dom1 ([4,8])
+						dom1 ([4,8])
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ([4,8]) == 2
+						Nr. ¬(dom1) ([1,4) | (8,10]) == 2
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ([4,8]) == 2
+						Nr. dom1 ([4,8]) == 2 is unsat here
+					==========
+					Unsat: 0
+				Case (4, 0)
+				Case dom1 ([4,8]) are ['Nr. dom1 ([4,8]) == 4', 'Nr. ¬(dom1) ([1,4) | (8,10]) == 0']:
+					Subproblem:
+					----------
+					Solving 4 vars:
+						dom1 ([4,8])
+						dom1 ([4,8])
+						dom1 ([4,8])
+						dom1 ([4,8])
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ([4,8]) == 4
+						Nr. ¬(dom1) ([1,4) | (8,10]) == 0
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ([4,8]) == 4
+						Nr. dom1 ([4,8]) == 4 already satisfied
+						Splitting on other constraints...
+							Subproblem:
+							----------
+							Solving 4 vars:
+								dom1 ([4,8])
+								dom1 ([4,8])
+								dom1 ([4,8])
+								dom1 ([4,8])
+							Choice constraints:
+							Count constraints:
+								Nr. ¬(dom1) ([1,4) | (8,10]) == 0
+							----------
+							Counting exchangeable...
+							Propagating Nr. ¬(dom1) ([1,4) | (8,10]) == 0
+								Nr. ¬(dom1) ([1,4) | (8,10]) == 0 already satisfied
+								Splitting on other constraints...
+								... no other constraints
+								There are 0 fixed elements
+								Counting domains: 5
+							=========
+							tot:5
+					=========
+					tot:5
+				Filtering domains...
+				  Case dom1 ([4,8])
+				  Filtering 4 dom1 ([4,8]) out of ¬(dom1) ([1,4) | (8,10]):
+				  Filtering 4 dom1 ([4,8]) out of ¬(dom1) ([1,4) | (8,10]):
+				  Filtering 4 dom1 ([4,8]) out of ¬(dom1) ([1,4) | (8,10]):
+				  Filtering 4 dom1 ([4,8]) out of ¬(dom1) ([1,4) | (8,10]):
+				  Case ¬(dom1) ([1,4) | (8,10])
+					Subproblem:
+					----------
+					Solving 4 vars:
+						¬(dom1) ([1,4) | (8,10])
+						¬(dom1) ([1,4) | (8,10])
+						¬(dom1) ([1,4) | (8,10])
+						¬(dom1) ([1,4) | (8,10])
+					Choice constraints:
+					Count constraints:
+					----------
+					There are 0 fixed elements
+					Counting domains: 5
+					=========
+					tot:5
+				Split result = 25
+				Case (0, 4)
+				Case dom1 ([4,8]) are ['Nr. dom1 ([4,8]) == 0', 'Nr. ¬(dom1) ([1,4) | (8,10]) == 4']:
+					Subproblem:
+					----------
+					Solving 4 vars:
+						dom1 ([4,8])
+						dom1 ([4,8])
+						dom1 ([4,8])
+						dom1 ([4,8])
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ([4,8]) == 0
+						Nr. ¬(dom1) ([1,4) | (8,10]) == 4
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ([4,8]) == 0
+						Nr. dom1 ([4,8]) == 0 is unsat here
+					==========
+					Unsat: 0
+			Counting domains: 25
+		=========
+		tot:25
+		Subproblem:
+		----------
+		Solving 8 vars:
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+		Choice constraints:
+		Count constraints:
+			Nr. dom1 ([4,8]) == 5
+		----------
+		Counting exchangeable...
+		Propagating Nr. dom1 ([4,8]) == 5
+			8 exchangeable free vars: universe ([1,10])
+			Splitting on other constraints...
+			... no other constraints
+			There are 0 fixed elements
+			Splitting injectivity...
+				Split class: dom1 ([4,8])
+				Computing case combinations of rest classes...
+				Case (4, 1)
+				Case dom1 ([4,8]) are ['Nr. dom1 ([4,8]) == 4', 'Nr. ¬(dom1) ([1,4) | (8,10]) == 1']:
+					Subproblem:
+					----------
+					Solving 5 vars:
+						dom1 ([4,8])
+						dom1 ([4,8])
+						dom1 ([4,8])
+						dom1 ([4,8])
+						dom1 ([4,8])
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ([4,8]) == 4
+						Nr. ¬(dom1) ([1,4) | (8,10]) == 1
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ([4,8]) == 4
+						Nr. dom1 ([4,8]) == 4 is unsat here
+					==========
+					Unsat: 0
+				Case (1, 4)
+				Case dom1 ([4,8]) are ['Nr. dom1 ([4,8]) == 1', 'Nr. ¬(dom1) ([1,4) | (8,10]) == 4']:
+					Subproblem:
+					----------
+					Solving 5 vars:
+						dom1 ([4,8])
+						dom1 ([4,8])
+						dom1 ([4,8])
+						dom1 ([4,8])
+						dom1 ([4,8])
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ([4,8]) == 1
+						Nr. ¬(dom1) ([1,4) | (8,10]) == 4
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ([4,8]) == 1
+						Nr. dom1 ([4,8]) == 1 is unsat here
+					==========
+					Unsat: 0
+				Case (2, 3)
+				Case dom1 ([4,8]) are ['Nr. dom1 ([4,8]) == 2', 'Nr. ¬(dom1) ([1,4) | (8,10]) == 3']:
+					Subproblem:
+					----------
+					Solving 5 vars:
+						dom1 ([4,8])
+						dom1 ([4,8])
+						dom1 ([4,8])
+						dom1 ([4,8])
+						dom1 ([4,8])
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ([4,8]) == 2
+						Nr. ¬(dom1) ([1,4) | (8,10]) == 3
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ([4,8]) == 2
+						Nr. dom1 ([4,8]) == 2 is unsat here
+					==========
+					Unsat: 0
+				Case (3, 2)
+				Case dom1 ([4,8]) are ['Nr. dom1 ([4,8]) == 3', 'Nr. ¬(dom1) ([1,4) | (8,10]) == 2']:
+					Subproblem:
+					----------
+					Solving 5 vars:
+						dom1 ([4,8])
+						dom1 ([4,8])
+						dom1 ([4,8])
+						dom1 ([4,8])
+						dom1 ([4,8])
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ([4,8]) == 3
+						Nr. ¬(dom1) ([1,4) | (8,10]) == 2
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ([4,8]) == 3
+						Nr. dom1 ([4,8]) == 3 is unsat here
+					==========
+					Unsat: 0
+				Case (5, 0)
+				Case dom1 ([4,8]) are ['Nr. dom1 ([4,8]) == 5', 'Nr. ¬(dom1) ([1,4) | (8,10]) == 0']:
+					Subproblem:
+					----------
+					Solving 5 vars:
+						dom1 ([4,8])
+						dom1 ([4,8])
+						dom1 ([4,8])
+						dom1 ([4,8])
+						dom1 ([4,8])
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ([4,8]) == 5
+						Nr. ¬(dom1) ([1,4) | (8,10]) == 0
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ([4,8]) == 5
+						Nr. dom1 ([4,8]) == 5 already satisfied
+						Splitting on other constraints...
+							Subproblem:
+							----------
+							Solving 5 vars:
+								dom1 ([4,8])
+								dom1 ([4,8])
+								dom1 ([4,8])
+								dom1 ([4,8])
+								dom1 ([4,8])
+							Choice constraints:
+							Count constraints:
+								Nr. ¬(dom1) ([1,4) | (8,10]) == 0
+							----------
+							Counting exchangeable...
+							Propagating Nr. ¬(dom1) ([1,4) | (8,10]) == 0
+								Nr. ¬(dom1) ([1,4) | (8,10]) == 0 already satisfied
+								Splitting on other constraints...
+								... no other constraints
+								There are 0 fixed elements
+								Counting domains: 1
+							=========
+							tot:1
+					=========
+					tot:1
+				Filtering domains...
+				  Case dom1 ([4,8])
+				  Filtering 5 dom1 ([4,8]) out of ¬(dom1) ([1,4) | (8,10]):
+				  Filtering 5 dom1 ([4,8]) out of ¬(dom1) ([1,4) | (8,10]):
+				  Filtering 5 dom1 ([4,8]) out of ¬(dom1) ([1,4) | (8,10]):
+				  Case ¬(dom1) ([1,4) | (8,10])
+					Subproblem:
+					----------
+					Solving 3 vars:
+						¬(dom1) ([1,4) | (8,10])
+						¬(dom1) ([1,4) | (8,10])
+						¬(dom1) ([1,4) | (8,10])
+					Choice constraints:
+					Count constraints:
+					----------
+					There are 0 fixed elements
+					Counting domains: 10
+					=========
+					tot:10
+				Split result = 10
+				Case (0, 5)
+				Case dom1 ([4,8]) are ['Nr. dom1 ([4,8]) == 0', 'Nr. ¬(dom1) ([1,4) | (8,10]) == 5']:
+					Subproblem:
+					----------
+					Solving 5 vars:
+						dom1 ([4,8])
+						dom1 ([4,8])
+						dom1 ([4,8])
+						dom1 ([4,8])
+						dom1 ([4,8])
+					Choice constraints:
+					Count constraints:
+						Nr. dom1 ([4,8]) == 0
+						Nr. ¬(dom1) ([1,4) | (8,10]) == 5
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom1 ([4,8]) == 0
+						Nr. dom1 ([4,8]) == 0 is unsat here
+					==========
+					Unsat: 0
+			Counting domains: 10
+		=========
+		tot:10
+=========
+tot:45

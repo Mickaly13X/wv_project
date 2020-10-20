@@ -1,0 +1,170 @@
+Running solver...
+----------
+Solving 4 vars:
+	universe ([1,10])
+	universe ([1,10])
+	universe ([1,10])
+	universe ([1,10])
+Choice constraints:
+Count constraints:
+	Nr. ¬(dom2) ([1,6)) > 2
+----------
+Counting exchangeable...
+Propagating Nr. ¬(dom2) ([1,6)) > 2
+	Expanding bounds [3,4]...
+		Subproblem:
+		----------
+		Solving 4 vars:
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+		Choice constraints:
+		Count constraints:
+			Nr. ¬(dom2) ([1,6)) == 3
+		----------
+		Counting exchangeable...
+		Propagating Nr. ¬(dom2) ([1,6)) == 3
+			4 exchangeable free vars: universe ([1,10])
+			Splitting on other constraints...
+			... no other constraints
+			Counting permutations:
+			Splitting injectivity...
+				Split class: ¬(dom2) ([1,6))
+				Computing case combinations of rest classes...
+				Case (1, 2)
+				Case ¬(dom2) ([1,6)) are ['Nr. ¬(dom2) ([1,6)) == 1', 'Nr. dom2 ([6,10]) == 2']:
+					Subproblem:
+					----------
+					Solving 3 vars:
+						¬(dom2) ([1,6))
+						¬(dom2) ([1,6))
+						¬(dom2) ([1,6))
+					Choice constraints:
+					Count constraints:
+						Nr. ¬(dom2) ([1,6)) == 1
+						Nr. dom2 ([6,10]) == 2
+					----------
+					Counting exchangeable...
+					Propagating Nr. ¬(dom2) ([1,6)) == 1
+						Nr. ¬(dom2) ([1,6)) == 1 is unsat here
+					==========
+					Unsat: 0
+				Case (2, 1)
+				Case ¬(dom2) ([1,6)) are ['Nr. ¬(dom2) ([1,6)) == 2', 'Nr. dom2 ([6,10]) == 1']:
+					Subproblem:
+					----------
+					Solving 3 vars:
+						¬(dom2) ([1,6))
+						¬(dom2) ([1,6))
+						¬(dom2) ([1,6))
+					Choice constraints:
+					Count constraints:
+						Nr. ¬(dom2) ([1,6)) == 2
+						Nr. dom2 ([6,10]) == 1
+					----------
+					Counting exchangeable...
+					Propagating Nr. ¬(dom2) ([1,6)) == 2
+						Nr. ¬(dom2) ([1,6)) == 2 is unsat here
+					==========
+					Unsat: 0
+				Case (0, 3)
+				Case ¬(dom2) ([1,6)) are ['Nr. ¬(dom2) ([1,6)) == 0', 'Nr. dom2 ([6,10]) == 3']:
+					Subproblem:
+					----------
+					Solving 3 vars:
+						¬(dom2) ([1,6))
+						¬(dom2) ([1,6))
+						¬(dom2) ([1,6))
+					Choice constraints:
+					Count constraints:
+						Nr. ¬(dom2) ([1,6)) == 0
+						Nr. dom2 ([6,10]) == 3
+					----------
+					Counting exchangeable...
+					Propagating Nr. ¬(dom2) ([1,6)) == 0
+						Nr. ¬(dom2) ([1,6)) == 0 is unsat here
+					==========
+					Unsat: 0
+				Case (3, 0)
+				Case ¬(dom2) ([1,6)) are ['Nr. ¬(dom2) ([1,6)) == 3', 'Nr. dom2 ([6,10]) == 0']:
+					Subproblem:
+					----------
+					Solving 3 vars:
+						¬(dom2) ([1,6))
+						¬(dom2) ([1,6))
+						¬(dom2) ([1,6))
+					Choice constraints:
+					Count constraints:
+						Nr. ¬(dom2) ([1,6)) == 3
+						Nr. dom2 ([6,10]) == 0
+					----------
+					Counting exchangeable...
+					Propagating Nr. ¬(dom2) ([1,6)) == 3
+						Nr. ¬(dom2) ([1,6)) == 3 already satisfied
+						Splitting on other constraints...
+							Subproblem:
+							----------
+							Solving 3 vars:
+								¬(dom2) ([1,6))
+								¬(dom2) ([1,6))
+								¬(dom2) ([1,6))
+							Choice constraints:
+							Count constraints:
+								Nr. dom2 ([6,10]) == 0
+							----------
+							Counting exchangeable...
+							Propagating Nr. dom2 ([6,10]) == 0
+								Nr. dom2 ([6,10]) == 0 already satisfied
+								Splitting on other constraints...
+								... no other constraints
+								Counting permutations:
+								Falling factorial: 60
+								Counting domains: 60
+							=========
+							tot:60
+					=========
+					tot:60
+				Filtering domains...
+				  Case ¬(dom2) ([1,6))
+				  Filtering 3 ¬(dom2) ([1,6)) out of dom2 ([6,10]):
+				  Case dom2 ([6,10])
+					Subproblem:
+					----------
+					Solving 1 vars:
+						dom2 ([6,10])
+					Choice constraints:
+					Count constraints:
+					----------
+					Counting permutations:
+					Falling factorial: 5
+					Counting domains: 5
+					=========
+					tot:5
+				Split result = 300
+			Counting domains: 300
+		=========
+		tot:1200
+		Subproblem:
+		----------
+		Solving 4 vars:
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+			universe ([1,10])
+		Choice constraints:
+		Count constraints:
+			Nr. ¬(dom2) ([1,6)) == 4
+		----------
+		Counting exchangeable...
+		Propagating Nr. ¬(dom2) ([1,6)) == 4
+			4 exchangeable free vars: universe ([1,10])
+			Splitting on other constraints...
+			... no other constraints
+			Counting permutations:
+			Falling factorial: 120
+			Counting domains: 120
+		=========
+		tot:120
+=========
+tot:1320

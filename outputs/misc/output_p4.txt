@@ -1,0 +1,108 @@
+Running solver...
+----------
+Solving 3 vars:
+	universe ([1,4])
+	universe ([1,4])
+	universe ([1,4])
+Choice constraints:
+Count constraints:
+	Nr. ¬(dom2) ((2,4]) == 2
+----------
+Counting exchangeable...
+Propagating Nr. ¬(dom2) ((2,4]) == 2
+	3 exchangeable free vars: universe ([1,4])
+	Splitting on other constraints...
+	... no other constraints
+	There are 0 fixed elements
+	Splitting injectivity...
+		Split class: ¬(dom2) ((2,4])
+		Computing case combinations of rest classes...
+		Case (1, 1)
+		Case ¬(dom2) ((2,4]) are ['Nr. ¬(dom2) ((2,4]) == 1', 'Nr. dom2 ([1,2]) == 1']:
+			Subproblem:
+			----------
+			Solving 2 vars:
+				¬(dom2) ((2,4])
+				¬(dom2) ((2,4])
+			Choice constraints:
+			Count constraints:
+				Nr. ¬(dom2) ((2,4]) == 1
+				Nr. dom2 ([1,2]) == 1
+			----------
+			Counting exchangeable...
+			Propagating Nr. ¬(dom2) ((2,4]) == 1
+				Nr. ¬(dom2) ((2,4]) == 1 is unsat here
+			==========
+			Unsat: 0
+		Case (0, 2)
+		Case ¬(dom2) ((2,4]) are ['Nr. ¬(dom2) ((2,4]) == 0', 'Nr. dom2 ([1,2]) == 2']:
+			Subproblem:
+			----------
+			Solving 2 vars:
+				¬(dom2) ((2,4])
+				¬(dom2) ((2,4])
+			Choice constraints:
+			Count constraints:
+				Nr. ¬(dom2) ((2,4]) == 0
+				Nr. dom2 ([1,2]) == 2
+			----------
+			Counting exchangeable...
+			Propagating Nr. ¬(dom2) ((2,4]) == 0
+				Nr. ¬(dom2) ((2,4]) == 0 is unsat here
+			==========
+			Unsat: 0
+		Case (2, 0)
+		Case ¬(dom2) ((2,4]) are ['Nr. ¬(dom2) ((2,4]) == 2', 'Nr. dom2 ([1,2]) == 0']:
+			Subproblem:
+			----------
+			Solving 2 vars:
+				¬(dom2) ((2,4])
+				¬(dom2) ((2,4])
+			Choice constraints:
+			Count constraints:
+				Nr. ¬(dom2) ((2,4]) == 2
+				Nr. dom2 ([1,2]) == 0
+			----------
+			Counting exchangeable...
+			Propagating Nr. ¬(dom2) ((2,4]) == 2
+				Nr. ¬(dom2) ((2,4]) == 2 already satisfied
+				Splitting on other constraints...
+					Subproblem:
+					----------
+					Solving 2 vars:
+						¬(dom2) ((2,4])
+						¬(dom2) ((2,4])
+					Choice constraints:
+					Count constraints:
+						Nr. dom2 ([1,2]) == 0
+					----------
+					Counting exchangeable...
+					Propagating Nr. dom2 ([1,2]) == 0
+						Nr. dom2 ([1,2]) == 0 already satisfied
+						Splitting on other constraints...
+						... no other constraints
+						There are 0 fixed elements
+						Counting domains: 1
+					=========
+					tot:1
+			=========
+			tot:1
+		Filtering domains...
+		  Case ¬(dom2) ((2,4])
+		  Filtering 2 ¬(dom2) ((2,4]) out of dom2 ([1,2]):
+		  Case dom2 ([1,2])
+			Subproblem:
+			----------
+			Solving 1 vars:
+				dom2 ([1,2])
+			Choice constraints:
+			Count constraints:
+			----------
+			There are 0 fixed elements
+			Counting domains: 2
+			=========
+			tot:2
+		Split result = 2
+	Counting domains: 2
+=========
+tot:2

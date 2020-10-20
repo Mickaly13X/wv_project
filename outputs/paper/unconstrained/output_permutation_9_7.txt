@@ -1,0 +1,18 @@
+Running solver...
+----------
+Solving 7 vars:
+	universe ([1,9])
+	universe ([1,9])
+	universe ([1,9])
+	universe ([1,9])
+	universe ([1,9])
+	universe ([1,9])
+	universe ([1,9])
+Choice constraints:
+Count constraints:
+----------
+Counting permutations:
+Falling factorial: 181440
+Counting domains: 181440
+=========
+tot:181440

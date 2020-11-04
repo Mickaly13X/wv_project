@@ -7,7 +7,6 @@ const ROOM_W = 1024
 const COLORS = [Color(1, 0, 0, 0.3), Color(0, 1, 0, 0.3), Color(0, 0, 1, 0.3)]
 
 func _ready():
-	
 	randomize()
 	set_diagram([5, 10, 15, 1, 0, 1, 0])
 

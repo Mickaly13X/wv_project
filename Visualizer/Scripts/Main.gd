@@ -5,7 +5,7 @@ var diagrams = []
 
 const ROOM_H = 600
 const ROOM_W = 1024
-const COLORS = [Color(1, 0, 0, 0.33), Color(0, 1, 0, 0.33), Color(0, 0, 1, 0.33)]
+const COLORS = [Color(1, 0.3, 0.3, 0.33), Color(0.3, 1, 0.3, 0.33), Color(0.3, 0.3, 1, 0.33)]
 
 func _ready():
 	randomize()
@@ -126,7 +126,6 @@ func set_diagram(venn_areas : Array) -> void:
 		diagrams.append(new_diagram)
 	
 	print("exit_code " + str(exit_code))
-
 #domains is a list of ONLY the values of dictionary
 func get_venn_areas(domains):
 	var venn_area = []

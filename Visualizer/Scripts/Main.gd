@@ -11,7 +11,7 @@ func _ready():
 	randomize()
 	var domains = get_domains(get_input())
 	print(domains)
-	set_diagram([5, 10, 15, 1, 0, 1, 0])
+	set_diagram(get_venn_areas(domains.values()))
 
 func _process(delta):
 	if Input.is_action_just_pressed("ui_accept"):
@@ -126,8 +126,25 @@ func set_diagram(venn_areas : Array) -> void:
 	
 	print("exit_code " + str(exit_code))
 
-
-
+#domains is a list of ONLY the values of dictionary
+func get_venn_areas(domains):
+	var venn_area = []
+	for i in domains:
+		venn_area.append(len(i))
+	if len(domains) == 2:
+		for i in domains:
+			for j in domains:
+				if j != i:
+					venn_area.append(len(intersection(i,j)))
+			break
+	return venn_area
+	
+func intersection(array1, array2):
+	var intersection = []
+	for item in array1:
+		if array2.has(item):
+			intersection.append(item)
+	return intersection
 
 
 

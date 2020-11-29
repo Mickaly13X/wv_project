@@ -5,7 +5,7 @@ var diagrams = []
 
 const ROOM_H = 600
 const ROOM_W = 1024
-const COLORS = [Color(1, 0, 0, 0.3), Color(0, 1, 0, 0.3), Color(0, 0, 1, 0.3)]
+const COLORS = [Color(1, 0, 0, 0.33), Color(0, 1, 0, 0.33), Color(0, 0, 1, 0.33)]
 
 func _ready():
 	randomize()

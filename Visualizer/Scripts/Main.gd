@@ -9,7 +9,8 @@ const COLORS = [Color(1, 0, 0, 0.3), Color(0, 1, 0, 0.3), Color(0, 0, 1, 0.3)]
 
 func _ready():
 	randomize()
-	var domains = get_domains(get_input())
+	var file_path = "res://tests/paper/constrained/permutation_5_4.test"
+	var domains = get_domains(get_input(file_path))
 	print(domains)
 	set_diagram(get_venn_areas(domains.values()))
 
@@ -21,9 +22,9 @@ func _draw():
 	for i in range(len(diagrams)):
 		draw_circle_custom(diagrams[i].radius, diagrams[i].pos, COLORS[i])
 
-func get_input():
+func get_input(file_path):
 	var file = File.new()
-	file.open("res://tests/paper/constrained/permutation_5_4.test", File.READ)
+	file.open(file_path, File.READ)
 	var content = file.get_as_text()
 	file.close()
 	return content.replace("\n","").split(".")

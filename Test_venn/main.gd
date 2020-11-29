@@ -8,7 +8,7 @@ const COLORS = [Color(1, 0, 0, 0.3), Color(0, 1, 0, 0.3), Color(0, 0, 1, 0.3)]
 
 func _ready():
 	randomize()
-	set_diagram([5, 10, 15, 1, 0, 1, 0])
+	set_diagram([5, 5, 5, 3, 3, 3, 1])
 
 func _process(delta):
 	if Input.is_action_just_pressed("ui_accept"):
@@ -46,7 +46,10 @@ func set_diagram(venn_areas : Array) -> void:
 	for i in venn_areas:
 		args.append(str(i))
 	var output = []
+	
+	# execute python
 	var exit_code = OS.execute("python", args, true, output)
+	
 	output = str(output[0]).split("\n")
 	
 	for i in range(venn_size):

@@ -8,13 +8,14 @@ const ROOM_W = 1024
 const COLORS = [Color(1, 0.3, 0.3, 0.33), Color(0.3, 1, 0.3, 0.33), Color(0.3, 0.3, 1, 0.33)]
 
 func _ready():
+	
 	randomize()
 	var file_path = "res://tests/paper/constrained/permutation_5_4.test"
 	var domains = get_domains(get_input(file_path))
 	print(domains)
 	set_diagram(get_venn_areas(domains.values()))
 
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_just_pressed("ui_accept"):
 		get_tree().reload_current_scene()
 
@@ -22,19 +23,40 @@ func _draw():
 	for i in range(len(diagrams)):
 		draw_circle_custom(diagrams[i].radius, diagrams[i].pos, COLORS[i])
 
+func draw_circle_custom(radius : float, pos : Vector2, color : Color = Color.white, maxerror = 0.25):
+
+	if radius <= 0.0:
+		return
+	
+	var maxpoints = 1024 # I think this is renderer limit
+	
+	var numpoints = ceil(PI / acos(1.0 - maxerror / radius))
+	numpoints = clamp(numpoints, 3, maxpoints)
+	
+	var points = PoolVector2Array([])
+	
+	for i in numpoints:
+		var phi = i * PI * 2.0 / numpoints
+		var v = Vector2(sin(phi), cos(phi))
+		points.push_back(v * radius + pos)
+	
+	draw_colored_polygon(points, color)
+
 func get_input(file_path):
+	
 	var file = File.new()
 	file.open(file_path, File.READ)
 	var content = file.get_as_text()
 	file.close()
 	return content.replace("\n","").split(".")
-	
+
 func get_ouput():
 	#TODO
 	pass
 
 #Returns a dictionary with name(of domain):value
 func get_domains(input):
+	
 	var domain = {} #the dict to be returned
 	var domain_strings = []
 	for i in input:
@@ -56,11 +78,11 @@ func get_domains(input):
 			highest[0] = len(domain[key])
 			highest[1] = key
 		domain.erase(highest[1])
-
+	
 	return domain
-	
-	
+
 func get_domain_name(domain_string):
+	
 	var regex = RegEx.new()
 	regex.compile("^\\w*") #regex: ^\w*
 	var result = regex.search(domain_string)
@@ -70,6 +92,7 @@ func get_domain_name(domain_string):
 
 #Only works for intervals for now
 func get_domain_value(domain_string):
+	
 	var regex = RegEx.new()
 	regex.compile("\\[.*\\]") #regex: [.*]
 	var result = regex.search(domain_string)
@@ -84,26 +107,27 @@ func get_domain_value(domain_string):
 		return range(int(values[0]),int(values[1])+1)
 	return -1
 
+# domains is a list of ONLY the values of dictionary
+func get_venn_areas(domains):
+	
+	var venn_areas = []
+	
+	# main sets
+	for i in domains:
+		venn_areas.append(len(i))
+	# intersections
+	if len(domains) == 2:
+		venn_areas.append(len(intersection(domains[0], domains[1])))
+	
+	return venn_areas
 
-
-func draw_circle_custom(radius : float, pos : Vector2, color : Color = Color.white, maxerror = 0.25):
-
-	if radius <= 0.0:
-		return
+func intersection(array1, array2):
 	
-	var maxpoints = 1024 # I think this is renderer limit
-	
-	var numpoints = ceil(PI / acos(1.0 - maxerror / radius))
-	numpoints = clamp(numpoints, 3, maxpoints)
-	
-	var points = PoolVector2Array([])
-	
-	for i in numpoints:
-		var phi = i * PI * 2.0 / numpoints
-		var v = Vector2(sin(phi), cos(phi))
-		points.push_back(v * radius + pos)
-	
-	draw_colored_polygon(points, color)
+	var intersection = []
+	for item in array1:
+		if array2.has(item):
+			intersection.append(item)
+	return intersection
 
 # for 2-part venns, use 'venn_areas' = [A, B, AB]
 # for 3-part venns, use 'venn_areas' = [A, B, C, AB, BC, AC, ABC]
@@ -126,26 +150,3 @@ func set_diagram(venn_areas : Array) -> void:
 		diagrams.append(new_diagram)
 	
 	print("exit_code " + str(exit_code))
-#domains is a list of ONLY the values of dictionary
-func get_venn_areas(domains):
-	var venn_area = []
-	for i in domains:
-		venn_area.append(len(i))
-	if len(domains) == 2:
-		for i in domains:
-			for j in domains:
-				if j != i:
-					venn_area.append(len(intersection(i,j)))
-			break
-	return venn_area
-	
-func intersection(array1, array2):
-	var intersection = []
-	for item in array1:
-		if array2.has(item):
-			intersection.append(item)
-	return intersection
-
-
-
-

@@ -118,7 +118,11 @@ func get_venn_areas(domains):
 	# intersections
 	if len(domains) == 2:
 		venn_areas.append(len(intersection(domains[0], domains[1])))
-	
+	elif len(domains) == 3:
+		venn_areas.append(len(intersection(domains[0], domains[1])))
+		venn_areas.append(len(intersection(domains[1], domains[2])))
+		venn_areas.append(len(intersection(domains[2], domains[0])))
+		venn_areas.append(len(intersection(intersection(domains[0], domains[1]),domains[2])))
 	return venn_areas
 
 func intersection(array1, array2):

@@ -10,18 +10,18 @@ const COLORS = [Color(1, 0.3, 0.3, 0.33), Color(0.3, 1, 0.3, 0.33), Color(0.3, 0
 func _ready():
 	
 	randomize()
-	var file_path = "res://tests/paper/constrained/permutation_5_4.test"
-	var domains = get_domains(get_input(file_path))
-	print(domains)
-	set_diagram(get_venn_areas(domains.values()))
+	#var file_path = "res://tests/paper/constrained/permutation_5_4.test"
+	#var domains = get_domains(get_input(file_path))
+	#print(domains)
+	#set_diagram(get_venn_areas(domains.values()))
 
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_accept"):
 		get_tree().reload_current_scene()
 
-func _draw():
-	for i in range(len(diagrams)):
-		draw_circle_custom(diagrams[i].radius, diagrams[i].pos, COLORS[i])
+#func _draw():
+#	for i in range(len(diagrams)):
+#		draw_circle_custom(diagrams[i].radius, diagrams[i].pos, COLORS[i])
 
 func draw_circle_custom(radius : float, pos : Vector2, color : Color = Color.white, maxerror = 0.25):
 

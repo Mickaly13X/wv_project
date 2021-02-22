@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scripts/main.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Set.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scripts/P_AddSet.gd" type="Script" id=3]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
@@ -14,6 +15,7 @@ margin_right = 1024.0
 margin_bottom = 600.0
 color = Color( 0, 0, 0, 1 )
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -22,3 +24,139 @@ position = Vector2( 230.927, 225 )
 
 [node name="SetX" parent="." instance=ExtResource( 2 )]
 position = Vector2( 585.994, 225 )
+
+[node name="B_AddSet" type="Button" parent="."]
+margin_left = 484.715
+margin_top = 42.5513
+margin_right = 545.715
+margin_bottom = 62.5513
+text = "Add Set"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="P_AddSet" type="Panel" parent="."]
+margin_left = 390.0
+margin_top = 159.272
+margin_right = 647.0
+margin_bottom = 380.272
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="L_Elements2" type="Label" parent="P_AddSet"]
+margin_left = 98.0655
+margin_top = 10.46
+margin_right = 158.065
+margin_bottom = 24.46
+text = "Add a set"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="L_Name" type="Label" parent="P_AddSet"]
+margin_left = 13.8719
+margin_top = 40.1847
+margin_right = 53.8719
+margin_bottom = 54.1847
+text = "Name"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LE_Name" type="LineEdit" parent="P_AddSet/L_Name"]
+margin_left = 57.0481
+margin_top = -5.43266
+margin_right = 226.048
+margin_bottom = 18.5673
+max_length = 20
+placeholder_text = "Name"
+caret_blink = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="B_Add" type="Button" parent="P_AddSet"]
+margin_left = 112.314
+margin_top = 191.272
+margin_right = 149.314
+margin_bottom = 211.272
+text = "Add"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CB_Distinguishable" type="CheckBox" parent="P_AddSet"]
+margin_left = 9.19846
+margin_top = 98.9796
+margin_right = 33.1985
+margin_bottom = 122.98
+focus_mode = 0
+shortcut_in_tooltip = false
+enabled_focus_mode = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="L_Distiguishable" type="Label" parent="P_AddSet/CB_Distinguishable"]
+margin_left = 23.1198
+margin_top = 5.65152
+margin_right = 122.12
+margin_bottom = 19.6515
+text = "Distinguishable"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="L_Size" type="Label" parent="P_AddSet"]
+margin_left = 14.055
+margin_top = 73.3701
+margin_right = 49.055
+margin_bottom = 87.3701
+text = "Size"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MB_Size" type="MenuButton" parent="P_AddSet/L_Size"]
+margin_left = 46.2407
+margin_top = -3.90219
+margin_right = 84.2407
+margin_bottom = 16.0978
+text = "--"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="P_AddSet"]
+margin_left = 12.5633
+margin_top = 134.401
+margin_right = 141.563
+margin_bottom = 154.401
+text = "Advanced Settings"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Popup" type="WindowDialog" parent="."]
+margin_left = 447.744
+margin_top = 250.84
+margin_right = 594.744
+margin_bottom = 315.84
+
+[node name="L_Popup" type="Label" parent="Popup"]
+margin_left = 14.0
+margin_top = 14.0
+margin_right = 134.0
+margin_bottom = 53.0
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="button_up" from="B_AddSet" to="." method="_on_B_AddSet_button_up"]
+[connection signal="pressed" from="P_AddSet/B_Add" to="." method="_on_B_Add_pressed"]

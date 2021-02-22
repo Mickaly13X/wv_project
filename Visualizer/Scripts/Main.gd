@@ -1,14 +1,19 @@
 extends Node2D
 
+const Exception = preload("res://util/ExceptionIDs.gd")
+
 var not_domains = ["structure","size","pos","count","not","inter","union","in"]
 var diagrams = []
 
 const ROOM_H = 600
 const ROOM_W = 1024
 const COLORS = [Color(1, 0.3, 0.3, 0.33), Color(0.3, 1, 0.3, 0.33), Color(0.3, 0.3, 1, 0.33)]
+const MAX_SET_SIZE = 10
+
 
 func _ready():
-	
+	add_menu_button_items()
+	init_menu_buttons()
 	randomize()
 	#var file_path = "res://tests/paper/constrained/permutation_5_4.test"
 	#var domains = get_domains(get_input(file_path))
@@ -154,3 +159,57 @@ func set_diagram(venn_areas : Array) -> void:
 		diagrams.append(new_diagram)
 	
 	print("exit_code " + str(exit_code))
+
+#Initiate the menu button items
+func add_menu_button_items():
+	
+	for i in range(MAX_SET_SIZE):
+		
+		#to add zero before single digits like 01, 02 instead of 1, 2
+		var numberstr = "0"+str(i+1) if i+1<10 else str(i+1)
+		$P_AddSet/L_Size/MB_Size.get_popup().add_item(numberstr)
+
+#Initialize menu buttons
+func init_menu_buttons():
+	
+	$P_AddSet/L_Size/MB_Size.get_popup().connect("id_pressed", self, "_on_size_item_pressed")
+
+
+
+
+#Called when pressing on a size menu button (MB_Size) item
+func _on_size_item_pressed(id):
+	
+	var selected_size = $P_AddSet/L_Size/MB_Size.get_popup().get_item_text(id)
+	$P_AddSet/L_Size/MB_Size.text = selected_size
+
+
+#called when pressing on the Add Set Button
+func _on_B_AddSet_button_up():
+	
+	$P_AddSet.show()
+
+#Called when pressing on the Add button in the AddSet Popup
+func _on_B_Add_pressed():
+	
+	var return_value = $P_AddSet.return_input_validity()
+	
+	if return_value == 0:
+		#TODO actually add the set
+		
+		$P_AddSet.clear_user_input()
+		
+		$P_AddSet.hide()
+		
+	elif return_value == Exception.NoName:
+		$Popup/L_Popup.text = "Please specify a name"
+	
+	elif return_value == Exception.NoSize:
+		$Popup/L_Popup.text = "Please choose a size"
+	
+	$Popup.popup()
+
+
+
+
+

@@ -179,7 +179,7 @@ func init_menu_buttons():
 func add_set(set_name, size, distinguishable):
 	
 	var new_set = SET.instance()
-	new_set.sname = set_name
+	new_set.set_name(set_name)
 	new_set.size = size
 	new_set.distinguishable = distinguishable
 	new_set.position = Vector2(256,150)

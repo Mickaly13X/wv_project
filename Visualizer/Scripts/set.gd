@@ -15,6 +15,11 @@ func _ready():
 	pass
 
 
+func set_name(new_name):
+	sname = new_name
+	$L_Name.text = new_name
+
+
 #TODO add ability to add names to elements -> adv settings
 func add_element():
 	

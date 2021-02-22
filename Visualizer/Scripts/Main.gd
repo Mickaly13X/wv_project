@@ -2,6 +2,7 @@ extends Node2D
 
 const Exception = preload("res://util/ExceptionIDs.gd")
 
+onready var SET = preload("res://Scenes/Set.tscn")
 var not_domains = ["structure","size","pos","count","not","inter","union","in"]
 var diagrams = []
 
@@ -167,49 +168,38 @@ func add_menu_button_items():
 		
 		#to add zero before single digits like 01, 02 instead of 1, 2
 		var numberstr = "0"+str(i+1) if i+1<10 else str(i+1)
-		$P_AddSet/L_Size/MB_Size.get_popup().add_item(numberstr)
+		$PU_AddSet/MB_Size.get_popup().add_item(numberstr)
 
 #Initialize menu buttons
 func init_menu_buttons():
 	
-	$P_AddSet/L_Size/MB_Size.get_popup().connect("id_pressed", self, "_on_size_item_pressed")
+	$PU_AddSet/MB_Size.get_popup().connect("id_pressed", self, "_on_size_item_pressed")
 
 
+func add_set(set_name, size, distinguishable):
+	
+	var new_set = SET.instance()
+	new_set.sname = set_name
+	new_set.size = size
+	new_set.distinguishable = distinguishable
+	new_set.position = Vector2(256,150)
+
+	for i in range(size):
+		
+		new_set.add_element()
+	
+	$Sets.add_child(new_set)
 
 
 #Called when pressing on a size menu button (MB_Size) item
 func _on_size_item_pressed(id):
 	
-	var selected_size = $P_AddSet/L_Size/MB_Size.get_popup().get_item_text(id)
-	$P_AddSet/L_Size/MB_Size.text = selected_size
+	var selected_size = $PU_AddSet/MB_Size.get_popup().get_item_text(id)
+	$PU_AddSet/MB_Size.text = selected_size
 
 
 #called when pressing on the Add Set Button
 func _on_B_AddSet_button_up():
 	
-	$P_AddSet.show()
-
-#Called when pressing on the Add button in the AddSet Popup
-func _on_B_Add_pressed():
-	
-	var return_value = $P_AddSet.return_input_validity()
-	
-	if return_value == 0:
-		#TODO actually add the set
-		
-		$P_AddSet.clear_user_input()
-		
-		$P_AddSet.hide()
-		
-	elif return_value == Exception.NoName:
-		$Popup/L_Popup.text = "Please specify a name"
-	
-	elif return_value == Exception.NoSize:
-		$Popup/L_Popup.text = "Please choose a size"
-	
-	$Popup.popup()
-
-
-
-
+	$PU_AddSet.popup()
 

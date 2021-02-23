@@ -60,5 +60,5 @@ func _on_B_Add_button_up():
 
 
 func _on_B_AdvancedSettings_button_up():
+	
 	$PU_AdvancedSettings.popup()
-	pass # Replace with function body.

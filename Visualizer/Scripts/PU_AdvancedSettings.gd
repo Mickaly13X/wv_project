@@ -8,4 +8,5 @@ func _ready():
 
 
 func _on_B_Done_button_up():
+	
 	self.hide()

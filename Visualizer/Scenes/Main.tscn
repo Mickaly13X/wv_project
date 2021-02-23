@@ -172,9 +172,9 @@ __meta__ = {
 
 [node name="PU_AdvancedSettings" type="Popup" parent="PU_AddSet"]
 visible = true
-margin_left = 0.824951
+margin_left = 1.48993
 margin_top = 1.21393
-margin_right = 1034.59
+margin_right = 1035.25
 margin_bottom = 609.214
 popup_exclusive = true
 script = ExtResource( 3 )

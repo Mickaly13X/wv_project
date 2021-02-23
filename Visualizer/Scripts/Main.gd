@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 const Exception = preload("res://util/ExceptionIDs.gd")
 

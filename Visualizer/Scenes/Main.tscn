@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/main.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Set.tscn" type="PackedScene" id=2]
@@ -6,22 +6,26 @@
 [ext_resource path="res://Scripts/PU_AddSet.gd" type="Script" id=4]
 [ext_resource path="res://util/blur.shader" type="Shader" id=5]
 
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.113725, 0.113725, 0.121569, 1 )
+
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 5 )
 shader_param/amount = 4.0
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 script = ExtResource( 1 )
-
-[node name="Canvas" type="Node2D" parent="."]
-
-[node name="ColorRect" type="ColorRect" parent="Canvas"]
-show_behind_parent = true
-margin_right = 1024.0
-margin_bottom = 600.0
-color = Color( 0.105882, 0.105882, 0.113725, 1 )
 __meta__ = {
-"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
 "_edit_use_anchors_": false
 }
 
@@ -33,11 +37,19 @@ position = Vector2( 260.92, 297.888 )
 visible = false
 position = Vector2( 641.002, 191.564 )
 
-[node name="B_AddSet" type="Button" parent="."]
-margin_left = 484.715
-margin_top = 42.5513
-margin_right = 545.715
-margin_bottom = 62.5513
+[node name="Buttons" type="HBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -30.0
+margin_right = 31.0
+margin_bottom = 33.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="B_AddSet" type="Button" parent="Buttons"]
+margin_right = 61.0
+margin_bottom = 33.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Add Set"
@@ -57,10 +69,14 @@ __meta__ = {
 }
 
 [node name="P_AddSet" type="Panel" parent="PU_AddSet"]
-margin_left = 390.891
-margin_top = 159.272
-margin_right = 647.891
-margin_bottom = 380.272
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -128.5
+margin_top = -110.5
+margin_right = 128.5
+margin_bottom = 110.5
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -171,7 +187,6 @@ __meta__ = {
 }
 
 [node name="PU_AdvancedSettings" type="Popup" parent="PU_AddSet"]
-visible = true
 margin_left = 1.48993
 margin_top = 1.21393
 margin_right = 1035.25
@@ -209,7 +224,6 @@ enabled_focus_mode = 0
 text = "Done"
 
 [node name="Popup" type="Popup" parent="PU_AddSet"]
-visible = true
 margin_left = 446.148
 margin_top = 251.435
 margin_right = 593.148
@@ -244,7 +258,7 @@ __meta__ = {
 }
 
 [node name="Sets" type="Node2D" parent="."]
-[connection signal="button_up" from="B_AddSet" to="." method="_on_B_AddSet_button_up"]
+[connection signal="button_up" from="Buttons/B_AddSet" to="." method="_on_B_AddSet_button_up"]
 [connection signal="button_up" from="PU_AddSet/B_Add" to="PU_AddSet" method="_on_B_Add_button_up"]
 [connection signal="button_up" from="PU_AddSet/B_AdvancedSettings" to="PU_AddSet" method="_on_B_AdvancedSettings_button_up"]
 [connection signal="button_up" from="PU_AddSet/PU_AdvancedSettings/B_Done" to="PU_AddSet/PU_AdvancedSettings" method="_on_B_Done_button_up"]

@@ -24,6 +24,7 @@ shader = ExtResource( 3 )
 shader_param/amount = 4.0
 
 [node name="AddSet" type="PopupDialog"]
+visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -129,14 +130,30 @@ __meta__ = {
 }
 
 [node name="B_Add" type="Button" parent="."]
-margin_left = 220.736
+margin_left = 337.736
 margin_top = 518.016
-margin_right = 276.736
+margin_right = 393.736
 margin_bottom = 552.016
 focus_mode = 0
 custom_fonts/font = ExtResource( 5 )
 enabled_focus_mode = 0
 text = "Add"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="B_Cancel" type="Button" parent="."]
+anchor_top = 0.00182352
+anchor_right = 0.0569106
+anchor_bottom = 0.00182352
+margin_left = 92.5269
+margin_top = 518.016
+margin_right = 148.527
+margin_bottom = 552.016
+focus_mode = 0
+custom_fonts/font = ExtResource( 5 )
+enabled_focus_mode = 0
+text = "Cancel"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -233,5 +250,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 [connection signal="button_up" from="B_Add" to="." method="_on_B_Add_button_up"]
+[connection signal="button_up" from="B_Cancel" to="." method="_on_B_Cancel_button_up"]
 [connection signal="button_up" from="B_AdvancedSettings" to="." method="_on_B_AdvancedSettings_button_up"]
 [connection signal="button_up" from="PU_AdvancedSettings/B_Done" to="PU_AdvancedSettings" method="_on_B_Done_button_up"]

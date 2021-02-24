@@ -16,7 +16,7 @@ func return_input_validity():
 func clear_user_input():
 	
 	$Items/LE_Name.text = ""
-	$Items/MB_Size.text = "--"
+	$Items/MB_Size.text = "- -"
 	
 
 func get_name():
@@ -63,3 +63,9 @@ func _on_B_Add_button_up():
 func _on_B_AdvancedSettings_button_up():
 	
 	$PU_AdvancedSettings.popup()
+
+
+func _on_B_Cancel_button_up():
+	clear_user_input()
+		
+	self.hide()

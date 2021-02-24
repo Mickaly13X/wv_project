@@ -67,8 +67,14 @@ __meta__ = {
 
 [node name="AddSet" type="Popup" parent="."]
 visible = true
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -512.0
+margin_top = -300.0
+margin_right = 512.0
+margin_bottom = 300.0
 rect_min_size = Vector2( 1024, 600 )
 popup_exclusive = true
 script = ExtResource( 4 )
@@ -76,11 +82,27 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="P_AddSet" type="Panel" parent="AddSet"]
-margin_left = 390.125
-margin_top = 157.798
-margin_right = 647.125
-margin_bottom = 378.798
+[node name="HBoxContainer" type="CenterContainer" parent="AddSet"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -512.0
+margin_top = -300.0
+margin_right = 512.0
+margin_bottom = 300.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="P_AddSet" type="Panel" parent="AddSet/HBoxContainer"]
+margin_left = 362.0
+margin_top = 99.0
+margin_right = 662.0
+margin_bottom = 499.0
+rect_min_size = Vector2( 300, 400 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

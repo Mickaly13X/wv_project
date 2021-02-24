@@ -16,9 +16,23 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Panel" type="Panel" parent="."]
+[node name="HSplitContainer" type="HSplitContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+dragger_visibility = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColaPanel" type="Panel" parent="HSplitContainer"]
+margin_bottom = 1080.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="HSplitContainer"]
+margin_right = 1920.0
+margin_bottom = 1080.0
 rect_min_size = Vector2( 1024, 600 )
 custom_styles/panel = SubResource( 2 )
 __meta__ = {
@@ -53,4 +67,5 @@ __meta__ = {
 [node name="Sets" type="Node2D" parent="."]
 
 [node name="AddSet" parent="." instance=ExtResource( 3 )]
+popup_exclusive = true
 [connection signal="button_up" from="B_AddSet" to="." method="_on_B_AddSet_button_up"]

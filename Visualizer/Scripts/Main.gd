@@ -21,9 +21,9 @@ func _ready():
 	#print(domains)
 	#set_diagram(get_venn_areas(domains.values()))
 
-func _process(_delta):
-	if Input.is_action_just_pressed("ui_accept"):
-		get_tree().reload_current_scene()
+#func _process(_delta):
+	#if Input.is_action_just_pressed("ui_accept"):
+	#	get_tree().reload_current_scene()
 
 #func _draw():
 #	for i in range(len(diagrams)):
@@ -201,5 +201,5 @@ func _on_size_item_pressed(id):
 #called when pressing on the Add Set Button
 func _on_B_AddSet_button_up():
 	
-	$AddSet.show()
+	$AddSet.popup()
 

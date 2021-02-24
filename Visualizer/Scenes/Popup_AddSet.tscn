@@ -23,7 +23,7 @@ corner_radius_bottom_left = 8
 shader = ExtResource( 3 )
 shader_param/amount = 4.0
 
-[node name="AddSet" type="Panel"]
+[node name="AddSet" type="PopupDialog"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -35,9 +35,6 @@ margin_bottom = 283.5
 rect_min_size = Vector2( 296, 320 )
 custom_styles/panel = SubResource( 1 )
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Lb_AddSet" type="Label" parent="."]
 anchor_left = 0.5
@@ -199,7 +196,6 @@ enabled_focus_mode = 0
 text = "Done"
 
 [node name="Popup" type="Popup" parent="."]
-visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5

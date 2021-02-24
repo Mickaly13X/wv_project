@@ -1,6 +1,7 @@
-extends Panel
+extends Popup
 
 const Exception = preload("res://util/ExceptionIDs.gd")
+
 
 #returns if user input is valid
 func return_input_validity():

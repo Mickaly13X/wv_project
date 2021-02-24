@@ -3,7 +3,6 @@
 [ext_resource path="res://Scenes/test.gd" type="Script" id=1]
 
 [node name="Popup" type="Popup"]
-visible = true
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false

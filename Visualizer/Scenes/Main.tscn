@@ -1,35 +1,16 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/main.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Set.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scripts/PU_AdvancedSettings.gd" type="Script" id=3]
-[ext_resource path="res://Scripts/PU_AddSet.gd" type="Script" id=4]
-[ext_resource path="res://util/blur.shader" type="Shader" id=5]
+[ext_resource path="res://Scenes/Popup_AddSet.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Fonts/font medium.tres" type="DynamicFont" id=4]
 
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.0980392, 0.105882, 0.121569, 1 )
 
-[sub_resource type="StyleBoxFlat" id=3]
-bg_color = Color( 0.101961, 0.113725, 0.145098, 1 )
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color( 0.223529, 0.243137, 0.286275, 1 )
-border_blend = true
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-
-[sub_resource type="ShaderMaterial" id=1]
-shader = ExtResource( 5 )
-shader_param/amount = 4.0
-
 [node name="Main" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -6.10352e-05
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -53,20 +34,16 @@ position = Vector2( 260.92, 297.888 )
 visible = false
 position = Vector2( 641.002, 191.564 )
 
-[node name="Buttons" type="HBoxContainer" parent="."]
+[node name="B_AddSet" type="Button" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -30.5
-margin_right = 30.5
-margin_bottom = 20.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="B_AddSet" type="Button" parent="Buttons"]
-margin_right = 61.0
-margin_bottom = 20.0
+margin_left = -53.5
+margin_right = 53.5
+margin_bottom = 50.0
 focus_mode = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 4 )
 enabled_focus_mode = 0
 text = "Add Set"
 __meta__ = {
@@ -75,203 +52,5 @@ __meta__ = {
 
 [node name="Sets" type="Node2D" parent="."]
 
-[node name="AddSet" type="PopupDialog" parent="."]
-visible = true
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -124.0
-margin_top = -147.0
-margin_right = 130.0
-margin_bottom = 149.0
-custom_styles/panel = SubResource( 3 )
-popup_exclusive = true
-script = ExtResource( 4 )
-
-[node name="Lb_AddSet" type="Label" parent="AddSet"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -30.0
-margin_top = 8.0
-margin_right = 30.0
-margin_bottom = 14.0
-text = "Add a set"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="LE_Name" type="LineEdit" parent="AddSet"]
-anchor_right = 1.0
-margin_left = 64.0
-margin_top = 42.0
-margin_right = -16.0
-margin_bottom = 66.0
-max_length = 20
-placeholder_text = "Name"
-caret_blink = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="L_Name" type="Label" parent="AddSet"]
-anchor_right = 1.0
-margin_left = 16.0
-margin_top = 48.0
-margin_right = -201.0
-margin_bottom = 56.0
-text = "Name"
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="B_Add" type="Button" parent="AddSet"]
-margin_left = 115.35
-margin_top = 212.574
-margin_right = 152.35
-margin_bottom = 232.574
-focus_mode = 0
-enabled_focus_mode = 0
-text = "Add"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="L_Distiguishable" type="Label" parent="AddSet"]
-margin_left = 35.1557
-margin_top = 125.953
-margin_right = 134.156
-margin_bottom = 139.953
-text = "Distinguishable"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="CB_Distinguishable" type="CheckBox" parent="AddSet"]
-margin_left = 12.0359
-margin_top = 120.302
-margin_right = 139.036
-margin_bottom = 144.302
-focus_mode = 0
-shortcut_in_tooltip = false
-enabled_focus_mode = 0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="B_AdvancedSettings" type="Button" parent="AddSet"]
-anchor_left = -0.000437129
-anchor_top = 0.00075232
-anchor_right = -0.000437129
-anchor_bottom = 0.00075232
-margin_left = 114.025
-margin_top = 164.165
-margin_right = 243.025
-margin_bottom = 184.165
-focus_mode = 0
-enabled_focus_mode = 0
-text = "Advanced Settings"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="MB_Size" type="MenuButton" parent="AddSet"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -189.69
-margin_top = 92.0
-margin_right = -157.69
-margin_bottom = 111.096
-text = "- -"
-flat = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="L_Size" type="Label" parent="AddSet"]
-margin_left = 17.0909
-margin_top = 95.2448
-margin_right = 52.0909
-margin_bottom = 109.245
-text = "Size"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="PU_AdvancedSettings" type="Popup" parent="AddSet"]
-margin_left = 1.48993
-margin_top = 1.21393
-margin_right = 1035.25
-margin_bottom = 609.214
-popup_exclusive = true
-script = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="P_AdvancedSettings" type="Panel" parent="AddSet/PU_AdvancedSettings"]
-margin_left = 428.0
-margin_top = 115.0
-margin_right = 609.0
-margin_bottom = 454.0
-
-[node name="ColorRect" type="ColorRect" parent="AddSet/PU_AdvancedSettings"]
-visible = false
-material = SubResource( 1 )
-margin_left = 359.0
-margin_top = 117.0
-margin_right = 673.0
-margin_bottom = 453.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="B_Done" type="Button" parent="AddSet/PU_AdvancedSettings"]
-margin_left = 496.326
-margin_top = 427.754
-margin_right = 542.326
-margin_bottom = 447.754
-focus_mode = 0
-enabled_focus_mode = 0
-text = "Done"
-
-[node name="Popup" type="Popup" parent="AddSet"]
-margin_left = 446.148
-margin_top = 251.435
-margin_right = 593.148
-margin_bottom = 316.435
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Panel" type="Panel" parent="AddSet/Popup"]
-modulate = Color( 0.647059, 0.647059, 0.647059, 0.882353 )
-margin_left = 1.0
-margin_right = 150.0
-margin_bottom = 64.0
-__meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="L_Popup" type="Label" parent="AddSet/Popup"]
-anchor_left = 0.00405282
-anchor_right = 0.00405282
-margin_left = 14.0
-margin_top = 14.0
-margin_right = 134.0
-margin_bottom = 53.0
-align = 1
-valign = 1
-autowrap = true
-__meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
-[connection signal="button_up" from="Buttons/B_AddSet" to="." method="_on_B_AddSet_button_up"]
-[connection signal="button_up" from="AddSet/B_Add" to="AddSet" method="_on_B_Add_button_up"]
-[connection signal="button_up" from="AddSet/B_AdvancedSettings" to="AddSet" method="_on_B_AdvancedSettings_button_up"]
-[connection signal="button_up" from="AddSet/PU_AdvancedSettings/B_Done" to="AddSet/PU_AdvancedSettings" method="_on_B_Done_button_up"]
+[node name="AddSet" parent="." instance=ExtResource( 3 )]
+[connection signal="button_up" from="B_AddSet" to="." method="_on_B_AddSet_button_up"]

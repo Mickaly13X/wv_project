@@ -201,5 +201,5 @@ func _on_size_item_pressed(id):
 #called when pressing on the Add Set Button
 func _on_B_AddSet_button_up():
 	
-	$AddSet.popup()
+	$AddSet.show()
 

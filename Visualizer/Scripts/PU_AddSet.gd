@@ -1,26 +1,26 @@
-extends Popup
+extends Panel
 
 const Exception = preload("res://util/ExceptionIDs.gd")
 
 #returns if user input is valid
 func return_input_validity():
 	
-	if $LE_Name.text == "":
+	if $Items/LE_Name.text == "":
 		return Exception.NoName
-	if $MB_Size.text == "--":
+	if $MB_Size.text == "- -":
 		return Exception.NoSize
 	return 0
 
 #clear user input
 func clear_user_input():
 	
-	$LE_Name.text = ""
+	$Items/LE_Name.text = ""
 	$MB_Size.text = "--"
 	
 
 func get_name():
 	
-	return $LE_Name.text
+	return $Items/LE_Name.text
 
 
 func get_size():

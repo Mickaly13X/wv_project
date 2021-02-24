@@ -35,16 +35,33 @@ margin_bottom = 283.5
 rect_min_size = Vector2( 296, 320 )
 custom_styles/panel = SubResource( 1 )
 script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Lb_AddSet" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -83.5
+margin_top = 16.0
+margin_right = 83.5
+margin_bottom = 62.0
+custom_fonts/font = ExtResource( 4 )
+text = "Add a set"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Items" type="GridContainer" parent="."]
-anchor_left = 0.057
-anchor_top = 0.105
-anchor_right = 0.948
-anchor_bottom = 0.955
-margin_left = -0.126213
-margin_top = -0.108379
-margin_right = 0.137756
-margin_bottom = -0.108368
+anchor_top = 0.00333024
+anchor_right = 1.0
+anchor_bottom = 1.00333
+margin_left = 32.0
+margin_top = 80.0
+margin_right = -32.0
+margin_bottom = -32.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 2
@@ -65,7 +82,7 @@ __meta__ = {
 
 [node name="LE_Name" type="LineEdit" parent="Items"]
 margin_left = 68.0
-margin_right = 438.0
+margin_right = 428.0
 margin_bottom = 38.0
 rect_min_size = Vector2( 128, 24 )
 size_flags_horizontal = 3
@@ -77,17 +94,39 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Lb_AddSet" type="Label" parent="."]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -66.0
-margin_top = 16.0
-margin_right = 66.0
-margin_bottom = 36.0
-custom_fonts/font = ExtResource( 4 )
-text = "Add a set"
-align = 1
-valign = 1
+[node name="L_Size" type="Label" parent="Items"]
+margin_top = 45.0
+margin_right = 64.0
+margin_bottom = 73.0
+custom_fonts/font = ExtResource( 5 )
+text = "Size"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MB_Size" type="MenuButton" parent="Items"]
+margin_left = 68.0
+margin_top = 42.0
+margin_right = 106.0
+margin_bottom = 76.0
+size_flags_horizontal = 0
+custom_fonts/font = ExtResource( 5 )
+text = "- -"
+flat = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CB_Distinguishable" type="CheckBox" parent="."]
+margin_left = 30.3378
+margin_top = 166.875
+margin_right = 219.338
+margin_bottom = 202.875
+focus_mode = 0
+custom_fonts/font = ExtResource( 5 )
+shortcut_in_tooltip = false
+enabled_focus_mode = 0
+text = "Distinguishable"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -105,20 +144,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CB_Distinguishable" type="CheckBox" parent="."]
-margin_left = 27.6196
-margin_top = 202.124
-margin_right = 154.62
-margin_bottom = 226.124
-focus_mode = 0
-custom_fonts/font = ExtResource( 5 )
-shortcut_in_tooltip = false
-enabled_focus_mode = 0
-text = "Distinguishable"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="B_AdvancedSettings" type="Button" parent="."]
 anchor_left = -0.000437129
 anchor_top = 0.00075232
@@ -132,31 +157,6 @@ focus_mode = 0
 custom_fonts/font = ExtResource( 5 )
 enabled_focus_mode = 0
 text = "Advanced Settings"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="MB_Size" type="MenuButton" parent="."]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -394.0
-margin_top = 120.0
-margin_right = -339.0
-margin_bottom = 154.0
-custom_fonts/font = ExtResource( 5 )
-text = "- -"
-flat = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="L_Size" type="Label" parent="."]
-margin_left = 26.882
-margin_top = 122.753
-margin_right = 68.882
-margin_bottom = 150.753
-custom_fonts/font = ExtResource( 5 )
-text = "Size"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -199,31 +199,36 @@ enabled_focus_mode = 0
 text = "Done"
 
 [node name="Popup" type="Popup" parent="."]
-margin_left = 446.148
-margin_top = 251.435
-margin_right = 593.148
-margin_bottom = 316.435
+visible = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -148.0
+margin_top = -74.5
+margin_right = 148.0
+margin_bottom = 74.5
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Panel" type="Panel" parent="Popup"]
 modulate = Color( 0.647059, 0.647059, 0.647059, 0.882353 )
-margin_left = 1.0
-margin_right = 150.0
-margin_bottom = 64.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
 [node name="L_Popup" type="Label" parent="Popup"]
-anchor_left = 0.00405282
-anchor_right = 0.00405282
-margin_left = 14.0
-margin_top = 14.0
-margin_right = 134.0
-margin_bottom = 53.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 16.0
+margin_top = 16.0
+margin_right = -16.0
+margin_bottom = -16.0
+custom_fonts/font = ExtResource( 5 )
 align = 1
 valign = 1
 autowrap = true

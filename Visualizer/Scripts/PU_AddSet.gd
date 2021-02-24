@@ -7,7 +7,7 @@ func return_input_validity():
 	
 	if $Items/LE_Name.text == "":
 		return Exception.NoName
-	if $MB_Size.text == "- -":
+	if $Items/MB_Size.text == "- -":
 		return Exception.NoSize
 	return 0
 
@@ -15,7 +15,7 @@ func return_input_validity():
 func clear_user_input():
 	
 	$Items/LE_Name.text = ""
-	$MB_Size.text = "--"
+	$Items/MB_Size.text = "--"
 	
 
 func get_name():
@@ -25,7 +25,7 @@ func get_name():
 
 func get_size():
 	
-	return int($MB_Size.text)
+	return int($Items/MB_Size.text)
 
 
 func get_distinguishability():

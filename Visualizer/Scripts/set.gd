@@ -25,7 +25,7 @@ func add_element():
 	
 	var new_element = ELEMENT.instance()
 	new_element.position = Vector2(0,element_offset)
-	element_offset += 32
+	element_offset += 64
 	elements.append(new_element)
 	
 	$Elements.add_child(new_element)

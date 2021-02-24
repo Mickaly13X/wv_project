@@ -81,6 +81,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Sets" type="Node2D" parent="HSplit/Pn_Main"]
+
 [node name="SetN" parent="." instance=ExtResource( 2 )]
 visible = false
 position = Vector2( 260.92, 297.888 )
@@ -88,8 +90,6 @@ position = Vector2( 260.92, 297.888 )
 [node name="SetX" parent="." instance=ExtResource( 2 )]
 visible = false
 position = Vector2( 641.002, 191.564 )
-
-[node name="Sets" type="Node2D" parent="."]
 
 [node name="AddSet" parent="." instance=ExtResource( 3 )]
 popup_exclusive = true

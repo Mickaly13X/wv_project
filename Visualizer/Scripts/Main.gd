@@ -188,7 +188,7 @@ func add_set(set_name, size, distinguishable):
 		
 		new_set.add_element()
 	
-	$Sets.add_child(new_set)
+	$HSplit/Pn_Main/Sets.add_child(new_set)
 
 
 #Called when pressing on a size menu button (MB_Size) item

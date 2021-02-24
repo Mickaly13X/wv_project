@@ -1,9 +1,12 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scripts/main.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Set.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Popup_AddSet.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Fonts/font medium.tres" type="DynamicFont" id=4]
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.054902, 0.054902, 0.0588235, 1 )
 
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.0980392, 0.105882, 0.121569, 1 )
@@ -16,7 +19,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HSplitContainer" type="HSplitContainer" parent="."]
+[node name="Canvas" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSplit" type="HSplitContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 dragger_visibility = 2
@@ -24,31 +35,26 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColaPanel" type="Panel" parent="HSplitContainer"]
+[node name="Pn_Cola" type="Panel" parent="HSplit"]
+visible = false
+margin_right = 320.0
 margin_bottom = 1080.0
+rect_min_size = Vector2( 320, 1080 )
+custom_styles/panel = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Panel" type="Panel" parent="HSplitContainer"]
+[node name="Pn_Main" type="Panel" parent="HSplit"]
 margin_right = 1920.0
 margin_bottom = 1080.0
 rect_min_size = Vector2( 1024, 600 )
 custom_styles/panel = SubResource( 2 )
 __meta__ = {
-"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
-[node name="SetN" parent="." instance=ExtResource( 2 )]
-visible = false
-position = Vector2( 260.92, 297.888 )
-
-[node name="SetX" parent="." instance=ExtResource( 2 )]
-visible = false
-position = Vector2( 641.002, 191.564 )
-
-[node name="B_AddSet" type="Button" parent="."]
+[node name="B_AddSet" type="Button" parent="HSplit/Pn_Main"]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -53.5
@@ -64,8 +70,26 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="B_Cola" type="Button" parent="HSplit/Pn_Main"]
+margin_right = 27.0
+margin_bottom = 34.0
+custom_fonts/font = ExtResource( 4 )
+text = ">"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SetN" parent="." instance=ExtResource( 2 )]
+visible = false
+position = Vector2( 260.92, 297.888 )
+
+[node name="SetX" parent="." instance=ExtResource( 2 )]
+visible = false
+position = Vector2( 641.002, 191.564 )
+
 [node name="Sets" type="Node2D" parent="."]
 
 [node name="AddSet" parent="." instance=ExtResource( 3 )]
 popup_exclusive = true
-[connection signal="button_up" from="B_AddSet" to="." method="_on_B_AddSet_button_up"]
+[connection signal="button_up" from="HSplit/Pn_Main/B_AddSet" to="." method="_on_B_AddSet_button_up"]
+[connection signal="button_up" from="HSplit/Pn_Main/B_Cola" to="." method="_on_B_Cola_button_up"]

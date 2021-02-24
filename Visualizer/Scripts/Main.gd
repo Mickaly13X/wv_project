@@ -203,3 +203,14 @@ func _on_B_AddSet_button_up():
 	
 	$AddSet.popup()
 
+
+
+func _on_B_Cola_button_up():
+	if $HSplit/Pn_Main/B_Cola.text == ">":
+		$HSplit.dragger_visibility = SplitContainer.DRAGGER_VISIBLE
+		$HSplit/Pn_Cola.show()
+		$HSplit/Pn_Main/B_Cola.text = "<"
+	else:
+		$HSplit.dragger_visibility = SplitContainer.DRAGGER_HIDDEN_COLLAPSED
+		$HSplit/Pn_Cola.hide()
+		$HSplit/Pn_Main/B_Cola.text = ">"

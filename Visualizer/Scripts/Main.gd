@@ -168,12 +168,12 @@ func add_menu_button_items():
 		
 		#to add zero before single digits like 01, 02 instead of 1, 2
 		var numberstr = "0"+str(i+1) if i+1<10 else str(i+1)
-		$PU_AddSet/MB_Size.get_popup().add_item(numberstr)
+		$AddSet/MB_Size.get_popup().add_item(numberstr)
 
 #Initialize menu buttons
 func init_menu_buttons():
 	
-	$PU_AddSet/MB_Size.get_popup().connect("id_pressed", self, "_on_size_item_pressed")
+	$AddSet/MB_Size.get_popup().connect("id_pressed", self, "_on_size_item_pressed")
 
 
 func add_set(set_name, size, distinguishable):
@@ -194,12 +194,12 @@ func add_set(set_name, size, distinguishable):
 #Called when pressing on a size menu button (MB_Size) item
 func _on_size_item_pressed(id):
 	
-	var selected_size = $PU_AddSet/MB_Size.get_popup().get_item_text(id)
-	$PU_AddSet/MB_Size.text = selected_size
+	var selected_size = $AddSet/MB_Size.get_popup().get_item_text(id)
+	$AddSet/MB_Size.text = selected_size
 
 
 #called when pressing on the Add Set Button
 func _on_B_AddSet_button_up():
 	
-	$PU_AddSet.popup()
+	$AddSet.popup()
 

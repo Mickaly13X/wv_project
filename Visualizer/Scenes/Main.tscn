@@ -45,6 +45,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="TextEdit" type="TextEdit" parent="HSplit/Pn_Cola"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 50.0
+margin_right = -8.0
+margin_bottom = -8.0
+rect_min_size = Vector2( 288, 1024 )
+custom_colors/background_color = Color( 0.0431373, 0.0431373, 0.0431373, 1 )
+syntax_highlighting = true
+caret_blink = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Pn_Main" type="Panel" parent="HSplit"]
 margin_right = 1920.0
 margin_bottom = 1080.0

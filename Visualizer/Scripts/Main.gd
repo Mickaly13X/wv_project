@@ -24,6 +24,7 @@ const MAX_SET_SIZE = 10
 
 
 func _ready():
+	
 	add_menu_button_items()
 	init_menu_buttons()
 	randomize()
@@ -213,14 +214,39 @@ func _on_AddVariables_button_up():
 func toggle_cola_panel():
 	
 	if OPEN_COLA.text == ">":
-		HSPLIT.dragger_visibility = SplitContainer.DRAGGER_VISIBLE
+		HSPLIT.set_dragger_visibility(SplitContainer.DRAGGER_VISIBLE)
 		COLA_PANEL.show()
 		OPEN_COLA.text = "<"
 	else:
-		HSPLIT.dragger_visibility = SplitContainer.DRAGGER_HIDDEN_COLLAPSED
+		HSPLIT.set_dragger_visibility(SplitContainer.DRAGGER_HIDDEN_COLLAPSED)
 		COLA_PANEL.hide()
 		OPEN_COLA.text = ">"
 
 
 func popup_import():
 	POPUPS["open_file"].popup()
+
+
+func _on_cola_file_selected(path):
+	
+	var file = File.new()
+	file.open(path, File.READ)
+	var content = file.get_as_text()
+	#if is_cola()
+	COLA.text = content
+
+
+func run_cola():
+	pass
+
+
+func get_universe_size_from_cola():
+	pass
+
+
+func get_universe_name_from_cola():
+	pass
+
+
+
+

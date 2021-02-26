@@ -37,7 +37,7 @@ __meta__ = {
 
 [node name="CoLaPanel" type="Panel" parent="HSplit"]
 visible = false
-margin_right = 320.0
+margin_right = 1920.0
 margin_bottom = 1080.0
 rect_min_size = Vector2( 320, 1080 )
 custom_styles/panel = SubResource( 1 )
@@ -100,8 +100,8 @@ size_flags_vertical = 3
 alignment = 1
 
 [node name="Import" type="Button" parent="HSplit/MainPanel/UI/HUD/Main"]
-margin_left = 748.0
-margin_right = 832.0
+margin_left = 720.0
+margin_right = 804.0
 margin_bottom = 34.0
 focus_mode = 0
 custom_fonts/font = ExtResource( 4 )
@@ -112,8 +112,8 @@ __meta__ = {
 }
 
 [node name="SetUniverse" type="Button" parent="HSplit/MainPanel/UI/HUD/Main"]
-margin_left = 836.0
-margin_right = 978.0
+margin_left = 808.0
+margin_right = 950.0
 margin_bottom = 34.0
 focus_mode = 0
 custom_fonts/font = ExtResource( 4 )
@@ -124,8 +124,8 @@ __meta__ = {
 }
 
 [node name="AddVariables" type="Button" parent="HSplit/MainPanel/UI/HUD/Main"]
-margin_left = 982.0
-margin_right = 1145.0
+margin_left = 954.0
+margin_right = 1117.0
 margin_bottom = 34.0
 focus_mode = 0
 custom_fonts/font = ExtResource( 4 )
@@ -135,7 +135,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sets" type="Control" parent="."]
+[node name="Run" type="Button" parent="HSplit/MainPanel/UI/HUD/Main"]
+margin_left = 1121.0
+margin_right = 1173.0
+margin_bottom = 34.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 4 )
+enabled_focus_mode = 0
+text = "Run"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sets" type="Control" parent="HSplit/MainPanel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -145,10 +157,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="N" parent="Sets" instance=ExtResource( 2 )]
+[node name="N" parent="HSplit/MainPanel/Sets" instance=ExtResource( 2 )]
 position = Vector2( 1280, 396 )
 
-[node name="X" parent="Sets" instance=ExtResource( 2 )]
+[node name="X" parent="HSplit/MainPanel/Sets" instance=ExtResource( 2 )]
 position = Vector2( 349.905, 396.982 )
 
 [node name="Popups" type="Control" parent="."]
@@ -185,3 +197,4 @@ __meta__ = {
 [connection signal="button_up" from="HSplit/MainPanel/UI/HUD/Main/Import" to="." method="popup_import"]
 [connection signal="button_up" from="HSplit/MainPanel/UI/HUD/Main/SetUniverse" to="." method="popup_universe" binds= [ "N" ]]
 [connection signal="button_up" from="HSplit/MainPanel/UI/HUD/Main/AddVariables" to="." method="popup_universe" binds= [ "X" ]]
+[connection signal="file_selected" from="Popups/OpenFile" to="." method="_on_cola_file_selected"]

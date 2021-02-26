@@ -2,39 +2,33 @@ extends Popup
 
 const Exception = preload("res://util/ExceptionIDs.gd")
 
+var ref_universe : String
 
 #returns if user input is valid
 func return_input_validity():
 	
 	if $Items/LE_Name.text == "":
 		return Exception.NoName
-	if $Items/MB_Size.text == "- -":
+	if $Items/MbSize.text == "- -":
 		return Exception.NoSize
 	return 0
 
 #clear user input
 func clear_user_input():
-	
 	$Items/LE_Name.text = ""
-	$Items/MB_Size.text = "- -"
-	
+	$Items/MbSize.text = "- -"
 
 func get_name():
-	
 	return $Items/LE_Name.text
 
-
 func get_size():
-	
-	return int($Items/MB_Size.text)
-
+	return int($Items/MbSize.text)
 
 func get_distinguishability():
-	
 	return $CB_Distinguishable.pressed
-	
 
 func _on_B_Add_button_up():
+	
 	var return_value = return_input_validity()
 	
 	if return_value == 0:
@@ -43,7 +37,8 @@ func _on_B_Add_button_up():
 		var new_set_size = get_size()
 		var new_set_distinguishable = get_distinguishability()
 		
-		get_parent().add_set(new_set_name, new_set_size, new_set_distinguishable)
+		get_parent().add_universe(ref_universe, new_set_name, new_set_size)
+		#get_parent().add_set(new_set_name, new_set_size, new_set_distinguishable)
 		#TODO Check for Advanced settings
 		
 		clear_user_input()
@@ -58,14 +53,9 @@ func _on_B_Add_button_up():
 		$Popup/L_Popup.text = "Please choose a size"
 		$Popup.popup()
 
-
-
 func _on_B_AdvancedSettings_button_up():
-	
 	$PU_AdvancedSettings.popup()
-
 
 func _on_B_Cancel_button_up():
 	clear_user_input()
-		
 	self.hide()

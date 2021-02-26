@@ -1,11 +1,11 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scripts/main.gd" type="Script" id=1]
-[ext_resource path="res://Scenes/Set.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scenes/Popup_AddSet.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Set0.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/PopUpAddSet.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Fonts/font medium.tres" type="DynamicFont" id=4]
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.054902, 0.054902, 0.0588235, 1 )
 
 [sub_resource type="StyleBoxFlat" id=2]
@@ -40,7 +40,7 @@ visible = false
 margin_right = 320.0
 margin_bottom = 1080.0
 rect_min_size = Vector2( 320, 1080 )
-custom_styles/panel = SubResource( 3 )
+custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -54,18 +54,36 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="B_AddSet" type="Button" parent="HSplit/Pn_Main"]
+[node name="AddSet" type="Button" parent="HSplit/Pn_Main"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -53.5
-margin_right = 53.5
-margin_bottom = 50.0
+margin_left = -378.917
+margin_top = 220.0
+margin_right = -225.917
+margin_bottom = 270.0
 focus_mode = 0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = ExtResource( 4 )
 enabled_focus_mode = 0
-text = "Add Set"
+text = "Add Universe"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AddVariables" type="Button" parent="HSplit/Pn_Main"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = 228.429
+margin_top = 220.0
+margin_right = 391.429
+margin_bottom = 270.0
+focus_mode = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 4 )
+enabled_focus_mode = 0
+text = "Add Variables"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -83,15 +101,14 @@ __meta__ = {
 
 [node name="Sets" type="Node2D" parent="HSplit/Pn_Main"]
 
-[node name="SetN" parent="." instance=ExtResource( 2 )]
-visible = false
-position = Vector2( 260.92, 297.888 )
+[node name="N" parent="HSplit/Pn_Main/Sets" instance=ExtResource( 2 )]
+position = Vector2( 463.925, 360 )
 
-[node name="SetX" parent="." instance=ExtResource( 2 )]
-visible = false
-position = Vector2( 641.002, 191.564 )
+[node name="X" parent="HSplit/Pn_Main/Sets" instance=ExtResource( 2 )]
+position = Vector2( 1051.62, 360 )
 
-[node name="AddSet" parent="." instance=ExtResource( 3 )]
+[node name="PopUpUniverse" parent="." instance=ExtResource( 3 )]
 popup_exclusive = true
-[connection signal="button_up" from="HSplit/Pn_Main/B_AddSet" to="." method="_on_B_AddSet_button_up"]
+[connection signal="button_up" from="HSplit/Pn_Main/AddSet" to="." method="popup_universe" binds= [ "N" ]]
+[connection signal="button_up" from="HSplit/Pn_Main/AddVariables" to="." method="popup_universe" binds= [ "X" ]]
 [connection signal="button_up" from="HSplit/Pn_Main/B_Cola" to="." method="_on_B_Cola_button_up"]

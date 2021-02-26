@@ -3,6 +3,8 @@ extends Control
 const Exception = preload("res://util/ExceptionIDs.gd")
 
 onready var SET = preload("res://Scenes/Set.tscn")
+onready var MB_SIZE = $PopUpUniverse/Items/MbSize
+
 var not_domains = ["structure","size","pos","count","not","inter","union","in"]
 var diagrams = []
 
@@ -21,13 +23,31 @@ func _ready():
 	#print(domains)
 	#set_diagram(get_venn_areas(domains.values()))
 
-#func _process(_delta):
+func _process(_delta):
+	
+	if Input.is_action_pressed("ui_cancel"):
+		get_tree().quit()
 	#if Input.is_action_just_pressed("ui_accept"):
 	#	get_tree().reload_current_scene()
+
+#Initiate the menu button items
+func add_menu_button_items():
+	
+	for i in range(MAX_SET_SIZE):
+		
+		#to add zero before single digits like 01, 02 instead of 1, 2
+		var numberstr = "0"+str(i+1) if i+1<10 else str(i+1)
+		MB_SIZE.get_popup().add_item(numberstr)
 
 #func _draw():
 #	for i in range(len(diagrams)):
 #		draw_circle_custom(diagrams[i].radius, diagrams[i].pos, COLORS[i])
+
+func add_universe(tag : String, custom_name : String, size : int) -> void:
+	
+	var Universe : Node2D = $HSplit/Pn_Main/Sets.get_node(tag)
+	Universe.set_name(custom_name)
+	Universe.set_size(size)
 
 func draw_circle_custom(radius : float, pos : Vector2, color : Color = Color.white, maxerror = 0.25):
 
@@ -161,51 +181,22 @@ func set_diagram(venn_areas : Array) -> void:
 	
 	print("exit_code " + str(exit_code))
 
-#Initiate the menu button items
-func add_menu_button_items():
-	
-	for i in range(MAX_SET_SIZE):
-		
-		#to add zero before single digits like 01, 02 instead of 1, 2
-		var numberstr = "0"+str(i+1) if i+1<10 else str(i+1)
-		$AddSet/Items/MB_Size.get_popup().add_item(numberstr)
-
 #Initialize menu buttons
 func init_menu_buttons():
-	
-	$AddSet/Items/MB_Size.get_popup().connect("id_pressed", self, "_on_size_item_pressed")
-
-
-func add_set(set_name, size, distinguishable):
-	
-	var new_set = SET.instance()
-	new_set.set_name(set_name)
-	new_set.size = size
-	new_set.distinguishable = distinguishable
-	new_set.position = Vector2(256,150)
-
-	for i in range(size):
-		
-		new_set.add_element()
-	
-	$HSplit/Pn_Main/Sets.add_child(new_set)
-
+	MB_SIZE.get_popup().connect("id_pressed", self, "_on_size_item_pressed")
 
 #Called when pressing on a size menu button (MB_Size) item
 func _on_size_item_pressed(id):
-	
-	var selected_size = $AddSet/Items/MB_Size.get_popup().get_item_text(id)
-	$AddSet/Items/MB_Size.text = selected_size
-
+	var selected_size = MB_SIZE.get_popup().get_item_text(id)
+	MB_SIZE.text = selected_size
 
 #called when pressing on the Add Set Button
-func _on_B_AddSet_button_up():
-	
-	$AddSet.popup()
-
-
+func popup_universe(universe_tag : String) -> void:
+	$PopUpUniverse.ref_universe = universe_tag
+	$PopUpUniverse.popup()
 
 func _on_B_Cola_button_up():
+	
 	if $HSplit/Pn_Main/B_Cola.text == ">":
 		$HSplit.dragger_visibility = SplitContainer.DRAGGER_VISIBLE
 		$HSplit/Pn_Cola.show()
@@ -214,3 +205,6 @@ func _on_B_Cola_button_up():
 		$HSplit.dragger_visibility = SplitContainer.DRAGGER_HIDDEN_COLLAPSED
 		$HSplit/Pn_Cola.hide()
 		$HSplit/Pn_Main/B_Cola.text = ">"
+
+func _on_AddVariables_button_up():
+	pass # Replace with function body.

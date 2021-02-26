@@ -8,4 +8,4 @@ func _ready():
 	shape.bg_color = Color(0.335114, 0.295376, 0.613281)
 
 func _draw():
-	draw_style_box(shape, Rect2(0, 0, 32, 32))
+	draw_style_box(shape, Rect2(-16, -16, 32, 32))

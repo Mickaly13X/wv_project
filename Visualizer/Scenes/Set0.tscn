@@ -4,16 +4,21 @@
 [ext_resource path="res://Fonts/font.tres" type="DynamicFont" id=2]
 
 [node name="Set0" type="Control"]
+anchor_right = 0.208
+anchor_bottom = 0.463
+margin_right = 0.640015
+margin_bottom = -0.0400085
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ButtonGlobal" type="Button" parent="."]
-margin_right = 400.0
-margin_bottom = 500.0
+[node name="Mask" type="Button" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
 focus_mode = 0
 enabled_focus_mode = 0
+flat = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -44,5 +49,5 @@ text = "Add"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="button_up" from="ButtonGlobal" to="." method="_pressed_global"]
+[connection signal="button_up" from="Mask" to="." method="_pressed_global"]
 [connection signal="button_up" from="Menu/Add" to="." method="_pressed" binds= [ "Add" ]]

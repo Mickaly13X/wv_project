@@ -15,11 +15,10 @@ func _ready():
 	shape.set_corner_radius_all(30)
 	
 	$Label.text = name
-	
-	$ButtonGlobal.flat = true
+
 
 func _draw():
-	draw_style_box(shape, Rect2(Vector2(0, 0), $ButtonGlobal.rect_size))
+	draw_style_box(shape, Rect2(Vector2(0, 0), $Mask.rect_size))
 
 func _pressed(button_name : String) -> void:
 	

@@ -4,6 +4,8 @@ const Exception = preload("res://util/ExceptionIDs.gd")
 
 onready var SET = preload("res://Scenes/Set.tscn")
 onready var MB_SIZE = $PopUpUniverse/Items/MbSize
+onready var OPEN_COLA = $HSplit/MainPanel/OpenCoLa
+onready var COLA_PANEL = $HSplit/CoLaPanel
 
 var not_domains = ["structure","size","pos","count","not","inter","union","in"]
 var diagrams = []
@@ -45,9 +47,9 @@ func add_menu_button_items():
 
 func add_universe(tag : String, custom_name : String, size : int) -> void:
 	
-	var Universe : Node2D = $HSplit/Pn_Main/Sets.get_node(tag)
+	var Universe : Node = $HSplit/MainPanel/Sets.get_node(tag)
 	Universe.set_name(custom_name)
-	Universe.set_size(size)
+	Universe.add_elements(size)
 
 func draw_circle_custom(radius : float, pos : Vector2, color : Color = Color.white, maxerror = 0.25):
 
@@ -195,16 +197,18 @@ func popup_universe(universe_tag : String) -> void:
 	$PopUpUniverse.ref_universe = universe_tag
 	$PopUpUniverse.popup()
 
-func _on_B_Cola_button_up():
-	
-	if $HSplit/Pn_Main/B_Cola.text == ">":
-		$HSplit.dragger_visibility = SplitContainer.DRAGGER_VISIBLE
-		$HSplit/Pn_Cola.show()
-		$HSplit/Pn_Main/B_Cola.text = "<"
-	else:
-		$HSplit.dragger_visibility = SplitContainer.DRAGGER_HIDDEN_COLLAPSED
-		$HSplit/Pn_Cola.hide()
-		$HSplit/Pn_Main/B_Cola.text = ">"
 
 func _on_AddVariables_button_up():
 	pass # Replace with function body.
+
+
+func toggle_cola_panel():
+	
+	if OPEN_COLA.text == ">":
+		$HSplit.dragger_visibility = SplitContainer.DRAGGER_VISIBLE
+		COLA_PANEL.show()
+		OPEN_COLA.text = "<"
+	else:
+		$HSplit.dragger_visibility = SplitContainer.DRAGGER_HIDDEN_COLLAPSED
+		COLA_PANEL.hide()
+		OPEN_COLA.text = ">"

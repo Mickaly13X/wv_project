@@ -35,7 +35,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Pn_Cola" type="Panel" parent="HSplit"]
+[node name="CoLaPanel" type="Panel" parent="HSplit"]
 visible = false
 margin_right = 320.0
 margin_bottom = 1080.0
@@ -45,7 +45,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextEdit" type="TextEdit" parent="HSplit/Pn_Cola"]
+[node name="CoLaInput" type="TextEdit" parent="HSplit/CoLaPanel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 8.0
@@ -60,7 +60,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Pn_Main" type="Panel" parent="HSplit"]
+[node name="MainPanel" type="Panel" parent="HSplit"]
 margin_right = 1920.0
 margin_bottom = 1080.0
 rect_min_size = Vector2( 1024, 600 )
@@ -69,7 +69,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AddSet" type="Button" parent="HSplit/Pn_Main"]
+[node name="SetUniverse" type="Button" parent="HSplit/MainPanel"]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -378.917
@@ -81,12 +81,12 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = ExtResource( 4 )
 enabled_focus_mode = 0
-text = "Add Universe"
+text = "Set Universe"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AddVariables" type="Button" parent="HSplit/Pn_Main"]
+[node name="AddVariables" type="Button" parent="HSplit/MainPanel"]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = 228.429
@@ -103,7 +103,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="B_Cola" type="Button" parent="HSplit/Pn_Main"]
+[node name="OpenCoLa" type="Button" parent="HSplit/MainPanel"]
 margin_right = 27.0
 margin_bottom = 48.0
 focus_mode = 0
@@ -114,16 +114,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sets" type="Node2D" parent="HSplit/Pn_Main"]
+[node name="Sets" type="Control" parent="HSplit/MainPanel"]
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="N" parent="HSplit/Pn_Main/Sets" instance=ExtResource( 2 )]
-position = Vector2( 463.925, 360 )
+[node name="N" parent="HSplit/MainPanel/Sets" instance=ExtResource( 2 )]
 
-[node name="X" parent="HSplit/Pn_Main/Sets" instance=ExtResource( 2 )]
-position = Vector2( 1051.62, 360 )
+[node name="X" parent="HSplit/MainPanel/Sets" instance=ExtResource( 2 )]
 
 [node name="PopUpUniverse" parent="." instance=ExtResource( 3 )]
 popup_exclusive = true
-[connection signal="button_up" from="HSplit/Pn_Main/AddSet" to="." method="popup_universe" binds= [ "N" ]]
-[connection signal="button_up" from="HSplit/Pn_Main/AddVariables" to="." method="popup_universe" binds= [ "X" ]]
-[connection signal="button_up" from="HSplit/Pn_Main/B_Cola" to="." method="_on_B_Cola_button_up"]
+[connection signal="button_up" from="HSplit/MainPanel/SetUniverse" to="." method="popup_universe" binds= [ "N" ]]
+[connection signal="button_up" from="HSplit/MainPanel/AddVariables" to="." method="popup_universe" binds= [ "X" ]]
+[connection signal="button_up" from="HSplit/MainPanel/OpenCoLa" to="." method="toggle_cola_panel"]

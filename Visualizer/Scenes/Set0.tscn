@@ -3,8 +3,11 @@
 [ext_resource path="res://Scripts/set0.gd" type="Script" id=1]
 [ext_resource path="res://Fonts/font.tres" type="DynamicFont" id=2]
 
-[node name="Set0" type="Node2D"]
+[node name="Set0" type="Control"]
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="ButtonGlobal" type="Button" parent="."]
 margin_right = 400.0

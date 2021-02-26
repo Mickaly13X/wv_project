@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 const ELEMENT = preload("res://Scenes/Element.tscn")
 
@@ -49,6 +49,6 @@ func set_name(custom_name : String = "") -> void:
 	if custom_name == "": $Label.text = name
 	else: $Label.text = name + " (" + custom_name + ")"
 
-func set_size(size : int) -> void:
-	for i in range(size):
+func add_elements(amount : int) -> void:
+	for i in range(amount):
 		add_element()

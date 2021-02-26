@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Scripts/Set.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/set.gd" type="Script" id=1]
 [ext_resource path="res://Fonts/font medium.tres" type="DynamicFont" id=2]
 
 [node name="Set" type="Node2D"]
@@ -8,7 +8,7 @@ script = ExtResource( 1 )
 
 [node name="Elements" type="Node2D" parent="."]
 
-[node name="L_Name" type="Label" parent="."]
+[node name="NameLabel" type="Label" parent="."]
 margin_left = -32.3018
 margin_top = -37.1522
 margin_right = 59.6982

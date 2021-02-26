@@ -1,8 +1,6 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Scripts/pu_advanced_settings.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/pu_add_set.gd" type="Script" id=2]
-[ext_resource path="res://util/blur.shader" type="Shader" id=3]
 [ext_resource path="res://Fonts/font.tres" type="DynamicFont" id=4]
 [ext_resource path="res://Fonts/font medium.tres" type="DynamicFont" id=5]
 
@@ -19,10 +17,6 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="ShaderMaterial" id=2]
-shader = ExtResource( 3 )
-shader_param/amount = 4.0
-
 [node name="AddSet" type="PopupDialog"]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -36,7 +30,7 @@ rect_min_size = Vector2( 296, 320 )
 custom_styles/panel = SubResource( 1 )
 script = ExtResource( 2 )
 
-[node name="Lb_AddSet" type="Label" parent="."]
+[node name="Title" type="Label" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -83.5
@@ -66,7 +60,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="L_Name" type="Label" parent="Items"]
+[node name="NameLabel" type="Label" parent="Items"]
 margin_top = 5.0
 margin_right = 64.0
 margin_bottom = 33.0
@@ -77,7 +71,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LE_Name" type="LineEdit" parent="Items"]
+[node name="NameInput" type="LineEdit" parent="Items"]
 margin_left = 68.0
 margin_right = 428.0
 margin_bottom = 38.0
@@ -91,7 +85,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="L_Size" type="Label" parent="Items"]
+[node name="SizeLabel" type="Label" parent="Items"]
 margin_top = 45.0
 margin_right = 64.0
 margin_bottom = 73.0
@@ -114,22 +108,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CB_Distinguishable" type="CheckBox" parent="."]
-visible = false
-margin_left = 30.3378
-margin_top = 166.875
-margin_right = 219.338
-margin_bottom = 202.875
-focus_mode = 0
-custom_fonts/font = ExtResource( 5 )
-shortcut_in_tooltip = false
-enabled_focus_mode = 0
-text = "Distinguishable"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="B_Add" type="Button" parent="."]
+[node name="AddButton" type="Button" parent="."]
 margin_left = 337.736
 margin_top = 518.016
 margin_right = 393.736
@@ -142,7 +121,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="B_Cancel" type="Button" parent="."]
+[node name="CancelButton" type="Button" parent="."]
 anchor_top = 0.00182352
 anchor_right = 0.0569106
 anchor_bottom = 0.00182352
@@ -157,61 +136,6 @@ text = "Cancel"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="B_AdvancedSettings" type="Button" parent="."]
-visible = false
-anchor_left = -0.000437129
-anchor_top = 0.00075232
-anchor_right = -0.000437129
-anchor_bottom = 0.00075232
-margin_left = 252.798
-margin_top = 279.71
-margin_right = 461.798
-margin_bottom = 313.71
-focus_mode = 0
-custom_fonts/font = ExtResource( 5 )
-enabled_focus_mode = 0
-text = "Advanced Settings"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="PU_AdvancedSettings" type="Popup" parent="."]
-margin_left = 1.48993
-margin_top = 1.21393
-margin_right = 1035.25
-margin_bottom = 609.214
-popup_exclusive = true
-script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="P_AdvancedSettings" type="Panel" parent="PU_AdvancedSettings"]
-margin_left = 428.0
-margin_top = 115.0
-margin_right = 609.0
-margin_bottom = 454.0
-
-[node name="ColorRect" type="ColorRect" parent="PU_AdvancedSettings"]
-visible = false
-material = SubResource( 2 )
-margin_left = 359.0
-margin_top = 117.0
-margin_right = 673.0
-margin_bottom = 453.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="B_Done" type="Button" parent="PU_AdvancedSettings"]
-margin_left = 496.326
-margin_top = 427.754
-margin_right = 542.326
-margin_bottom = 447.754
-focus_mode = 0
-enabled_focus_mode = 0
-text = "Done"
 
 [node name="Popup" type="Popup" parent="."]
 anchor_left = 0.5
@@ -235,7 +159,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="L_Popup" type="Label" parent="Popup"]
+[node name="PopupLabel" type="Label" parent="Popup"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 16.0
@@ -250,7 +174,5 @@ __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false
 }
-[connection signal="button_up" from="B_Add" to="." method="_on_B_Add_button_up"]
-[connection signal="button_up" from="B_Cancel" to="." method="_on_B_Cancel_button_up"]
-[connection signal="button_up" from="B_AdvancedSettings" to="." method="_on_B_AdvancedSettings_button_up"]
-[connection signal="button_up" from="PU_AdvancedSettings/B_Done" to="PU_AdvancedSettings" method="_on_B_Done_button_up"]
+[connection signal="button_up" from="AddButton" to="." method="_on_B_Add_button_up"]
+[connection signal="button_up" from="CancelButton" to="." method="_on_B_Cancel_button_up"]

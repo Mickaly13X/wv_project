@@ -17,7 +17,7 @@ func _ready():
 
 func set_name(new_name):
 	sname = new_name
-	$L_Name.text = new_name
+	$NameLabel.text = new_name
 
 
 #TODO add ability to add names to elements -> adv settings

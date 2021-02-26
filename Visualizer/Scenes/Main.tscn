@@ -189,7 +189,8 @@ window_title = "Open File with CoLa Input"
 mode = 0
 access = 2
 current_dir = "/Users/erickim"
-current_path = "/Users/erickim/"
+current_file = "~"
+current_path = "/Users/erickim/~"
 __meta__ = {
 "_edit_use_anchors_": false
 }

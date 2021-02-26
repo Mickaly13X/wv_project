@@ -28,6 +28,8 @@ func _ready():
 	add_menu_button_items()
 	init_menu_buttons()
 	randomize()
+	POPUPS["open_file"].current_dir = ""
+	POPUPS["open_file"].current_path = ""
 	#var file_path = "res://tests/paper/constrained/permutation_5_4.test"
 	#var domains = get_domains(get_input(file_path))
 	#print(domains)

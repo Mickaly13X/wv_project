@@ -69,43 +69,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SetUniverse" type="Button" parent="HSplit/MainPanel"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -378.917
-margin_top = 220.0
-margin_right = -225.917
-margin_bottom = 270.0
-focus_mode = 0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_fonts/font = ExtResource( 4 )
-enabled_focus_mode = 0
-text = "Set Universe"
+[node name="UI" type="VBoxContainer" parent="HSplit/MainPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AddVariables" type="Button" parent="HSplit/MainPanel"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = 228.429
-margin_top = 220.0
-margin_right = 391.429
-margin_bottom = 270.0
-focus_mode = 0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_fonts/font = ExtResource( 4 )
-enabled_focus_mode = 0
-text = "Add Variables"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="HUD" type="HBoxContainer" parent="HSplit/MainPanel/UI"]
+margin_right = 1920.0
+margin_bottom = 34.0
 
-[node name="OpenCoLa" type="Button" parent="HSplit/MainPanel"]
-margin_right = 27.0
-margin_bottom = 48.0
+[node name="OpenCoLa" type="Button" parent="HSplit/MainPanel/UI/HUD"]
+margin_right = 23.0
+margin_bottom = 34.0
 focus_mode = 0
 custom_fonts/font = ExtResource( 4 )
 enabled_focus_mode = 0
@@ -114,17 +91,56 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sets" type="Control" parent="HSplit/MainPanel"]
+[node name="Main" type="HBoxContainer" parent="HSplit/MainPanel/UI/HUD"]
+margin_left = 27.0
+margin_right = 1920.0
+margin_bottom = 34.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="SetUniverse" type="Button" parent="HSplit/MainPanel/UI/HUD/Main"]
+margin_left = 792.0
+margin_right = 934.0
+margin_bottom = 34.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 4 )
+enabled_focus_mode = 0
+text = "Set Universe"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="N" parent="HSplit/MainPanel/Sets" instance=ExtResource( 2 )]
+[node name="AddVariables" type="Button" parent="HSplit/MainPanel/UI/HUD/Main"]
+margin_left = 938.0
+margin_right = 1101.0
+margin_bottom = 34.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 4 )
+enabled_focus_mode = 0
+text = "Add Variables"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="X" parent="HSplit/MainPanel/Sets" instance=ExtResource( 2 )]
+[node name="Sets" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="N" parent="Sets" instance=ExtResource( 2 )]
+position = Vector2( 1280, 396 )
+
+[node name="X" parent="Sets" instance=ExtResource( 2 )]
+position = Vector2( 350.886, 396 )
 
 [node name="PopUpUniverse" parent="." instance=ExtResource( 3 )]
 popup_exclusive = true
-[connection signal="button_up" from="HSplit/MainPanel/SetUniverse" to="." method="popup_universe" binds= [ "N" ]]
-[connection signal="button_up" from="HSplit/MainPanel/AddVariables" to="." method="popup_universe" binds= [ "X" ]]
-[connection signal="button_up" from="HSplit/MainPanel/OpenCoLa" to="." method="toggle_cola_panel"]
+[connection signal="button_up" from="HSplit/MainPanel/UI/HUD/OpenCoLa" to="." method="toggle_cola_panel"]
+[connection signal="button_up" from="HSplit/MainPanel/UI/HUD/Main/SetUniverse" to="." method="popup_universe" binds= [ "N" ]]
+[connection signal="button_up" from="HSplit/MainPanel/UI/HUD/Main/AddVariables" to="." method="popup_universe" binds= [ "X" ]]

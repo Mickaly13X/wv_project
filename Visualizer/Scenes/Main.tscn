@@ -99,9 +99,21 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
+[node name="Import" type="Button" parent="HSplit/MainPanel/UI/HUD/Main"]
+margin_left = 748.0
+margin_right = 832.0
+margin_bottom = 34.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 4 )
+enabled_focus_mode = 0
+text = "Import"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="SetUniverse" type="Button" parent="HSplit/MainPanel/UI/HUD/Main"]
-margin_left = 792.0
-margin_right = 934.0
+margin_left = 836.0
+margin_right = 978.0
 margin_bottom = 34.0
 focus_mode = 0
 custom_fonts/font = ExtResource( 4 )
@@ -112,8 +124,8 @@ __meta__ = {
 }
 
 [node name="AddVariables" type="Button" parent="HSplit/MainPanel/UI/HUD/Main"]
-margin_left = 938.0
-margin_right = 1101.0
+margin_left = 982.0
+margin_right = 1145.0
 margin_bottom = 34.0
 focus_mode = 0
 custom_fonts/font = ExtResource( 4 )
@@ -137,10 +149,39 @@ __meta__ = {
 position = Vector2( 1280, 396 )
 
 [node name="X" parent="Sets" instance=ExtResource( 2 )]
-position = Vector2( 350.886, 396 )
+position = Vector2( 349.905, 396.982 )
 
-[node name="PopUpUniverse" parent="." instance=ExtResource( 3 )]
+[node name="Popups" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SetUniverse" parent="Popups" instance=ExtResource( 3 )]
 popup_exclusive = true
+
+[node name="OpenFile" type="FileDialog" parent="Popups"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -460.5
+margin_top = -291.5
+margin_right = 460.5
+margin_bottom = 291.5
+rect_min_size = Vector2( 400, 140 )
+popup_exclusive = true
+window_title = "Open File with CoLa Input"
+mode = 0
+access = 2
+current_dir = "/Users/erickim"
+current_path = "/Users/erickim/"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="button_up" from="HSplit/MainPanel/UI/HUD/OpenCoLa" to="." method="toggle_cola_panel"]
+[connection signal="button_up" from="HSplit/MainPanel/UI/HUD/Main/Import" to="." method="popup_import"]
 [connection signal="button_up" from="HSplit/MainPanel/UI/HUD/Main/SetUniverse" to="." method="popup_universe" binds= [ "N" ]]
 [connection signal="button_up" from="HSplit/MainPanel/UI/HUD/Main/AddVariables" to="." method="popup_universe" binds= [ "X" ]]

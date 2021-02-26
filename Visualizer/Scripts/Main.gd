@@ -3,17 +3,15 @@ extends Control
 const Exception = preload("res://util/ExceptionIDs.gd")
 
 onready var SET = preload("res://Scenes/Set.tscn")
-onready var MB_SIZE = $PopUpUniverse/Items/MbSize
+onready var MB_SIZE = $Popups/SetUniverse/Items/MbSize
 onready var OPEN_COLA = $HSplit/MainPanel/UI/HUD/OpenCoLa
 onready var COLA_PANEL = $HSplit/CoLaPanel
 onready var COLA = $HSplit/CoLaPanel/CoLaInput
 onready var SETS = $Sets
 onready var HSPLIT = $HSplit
 onready var POPUPS = {
-	"set_universe":$PopUpUniverse
-	
-	
-	
+	"set_universe":$Popups/SetUniverse,
+	"open_file":$Popups/OpenFile
 	}
 
 var not_domains = ["structure","size","pos","count","not","inter","union","in"]
@@ -222,3 +220,7 @@ func toggle_cola_panel():
 		HSPLIT.dragger_visibility = SplitContainer.DRAGGER_HIDDEN_COLLAPSED
 		COLA_PANEL.hide()
 		OPEN_COLA.text = ">"
+
+
+func popup_import():
+	POPUPS["open_file"].popup()

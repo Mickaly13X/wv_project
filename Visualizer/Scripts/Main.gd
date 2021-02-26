@@ -4,7 +4,7 @@ const Exception = preload("res://util/ExceptionIDs.gd")
 
 onready var SET = preload("res://Scenes/Set.tscn")
 onready var MB_SIZE = $PopUpUniverse/Items/MbSize
-onready var OPEN_COLA = $HSplit/MainPanel/OpenCoLa
+onready var OPEN_COLA = $HSplit/MainPanel/UI/HUD/OpenCoLa
 onready var COLA_PANEL = $HSplit/CoLaPanel
 
 var not_domains = ["structure","size","pos","count","not","inter","union","in"]
@@ -52,7 +52,7 @@ func add_universe(tag : String, custom_name : String, size : int) -> void:
 	Universe.add_elements(size)
 
 func draw_circle_custom(radius : float, pos : Vector2, color : Color = Color.white, maxerror = 0.25):
-
+	
 	if radius <= 0.0:
 		return
 	

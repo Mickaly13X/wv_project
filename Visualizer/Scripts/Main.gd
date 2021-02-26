@@ -3,16 +3,15 @@ extends Control
 const Exception = preload("res://util/ExceptionIDs.gd")
 
 onready var SET = preload("res://Scenes/Set.tscn")
-onready var MB_SIZE = $PopUpUniverse/Items/MbSize
+onready var MB_SIZE = $Popups/SetUniverse/Items/MbSize
 onready var OPEN_COLA = $HSplit/MainPanel/UI/HUD/OpenCoLa
 onready var COLA_PANEL = $HSplit/CoLaPanel
+onready var COLA = $HSplit/CoLaPanel/CoLaInput
 onready var SETS = $Sets
 onready var HSPLIT = $HSplit
 onready var POPUPS = {
-	"set_universe":$PopUpUniverse
-	
-	
-	
+	"set_universe":$Popups/SetUniverse,
+	"open_file":$Popups/OpenFile
 	}
 
 var not_domains = ["structure","size","pos","count","not","inter","union","in"]
@@ -25,9 +24,12 @@ const MAX_SET_SIZE = 10
 
 
 func _ready():
+	
 	add_menu_button_items()
 	init_menu_buttons()
 	randomize()
+	POPUPS["open_file"].current_dir = ""
+	POPUPS["open_file"].current_path = ""
 	#var file_path = "res://tests/paper/constrained/permutation_5_4.test"
 	#var domains = get_domains(get_input(file_path))
 	#print(domains)
@@ -58,6 +60,7 @@ func add_universe(tag : String, custom_name : String, size : int) -> void:
 	var Universe : Node = SETS.get_node(tag)
 	Universe.set_name(custom_name)
 	Universe.add_elements(size)
+	COLA.text += custom_name+"{[1,"+str(size)+"]}"
 
 func draw_circle_custom(radius : float, pos : Vector2, color : Color = Color.white, maxerror = 0.25):
 	
@@ -213,10 +216,39 @@ func _on_AddVariables_button_up():
 func toggle_cola_panel():
 	
 	if OPEN_COLA.text == ">":
-		HSPLIT.dragger_visibility = SplitContainer.DRAGGER_VISIBLE
+		HSPLIT.set_dragger_visibility(SplitContainer.DRAGGER_VISIBLE)
 		COLA_PANEL.show()
 		OPEN_COLA.text = "<"
 	else:
-		HSPLIT.dragger_visibility = SplitContainer.DRAGGER_HIDDEN_COLLAPSED
+		HSPLIT.set_dragger_visibility(SplitContainer.DRAGGER_HIDDEN_COLLAPSED)
 		COLA_PANEL.hide()
 		OPEN_COLA.text = ">"
+
+
+func popup_import():
+	POPUPS["open_file"].popup()
+
+
+func _on_cola_file_selected(path):
+	
+	var file = File.new()
+	file.open(path, File.READ)
+	var content = file.get_as_text()
+	#if is_cola()
+	COLA.text = content
+
+
+func run_cola():
+	pass
+
+
+func get_universe_size_from_cola():
+	pass
+
+
+func get_universe_name_from_cola():
+	pass
+
+
+
+

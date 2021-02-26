@@ -7,7 +7,7 @@ onready var MB_SIZE = $Popups/SetUniverse/Items/MbSize
 onready var OPEN_COLA = $HSplit/MainPanel/UI/HUD/OpenCoLa
 onready var COLA_PANEL = $HSplit/CoLaPanel
 onready var COLA = $HSplit/CoLaPanel/CoLaInput
-onready var SETS = $Sets
+onready var SETS = $HSplit/MainPanel/Sets
 onready var HSPLIT = $HSplit
 onready var POPUPS = {
 	"set_universe":$Popups/SetUniverse,

@@ -36,7 +36,7 @@ func _on_B_Add_button_up():
 		
 		var new_set_name = get_name()
 		var new_set_size = get_size()
-		get_parent().add_universe(ref_universe, new_set_name, new_set_size)
+		get_parent().get_parent().add_universe(ref_universe, new_set_name, new_set_size)
 		#get_parent().add_set(new_set_name, new_set_size, new_set_distinguishable)
 		#TODO Check for Advanced settings
 		

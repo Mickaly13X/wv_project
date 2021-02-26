@@ -91,9 +91,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SetUniverse" type="Button" parent="HSplit/MainPanel/UI/HUD"]
+[node name="Main" type="HBoxContainer" parent="HSplit/MainPanel/UI/HUD"]
 margin_left = 27.0
-margin_right = 971.0
+margin_right = 1920.0
+margin_bottom = 34.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SetUniverse" type="Button" parent="HSplit/MainPanel/UI/HUD/Main"]
+margin_right = 944.0
 margin_bottom = 34.0
 focus_mode = 0
 size_flags_horizontal = 3
@@ -105,9 +111,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AddVariables" type="Button" parent="HSplit/MainPanel/UI/HUD"]
-margin_left = 975.0
-margin_right = 1920.0
+[node name="AddVariables" type="Button" parent="HSplit/MainPanel/UI/HUD/Main"]
+margin_left = 948.0
+margin_right = 1893.0
 margin_bottom = 34.0
 focus_mode = 0
 size_flags_horizontal = 3
@@ -119,17 +125,24 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sets" type="Control" parent="HSplit/MainPanel"]
+[node name="Sets" type="Control" parent="."]
+margin_top = 38.0
+margin_right = 1920.0
+margin_bottom = 1080.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="N" parent="HSplit/MainPanel/Sets" instance=ExtResource( 2 )]
+[node name="N" parent="Sets" instance=ExtResource( 2 )]
+position = Vector2( 1280, 396 )
 
-[node name="X" parent="HSplit/MainPanel/Sets" instance=ExtResource( 2 )]
+[node name="X" parent="Sets" instance=ExtResource( 2 )]
+position = Vector2( 350.886, 396 )
 
 [node name="PopUpUniverse" parent="." instance=ExtResource( 3 )]
 popup_exclusive = true
 [connection signal="button_up" from="HSplit/MainPanel/UI/HUD/OpenCoLa" to="." method="toggle_cola_panel"]
-[connection signal="button_up" from="HSplit/MainPanel/UI/HUD/SetUniverse" to="." method="popup_universe" binds= [ "N" ]]
-[connection signal="button_up" from="HSplit/MainPanel/UI/HUD/AddVariables" to="." method="popup_universe" binds= [ "X" ]]
+[connection signal="button_up" from="HSplit/MainPanel/UI/HUD/Main/SetUniverse" to="." method="popup_universe" binds= [ "N" ]]
+[connection signal="button_up" from="HSplit/MainPanel/UI/HUD/Main/AddVariables" to="." method="popup_universe" binds= [ "X" ]]

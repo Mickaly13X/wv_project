@@ -1,4 +1,4 @@
-extends Control
+extends Node2D
 
 const ELEMENT = preload("res://Scenes/Element.tscn")
 

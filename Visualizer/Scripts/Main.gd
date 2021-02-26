@@ -6,6 +6,14 @@ onready var SET = preload("res://Scenes/Set.tscn")
 onready var MB_SIZE = $PopUpUniverse/Items/MbSize
 onready var OPEN_COLA = $HSplit/MainPanel/UI/HUD/OpenCoLa
 onready var COLA_PANEL = $HSplit/CoLaPanel
+onready var SETS = $Sets
+onready var HSPLIT = $HSplit
+onready var POPUPS = {
+	"set_universe":$PopUpUniverse
+	
+	
+	
+	}
 
 var not_domains = ["structure","size","pos","count","not","inter","union","in"]
 var diagrams = []
@@ -47,7 +55,7 @@ func add_menu_button_items():
 
 func add_universe(tag : String, custom_name : String, size : int) -> void:
 	
-	var Universe : Node = $HSplit/MainPanel/Sets.get_node(tag)
+	var Universe : Node = SETS.get_node(tag)
 	Universe.set_name(custom_name)
 	Universe.add_elements(size)
 
@@ -194,8 +202,8 @@ func _on_size_item_pressed(id):
 
 #called when pressing on the Add Set Button
 func popup_universe(universe_tag : String) -> void:
-	$PopUpUniverse.ref_universe = universe_tag
-	$PopUpUniverse.popup()
+	POPUPS["set_universe"].ref_universe = universe_tag
+	POPUPS["set_universe"].popup()
 
 
 func _on_AddVariables_button_up():
@@ -205,10 +213,10 @@ func _on_AddVariables_button_up():
 func toggle_cola_panel():
 	
 	if OPEN_COLA.text == ">":
-		$HSplit.dragger_visibility = SplitContainer.DRAGGER_VISIBLE
+		HSPLIT.dragger_visibility = SplitContainer.DRAGGER_VISIBLE
 		COLA_PANEL.show()
 		OPEN_COLA.text = "<"
 	else:
-		$HSplit.dragger_visibility = SplitContainer.DRAGGER_HIDDEN_COLLAPSED
+		HSPLIT.dragger_visibility = SplitContainer.DRAGGER_HIDDEN_COLLAPSED
 		COLA_PANEL.hide()
 		OPEN_COLA.text = ">"

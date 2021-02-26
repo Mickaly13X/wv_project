@@ -6,6 +6,7 @@ onready var SET = preload("res://Scenes/Set.tscn")
 onready var MB_SIZE = $PopUpUniverse/Items/MbSize
 onready var OPEN_COLA = $HSplit/MainPanel/UI/HUD/OpenCoLa
 onready var COLA_PANEL = $HSplit/CoLaPanel
+onready var COLA = $HSplit/CoLaPanel/CoLaInput
 onready var SETS = $Sets
 onready var HSPLIT = $HSplit
 onready var POPUPS = {
@@ -58,6 +59,7 @@ func add_universe(tag : String, custom_name : String, size : int) -> void:
 	var Universe : Node = SETS.get_node(tag)
 	Universe.set_name(custom_name)
 	Universe.add_elements(size)
+	COLA.text += custom_name+"{[1,"+str(size)+"]}"
 
 func draw_circle_custom(radius : float, pos : Vector2, color : Color = Color.white, maxerror = 0.25):
 	

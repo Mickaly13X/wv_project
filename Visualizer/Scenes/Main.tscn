@@ -100,8 +100,8 @@ size_flags_vertical = 3
 alignment = 1
 
 [node name="Import" type="Button" parent="HSplit/MainPanel/UI/HUD/Main"]
-margin_left = 720.0
-margin_right = 804.0
+margin_left = 727.0
+margin_right = 811.0
 margin_bottom = 34.0
 focus_mode = 0
 custom_fonts/font = ExtResource( 4 )
@@ -112,8 +112,8 @@ __meta__ = {
 }
 
 [node name="SetUniverse" type="Button" parent="HSplit/MainPanel/UI/HUD/Main"]
-margin_left = 808.0
-margin_right = 950.0
+margin_left = 815.0
+margin_right = 957.0
 margin_bottom = 34.0
 focus_mode = 0
 custom_fonts/font = ExtResource( 4 )
@@ -124,8 +124,9 @@ __meta__ = {
 }
 
 [node name="AddVariables" type="Button" parent="HSplit/MainPanel/UI/HUD/Main"]
-margin_left = 954.0
-margin_right = 1117.0
+visible = false
+margin_left = 870.0
+margin_right = 1033.0
 margin_bottom = 34.0
 focus_mode = 0
 custom_fonts/font = ExtResource( 4 )
@@ -135,9 +136,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Set Structure" type="Button" parent="HSplit/MainPanel/UI/HUD/Main"]
+margin_left = 961.0
+margin_right = 1110.0
+margin_bottom = 34.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 4 )
+enabled_focus_mode = 0
+text = "Set Structure"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Run" type="Button" parent="HSplit/MainPanel/UI/HUD/Main"]
-margin_left = 1121.0
-margin_right = 1173.0
+margin_left = 1114.0
+margin_right = 1166.0
 margin_bottom = 34.0
 focus_mode = 0
 custom_fonts/font = ExtResource( 4 )
@@ -164,15 +177,22 @@ position = Vector2( 1280, 396 )
 position = Vector2( 349.905, 396.982 )
 
 [node name="Popups" type="Control" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -960.0
+margin_top = -540.0
+margin_right = 960.0
+margin_bottom = 540.0
 mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="SetUniverse" parent="Popups" instance=ExtResource( 3 )]
-popup_exclusive = true
+
+[node name="SetStructure" parent="Popups" instance=ExtResource( 3 )]
 
 [node name="OpenFile" type="FileDialog" parent="Popups"]
 anchor_left = 0.5

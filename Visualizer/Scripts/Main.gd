@@ -2,6 +2,9 @@ extends Control
 
 const Exception = preload("res://util/ExceptionIDs.gd")
 
+enum Distinct {NONE_SAME, X_SAME, Y_SAME, XY_SAME}
+enum SetFunction {ANY, INJ, SUR}
+
 onready var SET = preload("res://Scenes/Set.tscn")
 onready var MB_SIZE = $Popups/SetUniverse/VBox/Items/MbSize
 onready var OPEN_COLA = $HSplit/MainPanel/UI/HUD/OpenCoLa
@@ -16,6 +19,7 @@ onready var POPUPS = {
 
 var not_domains = ["structure", "size", "pos", "count", "not", "inter", "union", "in"]
 var diagrams = []
+var structure = [Distinct.NONE_SAME, SetFunction.ANY]
 
 const ROOM_H = 600
 const ROOM_W = 1024
@@ -65,19 +69,19 @@ func add_universe(tag: String, custom_name: String, size: int) -> void:
 func draw_circle_custom(radius: float, pos: Vector2, color: Color = Color.white, maxerror = 0.25):
 	if radius <= 0.0:
 		return
-
+	
 	var maxpoints = 1024  # I think this is renderer limit
-
+	
 	var numpoints = ceil(PI / acos(1.0 - maxerror / radius))
 	numpoints = clamp(numpoints, 3, maxpoints)
-
+	
 	var points = PoolVector2Array([])
-
+	
 	for i in numpoints:
 		var phi = i * PI * 2.0 / numpoints
 		var v = Vector2(sin(phi), cos(phi))
 		points.push_back(v * radius + pos)
-
+	
 	draw_colored_polygon(points, color)
 
 
@@ -117,7 +121,7 @@ func get_domains(input):
 			highest[0] = len(domain[key])
 			highest[1] = key
 		domain.erase(highest[1])
-
+	
 	return domain
 
 

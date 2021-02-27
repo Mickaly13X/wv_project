@@ -53,3 +53,4 @@ func _pressed_add():
 func _pressed_cancel():
 	clear_user_input()
 	self.hide()
+

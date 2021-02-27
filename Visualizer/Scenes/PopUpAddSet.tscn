@@ -1,0 +1,190 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scripts/pu_add_set.gd" type="Script" id=2]
+[ext_resource path="res://Fonts/font.tres" type="DynamicFont" id=4]
+[ext_resource path="res://Fonts/font medium.tres" type="DynamicFont" id=5]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.101961, 0.113725, 0.145098, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.223529, 0.243137, 0.286275, 1 )
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="AddSet" type="PopupDialog"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -283.5
+margin_top = -141.5
+margin_right = 283.5
+margin_bottom = 141.5
+rect_min_size = Vector2( 296, 128 )
+custom_styles/panel = SubResource( 1 )
+popup_exclusive = true
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBox" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 32.0
+margin_top = 32.0
+margin_right = -32.0
+margin_bottom = -32.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="VBox"]
+margin_right = 503.0
+margin_bottom = 46.0
+custom_fonts/font = ExtResource( 4 )
+text = "Set Universe"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Items" type="GridContainer" parent="VBox"]
+margin_top = 50.0
+margin_right = 503.0
+margin_bottom = 181.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/vseparation = 16
+custom_constants/hseparation = 16
+columns = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NameLabel" type="Label" parent="VBox/Items"]
+margin_top = 5.0
+margin_right = 64.0
+margin_bottom = 33.0
+custom_fonts/font = ExtResource( 5 )
+text = "Name"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NameInput" type="LineEdit" parent="VBox/Items"]
+margin_left = 80.0
+margin_right = 503.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 128, 24 )
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 5 )
+max_length = 20
+placeholder_text = "Name"
+caret_blink = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SizeLabel" type="Label" parent="VBox/Items"]
+margin_top = 57.0
+margin_right = 64.0
+margin_bottom = 85.0
+custom_fonts/font = ExtResource( 5 )
+text = "Size"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MbSize" type="MenuButton" parent="VBox/Items"]
+margin_left = 80.0
+margin_top = 54.0
+margin_right = 128.0
+margin_bottom = 88.0
+rect_min_size = Vector2( 48, 0 )
+size_flags_horizontal = 0
+custom_fonts/font = ExtResource( 5 )
+text = "- -"
+flat = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Buttons" type="HBoxContainer" parent="VBox"]
+margin_top = 185.0
+margin_right = 503.0
+margin_bottom = 219.0
+custom_constants/separation = 256
+alignment = 1
+
+[node name="CancelButton" type="Button" parent="VBox/Buttons"]
+margin_left = 53.0
+margin_right = 137.0
+margin_bottom = 34.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 5 )
+enabled_focus_mode = 0
+text = "Cancel"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AddButton" type="Button" parent="VBox/Buttons"]
+margin_left = 393.0
+margin_right = 449.0
+margin_bottom = 34.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 5 )
+enabled_focus_mode = 0
+text = "Add"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Popup" type="Popup" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -148.0
+margin_top = -74.5
+margin_right = 148.0
+margin_bottom = 74.5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="Popup"]
+modulate = Color( 0.647059, 0.647059, 0.647059, 0.882353 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="PopupLabel" type="Label" parent="Popup"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 16.0
+margin_top = 16.0
+margin_right = -16.0
+margin_bottom = -16.0
+custom_fonts/font = ExtResource( 5 )
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+[connection signal="button_up" from="VBox/Buttons/CancelButton" to="." method="_pressed_cancel"]
+[connection signal="button_up" from="VBox/Buttons/AddButton" to="." method="_pressed_add"]

@@ -2,8 +2,8 @@ extends Popup
 
 const Exception = preload("res://util/ExceptionIDs.gd")
 
-onready var NAME_INPUT = $Items/NameInput
-onready var MB_SIZE = $Items/MbSize
+onready var NAME_INPUT = $VBox/Items/NameInput
+onready var MB_SIZE = $VBox/Items/MbSize
 
 var ref_universe : String
 

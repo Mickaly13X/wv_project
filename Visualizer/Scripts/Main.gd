@@ -3,7 +3,7 @@ extends Control
 const Exception = preload("res://util/ExceptionIDs.gd")
 
 onready var SET = preload("res://Scenes/Set.tscn")
-onready var MB_SIZE = $Popups/SetUniverse/Items/MbSize
+onready var MB_SIZE = $Popups/SetUniverse/VBox/Items/MbSize
 onready var OPEN_COLA = $HSplit/MainPanel/UI/HUD/OpenCoLa
 onready var COLA_PANEL = $HSplit/CoLaPanel
 onready var COLA = $HSplit/CoLaPanel/CoLaInput

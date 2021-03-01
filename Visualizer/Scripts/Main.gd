@@ -58,7 +58,10 @@ func _process(_delta):
 		get_tree().quit()
 	#if Input.is_action_just_pressed("ui_accept"):
 	#	get_tree().reload_current_scene()
-
+	if Input.is_action_pressed("mouse_left"):
+		Universes.get_node("N").hide_menu()
+		Universes.get_node("X").hide_menu()
+		pass
 
 func _on_cola_file_selected(path):
 	

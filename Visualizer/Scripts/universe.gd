@@ -203,5 +203,11 @@ func set_size(size : int) -> void:
 		add_element()
 
 
+func hide_menu():
+	
+	$Menu.hide()
+
+
 func update_domains() -> void:
 	init(get_size())
+

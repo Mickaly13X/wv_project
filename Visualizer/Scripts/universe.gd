@@ -161,3 +161,9 @@ func set_size(size : int) -> void:
 	
 	for _i in range(size):
 		add_element()
+
+
+func hide_menu():
+	
+	$Menu.hide()
+

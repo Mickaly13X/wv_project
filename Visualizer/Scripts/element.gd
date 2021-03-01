@@ -50,10 +50,10 @@ func init_mask():
 func on_gui_input(event):
 	
 	if (event.is_pressed() and event.button_index == BUTTON_LEFT):
-		print("Wow, a left mouse click owo")
 		selected = !selected
-		print(selected)
-
+	if (event.is_pressed() and event.button_index == BUTTON_RIGHT):
+		self.get_parent().get_parent()._pressed_global()
+		selected = !selected
 
 func set_color(new_color : Color):
 	if uni_name == "N":

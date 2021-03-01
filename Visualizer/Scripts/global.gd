@@ -60,6 +60,10 @@ func random(n : int) -> int:
 func randomf(n : float) -> float: 
 	return randf() * n
 
+# returns a Vector2 with as values 2 integer between [0, n]
+func randomVect(vect : Vector2) -> Vector2:
+	return Vector2(random(vect.x), random(vect.y))
+
 # returns the sum of all elements from the given list
 # @pre 'list' only contains integer values
 func sum(list : Array) -> int:

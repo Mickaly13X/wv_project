@@ -14,10 +14,11 @@ const ELEMENT_COLORS = [
 	Color(0.237456, 0.218878, 0.558594)]
 
 var circles = []
-var custom_name : String
+var custom_name = ""
 var distinct = false
 var domains : Dictionary
-var element_offset = 0
+var element_size = Vector2(16, 16)
+var is_distinct : bool
 var shape
 
 
@@ -84,18 +85,54 @@ func _pressed_global() -> void:
 
 
 #TODO add ability to add names to elements -> adv settings
-func add_element():
+func add_element(approx : Rect2 = get_boundry(), pos_constraints = []):
 	
+	var new_pos = approx.position + element_size + \
+		g.randomVect(approx.size - element_size)
+
 	var new_element = ELEMENT.instance()
-	new_element.position = Vector2(0, element_offset)
-	element_offset += 64
+	new_element.uni_name = name
+	new_element.position = new_pos
+	if distinct:
+		"lol"
+		new_element.set_color(ELEMENT_COLORS[get_size()])
+		#	Color(0.33 * (i%3), 0.33 * ((i/3)%3), 0.33 * ((i/9)%3))
+	else:
+		new_element.set_color(Color.white)
 	$Elements.add_child(new_element)
+
+
+func init(size : int, custom_name = "", is_distinct : bool = is_distinct()) -> void:
+	
+	var new_size
+	if size == -1: new_size = get_size()
+	else: new_size == size
+	
+	for I in $Elements.get_children():
+		 I.queue_free()
+	
+	self.is_distinct = is_distinct
+	print(is_distinct())
+	set_name(custom_name)
+	call_deferred("set_size", size)
+	#set_diagram(get_venn_areas(domains.values()))
+
+
+func is_distinct() -> bool:
+	return is_distinct
+
+
+func get_boundry() -> Rect2:
+	return Rect2($Mask.rect_position, $Mask.rect_size)
 
 
 func get_name() -> String:
 	
 	return custom_name
 
+
+func get_size() -> int:
+	return len($Elements.get_children())
 
 # for 2-part venns, use 'venn_areas' = [A, B, AB]
 # for 3-part venns, use 'venn_areas' = [A, B, C, AB, BC, AC, ABC]
@@ -120,20 +157,7 @@ func get_name() -> String:
 #
 #	print("exit_code " + str(exit_code))
 
-
-func set_distinct(distinct : bool):
-	
-	self.distinct = distinct
-	var elements = $Elements.get_children()
-	for i in range(len(elements)):
-		if distinct:
-			elements[i].set_color(ELEMENT_COLORS[i])
-			#	Color(0.33 * (i%3), 0.33 * ((i/3)%3), 0.33 * ((i/9)%3))
-		else:
-			elements[i].set_color(Color.white)
-
-
-func set_name(custom_name : String = "") -> void:
+func set_name(custom_name : String = get_name()) -> void:
 	
 	if custom_name == "": $Label.text = name
 	else: $Label.text = name + " (" + custom_name + ")"
@@ -141,9 +165,5 @@ func set_name(custom_name : String = "") -> void:
 
 func set_size(size : int) -> void:
 	
-	for i in $Elements.get_children():
-		 i.queue_free()
-	element_offset = 0
 	for _i in range(size):
 		add_element()
-	set_distinct(distinct)

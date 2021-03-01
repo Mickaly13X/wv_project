@@ -1,7 +1,8 @@
 extends Node2D
 
-onready var set = get_parent().get_parent()
 onready var MASK = $Mask
+
+var uni_name : String
 var shape_selected = StyleBoxFlat.new() 
 var shape_unselected = StyleBoxFlat.new() 
 
@@ -11,8 +12,8 @@ var selected = false
 func _ready():
 	
 	init_mask()
-	if set.name == "N": # ball
-		shape_unselected.bg_color = Color(0.335114, 0.295376, 0.613281)
+	if uni_name == "N": # ball
+		#shape_unselected.bg_color = Color(0.335114, 0.295376, 0.613281)
 		shape_unselected.set_corner_radius_all(r)
 		
 		shape_selected.bg_color = Color(0.335114, 0.295376, 0.613281)
@@ -32,7 +33,7 @@ func _process(delta):
 
 func _draw():
 	
-	if set.name == "N":
+	if uni_name == "N":
 		if selected == false:
 			draw_style_box(shape_unselected, Rect2(-r, -r, 2*r, 2*r))
 		else:
@@ -55,7 +56,7 @@ func on_gui_input(event):
 
 
 func set_color(new_color : Color):
-	if set.name == "N":
+	if uni_name == "N":
 		shape_unselected.bg_color = new_color
 	else:
 		shape_unselected.border_color = new_color

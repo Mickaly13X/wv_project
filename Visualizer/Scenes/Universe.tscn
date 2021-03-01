@@ -32,7 +32,6 @@ __meta__ = {
 }
 
 [node name="Elements" type="Node2D" parent="."]
-position = Vector2( 200, 200 )
 
 [node name="Menu" type="Node2D" parent="."]
 

@@ -223,7 +223,7 @@ func set_menu_universe(is_opened : bool, ref : String = "N") -> void:
 			$Popups/MenuUniverse/VBox/Title.text = "Set Variables"
 		$Popups/MenuUniverse.popup()
 	else:
-		$Popups/MenuUniverse/VBox/Items/NameInput.text = ""
+		#$Popups/MenuUniverse/VBox/Items/NameInput.text = ""
 		#SizeInput.text = "- -"
 		$Popups/MenuUniverse.hide()
 
@@ -232,12 +232,17 @@ func set_structure() -> void:
 	
 	var distinct = structure[0]
 	var set_function = structure[1]
-	Universes.get_node("N").set_distinct(distinct == Distinct.X_SAME || \
-									distinct == Distinct.NONE_SAME)
-	Universes.get_node("X").set_distinct(distinct == Distinct.N_SAME || \
-									distinct == Distinct.NONE_SAME)
+	
+	for I in Universes.get_children():
+		
+		var is_distinct : bool
+		if I.name == "N":
+			is_distinct = (distinct == Distinct.X_SAME || distinct == Distinct.NONE_SAME)
+		else:
+			is_distinct = (distinct == Distinct.N_SAME || distinct == Distinct.NONE_SAME)
+		I.init(-1, "", is_distinct)
+		
 	$Structure.text = "Structure = " + STRUCTURE_NAMES[distinct][set_function]
-	set_menu_structure(false)
 
 
 func set_universe() -> void:
@@ -252,10 +257,9 @@ func set_universe() -> void:
 		show_message("Please choose a size")
 		return
 		
-	Universes.get_node(universe_menu).set_name(new_name)
-	Universes.get_node(universe_menu).set_size(int(new_size))
+	Universes.get_node(universe_menu).init(int(new_size), new_name)
+	
 	CoLaInput.text += new_name + "{[1," + str(new_size) + "]}"
-	#set_diagram(get_venn_areas(domains.values()))
 	set_menu_universe(false)
 
 

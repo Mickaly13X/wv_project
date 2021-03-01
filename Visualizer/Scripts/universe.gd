@@ -102,10 +102,11 @@ func add_element(approx : Rect2 = get_boundry(), pos_constraints = []):
 func init(size : int, custom_name = get_name()) -> void:
 	
 	for I in $Elements.get_children():
-		 I.queue_free()
+		 I.free()
 	
+	print(get_size())
 	set_name(custom_name)
-	call_deferred("set_size", size)
+	set_size(size)
 	#set_diagram(get_venn_areas(domains.values()))
 
 
@@ -158,6 +159,5 @@ func set_name(custom_name : String = get_name()) -> void:
 
 func set_size(size : int) -> void:
 	
-	print(get_size())
 	for _i in range(size):
 		add_element()

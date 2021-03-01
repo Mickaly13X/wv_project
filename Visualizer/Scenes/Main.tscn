@@ -310,18 +310,6 @@ margin_bottom = 219.0
 custom_constants/separation = 256
 alignment = 1
 
-[node name="AddButton" type="Button" parent="Popups/MenuStructure/VBox/Buttons"]
-margin_left = 48.0
-margin_right = 114.0
-margin_bottom = 34.0
-focus_mode = 0
-custom_fonts/font = ExtResource( 4 )
-enabled_focus_mode = 0
-text = "Done"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="CancelButton" type="Button" parent="Popups/MenuStructure/VBox/Buttons"]
 margin_left = 370.0
 margin_right = 454.0
@@ -330,6 +318,18 @@ focus_mode = 0
 custom_fonts/font = ExtResource( 4 )
 enabled_focus_mode = 0
 text = "Cancel"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AddButton" type="Button" parent="Popups/MenuStructure/VBox/Buttons"]
+margin_left = 48.0
+margin_right = 114.0
+margin_bottom = 34.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 4 )
+enabled_focus_mode = 0
+text = "Done"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -441,6 +441,18 @@ margin_bottom = 219.0
 custom_constants/separation = 256
 alignment = 1
 
+[node name="CancelButton" type="Button" parent="Popups/MenuUniverse/VBox/Buttons"]
+margin_left = 370.0
+margin_right = 454.0
+margin_bottom = 34.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 4 )
+enabled_focus_mode = 0
+text = "Cancel"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="AddButton" type="Button" parent="Popups/MenuUniverse/VBox/Buttons"]
 margin_left = 48.0
 margin_right = 114.0
@@ -453,14 +465,108 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CancelButton" type="Button" parent="Popups/MenuUniverse/VBox/Buttons"]
-margin_left = 370.0
-margin_right = 454.0
+[node name="MenuGroup" type="PopupDialog" parent="Popups"]
+visible = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -277.5
+margin_top = -109.5
+margin_right = 277.5
+margin_bottom = 109.5
+rect_min_size = Vector2( 296, 128 )
+custom_styles/panel = SubResource( 3 )
+popup_exclusive = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBox" type="VBoxContainer" parent="Popups/MenuGroup"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 32.0
+margin_top = 32.0
+margin_right = -32.0
+margin_bottom = -32.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="Popups/MenuGroup/VBox"]
+margin_right = 491.0
+margin_bottom = 46.0
+custom_fonts/font = ExtResource( 5 )
+text = "Group Selected Elements"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Items" type="GridContainer" parent="Popups/MenuGroup/VBox"]
+margin_top = 50.0
+margin_right = 491.0
+margin_bottom = 117.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/vseparation = 16
+custom_constants/hseparation = 16
+columns = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SelectGroup" type="Label" parent="Popups/MenuGroup/VBox/Items"]
+margin_top = 3.0
+margin_right = 73.0
+margin_bottom = 31.0
+custom_fonts/font = ExtResource( 4 )
+text = "Group:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Groups" type="MenuButton" parent="Popups/MenuGroup/VBox/Items"]
+margin_left = 89.0
+margin_right = 249.0
+margin_bottom = 34.0
+rect_min_size = Vector2( 48, 0 )
+size_flags_horizontal = 0
+custom_fonts/font = ExtResource( 4 )
+text = "-select group-"
+flat = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Buttons" type="HBoxContainer" parent="Popups/MenuGroup/VBox"]
+margin_top = 121.0
+margin_right = 491.0
+margin_bottom = 155.0
+custom_constants/separation = 256
+alignment = 1
+
+[node name="CancelButton" type="Button" parent="Popups/MenuGroup/VBox/Buttons"]
+margin_left = 36.0
+margin_right = 120.0
 margin_bottom = 34.0
 focus_mode = 0
 custom_fonts/font = ExtResource( 4 )
 enabled_focus_mode = 0
 text = "Cancel"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GroupButton" type="Button" parent="Popups/MenuGroup/VBox/Buttons"]
+margin_left = 376.0
+margin_right = 455.0
+margin_bottom = 34.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 4 )
+enabled_focus_mode = 0
+text = "Group"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -517,9 +623,9 @@ popup_exclusive = true
 window_title = "Open een Bestand"
 mode = 0
 access = 2
-current_dir = "/Users/Joran/Git/wv_project/Visualizer"
+current_dir = "/Users/erickim/wv_project/Visualizer"
 current_file = "~"
-current_path = "/Users/Joran/Git/wv_project/Visualizer/~"
+current_path = "/Users/erickim/wv_project/Visualizer/~"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -537,9 +643,12 @@ __meta__ = {
 [connection signal="button_up" from="HSplit/MainPanel/UI/HUD/Main/SetStructure" to="." method="set_menu_structure" binds= [ true ]]
 [connection signal="button_up" from="HSplit/MainPanel/UI/HUD/Main/SetUniverse" to="." method="set_menu_universe" binds= [ true ]]
 [connection signal="button_up" from="HSplit/MainPanel/UI/HUD/Main/SetVariables" to="." method="set_menu_universe" binds= [ true, "X" ]]
-[connection signal="button_up" from="Popups/MenuStructure/VBox/Buttons/AddButton" to="." method="set_structure"]
 [connection signal="button_up" from="Popups/MenuStructure/VBox/Buttons/CancelButton" to="." method="set_menu_structure" binds= [ false ]]
+[connection signal="button_up" from="Popups/MenuStructure/VBox/Buttons/AddButton" to="." method="set_structure"]
 [connection signal="button_up" from="Popups/MenuUniverse/VBox/Items/SizeInput" to="." method="_pressed_size_input"]
-[connection signal="button_up" from="Popups/MenuUniverse/VBox/Buttons/AddButton" to="." method="set_universe"]
 [connection signal="button_up" from="Popups/MenuUniverse/VBox/Buttons/CancelButton" to="." method="set_menu_universe" binds= [ false ]]
+[connection signal="button_up" from="Popups/MenuUniverse/VBox/Buttons/AddButton" to="." method="set_universe"]
+[connection signal="button_up" from="Popups/MenuGroup/VBox/Items/Groups" to="." method="_pressed_size_input"]
+[connection signal="button_up" from="Popups/MenuGroup/VBox/Buttons/CancelButton" to="." method="set_menu_universe" binds= [ false ]]
+[connection signal="button_up" from="Popups/MenuGroup/VBox/Buttons/GroupButton" to="." method="set_universe"]
 [connection signal="file_selected" from="Popups/OpenFile" to="." method="_on_cola_file_selected"]

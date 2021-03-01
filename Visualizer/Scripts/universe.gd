@@ -93,7 +93,6 @@ func add_element(approx : Rect2 = get_boundry(), pos_constraints = []):
 	new_element.uni_name = name
 	new_element.position = new_pos
 	if distinct:
-		"lol"
 		new_element.set_color(ELEMENT_COLORS[get_size()])
 		#	Color(0.33 * (i%3), 0.33 * ((i/3)%3), 0.33 * ((i/9)%3))
 	else:

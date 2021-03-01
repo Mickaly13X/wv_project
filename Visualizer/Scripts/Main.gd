@@ -1,24 +1,29 @@
 extends Control
 
 const Exception = preload("res://util/ExceptionIDs.gd")
+const SET = preload("res://Scenes/Set.tscn")
 
-enum Distinct {NONE_SAME, X_SAME, Y_SAME, XY_SAME}
+enum Distinct {NONE_SAME, N_SAME, X_SAME, NX_SAME}
 enum SetFunction {ANY, INJ, SUR}
 
-onready var SET = preload("res://Scenes/Set.tscn")
-onready var MB_SIZE = $Popups/SetUniverse/VBox/Items/MbSize
-onready var OPEN_COLA = $HSplit/MainPanel/UI/HUD/OpenCoLa
-onready var COLA_PANEL = $HSplit/CoLaPanel
-onready var COLA = $HSplit/CoLaPanel/CoLaInput
-onready var SETS = $HSplit/MainPanel/Sets
-onready var HSPLIT = $HSplit
+onready var CoLaInput = $HSplit/CoLaPanel/CoLaInput
+onready var CoLaPanel = $HSplit/CoLaPanel
+onready var DistInput = $Popups/MenuStructure/VBox/Items/DistInput
+onready var FuncInput = $Popups/MenuStructure/VBox/Items/FuncInput
+onready var HSplit = $HSplit
+onready var OpenCoLa = $HSplit/MainPanel/UI/HUD/OpenCoLa
+onready var Sets = $HSplit/MainPanel/Sets
+onready var MenuUniverse = $Popups/MenuUniverse
+onready var SizeInput = $Popups/MenuUniverse/VBox/Items/SizeInput
+
 onready var POPUPS = {
-	"set_universe": $Popups/SetUniverse, 
+	"set_universe": $Popups/MenuUniverse, 
 	"open_file": $Popups/OpenFile
 	}
 
-var not_domains = ["structure", "size", "pos", "count", "not", "inter", "union", "in"]
+var universe_menu : String
 var diagrams = []
+var not_domains = ["structure", "size", "pos", "count", "not", "inter", "union", "in"]
 var structure = [Distinct.NONE_SAME, SetFunction.ANY]
 
 const ROOM_H = 600
@@ -28,9 +33,9 @@ const MAX_SET_SIZE = 10
 
 
 func _ready():
-	add_menu_button_items()
-	init_menu_buttons()
+	
 	randomize()
+	init_menus()
 	POPUPS["open_file"].current_dir = ""
 	POPUPS["open_file"].current_path = ""
 	#var file_path = "res://tests/paper/constrained/permutation_5_4.test"
@@ -40,18 +45,29 @@ func _ready():
 
 
 func _process(_delta):
+	
 	if Input.is_action_pressed("ui_cancel"):
 		get_tree().quit()
 	#if Input.is_action_just_pressed("ui_accept"):
 	#	get_tree().reload_current_scene()
 
 
-#Initiate the menu button items
-func add_menu_button_items():
-	for i in range(MAX_SET_SIZE):
-		#to add zero before single digits like 01, 02 instead of 1, 2
-		var numberstr = "0" + str(i + 1) if i + 1 < 10 else str(i + 1)
-		MB_SIZE.get_popup().add_item(numberstr)
+func _on_cola_file_selected(path):
+	
+	var file = File.new()
+	file.open(path, File.READ)
+	var content = file.get_as_text()
+	#if is_cola()
+	CoLaInput.text = content
+
+
+func _pressed_mb_input(index, TypeInput):
+	
+	var InputMenu = TypeInput.get_popup()
+	TypeInput.text = InputMenu.get_item_text(index)
+	
+	if TypeInput == DistInput: structure[0] = index
+	if TypeInput == FuncInput: structure[1] = index
 
 
 #func _draw():
@@ -59,14 +75,9 @@ func add_menu_button_items():
 #		draw_circle_custom(diagrams[i].radius, diagrams[i].pos, COLORS[i])
 
 
-func add_universe(tag: String, custom_name: String, size: int) -> void:
-	var Universe: Node = SETS.get_node(tag)
-	Universe.set_name(custom_name)
-	Universe.add_elements(size)
-	COLA.text += custom_name + "{[1," + str(size) + "]}"
-
-
-func draw_circle_custom(radius: float, pos: Vector2, color: Color = Color.white, maxerror = 0.25):
+func draw_circle_custom(radius: float, pos: Vector2, \
+	color: Color = Color.white, maxerror = 0.25):
+	
 	if radius <= 0.0:
 		return
 	
@@ -86,6 +97,7 @@ func draw_circle_custom(radius: float, pos: Vector2, color: Color = Color.white,
 
 
 func get_input(file_path):
+	
 	var file = File.new()
 	file.open(file_path, File.READ)
 	var content = file.get_as_text()
@@ -94,12 +106,20 @@ func get_input(file_path):
 
 
 func get_ouput():
-	#TODO
+	pass
+
+
+func get_universe_name_from_cola():
+	pass
+
+
+func get_universe_size_from_cola():
 	pass
 
 
 #Returns a dictionary with name(of domain):value
 func get_domains(input):
+	
 	var domain = {}  #the dict to be returned
 	var domain_strings = []
 	for i in input:
@@ -126,6 +146,7 @@ func get_domains(input):
 
 
 func get_domain_name(domain_string):
+	
 	var regex = RegEx.new()
 	regex.compile("^\\w*")  #regex: ^\w*
 	var result = regex.search(domain_string)
@@ -136,6 +157,7 @@ func get_domain_name(domain_string):
 
 #Only works for intervals for now
 func get_domain_value(domain_string):
+	
 	var regex = RegEx.new()
 	regex.compile("\\[.*\\]")  #regex: [.*]
 	var result = regex.search(domain_string)
@@ -153,8 +175,8 @@ func get_domain_value(domain_string):
 
 # domains is a list of ONLY the values of dictionary
 func get_venn_areas(domains):
+	
 	var venn_areas = []
-
 	# main sets
 	for i in domains:
 		venn_areas.append(len(i))
@@ -169,7 +191,23 @@ func get_venn_areas(domains):
 	return venn_areas
 
 
+func init_menus() -> void:
+	
+	# structure menu
+	FuncInput.get_popup().connect("id_pressed", self, "_pressed_mb_input", [FuncInput])
+	DistInput.get_popup().connect("id_pressed", self, "_pressed_mb_input", [DistInput])
+	
+	# universe menu
+	SizeInput.get_popup().connect("id_pressed", self, "_pressed_mb_input", [SizeInput])
+	
+	for i in range(MAX_SET_SIZE):
+		#to add zero before single digits like 01, 02 instead of 1, 2
+		var numberstr = "0" + str(i + 1) if i + 1 < 10 else str(i + 1)
+		SizeInput.get_popup().add_item(numberstr)
+
+
 func intersection(array1, array2):
+	
 	var intersection = []
 	for item in array1:
 		if array2.has(item):
@@ -177,9 +215,15 @@ func intersection(array1, array2):
 	return intersection
 
 
+func popup_import():
+	
+	POPUPS["open_file"].popup()
+
+
 # for 2-part venns, use 'venn_areas' = [A, B, AB]
 # for 3-part venns, use 'venn_areas' = [A, B, C, AB, BC, AC, ABC]
 func set_diagram(venn_areas: Array) -> void:
+	
 	var venn_size = 2 + int(len(venn_areas) > 3)
 	var args = ["fetch.py", str(venn_size)]
 	for i in venn_areas:
@@ -196,61 +240,81 @@ func set_diagram(venn_areas: Array) -> void:
 		)
 		new_diagram.radius = float(output[venn_size * 2 + i]) * 100
 		diagrams.append(new_diagram)
-
+	
 	print("exit_code " + str(exit_code))
 
 
-#Initialize menu buttons
-func init_menu_buttons():
-	MB_SIZE.get_popup().connect("id_pressed", self, "_on_size_item_pressed")
-
-
-#Called when pressing on a size menu button (MB_Size) item
-func _on_size_item_pressed(id):
-	var selected_size = MB_SIZE.get_popup().get_item_text(id)
-	MB_SIZE.text = selected_size
-
-
-#called when pressing on the Add Set Button
-func popup_universe(universe_tag: String) -> void:
-	POPUPS["set_universe"].ref_universe = universe_tag
-	POPUPS["set_universe"].popup()
-
-
-func _on_AddVariables_button_up():
-	pass  # Replace with function body.
-
-
-func toggle_cola_panel():
-	if OPEN_COLA.text == ">":
-		HSPLIT.set_dragger_visibility(SplitContainer.DRAGGER_VISIBLE)
-		COLA_PANEL.show()
-		OPEN_COLA.text = "<"
+func set_menu_structure(is_opened : bool) -> void:
+	
+	if is_opened:
+		DistInput.text = DistInput.get_popup().get_item_text(structure[0])
+		FuncInput.text = FuncInput.get_popup().get_item_text(structure[1])
+		$Popups/MenuStructure.popup()
 	else:
-		HSPLIT.set_dragger_visibility(SplitContainer.DRAGGER_HIDDEN_COLLAPSED)
-		COLA_PANEL.hide()
-		OPEN_COLA.text = ">"
+		$Popups/MenuStructure.hide()
 
 
-func popup_import():
-	POPUPS["open_file"].popup()
+# ref = N or X
+func set_menu_universe(is_opened : bool, ref : String = "N") -> void:
+	
+	if is_opened:
+		universe_menu = ref
+		if ref == "N":
+			$Popups/MenuUniverse/VBox/Title.text = "Set Universe"
+		else:
+			$Popups/MenuUniverse/VBox/Title.text = "Set Variables"
+		$Popups/MenuUniverse.popup()
+	else:
+		$Popups/MenuUniverse/VBox/Items/NameInput.text = ""
+		#SizeInput.text = "- -"
+		$Popups/MenuUniverse.hide()
 
 
-func _on_cola_file_selected(path):
-	var file = File.new()
-	file.open(path, File.READ)
-	var content = file.get_as_text()
-	#if is_cola()
-	COLA.text = content
+func set_structure() -> void:
+	
+	var distinct = structure[0]
+	Sets.get_node("N").set_distinct(distinct == Distinct.X_SAME || \
+									distinct == Distinct.NONE_SAME)
+	Sets.get_node("X").set_distinct(distinct == Distinct.N_SAME || \
+									distinct == Distinct.NONE_SAME)
+	set_menu_structure(false)
+
+
+func set_universe() -> void:
+	
+	var new_name = MenuUniverse.get_node("VBox/Items/NameInput").text
+	if new_name == "":
+		show_message("Please specify a name")
+		return
+	
+	var new_size = MenuUniverse.get_node("VBox/Items/SizeInput").text
+	if new_size == "- -":
+		show_message("Please choose a size")
+		return
+		
+	Sets.get_node(universe_menu).set_name(new_name)
+	Sets.get_node(universe_menu).set_size(int(new_size))
+	CoLaInput.text += new_name + "{[1," + str(new_size) + "]}"
+	set_menu_universe(false)
+
+
+func show_message(message : String) -> void:
+	
+	$Popups/Message/Label.text = message
+	$Popups/Message.popup()
 
 
 func run_cola():
 	pass
 
 
-func get_universe_size_from_cola():
-	pass
-
-
-func get_universe_name_from_cola():
-	pass
+func toggle_cola_panel():
+	
+	if OpenCoLa.text == ">":
+		HSplit.set_dragger_visibility(SplitContainer.DRAGGER_VISIBLE)
+		CoLaPanel.show()
+		OpenCoLa.text = "<"
+	else:
+		HSplit.set_dragger_visibility(SplitContainer.DRAGGER_HIDDEN_COLLAPSED)
+		CoLaPanel.hide()
+		OpenCoLa.text = ">"

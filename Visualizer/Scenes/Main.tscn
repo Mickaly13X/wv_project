@@ -1,15 +1,28 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/main.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Set.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scenes/PuUniverse.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Fonts/font medium.tres" type="DynamicFont" id=4]
+[ext_resource path="res://Fonts/font.tres" type="DynamicFont" id=5]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.054902, 0.054902, 0.0588235, 1 )
 
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.0980392, 0.105882, 0.121569, 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.101961, 0.113725, 0.145098, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.223529, 0.243137, 0.286275, 1 )
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="Main" type="Control"]
 anchor_right = 1.0
@@ -100,8 +113,8 @@ size_flags_vertical = 3
 alignment = 1
 
 [node name="Import" type="Button" parent="HSplit/MainPanel/UI/HUD/Main"]
-margin_left = 727.0
-margin_right = 811.0
+margin_left = 649.0
+margin_right = 733.0
 margin_bottom = 34.0
 focus_mode = 0
 custom_fonts/font = ExtResource( 4 )
@@ -111,34 +124,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SetUniverse" type="Button" parent="HSplit/MainPanel/UI/HUD/Main"]
-margin_left = 815.0
-margin_right = 957.0
-margin_bottom = 34.0
-focus_mode = 0
-custom_fonts/font = ExtResource( 4 )
-enabled_focus_mode = 0
-text = "Set Universe"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="AddVariables" type="Button" parent="HSplit/MainPanel/UI/HUD/Main"]
-visible = false
-margin_left = 870.0
-margin_right = 1033.0
-margin_bottom = 34.0
-focus_mode = 0
-custom_fonts/font = ExtResource( 4 )
-enabled_focus_mode = 0
-text = "Add Variables"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Set Structure" type="Button" parent="HSplit/MainPanel/UI/HUD/Main"]
-margin_left = 961.0
-margin_right = 1110.0
+[node name="SetStructure" type="Button" parent="HSplit/MainPanel/UI/HUD/Main"]
+margin_left = 737.0
+margin_right = 886.0
 margin_bottom = 34.0
 focus_mode = 0
 custom_fonts/font = ExtResource( 4 )
@@ -148,9 +136,33 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="SetUniverse" type="Button" parent="HSplit/MainPanel/UI/HUD/Main"]
+margin_left = 890.0
+margin_right = 1032.0
+margin_bottom = 34.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 4 )
+enabled_focus_mode = 0
+text = "Set Universe"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SetVariables" type="Button" parent="HSplit/MainPanel/UI/HUD/Main"]
+margin_left = 1036.0
+margin_right = 1188.0
+margin_bottom = 34.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 4 )
+enabled_focus_mode = 0
+text = "Set Variables"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Run" type="Button" parent="HSplit/MainPanel/UI/HUD/Main"]
-margin_left = 1114.0
-margin_right = 1166.0
+margin_left = 1192.0
+margin_right = 1244.0
 margin_bottom = 34.0
 focus_mode = 0
 custom_fonts/font = ExtResource( 4 )
@@ -190,9 +202,304 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SetUniverse" parent="Popups" instance=ExtResource( 3 )]
+[node name="MenuStructure" type="PopupDialog" parent="Popups"]
+visible = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -283.5
+margin_top = -141.5
+margin_right = 283.5
+margin_bottom = 141.5
+rect_min_size = Vector2( 296, 128 )
+custom_styles/panel = SubResource( 3 )
+popup_exclusive = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="SetStructure" parent="Popups" instance=ExtResource( 3 )]
+[node name="VBox" type="VBoxContainer" parent="Popups/MenuStructure"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 32.0
+margin_top = 32.0
+margin_right = -32.0
+margin_bottom = -32.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="Popups/MenuStructure/VBox"]
+margin_right = 503.0
+margin_bottom = 46.0
+custom_fonts/font = ExtResource( 5 )
+text = "Set Structure"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Items" type="GridContainer" parent="Popups/MenuStructure/VBox"]
+margin_top = 50.0
+margin_right = 503.0
+margin_bottom = 181.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/vseparation = 16
+custom_constants/hseparation = 16
+columns = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DistLabel" type="Label" parent="Popups/MenuStructure/VBox/Items"]
+margin_top = 3.0
+margin_right = 182.0
+margin_bottom = 31.0
+custom_fonts/font = ExtResource( 4 )
+text = "Distinguishability"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DistInput" type="MenuButton" parent="Popups/MenuStructure/VBox/Items"]
+margin_left = 198.0
+margin_right = 246.0
+margin_bottom = 34.0
+rect_min_size = Vector2( 48, 0 )
+size_flags_horizontal = 0
+custom_fonts/font = ExtResource( 4 )
+flat = false
+items = [ "!=", null, 0, false, false, 0, 0, null, "", false, "= N", null, 0, false, false, 1, 0, null, "", false, "= X", null, 0, false, false, 2, 0, null, "", false, "= NX", null, 0, false, false, 3, 0, null, "", false ]
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FuncLabel" type="Label" parent="Popups/MenuStructure/VBox/Items"]
+margin_top = 53.0
+margin_right = 182.0
+margin_bottom = 81.0
+custom_fonts/font = ExtResource( 4 )
+text = "Function Type"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FuncInput" type="MenuButton" parent="Popups/MenuStructure/VBox/Items"]
+margin_left = 198.0
+margin_top = 50.0
+margin_right = 246.0
+margin_bottom = 84.0
+rect_min_size = Vector2( 48, 0 )
+size_flags_horizontal = 0
+custom_fonts/font = ExtResource( 4 )
+flat = false
+items = [ "Any", null, 0, false, false, 0, 0, null, "", false, "Inj", null, 0, false, false, 1, 0, null, "", false, "Sur", null, 0, false, false, 2, 0, null, "", false ]
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Buttons" type="HBoxContainer" parent="Popups/MenuStructure/VBox"]
+margin_top = 185.0
+margin_right = 503.0
+margin_bottom = 219.0
+custom_constants/separation = 256
+alignment = 1
+
+[node name="AddButton" type="Button" parent="Popups/MenuStructure/VBox/Buttons"]
+margin_left = 48.0
+margin_right = 114.0
+margin_bottom = 34.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 4 )
+enabled_focus_mode = 0
+text = "Done"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CancelButton" type="Button" parent="Popups/MenuStructure/VBox/Buttons"]
+margin_left = 370.0
+margin_right = 454.0
+margin_bottom = 34.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 4 )
+enabled_focus_mode = 0
+text = "Cancel"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MenuUniverse" type="PopupDialog" parent="Popups"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -283.5
+margin_top = -141.5
+margin_right = 283.5
+margin_bottom = 141.5
+rect_min_size = Vector2( 296, 128 )
+custom_styles/panel = SubResource( 3 )
+popup_exclusive = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBox" type="VBoxContainer" parent="Popups/MenuUniverse"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 32.0
+margin_top = 32.0
+margin_right = -32.0
+margin_bottom = -32.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="Popups/MenuUniverse/VBox"]
+margin_right = 503.0
+margin_bottom = 46.0
+custom_fonts/font = ExtResource( 5 )
+text = "Set Universe"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Items" type="GridContainer" parent="Popups/MenuUniverse/VBox"]
+margin_top = 50.0
+margin_right = 503.0
+margin_bottom = 181.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/vseparation = 16
+custom_constants/hseparation = 16
+columns = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NameLabel" type="Label" parent="Popups/MenuUniverse/VBox/Items"]
+margin_top = 5.0
+margin_right = 64.0
+margin_bottom = 33.0
+custom_fonts/font = ExtResource( 4 )
+text = "Name"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NameInput" type="LineEdit" parent="Popups/MenuUniverse/VBox/Items"]
+margin_left = 80.0
+margin_right = 503.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 128, 24 )
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 4 )
+max_length = 20
+placeholder_text = "Name"
+caret_blink = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SizeLabel" type="Label" parent="Popups/MenuUniverse/VBox/Items"]
+margin_top = 57.0
+margin_right = 64.0
+margin_bottom = 85.0
+custom_fonts/font = ExtResource( 4 )
+text = "Size"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SizeInput" type="MenuButton" parent="Popups/MenuUniverse/VBox/Items"]
+margin_left = 80.0
+margin_top = 54.0
+margin_right = 128.0
+margin_bottom = 88.0
+rect_min_size = Vector2( 48, 0 )
+size_flags_horizontal = 0
+custom_fonts/font = ExtResource( 4 )
+text = "- -"
+flat = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Buttons" type="HBoxContainer" parent="Popups/MenuUniverse/VBox"]
+margin_top = 185.0
+margin_right = 503.0
+margin_bottom = 219.0
+custom_constants/separation = 256
+alignment = 1
+
+[node name="AddButton" type="Button" parent="Popups/MenuUniverse/VBox/Buttons"]
+margin_left = 48.0
+margin_right = 114.0
+margin_bottom = 34.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 4 )
+enabled_focus_mode = 0
+text = "Done"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CancelButton" type="Button" parent="Popups/MenuUniverse/VBox/Buttons"]
+margin_left = 370.0
+margin_right = 454.0
+margin_bottom = 34.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 4 )
+enabled_focus_mode = 0
+text = "Cancel"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Message" type="Popup" parent="Popups"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -148.0
+margin_top = -74.5
+margin_right = 148.0
+margin_bottom = 74.5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="Popups/Message"]
+modulate = Color( 0.647059, 0.647059, 0.647059, 0.882353 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Popups/Message"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 16.0
+margin_top = 16.0
+margin_right = -16.0
+margin_bottom = -16.0
+custom_fonts/font = ExtResource( 4 )
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
 
 [node name="OpenFile" type="FileDialog" parent="Popups"]
 anchor_left = 0.5
@@ -216,6 +523,12 @@ __meta__ = {
 }
 [connection signal="button_up" from="HSplit/MainPanel/UI/HUD/OpenCoLa" to="." method="toggle_cola_panel"]
 [connection signal="button_up" from="HSplit/MainPanel/UI/HUD/Main/Import" to="." method="popup_import"]
-[connection signal="button_up" from="HSplit/MainPanel/UI/HUD/Main/SetUniverse" to="." method="popup_universe" binds= [ "N" ]]
-[connection signal="button_up" from="HSplit/MainPanel/UI/HUD/Main/AddVariables" to="." method="popup_universe" binds= [ "X" ]]
+[connection signal="button_up" from="HSplit/MainPanel/UI/HUD/Main/SetStructure" to="." method="set_menu_structure" binds= [ true ]]
+[connection signal="button_up" from="HSplit/MainPanel/UI/HUD/Main/SetUniverse" to="." method="set_menu_universe" binds= [ true ]]
+[connection signal="button_up" from="HSplit/MainPanel/UI/HUD/Main/SetVariables" to="." method="set_menu_universe" binds= [ true, "X" ]]
+[connection signal="button_up" from="Popups/MenuStructure/VBox/Buttons/AddButton" to="." method="set_structure"]
+[connection signal="button_up" from="Popups/MenuStructure/VBox/Buttons/CancelButton" to="." method="set_menu_structure" binds= [ false ]]
+[connection signal="button_up" from="Popups/MenuUniverse/VBox/Items/SizeInput" to="." method="_pressed_size_input"]
+[connection signal="button_up" from="Popups/MenuUniverse/VBox/Buttons/AddButton" to="." method="set_universe"]
+[connection signal="button_up" from="Popups/MenuUniverse/VBox/Buttons/CancelButton" to="." method="set_menu_universe" binds= [ false ]]
 [connection signal="file_selected" from="Popups/OpenFile" to="." method="_on_cola_file_selected"]

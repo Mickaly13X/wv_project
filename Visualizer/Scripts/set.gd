@@ -1,8 +1,17 @@
 extends Node2D
 
 const ELEMENT = preload("res://Scenes/Element.tscn")
-const ELEMENT_COLORS = [Color.red, Color.blue, Color.green, Color.yellow,
-	Color.purple, Color.orange, Color.pink, Color.cyan, Color.darkred, Color.darkblue]
+const ELEMENT_COLORS = [
+	Color(1, 0.406122, 0.406122), 
+	Color(0.406122, 0.540673, 1), 
+	Color(0.406122, 1, 0.554592), 
+	Color(0.967522, 1, 0.406122),
+	Color(0.675223, 0.406122, 1), 
+	Color(1, 0.684503, 0.406122), 
+	Color(1, 0.406122, 0.781936), 
+	Color(0.406122, 0.958243, 1), 
+	Color(0.558594, 0.218878, 0.218878), 
+	Color(0.237456, 0.218878, 0.558594)]
 
 var custom_name : String
 var distinct = false
@@ -62,10 +71,10 @@ func set_distinct(distinct : bool):
 	var elements = $Elements.get_children()
 	for i in range(len(elements)):
 		if distinct:
-			elements[i].modulate = ELEMENT_COLORS[i]
+			elements[i].set_color(ELEMENT_COLORS[i])
 			#	Color(0.33 * (i%3), 0.33 * ((i/3)%3), 0.33 * ((i/9)%3))
 		else:
-			elements[i].modulate = Color.white
+			elements[i].set_color(Color.white)
 
 
 func set_name(custom_name : String = "") -> void:

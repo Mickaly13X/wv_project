@@ -8,7 +8,6 @@ var shape_unselected = StyleBoxFlat.new()
 var r = 16
 var selected = false
 
-
 func _ready():
 	
 	init_mask()
@@ -54,3 +53,9 @@ func on_gui_input(event):
 		selected = !selected
 		print(selected)
 
+
+func set_color(new_color : Color):
+	if set.name == "N":
+		shape_unselected.bg_color = new_color
+	else:
+		shape_unselected.border_color = new_color

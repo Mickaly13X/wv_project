@@ -53,7 +53,7 @@ func on_gui_input(event):
 		selected = !selected
 	if (event.is_pressed() and event.button_index == BUTTON_RIGHT):
 		self.get_parent().get_parent()._pressed_global()
-		selected = !selected
+		selected = true
 
 func set_color(new_color : Color):
 	if uni_name == "N":

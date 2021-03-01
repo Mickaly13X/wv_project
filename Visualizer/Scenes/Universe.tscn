@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scripts/universe.gd" type="Script" id=1]
 [ext_resource path="res://Fonts/font.tres" type="DynamicFont" id=2]
+
+[sub_resource type="StyleBoxEmpty" id=1]
 
 [node name="Universe" type="Node2D"]
 script = ExtResource( 1 )
@@ -17,16 +19,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Mask" type="Button" parent="."]
+[node name="Mask" type="Panel" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = 400.0
 margin_bottom = 500.0
-focus_mode = 0
 mouse_filter = 1
-button_mask = 2
-enabled_focus_mode = 0
-flat = true
+custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -63,6 +62,6 @@ text = "Group"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="button_up" from="Mask" to="." method="_pressed_global"]
+[connection signal="gui_input" from="Mask" to="." method="_on_gui_input"]
 [connection signal="button_up" from="Menu/Buttons/Add" to="." method="_pressed" binds= [ "Add" ]]
 [connection signal="button_up" from="Menu/Buttons/Group" to="." method="_pressed" binds= [ "Group" ]]

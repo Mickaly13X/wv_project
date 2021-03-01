@@ -466,7 +466,6 @@ __meta__ = {
 }
 
 [node name="MenuGroup" type="PopupDialog" parent="Popups"]
-visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -536,11 +535,13 @@ size_flags_horizontal = 0
 custom_fonts/font = ExtResource( 4 )
 text = "-Select Group-"
 flat = false
+items = [ "New group", null, 0, false, false, 0, 0, null, "", false ]
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="NewGroup" type="LineEdit" parent="Popups/MenuGroup/VBox/Items"]
+visible = false
 margin_left = 272.0
 margin_right = 491.0
 margin_bottom = 38.0
@@ -662,6 +663,6 @@ __meta__ = {
 [connection signal="button_up" from="Popups/MenuUniverse/VBox/Items/SizeInput" to="." method="_pressed_size_input"]
 [connection signal="button_up" from="Popups/MenuUniverse/VBox/Buttons/CancelButton" to="." method="set_menu_universe" binds= [ false ]]
 [connection signal="button_up" from="Popups/MenuUniverse/VBox/Buttons/AddButton" to="." method="set_universe"]
-[connection signal="button_up" from="Popups/MenuGroup/VBox/Buttons/CancelButton" to="." method="set_menu_universe" binds= [ false ]]
-[connection signal="button_up" from="Popups/MenuGroup/VBox/Buttons/GroupButton" to="." method="set_universe"]
+[connection signal="button_up" from="Popups/MenuGroup/VBox/Buttons/CancelButton" to="." method="reset_group_popup"]
+[connection signal="button_up" from="Popups/MenuGroup/VBox/Buttons/GroupButton" to="." method="group"]
 [connection signal="file_selected" from="Popups/OpenFile" to="." method="_on_cola_file_selected"]

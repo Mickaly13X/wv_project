@@ -15,6 +15,8 @@ onready var CoLaInput = $HSplit/CoLaPanel/CoLaInput
 onready var CoLaPanel = $HSplit/CoLaPanel
 onready var DistInput = $Popups/MenuStructure/VBox/Items/DistInput
 onready var FuncInput = $Popups/MenuStructure/VBox/Items/FuncInput
+onready var GroupInput = $Popups/MenuGroup/VBox/Items/Groups
+onready var NewGroupInput = $Popups/MenuGroup/VBox/Items/NewGroup
 onready var HSplit = $HSplit
 onready var OpenCoLa = $HSplit/MainPanel/UI/HUD/OpenCoLa
 onready var Universes = $HSplit/MainPanel/Universes
@@ -23,7 +25,8 @@ onready var SizeInput = $Popups/MenuUniverse/VBox/Items/SizeInput
 
 onready var POPUPS = {
 	"set_universe": $Popups/MenuUniverse, 
-	"open_file": $Popups/OpenFile
+	"open_file": $Popups/OpenFile,
+	"group":$Popups/MenuGroup
 	}
 
 var universe_menu : String
@@ -186,7 +189,9 @@ func init_menus() -> void:
 		#to add zero before single digits like 01, 02 instead of 1, 2
 		var numberstr = "0" + str(i + 1) if i + 1 < 10 else str(i + 1)
 		SizeInput.get_popup().add_item(numberstr)
-
+	
+	# group menu
+	GroupInput.get_popup().connect("id_pressed", self, "_pressed_mb_group")
 
 func intersection(array1, array2):
 	
@@ -284,3 +289,42 @@ func toggle_cola_panel():
 		HSplit.set_dragger_visibility(SplitContainer.DRAGGER_HIDDEN_COLLAPSED)
 		CoLaPanel.hide()
 		OpenCoLa.text = ">"
+
+
+func reset_group_popup():
+	
+	$Popups/MenuGroup/VBox/Items/NewGroup.text = ""
+	$Popups/MenuGroup/VBox/Items/Groups.text = "-Select Group-"
+	POPUPS["group"].hide()
+
+
+func group():
+	
+	var group_name
+	if GroupInput.text == "New group":
+		group_name = NewGroupInput.text
+	else:
+		#TODO Check for name == New Group or already existing
+		group_name = GroupInput.text
+	
+	if !Universes.get_node("N").domains.has(group_name):
+		Universes.get_node("N").domains[group_name] = []
+		GroupInput.get_popup().add_item(group_name)
+	
+	var elements = Universes.get_node("N").get_node("Elements")
+	for i in elements.get_children():
+		if i.selected == true and !Universes.get_node("N").domains[group_name].has(i):
+			Universes.get_node("N").domains[group_name].append(i)
+	print(Universes.get_node("N").domains)
+	POPUPS["group"].hide()
+	
+
+func _pressed_mb_group(id):
+	
+	var selected_group = GroupInput.get_popup().get_item_text(id)
+	if selected_group == "New group":
+		NewGroupInput.show()
+		GroupInput.text = selected_group
+	else:
+		NewGroupInput.hide()
+		GroupInput.text = selected_group

@@ -27,14 +27,12 @@ onready var POPUPS = {
 	}
 
 var universe_menu : String
-var circles = []
-var domains : Dictionary
 var not_domains = ["structure", "size", "pos", "count", "not", "inter", "union", "in"]
 var structure = [Distinct.NONE_SAME, SetFunction.ANY]
 
 const ROOM_H = 600
 const ROOM_W = 1024
-const COLORS = [Color(1, 0.3, 0.3, 0.33), Color(0.3, 1, 0.3, 0.33), Color(0.3, 0.3, 1, 0.33)]
+#const COLORS = [Color(1, 0.3, 0.3, 0.33), Color(0.3, 1, 0.3, 0.33), Color(0.3, 0.3, 1, 0.33)]
 const MAX_SET_SIZE = 10
 
 
@@ -77,27 +75,7 @@ func _pressed_mb_input(index, TypeInput):
 	if TypeInput == FuncInput: structure[1] = index
 
 
-func _draw():
-	for i in range(len(circles)):
-		draw_circle_custom(circles[i].radius, circles[i].pos, COLORS[i])
 
-
-func draw_circle_custom(radius: float, pos: Vector2, \
-	color: Color = Color.white, maxerror = 0.25):
-	
-	if radius <= 0.0: return
-	
-	var maxpoints = 1024  # I think this is renderer limit
-	var numpoints = ceil(PI / acos(1.0 - maxerror / radius))
-	numpoints = clamp(numpoints, 3, maxpoints)
-	var points = PoolVector2Array([])
-	
-	for i in numpoints:
-		var phi = i * PI * 2.0 / numpoints
-		var v = Vector2(sin(phi), cos(phi))
-		points.push_back(v * radius + pos)
-	
-	draw_colored_polygon(points, color)
 
 
 func get_input(file_path):
@@ -222,30 +200,6 @@ func intersection(array1, array2):
 func popup_import():
 	
 	POPUPS["open_file"].popup()
-
-
-# for 2-part venns, use 'venn_areas' = [A, B, AB]
-# for 3-part venns, use 'venn_areas' = [A, B, C, AB, BC, AC, ABC]
-func set_diagram(venn_areas: Array) -> void:
-	
-	var venn_size = 2 + int(len(venn_areas) > 3)
-	var args = ["fetch.py", str(venn_size)]
-	for i in venn_areas:
-		args.append(str(i))
-	var output = []
-	var exit_code = OS.execute("python", args, true, output)
-	output = str(output[0]).split("\n")
-
-	for i in range(venn_size):
-		var new_diagram = {}
-		new_diagram.pos = (
-			(Vector2(float(output[2 * i]), float(output[2 * i + 1]))) * 100
-			+ Vector2(ROOM_W, ROOM_H) / 2
-		)
-		new_diagram.radius = float(output[venn_size * 2 + i]) * 100
-		circles.append(new_diagram)
-	
-	print("exit_code " + str(exit_code))
 
 
 func set_menu_structure(is_opened : bool) -> void:

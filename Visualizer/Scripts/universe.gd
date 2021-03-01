@@ -13,8 +13,10 @@ const ELEMENT_COLORS = [
 	Color(0.558594, 0.218878, 0.218878), 
 	Color(0.237456, 0.218878, 0.558594)]
 
+var circles = []
 var custom_name : String
 var distinct = false
+var domains : Dictionary
 var element_offset = 0
 var shape
 
@@ -31,7 +33,32 @@ func _ready():
 
 func _draw():
 	
+	_draw_self()
+	
+	for i in range(len(circles)):
+		_draw_circle_custom(circles[i].radius, circles[i].pos, Color.white)
+
+
+func _draw_self():
 	draw_style_box(shape, Rect2(Vector2(0, 0), $Mask.rect_size))
+
+
+func _draw_circle_custom(radius: float, pos: Vector2, \
+	color: Color = Color.white, maxerror = 0.25):
+	
+	if radius <= 0.0: return
+	
+	var maxpoints = 1024  # I think this is renderer limit
+	var numpoints = ceil(PI / acos(1.0 - maxerror / radius))
+	numpoints = clamp(numpoints, 3, maxpoints)
+	var points = PoolVector2Array([])
+	
+	for i in numpoints:
+		var phi = i * PI * 2.0 / numpoints
+		var v = Vector2(sin(phi), cos(phi))
+		points.push_back(v * radius + pos)
+	
+	draw_colored_polygon(points, color)
 
 
 func _pressed(button_name : String) -> void:
@@ -68,6 +95,30 @@ func add_element():
 func get_name() -> String:
 	
 	return custom_name
+
+
+# for 2-part venns, use 'venn_areas' = [A, B, AB]
+# for 3-part venns, use 'venn_areas' = [A, B, C, AB, BC, AC, ABC]
+#func set_diagram(venn_areas: Array) -> void:
+#
+#	var venn_size = 2 + int(len(venn_areas) > 3)
+#	var args = ["fetch.py", str(venn_size)]
+#	for i in venn_areas:
+#		args.append(str(i))
+#	var output = []
+#	var exit_code = OS.execute("python", args, true, output)
+#	output = str(output[0]).split("\n")
+#
+#	for i in range(venn_size):
+#		var new_diagram = {}
+#		new_diagram.pos = (
+#			(Vector2(float(output[2 * i]), float(output[2 * i + 1]))) * 100
+#			+ Vector2(ROOM_W, ROOM_H) / 2
+#		)
+#		new_diagram.radius = float(output[venn_size * 2 + i]) * 100
+#		circles.append(new_diagram)
+#
+#	print("exit_code " + str(exit_code))
 
 
 func set_distinct(distinct : bool):

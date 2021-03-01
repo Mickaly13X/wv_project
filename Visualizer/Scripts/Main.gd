@@ -245,7 +245,7 @@ func set_structure() -> void:
 			is_distinct = (distinct == Distinct.X_SAME || distinct == Distinct.NONE_SAME)
 		else:
 			is_distinct = (distinct == Distinct.N_SAME || distinct == Distinct.NONE_SAME)
-		I.init(-1, "", is_distinct)
+		I.init_distinct(is_distinct)
 		
 	$Structure.text = "Structure = " + STRUCTURE_NAMES[distinct][set_function]
 

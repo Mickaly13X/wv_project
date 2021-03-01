@@ -15,7 +15,6 @@ const ELEMENT_COLORS = [
 
 var circles = []
 var custom_name = ""
-var distinct = false
 var domains : Dictionary
 var element_size = Vector2(16, 16)
 var is_distinct : bool
@@ -92,7 +91,7 @@ func add_element(approx : Rect2 = get_boundry(), pos_constraints = []):
 	var new_element = ELEMENT.instance()
 	new_element.uni_name = name
 	new_element.position = new_pos
-	if distinct:
+	if is_distinct:
 		new_element.set_color(ELEMENT_COLORS[get_size()])
 		#	Color(0.33 * (i%3), 0.33 * ((i/3)%3), 0.33 * ((i/9)%3))
 	else:
@@ -100,24 +99,20 @@ func add_element(approx : Rect2 = get_boundry(), pos_constraints = []):
 	$Elements.add_child(new_element)
 
 
-func init(size : int, custom_name = "", is_distinct : bool = is_distinct()) -> void:
-	
-	var new_size
-	if size == -1: new_size = get_size()
-	else: new_size == size
+func init(size : int, custom_name = get_name()) -> void:
 	
 	for I in $Elements.get_children():
 		 I.queue_free()
 	
-	self.is_distinct = is_distinct
-	print(is_distinct())
 	set_name(custom_name)
 	call_deferred("set_size", size)
 	#set_diagram(get_venn_areas(domains.values()))
 
 
-func is_distinct() -> bool:
-	return is_distinct
+func init_distinct(is_distinct : bool) -> void:
+	
+	self.is_distinct = is_distinct
+	init(get_size())
 
 
 func get_boundry() -> Rect2:
@@ -163,5 +158,6 @@ func set_name(custom_name : String = get_name()) -> void:
 
 func set_size(size : int) -> void:
 	
+	print(get_size())
 	for _i in range(size):
 		add_element()

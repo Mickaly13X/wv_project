@@ -76,12 +76,6 @@ func _pressed(button_name : String) -> void:
 	$Menu.hide()
 
 
-func _pressed_global() -> void:
-	
-	$Menu.position = get_local_mouse_position()
-	$Menu.show()
-
-
 #TODO add ability to add names to elements -> adv settings
 func add_element(approx : Rect2 = get_boundry(), pos_constraints = []):
 	
@@ -211,3 +205,15 @@ func hide_menu():
 func update_domains() -> void:
 	init(get_size())
 
+
+
+func _on_gui_input(event):
+	if (event.is_pressed() and event.button_index == BUTTON_LEFT):
+		hide_menu()
+	if (event.is_pressed() and event.button_index == BUTTON_RIGHT):
+		show_menu()
+	
+
+func show_menu():
+	$Menu.position = get_local_mouse_position()
+	$Menu.show()

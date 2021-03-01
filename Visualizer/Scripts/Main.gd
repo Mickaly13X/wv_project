@@ -1,7 +1,7 @@
 extends Control
 
 const EXCEPTION = preload("res://util/ExceptionIDs.gd")
-const SET = preload("res://Scenes/Set.tscn")
+const SET = preload("res://Scenes/Universe.tscn")
 const STRUCTURE_NAMES = [ \
 	["sequence", "permutation", "composition"],
 	["multisubset",  "subset", "integer composition"],
@@ -17,7 +17,7 @@ onready var DistInput = $Popups/MenuStructure/VBox/Items/DistInput
 onready var FuncInput = $Popups/MenuStructure/VBox/Items/FuncInput
 onready var HSplit = $HSplit
 onready var OpenCoLa = $HSplit/MainPanel/UI/HUD/OpenCoLa
-onready var Sets = $HSplit/MainPanel/Sets
+onready var Universes = $HSplit/MainPanel/Universes
 onready var MenuUniverse = $Popups/MenuUniverse
 onready var SizeInput = $Popups/MenuUniverse/VBox/Items/SizeInput
 
@@ -27,7 +27,7 @@ onready var POPUPS = {
 	}
 
 var universe_menu : String
-var diagrams = []
+var circles = []
 var domains : Dictionary
 var not_domains = ["structure", "size", "pos", "count", "not", "inter", "union", "in"]
 var structure = [Distinct.NONE_SAME, SetFunction.ANY]
@@ -78,8 +78,8 @@ func _pressed_mb_input(index, TypeInput):
 
 
 func _draw():
-	for i in range(len(diagrams)):
-		draw_circle_custom(diagrams[i].radius, diagrams[i].pos, COLORS[i])
+	for i in range(len(circles)):
+		draw_circle_custom(circles[i].radius, circles[i].pos, COLORS[i])
 
 
 func draw_circle_custom(radius: float, pos: Vector2, \
@@ -243,7 +243,7 @@ func set_diagram(venn_areas: Array) -> void:
 			+ Vector2(ROOM_W, ROOM_H) / 2
 		)
 		new_diagram.radius = float(output[venn_size * 2 + i]) * 100
-		diagrams.append(new_diagram)
+		circles.append(new_diagram)
 	
 	print("exit_code " + str(exit_code))
 
@@ -278,9 +278,9 @@ func set_structure() -> void:
 	
 	var distinct = structure[0]
 	var set_function = structure[1]
-	Sets.get_node("N").set_distinct(distinct == Distinct.X_SAME || \
+	Universes.get_node("N").set_distinct(distinct == Distinct.X_SAME || \
 									distinct == Distinct.NONE_SAME)
-	Sets.get_node("X").set_distinct(distinct == Distinct.N_SAME || \
+	Universes.get_node("X").set_distinct(distinct == Distinct.N_SAME || \
 									distinct == Distinct.NONE_SAME)
 	$Structure.text = "Structure = " + STRUCTURE_NAMES[distinct][set_function]
 	set_menu_structure(false)
@@ -298,12 +298,17 @@ func set_universe() -> void:
 		show_message("Please choose a size")
 		return
 		
-	Sets.get_node(universe_menu).set_name(new_name)
-	Sets.get_node(universe_menu).set_size(int(new_size))
+	Universes.get_node(universe_menu).set_name(new_name)
+	Universes.get_node(universe_menu).set_size(int(new_size))
 	CoLaInput.text += new_name + "{[1," + str(new_size) + "]}"
-	set_diagram(get_venn_areas(domains.values()))
+	#set_diagram(get_venn_areas(domains.values()))
 	set_menu_universe(false)
 
+
+#func set_universe_diagram() -> void:
+#
+#	if domains.size() == 0:
+#
 
 func show_message(message : String) -> void:
 	

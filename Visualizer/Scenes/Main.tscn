@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/main.gd" type="Script" id=1]
-[ext_resource path="res://Scenes/Set.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Universe.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Fonts/font medium.tres" type="DynamicFont" id=4]
 [ext_resource path="res://Fonts/font.tres" type="DynamicFont" id=5]
 
@@ -175,7 +175,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sets" type="Control" parent="HSplit/MainPanel"]
+[node name="Universes" type="Control" parent="HSplit/MainPanel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -185,10 +185,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="N" parent="HSplit/MainPanel/Sets" instance=ExtResource( 2 )]
+[node name="N" parent="HSplit/MainPanel/Universes" instance=ExtResource( 2 )]
 position = Vector2( 1280, 396 )
 
-[node name="X" parent="HSplit/MainPanel/Sets" instance=ExtResource( 2 )]
+[node name="X" parent="HSplit/MainPanel/Universes" instance=ExtResource( 2 )]
 position = Vector2( 349.905, 396.982 )
 
 [node name="Popups" type="Control" parent="."]
@@ -518,9 +518,9 @@ popup_exclusive = true
 window_title = "Open een Bestand"
 mode = 0
 access = 2
-current_dir = "/Users/erickim/wv_project/Visualizer"
+current_dir = "/Users/Joran/Git/wv_project/Visualizer"
 current_file = "~"
-current_path = "/Users/erickim/wv_project/Visualizer/~"
+current_path = "/Users/Joran/Git/wv_project/Visualizer/~"
 __meta__ = {
 "_edit_use_anchors_": false
 }

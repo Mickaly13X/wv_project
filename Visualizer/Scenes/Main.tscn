@@ -456,7 +456,6 @@ __meta__ = {
 [node name="CancelButton" type="Button" parent="Popups/MenuUniverse/VBox/Buttons"]
 margin_left = 370.0
 margin_right = 454.0
-text = "Cancel"
 
 [node name="MenuGroup" type="PopupDialog" parent="Popups"]
 anchor_left = 0.5
@@ -631,9 +630,9 @@ popup_exclusive = true
 window_title = "Open een Bestand"
 mode = 0
 access = 2
-current_dir = "/Users/erickim/wv_project/Visualizer"
+current_dir = "/Users/Joran/Git/wv_project/Visualizer"
 current_file = "~"
-current_path = "/Users/erickim/wv_project/Visualizer/~"
+current_path = "/Users/Joran/Git/wv_project/Visualizer/~"
 __meta__ = {
 "_edit_use_anchors_": false
 }

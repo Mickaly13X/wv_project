@@ -28,6 +28,7 @@ onready var POPUPS = {
 
 var universe_menu : String
 var diagrams = []
+var domains : Dictionary
 var not_domains = ["structure", "size", "pos", "count", "not", "inter", "union", "in"]
 var structure = [Distinct.NONE_SAME, SetFunction.ANY]
 
@@ -76,22 +77,19 @@ func _pressed_mb_input(index, TypeInput):
 	if TypeInput == FuncInput: structure[1] = index
 
 
-#func _draw():
-#	for i in range(len(diagrams)):
-#		draw_circle_custom(diagrams[i].radius, diagrams[i].pos, COLORS[i])
+func _draw():
+	for i in range(len(diagrams)):
+		draw_circle_custom(diagrams[i].radius, diagrams[i].pos, COLORS[i])
 
 
 func draw_circle_custom(radius: float, pos: Vector2, \
 	color: Color = Color.white, maxerror = 0.25):
 	
-	if radius <= 0.0:
-		return
+	if radius <= 0.0: return
 	
 	var maxpoints = 1024  # I think this is renderer limit
-	
 	var numpoints = ceil(PI / acos(1.0 - maxerror / radius))
 	numpoints = clamp(numpoints, 3, maxpoints)
-	
 	var points = PoolVector2Array([])
 	
 	for i in numpoints:
@@ -303,6 +301,7 @@ func set_universe() -> void:
 	Sets.get_node(universe_menu).set_name(new_name)
 	Sets.get_node(universe_menu).set_size(int(new_size))
 	CoLaInput.text += new_name + "{[1," + str(new_size) + "]}"
+	set_diagram(get_venn_areas(domains.values()))
 	set_menu_universe(false)
 
 

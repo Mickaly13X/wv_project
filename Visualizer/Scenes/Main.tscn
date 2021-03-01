@@ -566,6 +566,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Group" type="Button" parent="Popups/MenuGroup/VBox/Buttons"]
+margin_left = 376.0
+margin_right = 455.0
+margin_bottom = 34.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 4 )
+enabled_focus_mode = 0
+text = "Group"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Message" type="Popup" parent="Popups"]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -618,9 +630,9 @@ popup_exclusive = true
 window_title = "Open een Bestand"
 mode = 0
 access = 2
-current_dir = "/Users/Joran/Git/wv_project/Visualizer"
+current_dir = "/Users/erickim/wv_project/Visualizer"
 current_file = "~"
-current_path = "/Users/Joran/Git/wv_project/Visualizer/~"
+current_path = "/Users/erickim/wv_project/Visualizer/~"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -643,4 +655,5 @@ __meta__ = {
 [connection signal="button_up" from="Popups/MenuUniverse/VBox/Items/SizeInput" to="." method="_pressed_size_input"]
 [connection signal="button_up" from="Popups/MenuUniverse/VBox/Buttons/AddButton" to="." method="set_universe"]
 [connection signal="button_up" from="Popups/MenuGroup/VBox/Buttons/CancelButton" to="." method="reset_group_popup"]
+[connection signal="button_up" from="Popups/MenuGroup/VBox/Buttons/Group" to="." method="group"]
 [connection signal="file_selected" from="Popups/OpenFile" to="." method="_on_cola_file_selected"]

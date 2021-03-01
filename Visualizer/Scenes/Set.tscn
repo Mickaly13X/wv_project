@@ -35,16 +35,34 @@ __meta__ = {
 position = Vector2( 200, 200 )
 
 [node name="Menu" type="Node2D" parent="."]
-visible = false
 
-[node name="Add" type="Button" parent="Menu"]
-margin_left = 23.0
-margin_top = 40.0
-margin_right = 98.0
-margin_bottom = 79.0
+[node name="Buttons" type="VBoxContainer" parent="Menu"]
+margin_right = 73.0
+margin_bottom = 64.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Add" type="Button" parent="Menu/Buttons"]
+margin_right = 73.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 text = "Add"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Group" type="Button" parent="Menu/Buttons"]
+margin_top = 34.0
+margin_right = 73.0
+margin_bottom = 64.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Group"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="button_up" from="Mask" to="." method="_pressed_global"]
-[connection signal="button_up" from="Menu/Add" to="." method="_pressed" binds= [ "Add" ]]
+[connection signal="button_up" from="Menu/Buttons/Add" to="." method="_pressed" binds= [ "Add" ]]
+[connection signal="button_up" from="Menu/Buttons/Group" to="." method="_pressed"]

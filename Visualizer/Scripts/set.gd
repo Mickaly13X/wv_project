@@ -39,8 +39,13 @@ func _pressed(button_name : String) -> void:
 	match button_name:
 		
 		"Add": 
-			
 			add_element()
+		
+		"Group":
+			for i in $Elements.get_children():
+				if i.selected == true:
+					pass
+			#add selected
 	
 	$Menu.hide()
 

@@ -113,7 +113,7 @@ func init(size : int, custom_name = get_name()) -> void:
 	print(get_size())
 	set_name(custom_name)
 	set_size(size)
-	if domains.size() > 0:
+	if domains.size() > 1:
 		set_circles_domain(get_venn_areas(domains.values()))
 
 
@@ -181,14 +181,15 @@ func set_circles_domain(venn_areas : Array) -> void:
 	var output = []
 	var exit_code = OS.execute("python", args, true, output)
 	output = str(output[0]).split("\n")
-
+	#print(output)
+	
 	for i in range(venn_size):
 		var new_circle = {}
 		new_circle.pos = \
 			Vector2(float(output[2 * i]), float(output[2 * i + 1])) * 100
 		new_circle.radius = float(output[venn_size * 2 + i]) * 100
 		circles.append(new_circle)
-
+	
 	print("exit_code " + str(exit_code))
 
 func set_name(custom_name : String = get_name()) -> void:

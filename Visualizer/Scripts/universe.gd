@@ -172,7 +172,7 @@ func get_venn_areas(domains):
 
 # for 2-part venns, use 'venn_areas' = [A, B, AB]
 # for 3-part venns, use 'venn_areas' = [A, B, C, AB, BC, AC, ABC]
-func set_circles_domain(venn_areas: Array) -> void:
+func set_circles_domain(venn_areas : Array) -> void:
 
 	var venn_size = 2 + int(len(venn_areas) > 3)
 	var args = ["fetch.py", str(venn_size)]
@@ -185,7 +185,7 @@ func set_circles_domain(venn_areas: Array) -> void:
 	for i in range(venn_size):
 		var new_circle = {}
 		new_circle.pos = \
-			(Vector2(float(output[2 * i]), float(output[2 * i + 1]))) * 100
+			Vector2(float(output[2 * i]), float(output[2 * i + 1])) * 100
 		new_circle.radius = float(output[venn_size * 2 + i]) * 100
 		circles.append(new_circle)
 

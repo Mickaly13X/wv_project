@@ -70,10 +70,9 @@ func _pressed(button_name : String) -> void:
 			add_element()
 		
 		"Group":
-			for i in $Elements.get_children():
-				if i.selected == true:
-					pass
-			#add selected
+			var MenuGroup = get_parent().get_parent().get_parent().get_parent().get_node("Popups").get_node("MenuGroup")
+			MenuGroup.popup()
+			
 	
 	$Menu.hide()
 

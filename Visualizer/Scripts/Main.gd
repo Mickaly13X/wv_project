@@ -158,24 +158,6 @@ func get_domain_value(domain_string):
 	return -1
 
 
-# domains is a list of ONLY the values of dictionary
-func get_venn_areas(domains):
-	
-	var venn_areas = []
-	# main sets
-	for i in domains:
-		venn_areas.append(len(i))
-	# intersections
-	if len(domains) == 2:
-		venn_areas.append(len(intersection(domains[0], domains[1])))
-	elif len(domains) == 3:
-		venn_areas.append(len(intersection(domains[0], domains[1])))
-		venn_areas.append(len(intersection(domains[1], domains[2])))
-		venn_areas.append(len(intersection(domains[2], domains[0])))
-		venn_areas.append(len(intersection(intersection(domains[0], domains[1]), domains[2])))
-	return venn_areas
-
-
 func init_menus() -> void:
 	
 	# structure menu
@@ -192,14 +174,6 @@ func init_menus() -> void:
 	
 	# group menu
 	GroupInput.get_popup().connect("id_pressed", self, "_pressed_mb_group")
-
-func intersection(array1, array2):
-	
-	var intersection = []
-	for item in array1:
-		if array2.has(item):
-			intersection.append(item)
-	return intersection
 
 
 func popup_import():
@@ -311,15 +285,16 @@ func group():
 		#TODO Check for name == New Group or already existing
 		group_name = GroupInput.text
 	
-	if !Universes.get_node("N").domains.has(group_name):
-		Universes.get_node("N").domains[group_name] = []
+	var N = Universes.get_node("N")
+	if !N.domains.has(group_name):
+		N.domains[group_name] = []
 		GroupInput.get_popup().add_item(group_name)
 	
-	var elements = Universes.get_node("N").get_node("Elements")
+	var elements = N.get_node("Elements")
 	for i in elements.get_children():
-		if i.selected == true and !Universes.get_node("N").domains[group_name].has(i):
-			Universes.get_node("N").domains[group_name].append(i)
-	print(Universes.get_node("N").domains)
+		if i.selected == true and !N.domains[group_name].has(i):
+			N.append_to_domain(i, group_name)
+	N.update_domains()
 	POPUPS["group"].hide()
 	
 

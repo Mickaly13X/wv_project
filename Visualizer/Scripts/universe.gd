@@ -85,8 +85,10 @@ func _pressed_global() -> void:
 #TODO add ability to add names to elements -> adv settings
 func add_element(approx : Rect2 = get_boundry(), pos_constraints = []):
 	
-	var new_pos = approx.position + element_size + \
-		g.randomVect(approx.size - element_size)
+	var new_pos = element_size
+	while(is_element_at_pos(new_pos)):
+		new_pos = approx.position + element_size + \
+			g.randomVect(approx.size - element_size * 2)
 
 	var new_element = ELEMENT.instance()
 	new_element.uni_name = name
@@ -99,6 +101,10 @@ func add_element(approx : Rect2 = get_boundry(), pos_constraints = []):
 	$Elements.add_child(new_element)
 
 
+func append_to_domain(value : Node, key : String) -> void:
+	domains[key].append(value)
+
+
 func init(size : int, custom_name = get_name()) -> void:
 	
 	for I in $Elements.get_children():
@@ -107,7 +113,8 @@ func init(size : int, custom_name = get_name()) -> void:
 	print(get_size())
 	set_name(custom_name)
 	set_size(size)
-	#set_diagram(get_venn_areas(domains.values()))
+	if domains.size() > 0:
+		set_circles_domain(get_venn_areas(domains.values()))
 
 
 func init_distinct(is_distinct : bool) -> void:
@@ -116,40 +123,73 @@ func init_distinct(is_distinct : bool) -> void:
 	init(get_size())
 
 
+func intersection(array1, array2):
+	
+	var intersection = []
+	for item in array1:
+		if array2.has(item):
+			intersection.append(item)
+	return intersection
+
+
+func is_element_at_pos(pos : Vector2) -> bool:
+	
+	for I in $Elements.get_children():
+		if pos.distance_to(I.position) <= element_size[0] * 2:
+			return true
+	return false
+
+
 func get_boundry() -> Rect2:
 	return Rect2($Mask.rect_position, $Mask.rect_size)
 
 
 func get_name() -> String:
-	
 	return custom_name
 
 
 func get_size() -> int:
 	return len($Elements.get_children())
 
+
+# domains is a list of ONLY the values of dictionary
+func get_venn_areas(domains):
+	
+	var venn_areas = []
+	# main sets
+	for i in domains:
+		venn_areas.append(len(i))
+	# intersections
+	if len(domains) == 2:
+		venn_areas.append(len(intersection(domains[0], domains[1])))
+	elif len(domains) == 3:
+		venn_areas.append(len(intersection(domains[0], domains[1])))
+		venn_areas.append(len(intersection(domains[1], domains[2])))
+		venn_areas.append(len(intersection(domains[2], domains[0])))
+		venn_areas.append(len(intersection(intersection(domains[0], domains[1]), domains[2])))
+	return venn_areas
+
+
 # for 2-part venns, use 'venn_areas' = [A, B, AB]
 # for 3-part venns, use 'venn_areas' = [A, B, C, AB, BC, AC, ABC]
-#func set_diagram(venn_areas: Array) -> void:
-#
-#	var venn_size = 2 + int(len(venn_areas) > 3)
-#	var args = ["fetch.py", str(venn_size)]
-#	for i in venn_areas:
-#		args.append(str(i))
-#	var output = []
-#	var exit_code = OS.execute("python", args, true, output)
-#	output = str(output[0]).split("\n")
-#
-#	for i in range(venn_size):
-#		var new_diagram = {}
-#		new_diagram.pos = (
-#			(Vector2(float(output[2 * i]), float(output[2 * i + 1]))) * 100
-#			+ Vector2(ROOM_W, ROOM_H) / 2
-#		)
-#		new_diagram.radius = float(output[venn_size * 2 + i]) * 100
-#		circles.append(new_diagram)
-#
-#	print("exit_code " + str(exit_code))
+func set_circles_domain(venn_areas: Array) -> void:
+
+	var venn_size = 2 + int(len(venn_areas) > 3)
+	var args = ["fetch.py", str(venn_size)]
+	for i in venn_areas:
+		args.append(str(i))
+	var output = []
+	var exit_code = OS.execute("python", args, true, output)
+	output = str(output[0]).split("\n")
+
+	for i in range(venn_size):
+		var new_circle = {}
+		new_circle.pos = \
+			(Vector2(float(output[2 * i]), float(output[2 * i + 1]))) * 100
+		new_circle.radius = float(output[venn_size * 2 + i]) * 100
+		circles.append(new_circle)
+
+	print("exit_code " + str(exit_code))
 
 func set_name(custom_name : String = get_name()) -> void:
 	
@@ -161,3 +201,7 @@ func set_size(size : int) -> void:
 	
 	for _i in range(size):
 		add_element()
+
+
+func update_domains() -> void:
+	init(get_size())

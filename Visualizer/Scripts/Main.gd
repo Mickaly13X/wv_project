@@ -1,7 +1,12 @@
 extends Control
 
-const Exception = preload("res://util/ExceptionIDs.gd")
+const EXCEPTION = preload("res://util/ExceptionIDs.gd")
 const SET = preload("res://Scenes/Set.tscn")
+const STRUCTURE_NAMES = [ \
+	["sequence", "permutation", "composition"],
+	["multisubset",  "subset", "integer composition"],
+	["partition", "partition", "partition", "partition"],
+	["integer partition", "integer partition", "integer partition", "integer partition"]]
 
 enum Distinct {NONE_SAME, N_SAME, X_SAME, NX_SAME}
 enum SetFunction {ANY, INJ, SUR}
@@ -36,6 +41,7 @@ func _ready():
 	
 	randomize()
 	init_menus()
+	set_structure()
 	POPUPS["open_file"].current_dir = ""
 	POPUPS["open_file"].current_path = ""
 	#var file_path = "res://tests/paper/constrained/permutation_5_4.test"
@@ -273,10 +279,12 @@ func set_menu_universe(is_opened : bool, ref : String = "N") -> void:
 func set_structure() -> void:
 	
 	var distinct = structure[0]
+	var set_function = structure[1]
 	Sets.get_node("N").set_distinct(distinct == Distinct.X_SAME || \
 									distinct == Distinct.NONE_SAME)
 	Sets.get_node("X").set_distinct(distinct == Distinct.N_SAME || \
 									distinct == Distinct.NONE_SAME)
+	$Structure.text = "Structure = " + STRUCTURE_NAMES[distinct][set_function]
 	set_menu_structure(false)
 
 

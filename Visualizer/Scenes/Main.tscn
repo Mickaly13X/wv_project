@@ -517,9 +517,18 @@ popup_exclusive = true
 window_title = "Open een Bestand"
 mode = 0
 access = 2
-current_dir = "/Users/erickim/wv_project/Visualizer"
+current_dir = "/Users/Joran/Git/wv_project/Visualizer"
 current_file = "~"
-current_path = "/Users/erickim/wv_project/Visualizer/~"
+current_path = "/Users/Joran/Git/wv_project/Visualizer/~"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Structure" type="Label" parent="."]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 5 )
+text = "Structure = sequence"
 __meta__ = {
 "_edit_use_anchors_": false
 }

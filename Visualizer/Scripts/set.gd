@@ -29,9 +29,7 @@ func _pressed(button_name : String) -> void:
 		
 		"Add": 
 			
-			var new_element = ELEMENT.instance()
-			new_element.position = $Menu.position
-			$Elements.add_child(new_element)
+			add_element()
 	
 	$Menu.hide()
 

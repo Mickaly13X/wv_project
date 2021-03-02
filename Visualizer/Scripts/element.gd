@@ -16,10 +16,10 @@ func _ready():
 		#shape_unselected.bg_color = Color(0.335114, 0.295376, 0.613281)
 		shape_unselected.set_corner_radius_all(r)
 		
-		shape_selected.bg_color = Color(0.335114, 0.295376, 0.613281)
+		#shape_selected.bg_color = Color(0.335114, 0.295376, 0.613281)
 		shape_selected.set_border_width_all(2)
 		shape_selected.set_corner_radius_all(r)
-		shape_selected.border_color = Color(0.717647, 0.717647, 0.768627)
+		shape_selected.border_color = Color(1, 1, 1)
 	else: # box
 		shape_unselected.bg_color = Color.transparent
 		
@@ -58,5 +58,6 @@ func on_gui_input(event):
 func set_color(new_color : Color):
 	if uni_name == "N":
 		shape_unselected.bg_color = new_color
+		shape_selected.bg_color = new_color
 	else:
 		shape_unselected.border_color = new_color

@@ -641,6 +641,7 @@ __meta__ = {
 }
 
 [node name="Structure" type="Label" parent="."]
+visible = false
 margin_right = 40.0
 margin_bottom = 14.0
 custom_fonts/font = ExtResource( 5 )

@@ -208,14 +208,57 @@ func update_domains() -> void:
 	init(get_size())
 
 
-
 func _on_gui_input(event):
+	
 	if (event.is_pressed() and event.button_index == BUTTON_LEFT):
 		hide_menu()
+		deselect_elements()
 	if (event.is_pressed() and event.button_index == BUTTON_RIGHT):
+		show_group_button() if has_selected_elements() else hide_group_button()
+		hide_add_button() if has_max_elements() else show_add_button()
 		show_menu()
+		
 	
 
 func show_menu():
+	
 	$Menu.position = get_local_mouse_position()
 	$Menu.show()
+
+
+func deselect_elements():
+	
+	for I in $Elements.get_children():
+		if I.selected:
+			I.selected = false
+
+
+func hide_group_button():
+	
+	$Menu/Buttons/Group.disabled = true
+
+
+func show_group_button():
+	
+	$Menu/Buttons/Group.disabled = false
+
+
+func has_selected_elements() -> bool:
+	for I in $Elements.get_children():
+		if I.selected:
+			return true
+	return false
+
+
+func hide_add_button():
+	$Menu/Buttons/Add.disabled = true
+
+
+func show_add_button():
+	$Menu/Buttons/Add.disabled = false
+
+
+func has_max_elements() -> bool:
+	if get_size() == 10:
+		return true
+	return false

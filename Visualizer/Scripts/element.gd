@@ -56,6 +56,7 @@ func on_gui_input(event):
 		selected = true
 
 func set_color(new_color : Color):
+	
 	if uni_name == "N":
 		shape_unselected.bg_color = new_color
 		shape_selected.bg_color = new_color

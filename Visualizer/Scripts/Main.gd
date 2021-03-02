@@ -25,6 +25,7 @@ onready var SizeInput = $Popups/MenuUniverse/VBox/Items/SizeInput
 
 onready var POPUPS = {
 	"set_universe": $Popups/MenuUniverse, 
+	"set_structure":$Popups/MenuStructure,
 	"open_file": $Popups/OpenFile,
 	"group":$Popups/MenuGroup
 	}
@@ -224,6 +225,7 @@ func set_structure() -> void:
 			is_distinct = (distinct == Distinct.N_SAME || distinct == Distinct.NONE_SAME)
 		I.init_distinct(is_distinct)
 		
+	POPUPS["set_structure"].hide()
 	$Structure.text = "Structure = " + STRUCTURE_NAMES[distinct][set_function]
 
 

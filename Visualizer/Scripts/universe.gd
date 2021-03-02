@@ -79,7 +79,8 @@ func _pressed(button_name : String) -> void:
 #TODO add ability to add names to elements -> adv settings
 func add_element(approx : Rect2 = get_boundry(), pos_constraints = []):
 	
-	var new_pos = element_size
+	var new_pos = approx.position + element_size + \
+			g.randomVect(approx.size - element_size * 2)
 	while(is_element_at_pos(new_pos)):
 		new_pos = approx.position + element_size + \
 			g.randomVect(approx.size - element_size * 2)

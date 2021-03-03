@@ -181,15 +181,14 @@ func get_size() -> int:
 
 
 # @return exit_code
-func group(group_name : String) -> bool:
+func group(group_name : String) -> void:
 	
-	if domains.has(group_name): return false
+	if !domains.has(group_name):
+		domains[group_name] = []
 	
-	domains[group_name] = []
 	for i in $Elements.get_children():
-		if i.selected == true:
+		if i.selected == true && !domains[group_name].has(i):
 			domains[group_name].append(i)
-	return true
 
 
 func has_max_elements() -> bool:
@@ -207,13 +206,14 @@ func has_selected_elements() -> bool:
 	return false
 
 
-func init(size : int, custom_name = get_name()) -> void:
+func init(size : int, custom_name = get_name(), is_rebuild = true) -> void:
 	
-	for I in $Elements.get_children():
-		 I.free()
-	
+	if is_rebuild:
+		for I in $Elements.get_children():
+			 I.free()
+		set_size(size)
 	set_name(custom_name)
-	set_size(size)
+	
 	print(domains)
 	if domains.size() > 1:
 		print("lol")
@@ -246,10 +246,12 @@ func set_circles_domain(venn_circles : Array) -> void:
 	print(circles_domain)
 	update()
 
-func set_name(custom_name : String = get_name()) -> void:
+
+func set_name(custom_name : String) -> void:
 	
-	if custom_name == "": $Label.text = name
-	else: $Label.text = name + " (" + custom_name + ")"
+	self.custom_name = custom_name
+	if custom_name != "":
+		$Label.text = name + " (" + custom_name + ")"
 
 
 func set_size(size : int) -> void:
@@ -270,8 +272,8 @@ func toggle_add_button(is_visible : bool):
 
 
 func toggle_group_button(is_visible : bool):
-	$Menu/Buttons/Group.disabled = is_visible
+	$Menu/Buttons/Group.disabled = !is_visible
 
 
 func update_domains() -> void:
-	init(get_size())
+	init(get_size(), get_name(), false)

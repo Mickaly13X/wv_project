@@ -15,9 +15,9 @@ onready var CoLaInput = $HSplit/CoLaPanel/CoLaInput
 onready var CoLaPanel = $HSplit/CoLaPanel
 onready var DistInput = $Popups/MenuStructure/VBox/Items/DistInput
 onready var FuncInput = $Popups/MenuStructure/VBox/Items/FuncInput
-onready var GroupInput = $Popups/MenuGroup/VBox/Items/Groups
-onready var NewGroupInput = $Popups/MenuGroup/VBox/Items/NewGroup
+onready var GroupInput = $Popups/MenuGroup/VBox/Items/GroupInput
 onready var HSplit = $HSplit
+onready var NewGroupInput = $Popups/MenuGroup/VBox/Items/NewGroupInput
 onready var OpenCoLa = $HSplit/MainPanel/UI/HUD/OpenCoLa
 onready var Universes = $HSplit/MainPanel/Universes
 onready var MenuUniverse = $Popups/MenuUniverse
@@ -153,14 +153,23 @@ func get_domain_value(domain_string):
 	return -1
 
 
-func group() -> void:
+# @return exit_code
+func group() -> bool:
 	
-	var group_name = GroupInput.text
-	if group_name != "New group":
-		var exit = Universes.get_node("N").group(group_name)
-		if exit == true:
-			toggle_menu_group(false)
-			GroupInput.get_popup().add_item(group_name)
+	var group_name : String
+	if GroupInput.text == "New group":
+		if NewGroupInput.text == "New group" || NewGroupInput.text == "":
+			show_message("Please enter a group name")
+			return false
+		group_name = NewGroupInput.text
+	else:
+		group_name = GroupInput.text
+	
+	Universes.get_node("N").group(group_name)
+	toggle_menu_group(false)
+	GroupInput.get_popup().add_item(group_name)
+	
+	return true
 
 
 func init_children() -> void:
@@ -188,7 +197,7 @@ func init_menus() -> void:
 
 
 func popup_import():
-	Popups.get_node("OpenFile").hide().popup()
+	Popups.get_node("OpenFile").popup()
 
 
 func set_structure() -> void:
@@ -254,8 +263,9 @@ func toggle_menu_group(is_opened : bool) -> void:
 	if is_opened:
 		Popups.get_node("MenuGroup").popup()
 	else:
-		Popups.get_node("MenuGroup/VBox/Items/NewGroup").text = ""
-		Popups.get_node("MenuGroup/VBox/Items/Groups").text = "-Select Group-"
+		NewGroupInput.text = ""
+		GroupInput.text = "-Select Group-"
+		Universes.get_node("N").deselect_elements()
 		Popups.get_node("MenuGroup").hide()
 
 

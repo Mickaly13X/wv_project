@@ -521,7 +521,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Groups" type="MenuButton" parent="Popups/MenuGroup/VBox/Items"]
+[node name="GroupInput" type="MenuButton" parent="Popups/MenuGroup/VBox/Items"]
 margin_left = 89.0
 margin_right = 256.0
 margin_bottom = 38.0
@@ -535,7 +535,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NewGroup" type="LineEdit" parent="Popups/MenuGroup/VBox/Items"]
+[node name="NewGroupInput" type="LineEdit" parent="Popups/MenuGroup/VBox/Items"]
 visible = false
 margin_left = 272.0
 margin_right = 491.0

@@ -34,6 +34,15 @@ func choose_weighted(weights : Array) -> int:
 func db(percentage : float, full_volume : float) -> float: 
 	return -20 + (full_volume + 20) * percentage
 
+# returns the intersection of 2 arrays
+func intersection(a : Array, b : Array) -> Array:
+	
+	var intersection = []
+	for element in a:
+		if b.has(element):
+			intersection.append(element)
+	return intersection
+
 # returns the maximum value from a given list
 # NOTE: only positive numbers will be considered
 func max_list(list):

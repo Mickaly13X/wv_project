@@ -52,8 +52,9 @@ func on_gui_input(event):
 	if (event.is_pressed() and event.button_index == BUTTON_LEFT):
 		selected = !selected
 	if (event.is_pressed() and event.button_index == BUTTON_RIGHT):
-		self.get_parent().get_parent().show_menu()
+		self.get_parent().get_parent().toggle_menu(true)
 		selected = true
+
 
 func set_color(new_color : Color):
 	

@@ -22,13 +22,7 @@ onready var OpenCoLa = $HSplit/MainPanel/UI/HUD/OpenCoLa
 onready var Universes = $HSplit/MainPanel/Universes
 onready var MenuUniverse = $Popups/MenuUniverse
 onready var SizeInput = $Popups/MenuUniverse/VBox/Items/SizeInput
-
-onready var POPUPS = {
-	"set_universe": $Popups/MenuUniverse, 
-	"set_structure":$Popups/MenuStructure,
-	"open_file": $Popups/OpenFile,
-	"group":$Popups/MenuGroup
-	}
+onready var Popups = $Popups
 
 var universe_menu : String
 var not_domains = ["structure", "size", "pos", "count", "not", "inter", "union", "in"]
@@ -43,10 +37,11 @@ const MAX_SET_SIZE = 10
 func _ready():
 	
 	randomize()
+	init_children()
 	init_menus()
 	set_structure()
-	POPUPS["open_file"].current_dir = ""
-	POPUPS["open_file"].current_path = ""
+	Popups.get_node("OpenFile").current_dir = ""
+	Popups.get_node("OpenFile").current_path = ""
 	#var file_path = "res://tests/paper/constrained/permutation_5_4.test"
 	#var domains = get_domains(get_input(file_path))
 	#print(domains)
@@ -80,9 +75,6 @@ func _pressed_mb_input(index, TypeInput):
 	
 	if TypeInput == DistInput: structure[0] = index
 	if TypeInput == FuncInput: structure[1] = index
-
-
-
 
 
 func get_input(file_path):
@@ -162,6 +154,22 @@ func get_domain_value(domain_string):
 	return -1
 
 
+func group() -> void:
+	
+	var group_name = GroupInput.text
+	if group_name != "New group":
+		var exit = Universes.get_node("N").group(group_name)
+		if exit == true:
+			toggle_menu_group(false)
+			GroupInput.get_popup().add_item(group_name)
+
+
+func init_children() -> void:
+	
+	Universes.get_node("N").Main = self 
+	Universes.get_node("X").Main = self 
+
+
 func init_menus() -> void:
 	
 	# structure menu
@@ -181,34 +189,7 @@ func init_menus() -> void:
 
 
 func popup_import():
-	
-	POPUPS["open_file"].popup()
-
-
-func set_menu_structure(is_opened : bool) -> void:
-	
-	if is_opened:
-		DistInput.text = DistInput.get_popup().get_item_text(structure[0])
-		FuncInput.text = FuncInput.get_popup().get_item_text(structure[1])
-		$Popups/MenuStructure.popup()
-	else:
-		$Popups/MenuStructure.hide()
-
-
-# ref = N or X
-func set_menu_universe(is_opened : bool, ref : String = "N") -> void:
-	
-	if is_opened:
-		universe_menu = ref
-		if ref == "N":
-			$Popups/MenuUniverse/VBox/Title.text = "Set Universe"
-		else:
-			$Popups/MenuUniverse/VBox/Title.text = "Set Variables"
-		$Popups/MenuUniverse.popup()
-	else:
-		#$Popups/MenuUniverse/VBox/Items/NameInput.text = ""
-		#SizeInput.text = "- -"
-		$Popups/MenuUniverse.hide()
+	Popups.get_node("OpenFile").hide().popup()
 
 
 func set_structure() -> void:
@@ -225,7 +206,7 @@ func set_structure() -> void:
 			is_distinct = (distinct == Distinct.N_SAME || distinct == Distinct.NONE_SAME)
 		I.init_distinct(is_distinct)
 		
-	POPUPS["set_structure"].hide()
+	toggle_menu_structure(false)
 	$Structure.text = "Structure = " + STRUCTURE_NAMES[distinct][set_function]
 
 
@@ -244,13 +225,8 @@ func set_universe() -> void:
 	Universes.get_node(universe_menu).init(int(new_size), new_name)
 	
 	CoLaInput.text += new_name + "{[1," + str(new_size) + "]}"
-	set_menu_universe(false)
+	toggle_menu_universe(false)
 
-
-#func set_universe_diagram() -> void:
-#
-#	if domains.size() == 0:
-#
 
 func show_message(message : String) -> void:
 	
@@ -274,34 +250,42 @@ func toggle_cola_panel():
 		OpenCoLa.text = ">"
 
 
-func reset_group_popup():
+func toggle_menu_group(is_opened : bool) -> void:
 	
-	$Popups/MenuGroup/VBox/Items/NewGroup.text = ""
-	$Popups/MenuGroup/VBox/Items/Groups.text = "-Select Group-"
-	POPUPS["group"].hide()
-
-
-func group():
-	
-	var group_name
-	if GroupInput.text == "New group":
-		group_name = NewGroupInput.text
+	if is_opened:
+		Popups.get_node("MenuGroup").popup()
 	else:
-		#TODO Check for name == New Group or already existing
-		group_name = GroupInput.text
+		Popups.get_node("MenuGroup/VBox/Items/NewGroup").text = ""
+		Popups.get_node("MenuGroup/VBox/Items/Groups").text = "-Select Group-"
+		Popups.get_node("MenuGroup").hide()
+
+
+func toggle_menu_structure(is_opened : bool) -> void:
 	
-	var N = Universes.get_node("N")
-	if !N.domains.has(group_name):
-		N.domains[group_name] = []
-		GroupInput.get_popup().add_item(group_name)
+	if is_opened:
+		DistInput.text = DistInput.get_popup().get_item_text(structure[0])
+		FuncInput.text = FuncInput.get_popup().get_item_text(structure[1])
+		$Popups/MenuStructure.popup()
+	else:
+		$Popups/MenuStructure.hide()
+
+
+# ref = N or X
+func toggle_menu_universe(is_opened : bool, ref : String = "N") -> void:
 	
-	var elements = N.get_node("Elements")
-	for i in elements.get_children():
-		if i.selected == true and !N.domains[group_name].has(i):
-			N.append_to_domain(i, group_name)
-	N.update_domains()
-	POPUPS["group"].hide()
-	
+	if is_opened:
+		universe_menu = ref
+		if ref == "N":
+			$Popups/MenuUniverse/VBox/Title.text = "Set Universe"
+		else:
+			$Popups/MenuUniverse/VBox/Title.text = "Set Variables"
+		$Popups/MenuUniverse.popup()
+	else:
+		#$Popups/MenuUniverse/VBox/Items/NameInput.text = ""
+		#SizeInput.text = "- -"
+		$Popups/MenuUniverse.hide()
+
+
 
 func _pressed_mb_group(id):
 	

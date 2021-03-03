@@ -72,6 +72,7 @@ class Domain:
 	func union(domain : Domain) -> Domain:
 		return domain
 	
+	
 	# Checks if this domain is an interval
 	func is_interval() -> bool:
 		

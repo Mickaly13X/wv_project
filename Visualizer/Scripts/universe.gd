@@ -1,6 +1,8 @@
 extends Node2D
 
 const ELEMENT = preload("res://Scenes/Element.tscn")
+const Domain = preload("res://Scripts/classes.gd").Domain
+const Interval = preload("res://Scripts/classes.gd").Interval
 const ELEMENT_COLORS = [
 	Color(1, 0.406122, 0.406122), 
 	Color(0.406122, 0.540673, 1), 

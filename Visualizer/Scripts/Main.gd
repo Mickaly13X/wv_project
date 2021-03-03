@@ -1,6 +1,8 @@
 extends Control
 
 const EXCEPTION = preload("res://util/ExceptionIDs.gd")
+const Domain = preload("res://Scripts/classes.gd").Domain
+const Interval = preload("res://Scripts/classes.gd").Interval
 const SET = preload("res://Scenes/Universe.tscn")
 const STRUCTURE_NAMES = [ \
 	["sequence", "permutation", "composition"],

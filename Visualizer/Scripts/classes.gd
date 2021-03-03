@@ -75,8 +75,8 @@ class Domain:
 	
 	# Checks if this domain is an interval
 	func is_interval() -> bool:
-		
-		if typeof(elements) != TYPE_INT_ARRAY:
+		#UNFINISHED
+		if typeof(elements) != TYPE_INT_ARRAY:# && typeof(elements) != TYPE_ARRAY:
 			return false
 		var hi = elements.max()
 		var lo = elements.min()
@@ -94,3 +94,6 @@ class Domain:
 			var lo = elements.min()
 			return Interval.new(lo,hi)
 		return -1
+	
+	
+	

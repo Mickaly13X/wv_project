@@ -69,6 +69,10 @@ func random(n : int) -> int:
 func randomf(n : float) -> float: 
 	return randf() * n
 
+# returns a random Vector2 point inside a given rect
+func randomRect(rect : Rect2) -> Vector2:
+	return rect.position + randomVect(rect.size)
+
 # returns a Vector2 with as values 2 integer between [0, n]
 func randomVect(vect : Vector2) -> Vector2:
 	return Vector2(random(vect.x), random(vect.y))

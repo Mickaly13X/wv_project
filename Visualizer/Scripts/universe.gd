@@ -20,7 +20,7 @@ onready var Main : Node
 var circles_domain = []
 var custom_name = ""
 var domains : Dictionary
-var element_size = Vector2(16, 16)
+var element_size = 16
 var is_distinct : bool
 var shape
 
@@ -58,31 +58,27 @@ func _pressed(button_name : String) -> void:
 	match button_name:
 		
 		"Add": 
-			add_element()
+			add_elements(1)
 		"Group":
 			Main.toggle_menu_group(true)
 	
 	$Menu.hide()
 
 
-#TODO add ability to add names to elements -> adv settings
-func add_element(approx : Rect2 = get_boundary(), pos_constraints = []):
+func add_elements(no_elements : int):
 	
-	var new_pos = approx.position + element_size + \
-			g.randomVect(approx.size - element_size * 2)
-	while(is_element_at_pos(new_pos)):
-		new_pos = approx.position + element_size + \
-			g.randomVect(approx.size - element_size * 2)
-
-	var new_element = ELEMENT.instance()
-	new_element.uni_name = name
-	new_element.position = new_pos
-	if is_distinct:
-		new_element.set_color(ELEMENT_COLORS[get_size()])
-		#	Color(0.33 * (i%3), 0.33 * ((i/3)%3), 0.33 * ((i/9)%3))
-	else:
-		new_element.set_color(Color.white)
-	$Elements.add_child(new_element)
+	for _i in range(no_elements):
+		
+		var new_element = ELEMENT.instance()
+		var color : Color
+		if is_distinct:
+			color = ELEMENT_COLORS[get_size()]
+		else:
+			color = Color.white
+		new_element.init(name, color)
+		$Elements.add_child(new_element)
+		
+	update_element_positions()
 
 
 func deselect_elements():
@@ -114,9 +110,12 @@ func draw_circle_custom(radius: float, pos: Vector2, \
 	draw_colored_polygon(points, color)
 
 
+# for 1-part venns, domain_intersections = [A]
+# for 2-part venns, domain_intersections = [A, B, AB]
+# for 3-part venns, domain_intersections = [A, B, C, AB, BC, AC, ABC]
 func fetch_venn_circles(domain_intersections : Array) -> Array:
 	
-	if len(domain_intersections) == 1: return [get_center(), 1]
+	if len(domain_intersections) == 1: return [[get_center(), 1]]
 	
 	# external fetch
 	var venn_size = 2 + int(len(domain_intersections) > 3)
@@ -136,8 +135,12 @@ func fetch_venn_circles(domain_intersections : Array) -> Array:
 	return venn_circles
 
 
-func get_boundary() -> Rect2:
-	return Rect2($Mask.rect_position, $Mask.rect_size)
+func get_circle_approx(circle : Dictionary) -> Rect2:
+	
+	return Rect2(
+		circle.pos - circle.radius * Vector2.ONE,
+		2 * circle.radius * Vector2.ONE
+	)
 
 
 func get_center() -> Vector2:
@@ -172,23 +175,44 @@ func get_domain_intersections(domains : Array) -> Array:
 	return domain_intersections
 
 
+func get_domain_name(domain : Array) -> String:
+	
+	for i in domains:
+		if domains[i] == domain:
+			return i
+	return ""
+
+
+func get_elements() -> Array:
+	return $Elements.get_children()
+
+
 func get_name() -> String:
 	return custom_name
 
 
+func get_perimeter() -> Rect2:
+	return Rect2($Mask.rect_position, $Mask.rect_size)
+
+
 func get_size() -> int:
-	return len($Elements.get_children())
+	return len(get_elements())
 
 
 # @return exit_code
 func group(group_name : String) -> void:
 	
+	print(group_name)
 	if !domains.has(group_name):
 		domains[group_name] = []
+		
 	
-	for i in $Elements.get_children():
-		if i.selected == true && !domains[group_name].has(i):
+	for i in get_elements():
+		if i.selected && !domains[group_name].has(i):
 			domains[group_name].append(i)
+	
+	# update visible structure
+	init(get_size(), get_name(), false)
 
 
 func has_max_elements() -> bool:
@@ -200,7 +224,7 @@ func has_max_elements() -> bool:
 
 func has_selected_elements() -> bool:
 	
-	for I in $Elements.get_children():
+	for I in get_elements():
 		if I.selected:
 			return true
 	return false
@@ -209,14 +233,12 @@ func has_selected_elements() -> bool:
 func init(size : int, custom_name = get_name(), is_rebuild = true) -> void:
 	
 	if is_rebuild:
-		for I in $Elements.get_children():
+		for I in get_elements():
 			 I.free()
-		set_size(size)
+		add_elements(size)
 	set_name(custom_name)
 	
-	print(domains)
-	if domains.size() > 1:
-		print("lol")
+	if domains.size() > 0:
 		set_circles_domain(fetch_venn_circles(get_domain_intersections(domains.values())))
 
 
@@ -226,24 +248,17 @@ func init_distinct(is_distinct : bool) -> void:
 	init(get_size())
 
 
-func is_element_at_pos(pos : Vector2) -> bool:
-	
-	for I in $Elements.get_children():
-		if pos.distance_to(I.position) <= element_size[0] * 2:
-			return true
-	return false
-
-
 func set_circles_domain(venn_circles : Array) -> void:
 	
-	for i in venn_circles:
+	for i in range(len(venn_circles)):
 		
 		var new_circle = {}
-		new_circle.pos = i[0]
-		new_circle.radius = i[1] * 100
+		new_circle.pos = venn_circles[i][0]
+		new_circle.radius = venn_circles[i][1] * 100
+		new_circle.domain = get_domain_name(domains.values()[i])
 		circles_domain.append(new_circle)
 	
-	print(circles_domain)
+	update_element_positions()
 	update()
 
 
@@ -252,12 +267,6 @@ func set_name(custom_name : String) -> void:
 	self.custom_name = custom_name
 	if custom_name != "":
 		$Label.text = name + " (" + custom_name + ")"
-
-
-func set_size(size : int) -> void:
-	
-	for _i in range(size):
-		add_element()
 
 
 func toggle_menu(is_visible : bool):
@@ -275,5 +284,53 @@ func toggle_group_button(is_visible : bool):
 	$Menu/Buttons/Group.disabled = !is_visible
 
 
-func update_domains() -> void:
-	init(get_size(), get_name(), false)
+func update_element_positions() -> void:
+	
+	var assigned_positions = [] 
+	
+	for element in get_elements():
+		
+		var inside_circles = []
+		var outside_circles = []
+		
+		for i in circles_domain:
+			if element in domains[i.domain]:
+				inside_circles.append(i)
+			else:
+				outside_circles.append(i)
+		
+		var approx : Rect2
+		if inside_circles == []:
+			approx = get_perimeter()
+		else:
+			approx = get_circle_approx(inside_circles[0])
+			for i in range(1, len(inside_circles)):
+				# rect intersection
+				approx = approx.clip(get_circle_approx(inside_circles[i]))
+		
+		# Assignment Loop
+		var new_pos : Vector2
+		var flag = false
+		while (flag == false):
+			
+			flag = true
+			new_pos = g.randomRect(approx.grow(-element_size))
+			for i in assigned_positions:
+				if new_pos.distance_to(i) < 2 * element_size:
+					flag = false
+					break
+			# if further checking is needed
+			if flag == true:
+				for i in inside_circles:
+					if new_pos.distance_to(i.pos) > i.radius - element_size:
+						flag = false
+						break
+			# if further checking is needed
+			if flag == true:
+				for i in outside_circles:
+					if new_pos.distance_to(i.pos) < i.radius + element_size:
+						flag = false
+						break
+		
+		element.position = new_pos
+		assigned_positions.append(new_pos)

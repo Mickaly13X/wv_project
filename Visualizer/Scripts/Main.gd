@@ -164,13 +164,12 @@ func group() -> bool:
 			show_message("Please enter a group name")
 			return false
 		group_name = NewGroupInput.text
+		GroupInput.get_popup().add_item(group_name)
 	else:
 		group_name = GroupInput.text
 	
 	Universes.get_node("N").group(group_name)
 	toggle_menu_group(false)
-	GroupInput.get_popup().add_item(group_name)
-	
 	return true
 
 

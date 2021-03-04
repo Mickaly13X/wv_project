@@ -94,6 +94,3 @@ class Domain:
 			var lo = elements.min()
 			return Interval.new(lo,hi)
 		return -1
-	
-	
-	

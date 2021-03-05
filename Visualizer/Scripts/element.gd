@@ -36,7 +36,9 @@ func _gui_input(event):
 			selected = !selected
 		elif event.button_index == BUTTON_RIGHT:
 			selected = true
-			self.get_parent().get_parent().toggle_menu(true)
+			get_parent().get_parent().toggle_menu(true)
+			get_parent().get_parent().toggle_add_button(false)
+			get_parent().get_parent().toggle_group_button(true)
 
 
 func init(universe : String, color : Color) -> void:

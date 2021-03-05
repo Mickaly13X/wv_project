@@ -29,6 +29,16 @@ func _draw():
 		draw_style_box(shape_unselected, Rect2(-r, -r, 2*r, 2*r))
 
 
+func _gui_input(event):
+	
+	if event.is_pressed():
+		if event.button_index == BUTTON_LEFT:
+			selected = !selected
+		elif event.button_index == BUTTON_RIGHT:
+			selected = true
+			self.get_parent().get_parent().toggle_menu(true)
+
+
 func init(universe : String, color : Color) -> void:
 	
 	self.universe = universe
@@ -48,15 +58,6 @@ func init(universe : String, color : Color) -> void:
 func init_mask():
 	MASK.rect_position = Vector2(-r,-r)
 	MASK.rect_size = Vector2(2*r,2*r)
-
-
-func on_gui_input(event):
-	
-	if (event.is_pressed() and event.button_index == BUTTON_LEFT):
-		selected = !selected
-	if (event.is_pressed() and event.button_index == BUTTON_RIGHT):
-		self.get_parent().get_parent().toggle_menu(true)
-		selected = true
 
 
 func set_color(new_color : Color):

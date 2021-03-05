@@ -62,6 +62,6 @@ text = "Group"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="gui_input" from="Mask" to="." method="_on_gui_input"]
+[connection signal="gui_input" from="Mask" to="." method="_gui_input"]
 [connection signal="button_up" from="Menu/Buttons/Add" to="." method="_pressed" binds= [ "Add" ]]
 [connection signal="button_up" from="Menu/Buttons/Group" to="." method="_pressed" binds= [ "Group" ]]

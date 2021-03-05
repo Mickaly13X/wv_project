@@ -13,4 +13,4 @@ custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="gui_input" from="Mask" to="." method="on_gui_input"]
+[connection signal="gui_input" from="Mask" to="." method="_gui_input"]

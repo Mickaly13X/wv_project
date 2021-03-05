@@ -1,5 +1,9 @@
 extends Node2D
 
+const CIRCLE_COLORS = [
+	Color(1, 0.3, 0.3, 0.33),
+	Color(0.3, 1, 0.3, 0.33),
+	Color(0.3, 0.3, 1, 0.33)]
 const ELEMENT = preload("res://Scenes/Element.tscn")
 const Domain = preload("res://Scripts/classes.gd").Domain
 const Interval = preload("res://Scripts/classes.gd").Interval
@@ -38,19 +42,23 @@ func _ready():
 func _draw():
 	
 	draw_self()
-	for i in circles_domain:
-		draw_circle_custom(i.radius, i.pos, Color.white)
+	for i in range(len(circles_domain)):
+		draw_circle_custom(
+			circles_domain[i].radius, circles_domain[i].pos, CIRCLE_COLORS[i]
+		)
 
 
-func _on_gui_input(event):
+func _gui_input(event):
 	
-	if event.is_pressed() and event.button_index == BUTTON_LEFT:
-		toggle_menu(false)
-		deselect_elements()
-	if event.is_pressed() and event.button_index == BUTTON_RIGHT:
-		toggle_group_button(has_selected_elements())
-		toggle_add_button(has_max_elements())
-		toggle_menu(true)
+	if event.is_pressed():
+		if event.button_index == BUTTON_LEFT:
+			toggle_menu(false)
+			deselect_elements()
+		elif event.button_index == BUTTON_RIGHT:
+			var has_selected_elements = has_selected_elements()
+			toggle_group_button(has_selected_elements)
+			toggle_add_button(!(has_max_elements() || has_selected_elements))
+			toggle_menu(true)
 
 
 func _pressed(button_name : String) -> void:
@@ -88,10 +96,6 @@ func deselect_elements():
 			I.selected = false
 
 
-func draw_self():
-	draw_style_box(shape, Rect2(Vector2(0, 0), $Mask.rect_size))
-
-
 func draw_circle_custom(radius: float, pos: Vector2, \
 	color: Color = Color.white, maxerror = 0.25):
 	
@@ -110,29 +114,61 @@ func draw_circle_custom(radius: float, pos: Vector2, \
 	draw_colored_polygon(points, color)
 
 
+func draw_self():
+	draw_style_box(shape, Rect2(Vector2(0, 0), $Mask.rect_size))
+
+
+# @param domain_intersections = list of (sub)set SIZES 
+# @pre domain_intersections NOT EMPTY
 # for 1-part venns, domain_intersections = [A]
 # for 2-part venns, domain_intersections = [A, B, AB]
 # for 3-part venns, domain_intersections = [A, B, C, AB, BC, AC, ABC]
 func fetch_venn_circles(domain_intersections : Array) -> Array:
 	
-	if len(domain_intersections) == 1: return [[get_center(), 1]]
-	
-	# external fetch
-	var venn_size = 2 + int(len(domain_intersections) > 3)
-	var args = ["fetch.py", str(venn_size)]
-	for i in domain_intersections:
-		args.append(str(i))
-	var output = []
-	var exit_code = OS.execute("python", args, true, output)
-	print("exit_code " + str(exit_code))
-	output = str(output[0]).split("\n")
-	
-	# formatting
 	var venn_circles = []
-	for i in range(len(output) / 3):
-		venn_circles.append([Vector2(output[i*3], output[i*3 + 1]), \
-							 output[i*3 + 2]])
-	return venn_circles
+	
+	if len(domain_intersections) == 1: 
+		venn_circles.append([Vector2(0, 0), len(domains.keys()[0])])
+	else:
+		# external fetch
+		var venn_size = 2 + int(len(domain_intersections) > 3)
+		var args = ["fetch.py", str(venn_size)]
+		for i in domain_intersections:
+			args.append(str(i))
+		var output = []
+		var exit_code = OS.execute("python", args, true, output)
+		print("fetch: exit_code " + str(exit_code))
+		output = str(output[0]).split("\n")
+		
+		# convert to float[]
+		for i in range(len(output) / 3):
+			var pos = Vector2(float(output[i*3]), float(output[i*3 + 1]))
+			var radius = float(output[i*3 + 2])
+			venn_circles.append([pos, radius])
+		
+	return fetch_venn_circles_formatted(venn_circles)
+
+
+# @param output is an array of strings
+func fetch_venn_circles_formatted(venn_circles : Array) -> Array:
+	
+	var average_pos = Vector2.ZERO
+	for i in venn_circles:
+		average_pos += i[0]
+	average_pos /= float(len(venn_circles))
+	
+	var dviations = []
+	for i in venn_circles:
+		dviations.append(i[0] - average_pos)
+	
+	# scaling
+	var venn_circles_formatted = []
+	for i in range(len(venn_circles)):
+		var new_pos = get_center(dviations[i] * 128)
+		var new_radius = venn_circles[i][1] * 128
+		venn_circles_formatted.append([new_pos, new_radius])
+	
+	return venn_circles_formatted
 
 
 func get_circle_approx(circle : Dictionary) -> Rect2:
@@ -143,8 +179,8 @@ func get_circle_approx(circle : Dictionary) -> Rect2:
 	)
 
 
-func get_center() -> Vector2:
-	return $Mask.rect_position + $Mask.rect_size / 2
+func get_center(offset = Vector2.ZERO) -> Vector2:
+	return $Mask.rect_position + $Mask.rect_size / 2 + offset
 
 
 # returns a list of all domain and intersection sizes
@@ -202,7 +238,6 @@ func get_size() -> int:
 # @return exit_code
 func group(group_name : String) -> void:
 	
-	print(group_name)
 	if !domains.has(group_name):
 		domains[group_name] = []
 		
@@ -239,27 +274,13 @@ func init(size : int, custom_name = get_name(), is_rebuild = true) -> void:
 	set_name(custom_name)
 	
 	if domains.size() > 0:
-		set_circles_domain(fetch_venn_circles(get_domain_intersections(domains.values())))
+		update_circles_domain(fetch_venn_circles(get_domain_intersections(domains.values())))
 
 
 func init_distinct(is_distinct : bool) -> void:
 	
 	self.is_distinct = is_distinct
 	init(get_size())
-
-
-func set_circles_domain(venn_circles : Array) -> void:
-	
-	for i in range(len(venn_circles)):
-		
-		var new_circle = {}
-		new_circle.pos = venn_circles[i][0]
-		new_circle.radius = venn_circles[i][1] * 100
-		new_circle.domain = get_domain_name(domains.values()[i])
-		circles_domain.append(new_circle)
-	
-	update_element_positions()
-	update()
 
 
 func set_name(custom_name : String) -> void:
@@ -276,17 +297,30 @@ func toggle_menu(is_visible : bool):
 		$Menu.position = get_local_mouse_position()
 
 
-func toggle_add_button(is_visible : bool):
-	$Menu/Buttons/Add.disabled = is_visible
+func toggle_add_button(is_pressable : bool):
+	$Menu/Buttons/Add.disabled = !is_pressable
 
 
-func toggle_group_button(is_visible : bool):
-	$Menu/Buttons/Group.disabled = !is_visible
+func toggle_group_button(is_pressable : bool):
+	$Menu/Buttons/Group.disabled = !is_pressable
+
+
+func update_circles_domain(venn_circles : Array) -> void:
+	
+	circles_domain = [] # remove existing circles
+	for i in range(len(venn_circles)):
+		
+		var new_circle = {}
+		new_circle.pos = venn_circles[i][0]
+		new_circle.radius = venn_circles[i][1]
+		new_circle.domain = get_domain_name(domains.values()[i])
+		circles_domain.append(new_circle)
+	
+	update_element_positions()
+	update()
 
 
 func update_element_positions() -> void:
-	
-	var assigned_positions = [] 
 	
 	for element in get_elements():
 		
@@ -308,29 +342,49 @@ func update_element_positions() -> void:
 				# rect intersection
 				approx = approx.clip(get_circle_approx(inside_circles[i]))
 		
-		# Assignment Loop
-		var new_pos : Vector2
-		var flag = false
-		while (flag == false):
-			
-			flag = true
-			new_pos = g.randomRect(approx.grow(-element_size))
-			for i in assigned_positions:
-				if new_pos.distance_to(i) < 2 * element_size:
+		var exit_code = false
+		while exit_code == false:
+			exit_code = update_element_positions_loop(
+				element, approx, inside_circles, outside_circles
+			)
+
+
+# @return exit_code
+func update_element_positions_loop(element : Node, approx : Rect2,
+	inside_circles : Array, outside_circles : Array
+	) -> bool:
+	
+	var assigned_positions = [] 
+	
+	var attempt = 0
+	var new_pos : Vector2
+	var flag = false
+	while (flag == false):
+		
+		print("Positioning Attempt " + str(attempt) + "...")
+		flag = true
+		new_pos = g.randomRect(approx.grow(-element_size))
+		for i in assigned_positions:
+			if new_pos.distance_to(i) < 2 * element_size:
+				flag = false
+				break
+		# if further checking is needed
+		if flag == true:
+			for i in inside_circles:
+				if new_pos.distance_to(i.pos) > i.radius - element_size:
 					flag = false
 					break
-			# if further checking is needed
-			if flag == true:
-				for i in inside_circles:
-					if new_pos.distance_to(i.pos) > i.radius - element_size:
-						flag = false
-						break
-			# if further checking is needed
-			if flag == true:
-				for i in outside_circles:
-					if new_pos.distance_to(i.pos) < i.radius + element_size:
-						flag = false
-						break
+		# if further checking is needed
+		if flag == true:
+			for i in outside_circles:
+				if new_pos.distance_to(i.pos) < i.radius + element_size:
+					flag = false
+					break
 		
-		element.position = new_pos
-		assigned_positions.append(new_pos)
+		if attempt < 16:
+			attempt += 1
+		else: return false
+	
+	element.position = new_pos
+	assigned_positions.append(new_pos)
+	return true

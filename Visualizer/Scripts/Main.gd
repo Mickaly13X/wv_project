@@ -32,7 +32,6 @@ var structure = [Distinct.NONE_SAME, SetFunction.ANY]
 
 const ROOM_H = 600
 const ROOM_W = 1024
-#const COLORS = [Color(1, 0.3, 0.3, 0.33), Color(0.3, 1, 0.3, 0.33), Color(0.3, 0.3, 1, 0.33)]
 const MAX_SET_SIZE = 10
 
 
@@ -262,10 +261,11 @@ func toggle_cola_panel():
 func toggle_menu_group(is_opened : bool) -> void:
 	
 	if is_opened:
-		Popups.get_node("MenuGroup").popup()
-	else:
+		NewGroupInput.hide()
 		NewGroupInput.text = ""
 		GroupInput.text = "-Select Group-"
+		Popups.get_node("MenuGroup").popup()
+	else:
 		Universes.get_node("N").deselect_elements()
 		Popups.get_node("MenuGroup").hide()
 

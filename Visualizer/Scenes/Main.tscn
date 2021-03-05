@@ -656,7 +656,6 @@ __meta__ = {
 [connection signal="button_up" from="HSplit/MainPanel/UI/HUD/Main/SetVariables" to="." method="toggle_menu_universe" binds= [ true, "X" ]]
 [connection signal="button_up" from="Popups/MenuStructure/VBox/Buttons/CancelButton" to="." method="toggle_menu_structure" binds= [ false ]]
 [connection signal="button_up" from="Popups/MenuStructure/VBox/Buttons/AddButton" to="." method="set_structure"]
-[connection signal="button_up" from="Popups/MenuUniverse/VBox/Items/SizeInput" to="." method="_pressed_size_input"]
 [connection signal="button_up" from="Popups/MenuUniverse/VBox/Buttons/CancelButton" to="." method="toggle_menu_universe" binds= [ false ]]
 [connection signal="button_up" from="Popups/MenuUniverse/VBox/Buttons/AddButton" to="." method="set_universe"]
 [connection signal="button_up" from="Popups/MenuGroup/VBox/Buttons/CancelButton" to="." method="toggle_menu_group" binds= [ false ]]

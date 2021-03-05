@@ -322,6 +322,8 @@ func update_circles_domain(venn_circles : Array) -> void:
 
 func update_element_positions() -> void:
 	
+	var assigned_positions = []
+	
 	for element in get_elements():
 		
 		var inside_circles = []
@@ -342,19 +344,18 @@ func update_element_positions() -> void:
 				# rect intersection
 				approx = approx.clip(get_circle_approx(inside_circles[i]))
 		
-		var exit_code = false
-		while exit_code == false:
-			exit_code = update_element_positions_loop(
-				element, approx, inside_circles, outside_circles
+		var new_assigned_pos = Vector2.ZERO # invalid pos
+		while new_assigned_pos == Vector2.ZERO:
+			new_assigned_pos = update_element_positions_loop(
+				element, approx, inside_circles, outside_circles, assigned_positions
 			)
+		assigned_positions.append(new_assigned_pos)
 
 
 # @return exit_code
 func update_element_positions_loop(element : Node, approx : Rect2,
-	inside_circles : Array, outside_circles : Array
-	) -> bool:
-	
-	var assigned_positions = [] 
+	inside_circles : Array, outside_circles : Array, assigned_positions : Array
+	) -> Vector2:
 	
 	var attempt = 0
 	var new_pos : Vector2
@@ -383,8 +384,8 @@ func update_element_positions_loop(element : Node, approx : Rect2,
 		
 		if attempt < 16:
 			attempt += 1
-		else: return false
+		else: return Vector2.ZERO
 	
 	element.position = new_pos
 	assigned_positions.append(new_pos)
-	return true
+	return new_pos

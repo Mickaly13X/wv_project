@@ -164,6 +164,9 @@ func group() -> bool:
 			return false
 		group_name = NewGroupInput.text
 		GroupInput.get_popup().add_item(group_name)
+	if GroupInput.text == "-Select Group-":
+			show_message("Please select a group")
+			return false
 	else:
 		group_name = GroupInput.text
 	

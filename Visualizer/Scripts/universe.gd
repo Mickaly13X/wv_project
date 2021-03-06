@@ -334,6 +334,7 @@ func init(size : int, custom_name = get_name(), is_rebuild = true) -> void:
 		update_circles_domain(
 			fetch_venn_circles(get_lengths(get_domain_intersections()))
 		)
+		update_domain_names()
 
 
 func init_distinct(is_distinct : bool) -> void:
@@ -377,6 +378,19 @@ func update_circles_domain(venn_circles : Array) -> void:
 	
 	update_element_positions()
 	update()
+
+
+func update_domain_names() -> void:
+	
+	for i in range(3):
+		var DomainName = get_node("DomainName" + str(i))
+		if i < len(domains):
+			DomainName.text = circles_domain[i].domain
+			DomainName.rect_position = \
+				circles_domain[i].pos - circles_domain[i].radius * Vector2.ONE
+			DomainName.show()
+		else:
+			DomainName.hide()
 
 
 func update_element_positions() -> void:

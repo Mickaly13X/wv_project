@@ -35,7 +35,7 @@ onready var ConfigSizeInput = $Popups/MenuStructure/VBox/Items/SizeInput
 
 var container_menu : String
 var not_domains = ["structure", "size", "pos", "count", "not", "inter", "union", "in"]
-var structure = [Distinct.NONE_SAME, SetFunction.ANY]
+var config = [Distinct.NONE_SAME, SetFunction.ANY]
 var domains = [] #Used for actual domains in visualizing
 
 const ROOM_H = 600
@@ -51,6 +51,7 @@ func _ready():
 	init_menus()
 	Popups.get_node("OpenFile").current_dir = ""
 	Popups.get_node("OpenFile").current_path = ""
+	set_config(0, "", true)
 	#var file_path = "res://tests/paper/constrained/permutation_5_4.test"
 	#var domains = get_domains(get_input(file_path))
 	#print(domains)
@@ -82,8 +83,21 @@ func _pressed_mb_input(index, TypeInput):
 	var InputMenu = TypeInput.get_popup()
 	TypeInput.text = InputMenu.get_item_text(index)
 	
-	if TypeInput == DistInput: structure[0] = index
-	if TypeInput == FuncInput: structure[1] = index
+	if TypeInput == DistInput: config[0] = index
+	if TypeInput == FuncInput: config[1] = index
+
+
+func check_config() -> void:
+	
+	if ConfigSizeInput.text == "- -":
+		show_message("Please choose a size")
+		return
+	
+	var _name = ConfigNameInput.text
+	var size = int(ConfigSizeInput.text)
+	var is_distinct = (config[0] == Distinct.X_SAME || config[0] == Distinct.NONE_SAME)
+	set_config(size, _name, is_distinct)
+	toggle_menu_structure(false)
 
 
 func get_input(file_path):
@@ -222,36 +236,14 @@ func popup_import():
 	Popups.get_node("OpenFile").popup()
 
 
-func set_configuration() -> void:
+func set_config(size : int, custom_name : String, is_distinct : bool) -> void:
 	
-	var _name = ConfigNameInput.text
-	
-	if ConfigSizeInput.text == "- -":
-		show_message("Please choose a size")
-		return
-	var size = int(ConfigSizeInput.text)
-	
-	
-	
-	Config.init(size,_name)
-#	var distinct = structure[0]
-#	var set_function = structure[1]
-#
-#	for I in Containers.get_children():
-#
-#		var is_distinct : bool
-#		if I.name == "N":
-#			is_distinct = (distinct == Distinct.X_SAME || distinct == Distinct.NONE_SAME)
-#		else:
-#			is_distinct = (distinct == Distinct.N_SAME || distinct == Distinct.NONE_SAME)
-#		I.init_distinct(is_distinct)
-	
-	Universe.is_distinct = true
-	toggle_menu_structure(false)
+	Config.init(size, custom_name)
+	Universe.init_distinct(is_distinct)
 #	$Structure.text = "Structure = " + STRUCTURE_NAMES[distinct][set_function]
 
 
-func set_container() -> void:
+func set_universe() -> void:
 	
 	var new_name = MenuContainer.get_node("VBox/Items/NameInput").text
 	if new_name == "":
@@ -322,8 +314,8 @@ func toggle_menu_group(is_opened : bool) -> void:
 func toggle_menu_structure(is_opened : bool) -> void:
 	
 	if is_opened:
-		DistInput.text = DistInput.get_popup().get_item_text(structure[0])
-		FuncInput.text = FuncInput.get_popup().get_item_text(structure[1])
+		DistInput.text = DistInput.get_popup().get_item_text(config[0])
+		FuncInput.text = FuncInput.get_popup().get_item_text(config[1])
 		$Popups/MenuStructure.popup()
 	else:
 		$Popups/MenuStructure.hide()

@@ -176,6 +176,8 @@ func group() -> bool:
 			return false
 		group_name = NewGroupInput.text
 		GroupInput.get_popup().add_item(group_name)
+		GroupInput.get_popup().set_item_as_checkable(GroupInput.get_popup().get_item_count()-1,true)
+		#set_item_as_checkable
 	else:
 		group_name = GroupInput.text
 	
@@ -326,14 +328,14 @@ func toggle_menu_structure(is_opened : bool) -> void:
 
 
 func _pressed_mb_group(id):
-	
+	GroupInput.get_popup().toggle_item_checked(id)
 	var selected_group = GroupInput.get_popup().get_item_text(id)
 	if selected_group == "New group":
 		NewGroupInput.show()
 		GroupInput.text = selected_group
 	else:
 		NewGroupInput.hide()
-		GroupInput.text = selected_group
+		#GroupInput.text = selected_group
 
 
 # Parse CoLa input

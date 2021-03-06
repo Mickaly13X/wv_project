@@ -29,6 +29,9 @@ onready var MenuContainer = $Popups/MenuContainer
 onready var SizeInput = $Popups/MenuContainer/VBox/Items/SizeInput
 onready var Popups = $Popups
 onready var Universe = $HSplit/MainPanel/Containers/Universe
+onready var ConfigNameInput = $Popups/MenuStructure/VBox/Items/NameInput
+onready var ConfigSizeInput = $Popups/MenuStructure/VBox/Items/SizeInput
+
 
 var container_menu : String
 var not_domains = ["structure", "size", "pos", "count", "not", "inter", "union", "in"]
@@ -38,6 +41,7 @@ var domains = [] #Used for actual domains in visualizing
 const ROOM_H = 600
 const ROOM_W = 1024
 const MAX_SET_SIZE = 10
+const MAX_CONFIG_SIZE = 10
 
 
 func _ready():
@@ -45,7 +49,6 @@ func _ready():
 	randomize()
 	init_children()
 	init_menus()
-	set_structure()
 	Popups.get_node("OpenFile").current_dir = ""
 	Popups.get_node("OpenFile").current_path = ""
 	#var file_path = "res://tests/paper/constrained/permutation_5_4.test"
@@ -192,6 +195,7 @@ func init_menus() -> void:
 	# structure menu
 	FuncInput.get_popup().connect("id_pressed", self, "_pressed_mb_input", [FuncInput])
 	DistInput.get_popup().connect("id_pressed", self, "_pressed_mb_input", [DistInput])
+	ConfigSizeInput.get_popup().connect("id_pressed", self, "_pressed_mb_input", [ConfigSizeInput])
 	
 	# universe menu
 	SizeInput.get_popup().connect("id_pressed", self, "_pressed_mb_input", [SizeInput])
@@ -201,6 +205,11 @@ func init_menus() -> void:
 		var numberstr = "0" + str(i + 1) if i + 1 < 10 else str(i + 1)
 		SizeInput.get_popup().add_item(numberstr)
 	
+	for i in range(MAX_CONFIG_SIZE):
+		#to add zero before single digits like 01, 02 instead of 1, 2
+		var numberstr = "0" + str(i + 1) if i + 1 < 10 else str(i + 1)
+		ConfigSizeInput.get_popup().add_item(numberstr)
+	
 	# group menu
 	GroupInput.get_popup().connect("id_pressed", self, "_pressed_mb_group")
 
@@ -209,8 +218,18 @@ func popup_import():
 	Popups.get_node("OpenFile").popup()
 
 
-func set_structure() -> void:
+func set_configuration() -> void:
 	
+	var _name = ConfigNameInput.text
+	
+	if ConfigSizeInput.text == "- -":
+		show_message("Please choose a size")
+		return
+	var size = int(ConfigSizeInput.text)
+	
+	
+	
+	Config.init(size,_name)
 #	var distinct = structure[0]
 #	var set_function = structure[1]
 #

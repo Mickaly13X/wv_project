@@ -117,8 +117,8 @@ size_flags_vertical = 3
 alignment = 1
 
 [node name="Import" type="Button" parent="HSplit/MainPanel/UI/HUD/Main"]
-margin_left = 703.0
-margin_right = 787.0
+margin_left = 649.0
+margin_right = 733.0
 margin_bottom = 34.0
 focus_mode = 0
 custom_fonts/font = ExtResource( 4 )
@@ -128,21 +128,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SetConfig" type="Button" parent="HSplit/MainPanel/UI/HUD/Main"]
-margin_left = 791.0
-margin_right = 987.0
+[node name="SetStructure" type="Button" parent="HSplit/MainPanel/UI/HUD/Main"]
+margin_left = 737.0
+margin_right = 886.0
 margin_bottom = 34.0
 focus_mode = 0
 custom_fonts/font = ExtResource( 4 )
 enabled_focus_mode = 0
-text = "Set Configuration"
+text = "Set Structure"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="SetUniverse" type="Button" parent="HSplit/MainPanel/UI/HUD/Main"]
-margin_left = 991.0
-margin_right = 1133.0
+margin_left = 890.0
+margin_right = 1032.0
 margin_bottom = 34.0
 focus_mode = 0
 custom_fonts/font = ExtResource( 4 )
@@ -152,9 +152,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="SetVariables" type="Button" parent="HSplit/MainPanel/UI/HUD/Main"]
+margin_left = 1036.0
+margin_right = 1188.0
+margin_bottom = 34.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 4 )
+enabled_focus_mode = 0
+text = "Set Variables"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Run" type="Button" parent="HSplit/MainPanel/UI/HUD/Main"]
-margin_left = 1137.0
-margin_right = 1189.0
+margin_left = 1192.0
+margin_right = 1244.0
 margin_bottom = 34.0
 focus_mode = 0
 custom_fonts/font = ExtResource( 4 )
@@ -200,9 +212,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -283.5
-margin_top = -185.5
+margin_top = -141.5
 margin_right = 283.5
-margin_bottom = 185.5
+margin_bottom = 141.5
 rect_min_size = Vector2( 296, 128 )
 custom_styles/panel = SubResource( 3 )
 popup_exclusive = true
@@ -225,7 +237,7 @@ __meta__ = {
 margin_right = 503.0
 margin_bottom = 46.0
 custom_fonts/font = ExtResource( 5 )
-text = "Set Configuration"
+text = "Set Structure"
 align = 1
 valign = 1
 __meta__ = {
@@ -235,7 +247,7 @@ __meta__ = {
 [node name="Items" type="GridContainer" parent="Popups/MenuStructure/VBox"]
 margin_top = 50.0
 margin_right = 503.0
-margin_bottom = 292.0
+margin_bottom = 181.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/vseparation = 16
@@ -245,34 +257,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NameLabel" type="Label" parent="Popups/MenuStructure/VBox/Items"]
-margin_top = 5.0
-margin_right = 182.0
-margin_bottom = 33.0
-custom_fonts/font = ExtResource( 4 )
-text = "Name"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="NameInput" type="LineEdit" parent="Popups/MenuStructure/VBox/Items"]
-margin_left = 198.0
-margin_right = 503.0
-margin_bottom = 38.0
-rect_min_size = Vector2( 128, 24 )
-size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 4 )
-max_length = 20
-placeholder_text = "Name"
-caret_blink = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="DistLabel" type="Label" parent="Popups/MenuStructure/VBox/Items"]
-margin_top = 57.0
+margin_top = 3.0
 margin_right = 182.0
-margin_bottom = 85.0
+margin_bottom = 31.0
 custom_fonts/font = ExtResource( 4 )
 text = "Distinguishability"
 __meta__ = {
@@ -281,9 +269,8 @@ __meta__ = {
 
 [node name="DistInput" type="MenuButton" parent="Popups/MenuStructure/VBox/Items"]
 margin_left = 198.0
-margin_top = 54.0
 margin_right = 246.0
-margin_bottom = 88.0
+margin_bottom = 34.0
 rect_min_size = Vector2( 48, 0 )
 size_flags_horizontal = 0
 custom_fonts/font = ExtResource( 4 )
@@ -294,9 +281,9 @@ __meta__ = {
 }
 
 [node name="FuncLabel" type="Label" parent="Popups/MenuStructure/VBox/Items"]
-margin_top = 107.0
+margin_top = 53.0
 margin_right = 182.0
-margin_bottom = 135.0
+margin_bottom = 81.0
 custom_fonts/font = ExtResource( 4 )
 text = "Function Type"
 __meta__ = {
@@ -305,9 +292,9 @@ __meta__ = {
 
 [node name="FuncInput" type="MenuButton" parent="Popups/MenuStructure/VBox/Items"]
 margin_left = 198.0
-margin_top = 104.0
+margin_top = 50.0
 margin_right = 246.0
-margin_bottom = 138.0
+margin_bottom = 84.0
 rect_min_size = Vector2( 48, 0 )
 size_flags_horizontal = 0
 custom_fonts/font = ExtResource( 4 )
@@ -317,40 +304,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SizeLabel" type="Label" parent="Popups/MenuStructure/VBox/Items"]
-margin_top = 157.0
-margin_right = 182.0
-margin_bottom = 185.0
-custom_fonts/font = ExtResource( 4 )
-text = "Size"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="SizeInput" type="MenuButton" parent="Popups/MenuStructure/VBox/Items"]
-margin_left = 198.0
-margin_top = 154.0
-margin_right = 246.0
-margin_bottom = 188.0
-rect_min_size = Vector2( 48, 0 )
-size_flags_horizontal = 0
-custom_fonts/font = ExtResource( 4 )
-text = "- -"
-flat = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Buttons" type="HBoxContainer" parent="Popups/MenuStructure/VBox"]
-margin_top = 296.0
+margin_top = 185.0
 margin_right = 503.0
-margin_bottom = 330.0
+margin_bottom = 219.0
 custom_constants/separation = 256
 alignment = 1
 
 [node name="CancelButton" type="Button" parent="Popups/MenuStructure/VBox/Buttons"]
-margin_left = 48.0
-margin_right = 132.0
+margin_left = 370.0
+margin_right = 454.0
 margin_bottom = 34.0
 focus_mode = 0
 custom_fonts/font = ExtResource( 4 )
@@ -361,8 +324,8 @@ __meta__ = {
 }
 
 [node name="AddButton" type="Button" parent="Popups/MenuStructure/VBox/Buttons"]
-margin_left = 388.0
-margin_right = 454.0
+margin_left = 48.0
+margin_right = 114.0
 margin_bottom = 34.0
 focus_mode = 0
 custom_fonts/font = ExtResource( 4 )
@@ -480,15 +443,15 @@ custom_constants/separation = 256
 alignment = 1
 
 [node name="CancelButton" type="Button" parent="Popups/MenuContainer/VBox/Buttons"]
-margin_left = 48.0
-margin_right = 132.0
+margin_left = 370.0
+margin_right = 454.0
 margin_bottom = 34.0
 custom_fonts/font = ExtResource( 4 )
 text = "Cancel"
 
 [node name="AddButton" type="Button" parent="Popups/MenuContainer/VBox/Buttons"]
-margin_left = 388.0
-margin_right = 454.0
+margin_left = 48.0
+margin_right = 114.0
 margin_bottom = 34.0
 focus_mode = 0
 custom_fonts/font = ExtResource( 4 )
@@ -671,9 +634,9 @@ popup_exclusive = true
 window_title = "Open een Bestand"
 mode = 0
 access = 2
-current_dir = "/Users/erickim/wv_project/Visualizer"
+current_dir = "/Users/Joran/Git/wv_project/Visualizer"
 current_file = "~"
-current_path = "/Users/erickim/wv_project/Visualizer/~"
+current_path = "/Users/Joran/Git/wv_project/Visualizer/~"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -689,10 +652,11 @@ __meta__ = {
 }
 [connection signal="button_up" from="HSplit/MainPanel/UI/HUD/OpenCoLa" to="." method="toggle_cola_panel"]
 [connection signal="button_up" from="HSplit/MainPanel/UI/HUD/Main/Import" to="." method="popup_import"]
-[connection signal="button_up" from="HSplit/MainPanel/UI/HUD/Main/SetConfig" to="." method="toggle_menu_structure" binds= [ true ]]
+[connection signal="button_up" from="HSplit/MainPanel/UI/HUD/Main/SetStructure" to="." method="toggle_menu_structure" binds= [ true ]]
 [connection signal="button_up" from="HSplit/MainPanel/UI/HUD/Main/SetUniverse" to="." method="toggle_menu_container" binds= [ true, "Universe" ]]
+[connection signal="button_up" from="HSplit/MainPanel/UI/HUD/Main/SetVariables" to="." method="toggle_menu_container" binds= [ true, "Config" ]]
 [connection signal="button_up" from="Popups/MenuStructure/VBox/Buttons/CancelButton" to="." method="toggle_menu_structure" binds= [ false ]]
-[connection signal="button_up" from="Popups/MenuStructure/VBox/Buttons/AddButton" to="." method="set_configuration"]
+[connection signal="button_up" from="Popups/MenuStructure/VBox/Buttons/AddButton" to="." method="set_structure"]
 [connection signal="button_up" from="Popups/MenuContainer/VBox/Buttons/CancelButton" to="." method="toggle_menu_container" binds= [ false ]]
 [connection signal="button_up" from="Popups/MenuContainer/VBox/Buttons/AddButton" to="." method="set_container"]
 [connection signal="button_up" from="Popups/MenuGroup/VBox/Buttons/CancelButton" to="." method="toggle_menu_group" binds= [ false ]]

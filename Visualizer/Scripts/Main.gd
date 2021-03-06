@@ -15,6 +15,8 @@ const STRUCTURE_NAMES = [ \
 enum Distinct {NONE_SAME, N_SAME, X_SAME, NX_SAME}
 enum SetFunction {ANY, INJ, SUR}
 
+onready var Config = $HSplit/MainPanel/Containers/Structure
+onready var Containers = $HSplit/MainPanel/Containers
 onready var CoLaInput = $HSplit/CoLaPanel/CoLaInput
 onready var CoLaPanel = $HSplit/CoLaPanel
 onready var DistInput = $Popups/MenuStructure/VBox/Items/DistInput
@@ -23,12 +25,12 @@ onready var GroupInput = $Popups/MenuGroup/VBox/Items/GroupInput
 onready var HSplit = $HSplit
 onready var NewGroupInput = $Popups/MenuGroup/VBox/Items/NewGroupInput
 onready var OpenCoLa = $HSplit/MainPanel/UI/HUD/OpenCoLa
-onready var Universes = $HSplit/MainPanel/Universes
-onready var MenuUniverse = $Popups/MenuUniverse
-onready var SizeInput = $Popups/MenuUniverse/VBox/Items/SizeInput
+onready var MenuContainer = $Popups/MenuContainer
+onready var SizeInput = $Popups/MenuContainer/VBox/Items/SizeInput
 onready var Popups = $Popups
+onready var Universe = $HSplit/MainPanel/Containers/Universe
 
-var universe_menu : String
+var container_menu : String
 var not_domains = ["structure", "size", "pos", "count", "not", "inter", "union", "in"]
 var structure = [Distinct.NONE_SAME, SetFunction.ANY]
 var domains = [] #Used for actual domains in visualizing
@@ -56,11 +58,11 @@ func _process(_delta):
 	
 	if Input.is_action_pressed("ui_cancel"):
 		get_tree().quit()
-	#if Input.is_action_just_pressed("ui_accept"):
-	#	get_tree().reload_current_scene()
+	if Input.is_action_just_pressed("reload"):
+		get_tree().reload_current_scene()
 	if Input.is_action_pressed("mouse_left"):
-		Universes.get_node("N").toggle_menu(false)
-		Universes.get_node("X").toggle_menu(false)
+		Universe.toggle_menu(false)
+
 
 func _on_cola_file_selected(path):
 	
@@ -174,15 +176,15 @@ func group() -> bool:
 	else:
 		group_name = GroupInput.text
 	
-	Universes.get_node("N").group(group_name)
+	Universe.group(group_name)
 	toggle_menu_group(false)
 	return true
 
 
 func init_children() -> void:
 	
-	Universes.get_node("N").Main = self 
-	Universes.get_node("X").Main = self 
+	Universe.Main = self 
+	Config.Main = self 
 
 
 func init_menus() -> void:
@@ -209,38 +211,38 @@ func popup_import():
 
 func set_structure() -> void:
 	
-	var distinct = structure[0]
-	var set_function = structure[1]
-	
-	for I in Universes.get_children():
-		
-		var is_distinct : bool
-		if I.name == "N":
-			is_distinct = (distinct == Distinct.X_SAME || distinct == Distinct.NONE_SAME)
-		else:
-			is_distinct = (distinct == Distinct.N_SAME || distinct == Distinct.NONE_SAME)
-		I.init_distinct(is_distinct)
+#	var distinct = structure[0]
+#	var set_function = structure[1]
+#
+#	for I in Containers.get_children():
+#
+#		var is_distinct : bool
+#		if I.name == "N":
+#			is_distinct = (distinct == Distinct.X_SAME || distinct == Distinct.NONE_SAME)
+#		else:
+#			is_distinct = (distinct == Distinct.N_SAME || distinct == Distinct.NONE_SAME)
+#		I.init_distinct(is_distinct)
 		
 	toggle_menu_structure(false)
-	$Structure.text = "Structure = " + STRUCTURE_NAMES[distinct][set_function]
+#	$Structure.text = "Structure = " + STRUCTURE_NAMES[distinct][set_function]
 
 
-func set_universe() -> void:
+func set_container() -> void:
 	
-	var new_name = MenuUniverse.get_node("VBox/Items/NameInput").text
+	var new_name = MenuContainer.get_node("VBox/Items/NameInput").text
 	if new_name == "":
 		show_message("Please specify a name")
 		return
 	
-	var new_size = MenuUniverse.get_node("VBox/Items/SizeInput").text
+	var new_size = MenuContainer.get_node("VBox/Items/SizeInput").text
 	if new_size == "- -":
 		show_message("Please choose a size")
 		return
 		
-	Universes.get_node(universe_menu).init(int(new_size), new_name)
+	Containers.get_node(container_menu).init(int(new_size), new_name)
 	
 	CoLaInput.text += new_name + "{[1," + str(new_size) + "]}"
-	toggle_menu_universe(false)
+	toggle_menu_container(false)
 
 
 func show_message(message : String) -> void:
@@ -265,6 +267,22 @@ func toggle_cola_panel():
 		OpenCoLa.text = ">"
 
 
+# ref = N or X
+func toggle_menu_container(is_opened : bool, ref : String = "Universe") -> void:
+	
+	if is_opened:
+		container_menu = ref
+		if ref == "Universe":
+			$Popups/MenuContainer/VBox/Title.text = "Set Universe"
+		else:
+			$Popups/MenuContainer/VBox/Title.text = "Set Variables"
+		$Popups/MenuContainer.popup()
+	else:
+		#$Popups/MenuContainer/VBox/Items/NameInput.text = ""
+		#SizeInput.text = "- -"
+		$Popups/MenuContainer.hide()
+
+
 func toggle_menu_group(is_opened : bool) -> void:
 	
 	if is_opened:
@@ -273,7 +291,7 @@ func toggle_menu_group(is_opened : bool) -> void:
 		GroupInput.text = "-Select Group-"
 		Popups.get_node("MenuGroup").popup()
 	else:
-		Universes.get_node("N").deselect_elements()
+		Universe.deselect_elements()
 		Popups.get_node("MenuGroup").hide()
 
 
@@ -285,23 +303,6 @@ func toggle_menu_structure(is_opened : bool) -> void:
 		$Popups/MenuStructure.popup()
 	else:
 		$Popups/MenuStructure.hide()
-
-
-# ref = N or X
-func toggle_menu_universe(is_opened : bool, ref : String = "N") -> void:
-	
-	if is_opened:
-		universe_menu = ref
-		if ref == "N":
-			$Popups/MenuUniverse/VBox/Title.text = "Set Universe"
-		else:
-			$Popups/MenuUniverse/VBox/Title.text = "Set Variables"
-		$Popups/MenuUniverse.popup()
-	else:
-		#$Popups/MenuUniverse/VBox/Items/NameInput.text = ""
-		#SizeInput.text = "- -"
-		$Popups/MenuUniverse.hide()
-
 
 
 func _pressed_mb_group(id):
@@ -345,4 +346,3 @@ func parse(cola_string : String) -> Dictionary:
 func domain_interval(_name, interval_string, distinguishable  = true):
 	
 	return Domain.new(_name,IntervalString.new(interval_string).get_values(),distinguishable)
-	

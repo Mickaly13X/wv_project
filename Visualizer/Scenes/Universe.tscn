@@ -15,7 +15,7 @@ margin_top = -51.0371
 margin_right = 44.4949
 margin_bottom = -5.03708
 custom_fonts/font = ExtResource( 2 )
-text = "X"
+text = "Universe"
 __meta__ = {
 "_edit_use_anchors_": false
 }

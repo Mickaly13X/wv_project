@@ -23,7 +23,7 @@ const ELEMENT_COLORS = [
 onready var Main : Node
 
 var circles_domain = []
-var custom_name = ""
+var custom_name
 var domains : Dictionary
 var element_size = 16
 var is_distinct : bool
@@ -37,7 +37,7 @@ func _ready():
 	shape.set_border_width_all(3)
 	shape.set_corner_radius_all(30)
 	
-	$Label.text = name
+	set_name("")
 
 
 func _draw():
@@ -84,13 +84,13 @@ func add_elements(no_elements : int):
 			color = ELEMENT_COLORS[get_size()]
 		else:
 			color = Color.white
-		new_element.init(name, color)
+		new_element.init("uni", color)
 		$Elements.add_child(new_element)
 		
 	update_element_positions()
 
 
-func check_empty_domains() -> void:
+func check_empty_domains(exclude_domain : String) -> void:
 	
 	var no_domains = len(domains)
 	if no_domains > 1:
@@ -107,7 +107,10 @@ func check_empty_domains() -> void:
 				queue_delete.append(domains.values()[i])
 		
 		for domain in queue_delete:
-			delete_domain(get_domain_name(domain))
+			var domain_name = get_domain_name(domain)
+			#if domain_name != exclude_domain:
+			delete_domain(domain_name)
+	print(domains)
 
 
 # @post circles rebuilt needed (invalid refs)
@@ -252,15 +255,6 @@ func get_domain_name(domain : Array) -> String:
 	return ""
 
 
-func get_domains(element : Node) -> Array:
-	
-	var elem_domains = []
-	for i in domains:
-		if element in domains[i]:
-			elem_domains.append(domains[i])
-	return elem_domains 
-
-
 func get_elements() -> Array:
 	return $Elements.get_children()
 
@@ -288,21 +282,17 @@ func get_size() -> int:
 # @return exit_code
 func group(group_name : String) -> void:
 	
+	var new_domain_name = ""
 	if !domains.has(group_name):
 		domains[group_name] = []
+		new_domain_name = group_name
 	
 	for I in get_elements():
 		var added_elements = []
 		if I.selected && !domains[group_name].has(I):
 			domains[group_name].append(I)
-			# check if moved only element in A to intersection of both A and B
-#			if I :
-#				var elem_domains = get_domains(I)
-#				if len(elem_domains) == 2:
-#					for i in elem_domains:
-#						if len(i) == 1 && get_domain_name(i) != group_name:
-#							delete_group(get_domain_name(i))
-	check_empty_domains()
+	
+	check_empty_domains(new_domain_name)
 	# update visible structure
 	init(get_size(), get_name(), false)
 
@@ -346,8 +336,10 @@ func init_distinct(is_distinct : bool) -> void:
 func set_name(custom_name : String) -> void:
 	
 	self.custom_name = custom_name
-	if custom_name != "":
-		$Label.text = name + " (" + custom_name + ")"
+	if custom_name == "":
+		$Label.text = "Universe"
+	else:
+		$Label.text = "Universe (" + custom_name + ")"
 
 
 func toggle_menu(is_visible : bool):
@@ -457,7 +449,7 @@ func update_element_positions_loop(element : Node, approx : Rect2,
 		
 		if attempt < 16:
 			attempt += 1
-		else: return Vector2.ZERO
+		else: return Vector2.ONE
 	
 	element.position = new_pos
 	assigned_positions.append(new_pos)

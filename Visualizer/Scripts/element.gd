@@ -2,7 +2,7 @@ extends Node2D
 
 onready var MASK = $Mask
 
-var universe : String
+var container : String
 var shape_selected = StyleBoxFlat.new() 
 var shape_unselected = StyleBoxFlat.new() 
 
@@ -20,7 +20,7 @@ func _process(_delta):
 
 func _draw():
 	
-	if universe == "N":
+	if container == "uni":
 		if selected == false:
 			draw_style_box(shape_unselected, Rect2(-r, -r, 2*r, 2*r))
 		else:
@@ -41,12 +41,12 @@ func _gui_input(event):
 			get_parent().get_parent().toggle_group_button(true)
 
 
-func init(universe : String, color : Color) -> void:
+func init(container : String, color : Color) -> void:
 	
-	self.universe = universe
+	self.container = container
 	set_color(color)
 	
-	if universe == "N": # ball
+	if container == "uni": # ball
 		shape_unselected.set_corner_radius_all(r)
 		shape_selected.set_border_width_all(2)
 		shape_selected.set_corner_radius_all(r)
@@ -64,7 +64,7 @@ func init_mask():
 
 func set_color(new_color : Color):
 	
-	if universe == "N":
+	if container == "uni":
 		shape_unselected.bg_color = new_color
 		shape_selected.bg_color = new_color
 	else:

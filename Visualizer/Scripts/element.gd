@@ -31,14 +31,15 @@ func _draw():
 
 func _gui_input(event):
 	
-	if event.is_pressed():
-		if event.button_index == BUTTON_LEFT:
-			selected = !selected
-		elif event.button_index == BUTTON_RIGHT:
-			selected = true
-			get_parent().get_parent().toggle_menu(true)
-			get_parent().get_parent().toggle_add_button(false)
-			get_parent().get_parent().toggle_group_button(true)
+	if container == "uni":
+		if event.is_pressed():
+			if event.button_index == BUTTON_LEFT:
+				selected = !selected
+			elif event.button_index == BUTTON_RIGHT:
+				selected = true
+				get_parent().get_parent().toggle_menu(true)
+				get_parent().get_parent().toggle_add_button(false)
+				get_parent().get_parent().toggle_group_button(true)
 
 
 func init(container : String, color : Color) -> void:

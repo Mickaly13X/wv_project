@@ -1,9 +1,10 @@
 extends Node2D
 
+
 const CIRCLE_COLORS = [
-	Color(1, 0.3, 0.3, 0.33),
-	Color(0.3, 1, 0.3, 0.33),
-	Color(0.3, 0.3, 1, 0.33)]
+	Color(0.410156, 0.360797, 0.317243, 0.33),
+	Color(0.410156, 0.360797, 0.317243, 0.33),
+	Color(0.410156, 0.360797, 0.317243, 0.33)]
 const ELEMENT = preload("res://Scenes/Element.tscn")
 const Domain = preload("res://Scripts/classes.gd").Domain
 const Interval = preload("res://Scripts/classes.gd").Interval

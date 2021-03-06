@@ -14,7 +14,7 @@ func _ready():
 	init_mask()
 
 
-func _process(delta):
+func _process(_delta):
 	update()
 
 

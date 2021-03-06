@@ -34,6 +34,15 @@ func choose_weighted(weights : Array) -> int:
 func db(percentage : float, full_volume : float) -> float: 
 	return -20 + (full_volume + 20) * percentage
 
+# returns a / b
+func exclude(a : Array, b : Array) -> Array:
+	
+	var exclude = a
+	for element in a:
+		if b.has(element):
+			exclude.erase(element)
+	return exclude
+
 # returns the intersection of 2 arrays
 func intersection(a : Array, b : Array) -> Array:
 	

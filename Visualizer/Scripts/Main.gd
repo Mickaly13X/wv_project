@@ -158,15 +158,15 @@ func get_domain_value(domain_string):
 func group() -> bool:
 	
 	var group_name : String
+	if GroupInput.text == "-Select Group-":
+		show_message("Please select a group")
+		return false
 	if GroupInput.text == "New group":
 		if NewGroupInput.text == "New group" || NewGroupInput.text == "":
 			show_message("Please enter a group name")
 			return false
 		group_name = NewGroupInput.text
 		GroupInput.get_popup().add_item(group_name)
-	if GroupInput.text == "-Select Group-":
-			show_message("Please select a group")
-			return false
 	else:
 		group_name = GroupInput.text
 	

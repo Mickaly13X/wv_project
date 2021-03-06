@@ -89,6 +89,36 @@ func add_elements(no_elements : int):
 	update_element_positions()
 
 
+func check_empty_domains() -> void:
+	
+	var no_domains = len(domains)
+	if no_domains > 1:
+		
+		var intersections = get_domain_intersections()
+		var domains_strict = domains.values().duplicate(true)
+		for i in domains_strict:
+			for j in range(no_domains, len(intersections)):
+				i = g.exclude(i, intersections[j])
+		
+		var queue_delete = []
+		for i in range(len(domains_strict)):
+			if domains_strict[i] == []:
+				queue_delete.append(domains.values()[i])
+		
+		for domain in queue_delete:
+			delete_domain(get_domain_name(domain))
+
+
+# @post circles rebuilt needed (invalid refs)
+func delete_domain(domain_name : String) -> void:
+	
+	print("ERASE")
+	domains.erase(domain_name)
+	for i in range(len(domains)):
+		if Main.GroupInput.get_popup().get_item_text(i) == domain_name:
+			Main.GroupInput.get_popup().remove_item(i)
+
+
 func deselect_elements():
 	
 	for I in $Elements.get_children():
@@ -149,7 +179,7 @@ func fetch_venn_circles(domain_intersections : Array) -> Array:
 	return fetch_venn_circles_formatted(venn_circles)
 
 
-# @param output is an array of strings
+# venn_circles = [pos, radius]
 func fetch_venn_circles_formatted(venn_circles : Array) -> Array:
 	
 	var average_pos = Vector2.ZERO
@@ -161,11 +191,17 @@ func fetch_venn_circles_formatted(venn_circles : Array) -> Array:
 	for i in venn_circles:
 		dviations.append(i[0] - average_pos)
 	
+	var smallest_radius = venn_circles[0][1]
+	for i in range(1, len(venn_circles)):
+		if venn_circles[i][1] < smallest_radius:
+			smallest_radius = venn_circles[i][1]
+	
 	# scaling
+	var smallest_domain_size = get_lengths(domains.keys()).min()
 	var venn_circles_formatted = []
 	for i in range(len(venn_circles)):
-		var new_pos = get_center(dviations[i] * 128)
-		var new_radius = venn_circles[i][1] * 128
+		var new_pos = get_center(dviations[i] / smallest_radius * 64 * smallest_domain_size)
+		var new_radius = venn_circles[i][1] / smallest_radius * 64 * smallest_domain_size
 		venn_circles_formatted.append([new_pos, new_radius])
 	
 	return venn_circles_formatted
@@ -183,30 +219,27 @@ func get_center(offset = Vector2.ZERO) -> Vector2:
 	return $Mask.rect_position + $Mask.rect_size / 2 + offset
 
 
-# returns a list of all domain and intersection sizes
 # for 1-part venns, return = [A]
 # for 2-part venns, return = [A, B, AB]
 # for 3-part venns, return = [A, B, C, AB, BC, AC, ABC]
-func get_domain_intersections(domains : Array) -> Array:
+func get_domain_intersections() -> Array:
 	
+	var _domains = domains.values()
 	var domain_intersections = []
-	for i in domains:
-		domain_intersections.append(len(i))
+	for i in _domains:
+		domain_intersections.append(i)
 	
 	# intersections if there are at least 2 domains
-	match len(domains):
+	match len(_domains):
 		2:
-			domain_intersections.append(len( \
-				g.intersection(domains[0], domains[1])))
+			domain_intersections.append(g.intersection(_domains[0], _domains[1]))
 		3:
-			domain_intersections.append(len( \
-				g.intersection(domains[0], domains[1])))
-			domain_intersections.append(len( \
-				g.intersection(domains[0], domains[2])))
-			domain_intersections.append(len( \
-				g.intersection(domains[1], domains[2])))
-			domain_intersections.append(len( \
-				g.intersection(g.intersection(domains[0], domains[1]), domains[2])))
+			domain_intersections.append(g.intersection(_domains[0], _domains[1]))
+			domain_intersections.append(g.intersection(_domains[0], _domains[2]))
+			domain_intersections.append(g.intersection(_domains[1], _domains[2]))
+			domain_intersections.append(
+				g.intersection(g.intersection(_domains[0], _domains[1]), _domains[2])
+			)
 	
 	return domain_intersections
 
@@ -219,8 +252,25 @@ func get_domain_name(domain : Array) -> String:
 	return ""
 
 
+func get_domains(element : Node) -> Array:
+	
+	var elem_domains = []
+	for i in domains:
+		if element in domains[i]:
+			elem_domains.append(domains[i])
+	return elem_domains 
+
+
 func get_elements() -> Array:
 	return $Elements.get_children()
+
+
+func get_lengths(arrays : Array) -> Array:
+	
+	var lengths = []
+	for i in arrays:
+		lengths.append(len(i))
+	return lengths
 
 
 func get_name() -> String:
@@ -240,12 +290,19 @@ func group(group_name : String) -> void:
 	
 	if !domains.has(group_name):
 		domains[group_name] = []
-		
 	
-	for i in get_elements():
-		if i.selected && !domains[group_name].has(i):
-			domains[group_name].append(i)
-	
+	for I in get_elements():
+		var added_elements = []
+		if I.selected && !domains[group_name].has(I):
+			domains[group_name].append(I)
+			# check if moved only element in A to intersection of both A and B
+#			if I :
+#				var elem_domains = get_domains(I)
+#				if len(elem_domains) == 2:
+#					for i in elem_domains:
+#						if len(i) == 1 && get_domain_name(i) != group_name:
+#							delete_group(get_domain_name(i))
+	check_empty_domains()
 	# update visible structure
 	init(get_size(), get_name(), false)
 
@@ -274,7 +331,9 @@ func init(size : int, custom_name = get_name(), is_rebuild = true) -> void:
 	set_name(custom_name)
 	
 	if domains.size() > 0:
-		update_circles_domain(fetch_venn_circles(get_domain_intersections(domains.values())))
+		update_circles_domain(
+			fetch_venn_circles(get_lengths(get_domain_intersections()))
+		)
 
 
 func init_distinct(is_distinct : bool) -> void:

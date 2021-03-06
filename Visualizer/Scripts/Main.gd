@@ -214,7 +214,7 @@ func init_menus() -> void:
 	
 	# group menu
 	GroupInput.get_popup().connect("id_pressed", self, "_pressed_mb_group")
-
+	GroupInput.get_popup().set_item_as_checkable(GroupInput.get_popup().get_item_count()-1,true)
 
 func popup_import():
 	Popups.get_node("OpenFile").popup()

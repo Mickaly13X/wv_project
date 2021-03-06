@@ -3,6 +3,8 @@ extends Control
 const EXCEPTION = preload("res://util/ExceptionIDs.gd")
 const Domain = preload("res://Scripts/classes.gd").Domain
 const Interval = preload("res://Scripts/classes.gd").Interval
+const IntervalString = preload("res://Scripts/classes.gd").IntervalString
+const CoLaExpression = preload("res://Scripts/classes.gd").CoLaExpression
 const SET = preload("res://Scenes/Universe.tscn")
 const STRUCTURE_NAMES = [ \
 	["sequence", "permutation", "composition"],
@@ -29,6 +31,7 @@ onready var Popups = $Popups
 var universe_menu : String
 var not_domains = ["structure", "size", "pos", "count", "not", "inter", "union", "in"]
 var structure = [Distinct.NONE_SAME, SetFunction.ANY]
+var domains = [] #Used for actual domains in visualizing
 
 const ROOM_H = 600
 const ROOM_W = 1024
@@ -66,6 +69,7 @@ func _on_cola_file_selected(path):
 	var content = file.get_as_text()
 	#if is_cola()
 	CoLaInput.text = content
+	print(parse(content))
 
 
 func _pressed_mb_input(index, TypeInput):
@@ -309,3 +313,36 @@ func _pressed_mb_group(id):
 	else:
 		NewGroupInput.hide()
 		GroupInput.text = selected_group
+
+
+# Parse CoLa input
+func parse(cola_string : String) -> Dictionary:
+
+	var parsed_dict = {}
+	var commands = cola_string.replace(";","").replace("\t","").split("\n")
+	for command in commands:
+		
+		if "%" in command or command.replace(" ","").length() <= 1:
+			continue
+		var expression = Expression.new()
+		var tmp = CoLaExpression.new(command)
+		var c = tmp.translate() # Returns string in func form
+		var error = expression.parse(c,[])
+		if error != OK:
+			push_error(expression.get_error_text())
+		
+		var result = expression.execute([], self)
+		if not expression.has_execute_failed():
+			var key = tmp.get_global_type()
+			if parsed_dict.has(key):
+				parsed_dict[key].append(result)
+			else:
+				parsed_dict[key] = [result]
+	
+	return parsed_dict
+
+# Returns a domain (interval)
+func domain_interval(_name, interval_string, distinguishable  = true):
+	
+	return Domain.new(_name,IntervalString.new(interval_string).get_values(),distinguishable)
+	

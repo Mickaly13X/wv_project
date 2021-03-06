@@ -113,11 +113,10 @@ func check_empty_domains() -> void:
 # @post circles rebuilt needed (invalid refs)
 func delete_domain(domain_name : String) -> void:
 	
-	print("ERASE")
 	domains.erase(domain_name)
-	for i in range(len(domains)):
-		if Main.GroupInput.get_popup().get_item_text(i) == domain_name:
-			Main.GroupInput.get_popup().remove_item(i)
+#	for i in range(len(domains)):
+#		if Main.GroupInput.get_popup().get_item_text(i) == domain_name:
+#			Main.GroupInput.get_popup().remove_item(i)
 
 
 func deselect_elements():

@@ -189,7 +189,7 @@ __meta__ = {
 [node name="Universe" parent="HSplit/MainPanel/Containers" instance=ExtResource( 2 )]
 position = Vector2( 1280, 400 )
 
-[node name="Structure" parent="HSplit/MainPanel/Containers" instance=ExtResource( 3 )]
+[node name="Config" parent="HSplit/MainPanel/Containers" instance=ExtResource( 3 )]
 position = Vector2( 350, 400 )
 
 [node name="Popups" type="Control" parent="."]

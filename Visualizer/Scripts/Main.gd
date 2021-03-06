@@ -15,7 +15,7 @@ const STRUCTURE_NAMES = [ \
 enum Distinct {NONE_SAME, N_SAME, X_SAME, NX_SAME}
 enum SetFunction {ANY, INJ, SUR}
 
-onready var Config = $HSplit/MainPanel/Containers/Structure
+onready var Config = $HSplit/MainPanel/Containers/Config
 onready var Containers = $HSplit/MainPanel/Containers
 onready var CoLaInput = $HSplit/CoLaPanel/CoLaInput
 onready var CoLaPanel = $HSplit/CoLaPanel
@@ -222,7 +222,8 @@ func set_structure() -> void:
 #		else:
 #			is_distinct = (distinct == Distinct.N_SAME || distinct == Distinct.NONE_SAME)
 #		I.init_distinct(is_distinct)
-		
+	
+	Universe.is_distinct = true
 	toggle_menu_structure(false)
 #	$Structure.text = "Structure = " + STRUCTURE_NAMES[distinct][set_function]
 

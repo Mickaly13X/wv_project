@@ -165,7 +165,7 @@ func get_domain_value(domain_string):
 
 # @return exit_code
 func group() -> bool:
-	
+	GroupInput.get_popup()
 	var group_name : String
 	if GroupInput.text == "-Select Group-":
 		show_message("Please select a group")
@@ -215,6 +215,8 @@ func init_menus() -> void:
 	# group menu
 	GroupInput.get_popup().connect("id_pressed", self, "_pressed_mb_group")
 	GroupInput.get_popup().set_item_as_checkable(GroupInput.get_popup().get_item_count()-1,true)
+	GroupInput.get_popup().set_hide_on_checkable_item_selection(false)
+
 
 func popup_import():
 	Popups.get_node("OpenFile").popup()

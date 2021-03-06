@@ -105,11 +105,13 @@ class Configuration:
 	
 	var size
 	var config_name
+	var type
 	
-	func _init(_name,_size = 1):
+	func _init(_name, _type, _size = 1):
 		
 		config_name = _name
 		size = _size
+		type = _type
 		
 	
 	func set_size(_size: int):
@@ -122,6 +124,24 @@ class Configuration:
 	
 	func get_name():
 		return config_name
+
+
+class Problem:
+	
+	var universe
+	var domains
+	var configuration
+	var entity_map
+	var count_formulas
+	
+	func _init():
+		domains = {}
+		entity_map = {}
+		count_formulas = []
+	
+	
+	func add_domain():
+		pass
 
 
 

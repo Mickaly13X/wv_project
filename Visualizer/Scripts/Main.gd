@@ -203,7 +203,8 @@ func group() -> bool:
 			group_name = i
 			Universe.group(group_name)
 	
-	
+	for id in selected_ids:
+		GroupInput.get_popup().set_item_checked(id,false)
 	toggle_menu_group(false)
 	return true
 

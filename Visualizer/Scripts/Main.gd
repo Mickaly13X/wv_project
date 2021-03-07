@@ -205,6 +205,7 @@ func group() -> bool:
 	
 	for id in selected_ids:
 		GroupInput.get_popup().set_item_checked(id,false)
+		groups_selection[id] = false
 	toggle_menu_group(false)
 	return true
 

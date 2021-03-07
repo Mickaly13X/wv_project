@@ -1,0 +1,6 @@
+universe([1,4]).
+dutch([1,3]).
+french([3,4]).
+structure(s,sequence,true,universe).
+size(s,2).
+pos(s,1,dutch).

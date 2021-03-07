@@ -6,6 +6,7 @@ const CIRCLE_COLORS = [
 	Color(0.410156, 0.360797, 0.317243, 0.33),
 	Color(0.410156, 0.360797, 0.317243, 0.33)]
 const ELEMENT = preload("res://Scenes/Element.tscn")
+const ELEMENT_SIZE = 20
 const Domain = preload("res://Scripts/classes.gd").Domain
 const Interval = preload("res://Scripts/classes.gd").Interval
 const ELEMENT_COLORS = [
@@ -25,7 +26,6 @@ onready var Main : Node
 var circles_domain = []
 var custom_name
 var domains : Dictionary
-var element_size = 16
 var is_distinct : bool
 var shape
 
@@ -202,7 +202,7 @@ func fetch_venn_circles_formatted(venn_circles : Array) -> Array:
 	var smallest_domain_size = get_lengths(domains.values()).min()
 	var venn_circles_formatted = []
 	for i in range(len(venn_circles)):
-		var scalar = sqrt(smallest_domain_size) * 64 #+ int(len(domains) == 3) * 32)
+		var scalar = sqrt(smallest_domain_size) * 80 #+ int(len(domains) == 3) * 32)
 		var new_pos = get_center(dviations[i] / smallest_radius * scalar)
 		var new_radius = venn_circles[i][1] / smallest_radius * scalar
 		venn_circles_formatted.append([new_pos, new_radius])
@@ -440,21 +440,21 @@ func update_element_positions_loop(element : Node, approx : Rect2,
 		
 		print("Positioning Attempt " + str(attempt) + "...")
 		flag = true
-		new_pos = g.randomRect(approx.grow(-element_size))
+		new_pos = g.randomRect(approx.grow(-ELEMENT_SIZE))
 		for i in assigned_positions:
-			if new_pos.distance_to(i) < 2 * element_size:
+			if new_pos.distance_to(i) < 2 * ELEMENT_SIZE:
 				flag = false
 				break
 		# if further checking is needed
 		if flag == true:
 			for i in inside_circles:
-				if new_pos.distance_to(i.pos) > i.radius - element_size:
+				if new_pos.distance_to(i.pos) > i.radius - ELEMENT_SIZE:
 					flag = false
 					break
 		# if further checking is needed
 		if flag == true:
 			for i in outside_circles:
-				if new_pos.distance_to(i.pos) < i.radius + element_size:
+				if new_pos.distance_to(i.pos) < i.radius + ELEMENT_SIZE:
 					flag = false
 					break
 		

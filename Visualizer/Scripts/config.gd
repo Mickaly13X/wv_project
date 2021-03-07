@@ -3,7 +3,7 @@ extends Node2D
 
 const ELEMENT = preload("res://Scenes/Element.tscn")
 const ELEMENT_OFFSET = 24
-const ELEMENT_SIZE = 16
+const ELEMENT_SIZE = 20
 const Domain = preload("res://Scripts/classes.gd").Domain
 const Interval = preload("res://Scripts/classes.gd").Interval
 

@@ -6,7 +6,7 @@ var container : String
 var shape_selected = StyleBoxFlat.new() 
 var shape_unselected = StyleBoxFlat.new() 
 
-var r = 16
+var r = 20
 var selected = false
 
 
@@ -49,7 +49,7 @@ func init(container : String, color : Color) -> void:
 	
 	if container == "uni": # ball
 		shape_unselected.set_corner_radius_all(r)
-		shape_selected.set_border_width_all(2)
+		shape_selected.set_border_width_all(4)
 		shape_selected.set_corner_radius_all(r)
 		shape_selected.border_color = Color(1, 1, 1)
 	else: # box

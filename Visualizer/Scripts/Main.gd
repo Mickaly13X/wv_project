@@ -39,8 +39,6 @@ var config = [Distinct.NONE_SAME, SetFunction.ANY]
 var domains = [] #Used for actual domains in visualizing
 var groups_selection = {} # key : idx, value : bool selected, is reset when group is called
 
-const ROOM_H = 600
-const ROOM_W = 1024
 const MAX_SET_SIZE = 10
 const MAX_CONFIG_SIZE = 10
 

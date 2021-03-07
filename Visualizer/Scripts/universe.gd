@@ -110,7 +110,6 @@ func check_empty_domains(exclude_domain : String) -> void:
 			var domain_name = get_domain_name(domain)
 			#if domain_name != exclude_domain:
 			delete_domain(domain_name)
-	print(domains)
 
 
 # @post circles rebuilt needed (invalid refs)
@@ -200,10 +199,10 @@ func fetch_venn_circles_formatted(venn_circles : Array) -> Array:
 			smallest_radius = venn_circles[i][1]
 	
 	# scaling
-	var smallest_domain_size = get_lengths(domains.keys()).min()
+	var smallest_domain_size = get_lengths(domains.values()).min()
 	var venn_circles_formatted = []
 	for i in range(len(venn_circles)):
-		var scalar = smallest_domain_size * (64 + int(len(domains) == 3) * 32)
+		var scalar = sqrt(smallest_domain_size) * 64 #+ int(len(domains) == 3) * 32)
 		var new_pos = get_center(dviations[i] / smallest_radius * scalar)
 		var new_radius = venn_circles[i][1] / smallest_radius * scalar
 		venn_circles_formatted.append([new_pos, new_radius])

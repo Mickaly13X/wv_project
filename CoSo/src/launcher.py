@@ -1,7 +1,7 @@
 import os
 import argparse
 from pathlib import Path
-from parser import Parser
+from parser_custom import Parser
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

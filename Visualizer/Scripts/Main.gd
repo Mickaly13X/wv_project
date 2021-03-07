@@ -31,12 +31,13 @@ onready var Popups = $Popups
 onready var Universe = $HSplit/MainPanel/Containers/Universe
 onready var ConfigNameInput = $Popups/MenuStructure/VBox/Items/NameInput
 onready var ConfigSizeInput = $Popups/MenuStructure/VBox/Items/SizeInput
-
+onready var GroupsLabel = $Popups/MenuGroup/VBox/GroupsLabel
 
 var container_menu : String
 var not_domains = ["structure", "size", "pos", "count", "not", "inter", "union", "in"]
 var config = [Distinct.NONE_SAME, SetFunction.ANY]
 var domains = [] #Used for actual domains in visualizing
+var groups_selection = {} # key : idx, value : bool selected, is reset when group is called
 
 const ROOM_H = 600
 const ROOM_W = 1024
@@ -179,23 +180,30 @@ func get_domain_value(domain_string):
 
 # @return exit_code
 func group() -> bool:
-	GroupInput.get_popup()
+	
 	var group_name : String
-	if GroupInput.text == "-Select Group-":
+	
+	var selected_ids = get_selected_group_ids()
+	
+	if len(selected_ids) == 0:
 		show_message("Please select a group")
 		return false
-	if GroupInput.text == "New group":
-		if NewGroupInput.text == "New group" || NewGroupInput.text == "":
-			show_message("Please enter a group name")
-			return false
-		group_name = NewGroupInput.text
-		GroupInput.get_popup().add_item(group_name)
-		GroupInput.get_popup().set_item_as_checkable(GroupInput.get_popup().get_item_count()-1,true)
-		#set_item_as_checkable
-	else:
-		group_name = GroupInput.text
 	
-	Universe.group(group_name)
+	for i in get_selected_group_names():
+		if i == "New group":
+			if NewGroupInput.text == "New group" || NewGroupInput.text == "":
+				show_message("Please enter a group name")
+				return false
+				
+			group_name = NewGroupInput.text
+			GroupInput.get_popup().add_item(group_name)
+			GroupInput.get_popup().set_item_as_checkable(GroupInput.get_popup().get_item_count()-1,true)
+			Universe.group(group_name)
+		else:
+			group_name = i
+			Universe.group(group_name)
+	
+	
 	toggle_menu_group(false)
 	return true
 
@@ -304,10 +312,11 @@ func toggle_menu_group(is_opened : bool) -> void:
 	if is_opened:
 		NewGroupInput.hide()
 		NewGroupInput.text = ""
-		GroupInput.text = "-Select Group-"
+		GroupInput.text = "-Select Groups-"
 		Popups.get_node("MenuGroup").popup()
 	else:
 		Universe.deselect_elements()
+		
 		Popups.get_node("MenuGroup").hide()
 
 
@@ -322,14 +331,70 @@ func toggle_menu_structure(is_opened : bool) -> void:
 
 
 func _pressed_mb_group(id):
-	GroupInput.get_popup().toggle_item_checked(id)
-	var selected_group = GroupInput.get_popup().get_item_text(id)
-	if selected_group == "New group":
+	
+	var popup = GroupInput.get_popup()
+	popup.toggle_item_checked(id)
+	groups_selection[id] = popup.is_item_checked(id)
+	#var selected_group = popup.get_item_text(id)
+	
+	if is_checked("New group"):
 		NewGroupInput.show()
-		GroupInput.text = selected_group
+		GroupInput.text = "New group"
 	else:
 		NewGroupInput.hide()
+		GroupInput.text = "-Select Groups-"
+#	if selected_group == "New group":
+#		if popup.is_item_checked(id):
+#			NewGroupInput.show()
+#			GroupInput.text = selected_group
+#		else:
+#			NewGroupInput.hide()
+#			GroupInput.text = "-Select Groups-"
+#	else:
+#		if !popup.is_item_checked(id):
+#			NewGroupInput.show()
+#			GroupInput.text = selected_group
+#		else:
+#			NewGroupInput.hide()
 		#GroupInput.text = selected_group
+	GroupsLabel.text = "Selected: " + get_selected_group_names_as_string()
+	
+func get_selected_group_names_as_string() -> String:
+	
+	var group_names = ""
+	for id in groups_selection:
+		if groups_selection[id] == true:
+			if group_names == "":
+				group_names += GroupInput.get_popup().get_item_text(id)
+			else:
+				group_names += ", "+GroupInput.get_popup().get_item_text(id)
+	
+	return group_names
+
+func get_selected_group_ids() -> String:
+	
+	var group_ids = []
+	for id in groups_selection:
+		if groups_selection[id] == true:
+			group_ids.append(id)
+	return group_ids
+
+
+func get_selected_group_names() -> String:
+	
+	var group_names = []
+	for id in groups_selection:
+		if groups_selection[id] == true:
+			group_names.append(GroupInput.get_popup().get_item_text(id))
+	return group_names
+
+func is_checked(group_name : String) -> bool:
+	
+	var checked = false
+	for id in groups_selection:
+		if group_name == GroupInput.get_popup().get_item_text(id):
+			checked = groups_selection[id]
+	return checked
 
 
 # Parse CoLa input

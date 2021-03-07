@@ -200,7 +200,7 @@ func fetch_venn_circles_formatted(venn_circles : Array) -> Array:
 			smallest_radius = venn_circles[i][1]
 	
 	# scaling
-	var smallest_domain_size = get_lengths(domains.keys()).min()
+	var smallest_domain_size = get_lengths(domains.values()).min()
 	var venn_circles_formatted = []
 	for i in range(len(venn_circles)):
 		var scalar = smallest_domain_size * (64 + int(len(domains) == 3) * 32)

@@ -38,8 +38,8 @@ func db(percentage : float, full_volume : float) -> float:
 func exclude(a : Array, b : Array) -> Array:
 	
 	var exclude = a
-	for element in a:
-		if b.has(element):
+	for element in b:
+		if a.has(element):
 			exclude.erase(element)
 	return exclude
 

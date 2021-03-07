@@ -256,9 +256,9 @@ func set_config(size : int, custom_name : String, is_distinct : bool) -> void:
 func set_universe() -> void:
 	
 	var new_name = MenuContainer.get_node("VBox/Items/NameInput").text
-	if new_name == "":
-		show_message("Please specify a name")
-		return
+#	if new_name == "":
+#		show_message("Please specify a name")
+#		return
 	
 	var new_size = MenuContainer.get_node("VBox/Items/SizeInput").text
 	if new_size == "- -":

@@ -76,6 +76,8 @@ func _pressed(button_name : String) -> void:
 
 func add_elements(no_elements : int):
 	
+	var flag = false
+	
 	for _i in range(no_elements):
 		
 		var new_element = ELEMENT.instance()
@@ -86,24 +88,22 @@ func add_elements(no_elements : int):
 			color = Color.white
 		new_element.init("uni", color)
 		$Elements.add_child(new_element)
-		
-	update_element_positions()
+	
+		if no_elements == 1: 
+			update_element_positions([new_element])
+			flag = true
+	
+	if flag == false:
+		update_element_positions()
 
 
 func check_empty_domains(exclude_domain : String) -> void:
 	
-	var no_domains = len(domains)
-	if no_domains > 1:
-		
-		var intersections = get_domain_intersections()
-		var domains_strict = domains.values().duplicate(true)
-		for i in domains_strict:
-			for j in range(no_domains, len(intersections)):
-				i = g.exclude(i, intersections[j])
+	if len(domains) > 1:
 		
 		var queue_delete = []
-		for i in range(len(domains_strict)):
-			if domains_strict[i] == []:
+		for i in range(len(domains)):
+			if get_domains_strict()[i] == []:
 				queue_delete.append(domains.values()[i])
 		
 		for domain in queue_delete:
@@ -203,8 +203,9 @@ func fetch_venn_circles_formatted(venn_circles : Array) -> Array:
 	var smallest_domain_size = get_lengths(domains.keys()).min()
 	var venn_circles_formatted = []
 	for i in range(len(venn_circles)):
-		var new_pos = get_center(dviations[i] / smallest_radius * 64 * smallest_domain_size)
-		var new_radius = venn_circles[i][1] / smallest_radius * 64 * smallest_domain_size
+		var scalar = smallest_domain_size * (64 + int(len(domains) == 3) * 32)
+		var new_pos = get_center(dviations[i] / smallest_radius * scalar)
+		var new_radius = venn_circles[i][1] / smallest_radius * scalar
 		venn_circles_formatted.append([new_pos, new_radius])
 	
 	return venn_circles_formatted
@@ -243,7 +244,6 @@ func get_domain_intersections() -> Array:
 			domain_intersections.append(
 				g.intersection(g.intersection(_domains[0], _domains[1]), _domains[2])
 			)
-	
 	return domain_intersections
 
 
@@ -253,6 +253,16 @@ func get_domain_name(domain : Array) -> String:
 		if domains[i] == domain:
 			return i
 	return ""
+
+
+func get_domains_strict() -> Array:
+	
+	var domains_strict = domains.values().duplicate(true)
+	var intersections = get_domain_intersections()
+	for i in domains_strict:
+		for j in range(len(domains), len(intersections)):
+			i = g.exclude(i, intersections[j])
+	return domains_strict
 
 
 func get_elements() -> Array:
@@ -385,11 +395,13 @@ func update_domain_names() -> void:
 			DomainName.hide()
 
 
-func update_element_positions() -> void:
+func update_element_positions(elements = get_elements()) -> void:
 	
 	var assigned_positions = []
+	for i in g.exclude(get_elements(), elements):
+		assigned_positions.append(i.position)
 	
-	for element in get_elements():
+	for element in elements:
 		
 		var inside_circles = []
 		var outside_circles = []
@@ -447,9 +459,9 @@ func update_element_positions_loop(element : Node, approx : Rect2,
 					flag = false
 					break
 		
-		if attempt < 16:
+		if attempt < 32:
 			attempt += 1
-		else: return Vector2.ONE
+		else: return Vector2.ZERO
 	
 	element.position = new_pos
 	assigned_positions.append(new_pos)

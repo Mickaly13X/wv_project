@@ -303,7 +303,7 @@ func group(group_name : String) -> void:
 	
 	check_empty_domains(new_domain_name)
 	# update visible structure
-	init(get_size(), get_name(), false)
+	init(get_size(), false)
 
 
 func has_max_elements() -> bool:
@@ -321,7 +321,7 @@ func has_selected_elements() -> bool:
 	return false
 
 
-func init(size : int, custom_name = get_name(), is_rebuild = true) -> void:
+func init(size : int, is_rebuild = true, custom_name = get_name()) -> void:
 	
 	if is_rebuild:
 		for I in get_elements():

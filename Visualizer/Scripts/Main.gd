@@ -63,6 +63,8 @@ func _process(_delta):
 		get_tree().quit()
 	if Input.is_action_just_pressed("reload"):
 		get_tree().reload_current_scene()
+	if Input.is_action_just_pressed("rebuild"):
+		Universe.update_element_positions()
 	if Input.is_action_pressed("mouse_left"):
 		Universe.toggle_menu(false)
 
@@ -263,7 +265,7 @@ func set_universe() -> void:
 		show_message("Please choose a size")
 		return
 		
-	Containers.get_node(container_menu).init(int(new_size), new_name)
+	Containers.get_node(container_menu).init(int(new_size), true, new_name)
 	
 	CoLaInput.text += new_name + "{[1," + str(new_size) + "]}"
 	toggle_menu_container(false)

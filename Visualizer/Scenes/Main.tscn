@@ -199,7 +199,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MenuStructure" type="PopupDialog" parent="Popups"]
+[node name="MenuConfig" type="PopupDialog" parent="Popups"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -215,7 +215,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBox" type="VBoxContainer" parent="Popups/MenuStructure"]
+[node name="VBox" type="VBoxContainer" parent="Popups/MenuConfig"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 32.0
@@ -226,7 +226,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Title" type="Label" parent="Popups/MenuStructure/VBox"]
+[node name="Title" type="Label" parent="Popups/MenuConfig/VBox"]
 margin_right = 503.0
 margin_bottom = 46.0
 custom_fonts/font = ExtResource( 5 )
@@ -237,7 +237,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Items" type="GridContainer" parent="Popups/MenuStructure/VBox"]
+[node name="Items" type="GridContainer" parent="Popups/MenuConfig/VBox"]
 margin_top = 50.0
 margin_right = 503.0
 margin_bottom = 269.0
@@ -250,7 +250,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NameLabel" type="Label" parent="Popups/MenuStructure/VBox/Items"]
+[node name="NameLabel" type="Label" parent="Popups/MenuConfig/VBox/Items"]
 margin_top = 5.0
 margin_right = 182.0
 margin_bottom = 33.0
@@ -260,7 +260,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NameInput" type="LineEdit" parent="Popups/MenuStructure/VBox/Items"]
+[node name="NameInput" type="LineEdit" parent="Popups/MenuConfig/VBox/Items"]
 margin_left = 198.0
 margin_right = 503.0
 margin_bottom = 38.0
@@ -274,7 +274,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="DistLabel" type="Label" parent="Popups/MenuStructure/VBox/Items"]
+[node name="DistLabel" type="Label" parent="Popups/MenuConfig/VBox/Items"]
 margin_top = 57.0
 margin_right = 182.0
 margin_bottom = 85.0
@@ -284,7 +284,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="DistInput" type="MenuButton" parent="Popups/MenuStructure/VBox/Items"]
+[node name="DistInput" type="MenuButton" parent="Popups/MenuConfig/VBox/Items"]
 margin_left = 198.0
 margin_top = 54.0
 margin_right = 246.0
@@ -298,7 +298,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="FuncLabel" type="Label" parent="Popups/MenuStructure/VBox/Items"]
+[node name="FuncLabel" type="Label" parent="Popups/MenuConfig/VBox/Items"]
 margin_top = 107.0
 margin_right = 182.0
 margin_bottom = 135.0
@@ -308,7 +308,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="FuncInput" type="MenuButton" parent="Popups/MenuStructure/VBox/Items"]
+[node name="FuncInput" type="MenuButton" parent="Popups/MenuConfig/VBox/Items"]
 margin_left = 198.0
 margin_top = 104.0
 margin_right = 246.0
@@ -322,7 +322,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SizeLabel" type="Label" parent="Popups/MenuStructure/VBox/Items"]
+[node name="SizeLabel" type="Label" parent="Popups/MenuConfig/VBox/Items"]
 margin_top = 157.0
 margin_right = 182.0
 margin_bottom = 185.0
@@ -332,7 +332,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SizeInput" type="MenuButton" parent="Popups/MenuStructure/VBox/Items"]
+[node name="SizeInput" type="MenuButton" parent="Popups/MenuConfig/VBox/Items"]
 margin_left = 198.0
 margin_top = 154.0
 margin_right = 246.0
@@ -346,14 +346,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Buttons" type="HBoxContainer" parent="Popups/MenuStructure/VBox"]
+[node name="Buttons" type="HBoxContainer" parent="Popups/MenuConfig/VBox"]
 margin_top = 273.0
 margin_right = 503.0
 margin_bottom = 307.0
 custom_constants/separation = 256
 alignment = 1
 
-[node name="CancelButton" type="Button" parent="Popups/MenuStructure/VBox/Buttons"]
+[node name="CancelButton" type="Button" parent="Popups/MenuConfig/VBox/Buttons"]
 margin_left = 48.0
 margin_right = 132.0
 margin_bottom = 34.0
@@ -365,7 +365,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AddButton" type="Button" parent="Popups/MenuStructure/VBox/Buttons"]
+[node name="AddButton" type="Button" parent="Popups/MenuConfig/VBox/Buttons"]
 margin_left = 388.0
 margin_right = 454.0
 margin_bottom = 34.0
@@ -710,10 +710,11 @@ __meta__ = {
 }
 [connection signal="button_up" from="HSplit/MainPanel/UI/HUD/OpenCoLa" to="." method="toggle_cola_panel"]
 [connection signal="button_up" from="HSplit/MainPanel/UI/HUD/Main/Import" to="." method="popup_import"]
-[connection signal="button_up" from="HSplit/MainPanel/UI/HUD/Main/SetConfig" to="." method="toggle_menu_structure" binds= [ true ]]
+[connection signal="button_up" from="HSplit/MainPanel/UI/HUD/Main/SetConfig" to="." method="toggle_menu_config" binds= [ true ]]
 [connection signal="button_up" from="HSplit/MainPanel/UI/HUD/Main/SetUniverse" to="." method="toggle_menu_container" binds= [ true, "Universe" ]]
-[connection signal="button_up" from="Popups/MenuStructure/VBox/Buttons/CancelButton" to="." method="toggle_menu_structure" binds= [ false ]]
-[connection signal="button_up" from="Popups/MenuStructure/VBox/Buttons/AddButton" to="." method="check_config"]
+[connection signal="button_up" from="HSplit/MainPanel/UI/HUD/Main/Run" to="." method="run"]
+[connection signal="button_up" from="Popups/MenuConfig/VBox/Buttons/CancelButton" to="." method="toggle_menu_config" binds= [ false ]]
+[connection signal="button_up" from="Popups/MenuConfig/VBox/Buttons/AddButton" to="." method="check_config"]
 [connection signal="button_up" from="Popups/MenuContainer/VBox/Buttons/CancelButton" to="." method="toggle_menu_container" binds= [ false ]]
 [connection signal="button_up" from="Popups/MenuContainer/VBox/Buttons/AddButton" to="." method="set_universe"]
 [connection signal="button_up" from="Popups/MenuGroup/VBox/Buttons/CancelButton" to="." method="toggle_menu_group" binds= [ false ]]

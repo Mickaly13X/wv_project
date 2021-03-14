@@ -3,16 +3,28 @@ from matplotlib_venn._venn3 import solve_venn3_circles
 from numpy import array
 import sys
 
-venn_size = int(sys.argv[1]) # 2 or 3
 
-c = []
-r = []
-if venn_size == 2:
-    c, r = solve_venn2_circles([sys.argv[i] for i in range(2, 5)])
-elif venn_size == 3:
-    c, r = solve_venn3_circles([sys.argv[i] for i in range(2, 9)])
+def coso():
+    print("lmao")
 
-for i in range(len(c)):
-    print(c[i][0]) # x-coordinate
-    print(c[i][1]) # y-coordinate
-    print(r[i]) # radius
+
+# venn_size is 2 or 3
+def venn(venn_size, *inter_sizes):
+
+    c = []
+    r = []
+
+    if venn_size == 2:
+        c, r = solve_venn2_circles(list(inter_sizes))
+    elif venn_size == 3:
+        c, r = solve_venn3_circles(list(inter_sizes))
+
+    for i in range(len(c)):
+        print(c[i][0]) # x-coordinate
+        print(c[i][1]) # y-coordinate
+        print(r[i]) # radius
+
+
+# system argument 'request_func' must be passed between " " marks
+request_func: str = sys.argv[1]
+eval(request_func)

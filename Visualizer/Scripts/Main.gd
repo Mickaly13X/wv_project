@@ -6,7 +6,7 @@ const Interval = preload("res://Scripts/classes.gd").Interval
 const IntervalString = preload("res://Scripts/classes.gd").IntervalString
 const CoLaExpression = preload("res://Scripts/classes.gd").CoLaExpression
 const SET = preload("res://Scenes/Universe.tscn")
-const STRUCTURE_NAMES = [ \
+const CONFIG_NAMES = [ \
 	["sequence", "permutation", "composition"],
 	["multisubset",  "subset", "integer composition"],
 	["partition", "partition", "partition", "partition"],
@@ -15,22 +15,23 @@ const STRUCTURE_NAMES = [ \
 enum Distinct {NONE_SAME, N_SAME, X_SAME, NX_SAME}
 enum SetFunction {ANY, INJ, SUR}
 
-onready var Config = $HSplit/MainPanel/Containers/Config
-onready var Containers = $HSplit/MainPanel/Containers
 onready var CoLaInput = $HSplit/CoLaPanel/CoLaInput
 onready var CoLaPanel = $HSplit/CoLaPanel
-onready var DistInput = $Popups/MenuStructure/VBox/Items/DistInput
-onready var FuncInput = $Popups/MenuStructure/VBox/Items/FuncInput
+onready var Config = $HSplit/MainPanel/Containers/Config
+onready var ConfigNameInput = $Popups/MenuConfig/VBox/Items/NameInput
+onready var ConfigSizeInput = $Popups/MenuConfig/VBox/Items/SizeInput
+onready var Containers = $HSplit/MainPanel/Containers
+onready var DistInput = $Popups/MenuConfig/VBox/Items/DistInput
+onready var FuncInput = $Popups/MenuConfig/VBox/Items/FuncInput
 onready var GroupInput = $Popups/MenuGroup/VBox/Items/GroupInput
 onready var HSplit = $HSplit
 onready var NewGroupInput = $Popups/MenuGroup/VBox/Items/NewGroupInput
 onready var OpenCoLa = $HSplit/MainPanel/UI/HUD/OpenCoLa
 onready var MenuContainer = $Popups/MenuContainer
-onready var SizeInput = $Popups/MenuContainer/VBox/Items/SizeInput
 onready var Popups = $Popups
+onready var SizeInput = $Popups/MenuContainer/VBox/Items/SizeInput
 onready var Universe = $HSplit/MainPanel/Containers/Universe
-onready var ConfigNameInput = $Popups/MenuStructure/VBox/Items/NameInput
-onready var ConfigSizeInput = $Popups/MenuStructure/VBox/Items/SizeInput
+
 onready var GroupsLabel = $Popups/MenuGroup/VBox/GroupsLabel
 
 var container_menu : String
@@ -79,6 +80,36 @@ func _on_cola_file_selected(path):
 	print(parse(content))
 
 
+func _pressed_mb_group(id):
+	
+	var popup = GroupInput.get_popup()
+	popup.toggle_item_checked(id)
+	groups_selection[id] = popup.is_item_checked(id)
+	#var selected_group = popup.get_item_text(id)
+	
+	if is_checked("New group"):
+		NewGroupInput.show()
+		GroupInput.text = "New group"
+	else:
+		NewGroupInput.hide()
+		GroupInput.text = "-Select Groups-"
+#	if selected_group == "New group":
+#		if popup.is_item_checked(id):
+#			NewGroupInput.show()
+#			GroupInput.text = selected_group
+#		else:
+#			NewGroupInput.hide()
+#			GroupInput.text = "-Select Groups-"
+#	else:
+#		if !popup.is_item_checked(id):
+#			NewGroupInput.show()
+#			GroupInput.text = selected_group
+#		else:
+#			NewGroupInput.hide()
+		#GroupInput.text = selected_group
+	GroupsLabel.text = "Selected: " + get_selected_group_names_as_string()
+
+
 func _pressed_mb_input(index, TypeInput):
 	
 	var InputMenu = TypeInput.get_popup()
@@ -98,7 +129,23 @@ func check_config() -> void:
 	var size = int(ConfigSizeInput.text)
 	var is_distinct = (config[0] == Distinct.X_SAME || config[0] == Distinct.NONE_SAME)
 	set_config(size, _name, is_distinct)
-	toggle_menu_structure(false)
+	toggle_menu_config(false)
+
+
+func fetch(function_name: String, arguments: Array) -> PoolStringArray:
+	
+	print(arguments)
+	var request_func: String = function_name + "(" + \
+		str(arguments).lstrip("[").rstrip("]") + \
+	")"
+	var args = ["fetch.py", request_func]
+	var output = []
+	print(">external call " + request_func)
+	
+	var exit_code = OS.execute("python", args, true, output)
+	
+	print(">exit_code: " + str(exit_code))
+	return str(output[0]).split("\n")
 
 
 func get_input(file_path):
@@ -186,7 +233,7 @@ func group() -> bool:
 	var selected_ids = get_selected_group_ids()
 	
 	if len(selected_ids) == 0:
-		show_message("Please select a group")
+		print("Exception in group(): no elements selected")
 		return false
 	
 	for i in get_selected_group_names():
@@ -253,6 +300,14 @@ func set_config(size : int, custom_name : String, is_distinct : bool) -> void:
 #	$Structure.text = "Structure = " + STRUCTURE_NAMES[distinct][set_function]
 
 
+func run():
+	
+	if Config.get_size() ==  0:
+		show_message("Config not defined!")
+	if Universe.get_size() ==  0:
+		show_message("Universe not defined!")
+
+
 func set_universe() -> void:
 	
 	var new_name = MenuContainer.get_node("VBox/Items/NameInput").text
@@ -275,10 +330,6 @@ func show_message(message : String) -> void:
 	
 	$Popups/Message/Label.text = message
 	$Popups/Message.popup()
-
-
-func run_cola():
-	pass
 
 
 func toggle_cola_panel():
@@ -322,45 +373,16 @@ func toggle_menu_group(is_opened : bool) -> void:
 		Popups.get_node("MenuGroup").hide()
 
 
-func toggle_menu_structure(is_opened : bool) -> void:
+func toggle_menu_config(is_opened : bool) -> void:
 	
 	if is_opened:
 		DistInput.text = DistInput.get_popup().get_item_text(config[0])
 		FuncInput.text = FuncInput.get_popup().get_item_text(config[1])
-		$Popups/MenuStructure.popup()
+		$Popups/MenuConfig.popup()
 	else:
-		$Popups/MenuStructure.hide()
+		$Popups/MenuConfig.hide()
 
 
-func _pressed_mb_group(id):
-	
-	var popup = GroupInput.get_popup()
-	popup.toggle_item_checked(id)
-	groups_selection[id] = popup.is_item_checked(id)
-	#var selected_group = popup.get_item_text(id)
-	
-	if is_checked("New group"):
-		NewGroupInput.show()
-		GroupInput.text = "New group"
-	else:
-		NewGroupInput.hide()
-		GroupInput.text = "-Select Groups-"
-#	if selected_group == "New group":
-#		if popup.is_item_checked(id):
-#			NewGroupInput.show()
-#			GroupInput.text = selected_group
-#		else:
-#			NewGroupInput.hide()
-#			GroupInput.text = "-Select Groups-"
-#	else:
-#		if !popup.is_item_checked(id):
-#			NewGroupInput.show()
-#			GroupInput.text = selected_group
-#		else:
-#			NewGroupInput.hide()
-		#GroupInput.text = selected_group
-	GroupsLabel.text = "Selected: " + get_selected_group_names_as_string()
-	
 func get_selected_group_names_as_string() -> String:
 	
 	var group_names = ""

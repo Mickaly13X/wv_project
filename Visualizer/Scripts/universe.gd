@@ -150,27 +150,22 @@ func draw_self():
 	draw_style_box(shape, Rect2(Vector2(0, 0), $Mask.rect_size))
 
 
-# @param domain_intersections = list of (sub)set SIZES 
+# @param domain_inter_sizes = list of (sub)set SIZES 
 # @pre domain_intersections NOT EMPTY
 # for 1-part venns, domain_intersections = [A]
 # for 2-part venns, domain_intersections = [A, B, AB]
 # for 3-part venns, domain_intersections = [A, B, C, AB, BC, AC, ABC]
-func fetch_venn_circles(domain_intersections : Array) -> Array:
+func fetch_venn_circles(domain_inter_sizes : Array) -> Array:
 	
 	var venn_circles = []
 	
-	if len(domain_intersections) == 1: 
+	if len(domain_inter_sizes) == 1: 
 		venn_circles.append([Vector2(0, 0), len(domains.keys()[0])])
 	else:
 		# external fetch
-		var venn_size = 2 + int(len(domain_intersections) > 3)
-		var args = ["fetch.py", str(venn_size)]
-		for i in domain_intersections:
-			args.append(str(i))
-		var output = []
-		var exit_code = OS.execute("python", args, true, output)
-		print("fetch: exit_code " + str(exit_code))
-		output = str(output[0]).split("\n")
+		var venn_size = 2 + int(len(domain_inter_sizes) > 3)
+		var arguments = [venn_size] + domain_inter_sizes
+		var output: Array = Main.fetch("venn", arguments)
 		
 		# convert to float[]
 		for i in range(len(output) / 3):

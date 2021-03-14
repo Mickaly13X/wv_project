@@ -60,7 +60,7 @@ class Domain:
 		var tmp = str(elements).replace("[","{").replace("]","}").replace(" ","")
 		if is_interval():
 			tmp = get_interval().string().replace(",",":").replace(" ","")
-		var cola = "{d} = {e}".format({"d" : domain_name, "e" : tmp})
+		var cola = "{d} = {e};".format({"d" : domain_name, "e" : tmp})
 		return cola
 	
 	
@@ -106,13 +106,41 @@ class Configuration:
 	var size
 	var config_name
 	var type
+	var type_string_list = []
+	var domain
 	
-	func _init(_name, _type, _size = 1):
+	func _init(_name, _type, _domain, _size = 1):
 		
 		config_name = _name
 		size = _size
 		type = _type
+		domain = _domain
 		
+		match type:
+			
+			"sequence":
+				
+				type_string_list = ["[", "|| ", "]"]
+				
+			"permutation":
+				
+				type_string_list = ["[", "| ", "]"]
+				
+			"subset":
+				
+				type_string_list = ["{", "| ", "}"]
+			
+			"multisubset":
+				
+				type_string_list = ["{", "|| ", "}"]
+			
+			"partition":
+				
+				type_string_list = ["partitions", "(", ")"]
+			
+			"composition":
+				
+				type_string_list = ["compositions", "(", ")"]
 	
 	func set_size(_size: int):
 		size = _size
@@ -124,6 +152,34 @@ class Configuration:
 	
 	func get_name():
 		return config_name
+	
+	
+	func set_name(_name : String):
+		config_name = _name
+	
+	
+	func get_type():
+		return type
+	
+	
+	func set_type(_type : String):
+		type = _type
+	
+	
+	func get_domain():
+		return domain
+	
+	
+	func set_domain(_domain : Domain):
+		domain = _domain
+	
+	
+	func to_cola() -> String:
+		
+		var cola = "{c} in {h0}{h1}{d}{h2};".format({"c":config_name,"d":domain, "h0":type_string_list[0], "h1":type_string_list[1], "h2":type_string_list[2]})
+		cola += "\n#{c} = {s};".format({"c":config_name, "s":size})
+		
+		return cola
 
 
 class Problem:
@@ -135,13 +191,36 @@ class Problem:
 	var count_formulas
 	
 	func _init():
-		domains = {}
+		
+		domains = []
 		entity_map = {}
 		count_formulas = []
 	
 	
-	func add_domain():
+	func add_domain(domain : Domain) -> void:
+		domains.append(domain)
+	
+	
+	func set_config(config : Configuration) -> void:
+		configuration = config
+	
+	
+	func add_constraint():
 		pass
+	
+	
+	func to_cola() -> String:
+		
+		var cola = ""
+		for dom in domains:
+			cola += dom.to_cola()
+			cola += "\n"
+		
+		cola += configuration.to_cola()
+		
+		return cola
+		
+		
 
 
 

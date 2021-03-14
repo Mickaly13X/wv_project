@@ -5,6 +5,7 @@ const Domain = preload("res://Scripts/classes.gd").Domain
 const Interval = preload("res://Scripts/classes.gd").Interval
 const IntervalString = preload("res://Scripts/classes.gd").IntervalString
 const CoLaExpression = preload("res://Scripts/classes.gd").CoLaExpression
+const Problem = preload("res://Scripts/classes.gd").Problem
 const SET = preload("res://Scenes/Universe.tscn")
 const CONFIG_NAMES = [ \
 	["sequence", "permutation", "composition"],
@@ -39,6 +40,7 @@ var not_domains = ["structure", "size", "pos", "count", "not", "inter", "union",
 var config = [Distinct.NONE_SAME, SetFunction.ANY]
 var domains = [] #Used for actual domains in visualizing
 var groups_selection = {} # key : idx, value : bool selected, is reset when group is called
+var problem = Problem.new()
 
 const MAX_SET_SIZE = 10
 const MAX_CONFIG_SIZE = 10

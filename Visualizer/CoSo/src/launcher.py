@@ -1,7 +1,16 @@
 import os
 import argparse
 from pathlib import Path
-from parser_custom import Parser
+from CoSo.src.parser_custom import Parser
+
+
+def launch(file):
+    parser = Parser(file)
+    parser.parse()
+    # print(parser.problem)
+    count = parser.problem.solve(False)
+    print(count)
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

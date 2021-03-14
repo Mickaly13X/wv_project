@@ -134,9 +134,8 @@ func check_config() -> void:
 	toggle_menu_config(false)
 
 
-func fetch(function_name: String, arguments: Array) -> PoolStringArray:
+func fetch(function_name: String, arguments: Array = []) -> PoolStringArray:
 	
-	print(arguments)
 	var request_func: String = function_name + "(" + \
 		str(arguments).lstrip("[").rstrip("]") + \
 	")"
@@ -304,10 +303,12 @@ func set_config(size : int, custom_name : String, is_distinct : bool) -> void:
 
 func run():
 	
-	if Config.get_size() ==  0:
-		show_message("Config not defined!")
-	if Universe.get_size() ==  0:
-		show_message("Universe not defined!")
+	var sol = fetch("coso")
+	show_message("Solution is " + sol[0])
+#	if Config.get_size() ==  0:
+#		show_message("Config not defined!")
+#	if Universe.get_size() ==  0:
+#		show_message("Universe not defined!")
 
 
 func set_universe() -> void:

@@ -289,12 +289,19 @@ func group(group_name : String) -> void:
 	var new_domain_name = ""
 	if !domains.has(group_name):
 		domains[group_name] = []
+		var new_domain = g.Domain.new(group_name)
+		g.problem.add_domain(new_domain)
 		new_domain_name = group_name
 	
 	for I in get_elements():
+		var i = 1
 		var added_elements = []
 		if I.selected && !domains[group_name].has(I):
 			domains[group_name].append(I)
+			g.problem.add_to_domain(group_name,i)
+		i += 1
+	
+	
 	
 	check_empty_domains(new_domain_name)
 	# update visible structure

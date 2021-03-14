@@ -1,5 +1,16 @@
 extends Node
 
+# GLOBAL-DEFINITIONS #
+
+const Problem = preload("res://Scripts/classes.gd").Problem
+const Domain = preload("res://Scripts/classes.gd").Domain
+const Configuration = preload("res://Scripts/classes.gd").Configuration
+const Interval = preload("res://Scripts/classes.gd").Interval
+const IntervalString = preload("res://Scripts/classes.gd").IntervalString
+const CoLaExpression = preload("res://Scripts/classes.gd").CoLaExpression
+
+onready var problem = Problem.new()
+
 #---------------------------GENERAL-FUNCTION-LIBRARY-------------------------------#
 
 # returns -1 for false; 1 for true

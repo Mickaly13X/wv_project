@@ -38,15 +38,27 @@ class Domain:
 	var domain_name
 	var elements
 	var distinguishable
-	func _init(_name : String, _elements : Array, _distinguishable = true):
+	
+	func _init(_name : String, _elements = [], _distinguishable = true):
 		
 		domain_name = _name
 		elements = _elements
 		distinguishable = _distinguishable
 	
+	
+	func get_name() -> String:
+		return domain_name
+	
+	
 	# Get a list containing all elements
 	func get_elements() -> Array:
 		return elements
+	
+	
+	func add_element(_element : int):
+		
+		if !elements.has(_element):
+			elements.append(_element)
 	
 	
 	# Get domain size
@@ -109,7 +121,7 @@ class Configuration:
 	var type_string_list = []
 	var domain
 	
-	func _init(_name, _type, _domain, _size = 1):
+	func _init(_name = "", _type = "", _domain = null, _size = 1):
 		
 		config_name = _name
 		size = _size
@@ -197,9 +209,24 @@ class Problem:
 		count_formulas = []
 	
 	
+	func set_universe(_universe : Domain):
+		universe = _universe
+	
+	
+	func clear_domains():
+		domains = []
+	
+	
 	func add_domain(domain : Domain) -> void:
 		domains.append(domain)
 	
+	
+	func add_to_domain(domain_name, _element : int) -> bool:
+		for dom in domains:
+			if dom.get_name() == domain_name:
+				dom.add_element(_element)
+				return true
+		return false
 	
 	func set_config(config : Configuration) -> void:
 		configuration = config
@@ -220,7 +247,14 @@ class Problem:
 		
 		return cola
 		
+	
+	func reset():
 		
+		domains = []
+		entity_map = {}
+		count_formulas = []
+		configuration = null
+		universe = null
 
 
 

@@ -1,11 +1,7 @@
 extends Control
 
 const EXCEPTION = preload("res://util/ExceptionIDs.gd")
-const Domain = preload("res://Scripts/classes.gd").Domain
-const Interval = preload("res://Scripts/classes.gd").Interval
-const IntervalString = preload("res://Scripts/classes.gd").IntervalString
-const CoLaExpression = preload("res://Scripts/classes.gd").CoLaExpression
-const Problem = preload("res://Scripts/classes.gd").Problem
+
 const SET = preload("res://Scenes/Universe.tscn")
 const CONFIG_NAMES = [ \
 	["sequence", "permutation", "composition"],
@@ -40,7 +36,7 @@ var not_domains = ["structure", "size", "pos", "count", "not", "inter", "union",
 var config = [Distinct.NONE_SAME, SetFunction.ANY]
 var domains = [] #Used for actual domains in visualizing
 var groups_selection = {} # key : idx, value : bool selected, is reset when group is called
-var problem = Problem.new()
+
 
 const MAX_SET_SIZE = 10
 const MAX_CONFIG_SIZE = 10
@@ -131,6 +127,9 @@ func check_config() -> void:
 	var size = int(ConfigSizeInput.text)
 	var is_distinct = (config[0] == Distinct.X_SAME || config[0] == Distinct.NONE_SAME)
 	set_config(size, _name, is_distinct)
+	var config = g.Configuration.new(_name)
+	config.set_size(size)
+	g.problem.set_config(config)
 	toggle_menu_config(false)
 
 
@@ -325,6 +324,10 @@ func set_universe() -> void:
 		
 	Containers.get_node(container_menu).init(int(new_size), true, new_name)
 	
+	g.problem.clear_domains()
+	var new_universe = g.Domain.new(new_name,range(1,int(new_size)+1))
+	g.problem.set_universe(new_universe)
+	
 	CoLaInput.text += new_name + "{[1," + str(new_size) + "]}"
 	toggle_menu_container(false)
 
@@ -434,7 +437,7 @@ func parse(cola_string : String) -> Dictionary:
 		if "%" in command or command.replace(" ","").length() <= 1:
 			continue
 		var expression = Expression.new()
-		var tmp = CoLaExpression.new(command)
+		var tmp = g.CoLaExpression.new(command)
 		var c = tmp.translate() # Returns string in func form
 		var error = expression.parse(c,[])
 		if error != OK:
@@ -453,4 +456,4 @@ func parse(cola_string : String) -> Dictionary:
 # Returns a domain (interval)
 func domain_interval(_name, interval_string, distinguishable  = true):
 	
-	return Domain.new(_name,IntervalString.new(interval_string).get_values(),distinguishable)
+	return g.Domain.new(_name,g.IntervalString.new(interval_string).get_values(),distinguishable)

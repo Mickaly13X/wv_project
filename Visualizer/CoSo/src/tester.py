@@ -7,9 +7,9 @@ import pyinotify
 import signal
 import random
 import itertools
-from pathlib import Path
-from parser import Parser
-from formulas import PosFormula, InFormula, And, Or, Not
+from CoSo.src.pathlib import Path
+from CoSo.src.parser import Parser
+from CoSo.src.formulas import PosFormula, InFormula, And, Or, Not
 
 ops = [">","<","<=",">=","!=","="]
 

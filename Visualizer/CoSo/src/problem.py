@@ -1,8 +1,8 @@
 import portion as P
-from structure import *
-from solver import Solver
-from formulas import *
-from util import *
+from CoSo.src.structure import *
+from CoSo.src.solver import Solver
+from CoSo.src.formulas import *
+from CoSo.src.util import *
  
 
 class Problem(object):

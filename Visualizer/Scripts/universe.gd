@@ -23,6 +23,10 @@ onready var Main : Node
 
 var circles_domain = []
 var custom_name
+
+# index : int, element_object : Node
+var elements = {}
+
 var domains : Dictionary
 var is_distinct : bool
 var shape
@@ -86,6 +90,8 @@ func add_elements(no_elements : int):
 			color = Color.white
 		new_element.init("uni", color)
 		$Elements.add_child(new_element)
+		
+		elements[elements.size()+1] = new_element
 	
 		if no_elements == 1: 
 			update_element_positions([new_element])

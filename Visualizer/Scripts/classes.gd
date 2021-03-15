@@ -37,13 +37,13 @@ class Domain:
 	
 	var domain_name
 	var elements
-	var distinguishable
+	var is_distinct
 	
-	func _init(_name : String, _elements = [], _distinguishable = true):
+	func _init(_name : String, _elements = [], _is_distinct = true):
 		
 		domain_name = _name
 		elements = _elements
-		distinguishable = _distinguishable
+		is_distinct = _is_distinct
 	
 	
 	func get_name() -> String:
@@ -109,8 +109,8 @@ class Domain:
 		return -1
 	
 	
-	func is_distinguishable() -> bool:
-		return distinguishable
+	func is_distinct() -> bool:
+		return is_distinct
 
 
 class Configuration:
@@ -153,6 +153,7 @@ class Configuration:
 			"composition":
 				
 				type_string_list = ["compositions", "(", ")"]
+	
 	
 	func set_size(_size: int):
 		size = _size
@@ -246,7 +247,7 @@ class Problem:
 		cola += configuration.to_cola()
 		
 		return cola
-		
+	
 	
 	func reset():
 		
@@ -255,7 +256,6 @@ class Problem:
 		count_formulas = []
 		configuration = null
 		universe = null
-
 
 
 # Class for CoLa Expressions
@@ -312,6 +312,7 @@ class CoLaExpression:
 				type = "config_composition"
 		
 		global_type = type.split("_")[0] + "s"
+	
 	
 	func get_type() -> String:
 		return type

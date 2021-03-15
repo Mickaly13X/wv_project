@@ -24,7 +24,7 @@ onready var Main : Node
 var circles_domain = []
 var custom_name
 
-# index : int, element_object : Node
+# element_object : Node, index : int
 var elements = {}
 
 var domains : Dictionary
@@ -38,6 +38,7 @@ func _ready():
 	shape.bg_color = Color.transparent
 	shape.set_border_width_all(3)
 	shape.set_corner_radius_all(30)
+	g.problem.set_universe(g.Domain.new("universe"))
 	
 	set_name("")
 
@@ -91,7 +92,9 @@ func add_elements(no_elements : int):
 		new_element.init("uni", color)
 		$Elements.add_child(new_element)
 		
-		elements[elements.size()+1] = new_element
+		g.problem.add_to_universe(elements.size()+1)
+		elements[new_element] = elements.size()+1
+		
 	
 		if no_elements == 1: 
 			update_element_positions([new_element])
@@ -99,14 +102,15 @@ func add_elements(no_elements : int):
 	
 	if flag == false:
 		update_element_positions()
-
+	
+	print(g.problem._print())
 
 func check_empty_domains(exclude_domain : String) -> void:
 	
-	if len(domains) > 1:
+	if len(g.problem.get_domains()) > 1:
 		
 		var queue_delete = []
-		for i in range(len(domains)):
+		for i in range(len(g.problem.get_domains())):
 			if get_domains_strict()[i] == []:
 				queue_delete.append(domains.values()[i])
 		
@@ -298,12 +302,10 @@ func group_selected_elements(group_name : String, dist = true) -> void:
 		new_domain_name = group_name
 	
 	for I in get_elements():
-		var i = 1
 		var added_elements = []
 		if I.selected && !domains[group_name].has(I):
 			domains[group_name].append(I)
-			g.problem.add_to_domain(group_name,i)
-		i += 1
+			g.problem.add_to_domain(group_name,elements[I])
 	
 	check_empty_domains(new_domain_name)
 	# update visible structure
@@ -351,8 +353,10 @@ func set_name(custom_name : String) -> void:
 	self.custom_name = custom_name
 	if custom_name == "":
 		$Label.text = "Universe"
+		g.problem.get_universe().set_name("universe")
 	else:
 		$Label.text = "Universe (" + custom_name + ")"
+		g.problem.get_universe().set_name(custom_name)
 
 
 func toggle_menu(is_visible : bool):

@@ -340,6 +340,8 @@ func set_universe() -> void:
 	var new_universe = g.Domain.new(new_name,range(1,int(new_size)+1))
 	g.problem.set_universe(new_universe)
 	
+	print(g.problem._print())
+	
 	CoLaInput.text += new_name + "{[1," + str(new_size) + "]}"
 	toggle_menu_container(false)
 

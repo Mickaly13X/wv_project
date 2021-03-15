@@ -1,35 +1,84 @@
-
-# Interval class
-class Interval extends IntervalString:
+class Problem:
 	
-	func _init(start, end).("[{s},{e}]".format({"s" : start, "e" : end})):
-		pass
-
-
-# Base interval class
-class IntervalString:
+	var universe
+	var domains
+	var configuration
+	var entity_map
+	var count_formulas
 	
-	var str_interval
-	var values = []
-	
-	func _init(interval : String):
+	func _init():
 		
-		str_interval = interval
-		var tmp = interval.replace("[","").replace("]","")
-		tmp = tmp.split_floats(",")
-		for i in range(tmp[0],tmp[1]+1):
-			values.append(i)
+		domains = []
+		entity_map = {}
+		count_formulas = []
+		universe = null
 	
 	
-	# Get the string version of the interval 
-	# --ex: "[0,1]"
-	func string() -> String:
-		return str_interval
+	func set_universe(_universe : Domain):
+		universe = _universe
 	
 	
-	# Get a list of all values within the interval
-	func get_values() -> Array:
-		return values
+	func add_to_universe(element : int):
+		
+		if !universe.get_elements().has(element):
+			universe.add_element(element)
+	
+	
+	func get_universe():
+		return universe
+	
+	
+	func clear_domains():
+		domains = []
+		universe = null
+	
+	
+	func get_domains():
+		return domains
+	
+	
+	func add_domain(domain : Domain) -> void:
+		domains.append(domain)
+	
+	
+	func add_to_domain(domain_name, _element : int) -> void:
+		
+		for dom in domains:
+			if dom.get_name() == domain_name:
+				dom.add_element(_element)
+
+	
+	func set_config(config : Configuration) -> void:
+		configuration = config
+	
+	
+	func add_constraint():
+		pass
+	
+	
+	func to_cola() -> String:
+		
+		var cola = ""
+		for dom in domains:
+			cola += dom.to_cola()
+			cola += "\n"
+		
+		cola += configuration.to_cola()
+		
+		return cola
+	
+	
+	func reset():
+		
+		domains = []
+		entity_map = {}
+		count_formulas = []
+		configuration = null
+		universe = null
+	
+	
+	func _print():
+		return [universe.get_elements(), domains, configuration]
 
 
 # Domain class
@@ -48,6 +97,10 @@ class Domain:
 	
 	func get_name() -> String:
 		return domain_name
+	
+	
+	func set_name(_name):
+		domain_name = _name
 	
 	
 	# Get a list containing all elements
@@ -195,67 +248,33 @@ class Configuration:
 		return cola
 
 
-class Problem:
+class PosConstraint:
 	
-	var universe
-	var domains
 	var configuration
-	var entity_map
-	var count_formulas
+	var domain
+	var position
 	
-	func _init():
+	func _init(_config : Configuration, _position : int, _domain : Domain):
 		
-		domains = []
-		entity_map = {}
-		count_formulas = []
+		configuration = _config
+		position = _position
+		domain = _domain
 	
 	
-	func set_universe(_universe : Domain):
-		universe = _universe
 	
 	
-	func clear_domains():
-		domains = []
+
+class SizeConstraint:
 	
+	var domain
+	var op
+	var size
 	
-	func add_domain(domain : Domain) -> void:
-		domains.append(domain)
-	
-	
-	func add_to_domain(domain_name, _element : int) -> bool:
-		for dom in domains:
-			if dom.get_name() == domain_name:
-				dom.add_element(_element)
-				return true
-		return false
-	
-	func set_config(config : Configuration) -> void:
-		configuration = config
-	
-	
-	func add_constraint():
-		pass
-	
-	
-	func to_cola() -> String:
+	func _init(_domain : Domain, _op : String, _size : int):
 		
-		var cola = ""
-		for dom in domains:
-			cola += dom.to_cola()
-			cola += "\n"
-		
-		cola += configuration.to_cola()
-		
-		return cola
-	
-	
-	func reset():
-		
-		domains = []
-		entity_map = {}
-		count_formulas = []
-		configuration = null
-		universe = null
+		domain = _domain
+		op = _op
+		size = _size
 
 
 # Class for CoLa Expressions
@@ -387,3 +406,36 @@ class CoLaExpression:
 				tmp = "constraint_count"
 				
 		return tmp
+
+# Interval class
+class Interval extends IntervalString:
+	
+	func _init(start, end).("[{s},{e}]".format({"s" : start, "e" : end})):
+		pass
+
+
+# Base interval class
+class IntervalString:
+	
+	var str_interval
+	var values = []
+	
+	func _init(interval : String):
+		
+		str_interval = interval
+		var tmp = interval.replace("[","").replace("]","")
+		tmp = tmp.split_floats(",")
+		for i in range(tmp[0],tmp[1]+1):
+			values.append(i)
+	
+	
+	# Get the string version of the interval 
+	# --ex: "[0,1]"
+	func string() -> String:
+		return str_interval
+	
+	
+	# Get a list of all values within the interval
+	func get_values() -> Array:
+		return values
+

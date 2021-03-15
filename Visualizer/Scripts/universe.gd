@@ -284,7 +284,7 @@ func get_size() -> int:
 
 
 # @return exit_code
-func group(group_name : String) -> void:
+func group_selected_elements(group_name : String, dist = true) -> void:
 	
 	var new_domain_name = ""
 	if !domains.has(group_name):
@@ -300,8 +300,6 @@ func group(group_name : String) -> void:
 			domains[group_name].append(I)
 			g.problem.add_to_domain(group_name,i)
 		i += 1
-	
-	
 	
 	check_empty_domains(new_domain_name)
 	# update visible structure

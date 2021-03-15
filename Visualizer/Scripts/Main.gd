@@ -18,7 +18,7 @@ onready var Config = $HSplit/MainPanel/Containers/Config
 onready var ConfigNameInput = $Popups/MenuConfig/VBox/Items/NameInput
 onready var ConfigSizeInput = $Popups/MenuConfig/VBox/Items/SizeInput
 onready var Containers = $HSplit/MainPanel/Containers
-onready var DistInput = $Popups/MenuConfig/VBox/Items/DistInput
+onready var DistInput = $Popups/MenuGroup/VBox/Items/DistInput
 onready var FuncInput = $Popups/MenuConfig/VBox/Items/FuncInput
 onready var GroupInput = $Popups/MenuGroup/VBox/Items/GroupInput
 onready var HSplit = $HSplit
@@ -34,7 +34,6 @@ onready var GroupsLabel = $Popups/MenuGroup/VBox/GroupsLabel
 var container_menu : String
 var not_domains = ["structure", "size", "pos", "count", "not", "inter", "union", "in"]
 var config = [Distinct.NONE_SAME, SetFunction.ANY]
-var domains = [] #Used for actual domains in visualizing
 var groups_selection = {} # key : idx, value : bool selected, is reset when group is called
 
 
@@ -87,9 +86,11 @@ func _pressed_mb_group(id):
 	
 	if is_checked("New group"):
 		NewGroupInput.show()
+		DistInput.show()
 		GroupInput.text = "New group"
 	else:
 		NewGroupInput.hide()
+		DistInput.hide()
 		GroupInput.text = "-Select Groups-"
 #	if selected_group == "New group":
 #		if popup.is_item_checked(id):
@@ -113,7 +114,7 @@ func _pressed_mb_input(index, TypeInput):
 	var InputMenu = TypeInput.get_popup()
 	TypeInput.text = InputMenu.get_item_text(index)
 	
-	if TypeInput == DistInput: config[0] = index
+	#if TypeInput == DistInput: config[0] = index
 	if TypeInput == FuncInput: config[1] = index
 
 
@@ -229,6 +230,7 @@ func get_domain_value(domain_string):
 func group() -> bool:
 	
 	var group_name : String
+	var group_dist : bool
 	
 	var selected_ids = get_selected_group_ids()
 	
@@ -243,12 +245,13 @@ func group() -> bool:
 				return false
 				
 			group_name = NewGroupInput.text
+			group_dist = DistInput.pressed
 			GroupInput.get_popup().add_item(group_name)
 			GroupInput.get_popup().set_item_as_checkable(GroupInput.get_popup().get_item_count()-1,true)
-			Universe.group(group_name)
+			Universe.group_selected_elements(group_name,group_dist)
 		else:
 			group_name = i
-			Universe.group(group_name)
+			Universe.group_selected_elements(group_name)
 	
 	for id in selected_ids:
 		GroupInput.get_popup().set_item_checked(id,false)
@@ -267,7 +270,7 @@ func init_menus() -> void:
 	
 	# structure menu
 	FuncInput.get_popup().connect("id_pressed", self, "_pressed_mb_input", [FuncInput])
-	DistInput.get_popup().connect("id_pressed", self, "_pressed_mb_input", [DistInput])
+	#DistInput.get_popup().connect("id_pressed", self, "_pressed_mb_input", [DistInput])
 	ConfigSizeInput.get_popup().connect("id_pressed", self, "_pressed_mb_input", [ConfigSizeInput])
 	
 	# universe menu
@@ -370,6 +373,8 @@ func toggle_menu_group(is_opened : bool) -> void:
 	
 	if is_opened:
 		NewGroupInput.hide()
+		DistInput.pressed = true
+		DistInput.hide()
 		NewGroupInput.text = ""
 		GroupInput.text = "-Select Groups-"
 		Popups.get_node("MenuGroup").popup()
@@ -382,7 +387,7 @@ func toggle_menu_group(is_opened : bool) -> void:
 func toggle_menu_config(is_opened : bool) -> void:
 	
 	if is_opened:
-		DistInput.text = DistInput.get_popup().get_item_text(config[0])
+		#DistInput.text = DistInput.get_popup().get_item_text(config[0])
 		FuncInput.text = FuncInput.get_popup().get_item_text(config[1])
 		$Popups/MenuConfig.popup()
 	else:

@@ -252,7 +252,7 @@ __meta__ = {
 
 [node name="NameLabel" type="Label" parent="Popups/MenuConfig/VBox/Items"]
 margin_top = 5.0
-margin_right = 182.0
+margin_right = 147.0
 margin_bottom = 33.0
 custom_fonts/font = ExtResource( 4 )
 text = "Name"
@@ -261,7 +261,7 @@ __meta__ = {
 }
 
 [node name="NameInput" type="LineEdit" parent="Popups/MenuConfig/VBox/Items"]
-margin_left = 198.0
+margin_left = 163.0
 margin_right = 503.0
 margin_bottom = 38.0
 rect_min_size = Vector2( 128, 24 )
@@ -275,9 +275,10 @@ __meta__ = {
 }
 
 [node name="DistLabel" type="Label" parent="Popups/MenuConfig/VBox/Items"]
-margin_top = 57.0
+visible = false
+margin_top = 54.0
 margin_right = 182.0
-margin_bottom = 85.0
+margin_bottom = 82.0
 custom_fonts/font = ExtResource( 4 )
 text = "Distinguishability"
 __meta__ = {
@@ -285,6 +286,7 @@ __meta__ = {
 }
 
 [node name="DistInput" type="MenuButton" parent="Popups/MenuConfig/VBox/Items"]
+visible = false
 margin_left = 198.0
 margin_top = 54.0
 margin_right = 246.0
@@ -299,9 +301,9 @@ __meta__ = {
 }
 
 [node name="FuncLabel" type="Label" parent="Popups/MenuConfig/VBox/Items"]
-margin_top = 107.0
-margin_right = 182.0
-margin_bottom = 135.0
+margin_top = 57.0
+margin_right = 147.0
+margin_bottom = 85.0
 custom_fonts/font = ExtResource( 4 )
 text = "Function Type"
 __meta__ = {
@@ -309,23 +311,23 @@ __meta__ = {
 }
 
 [node name="FuncInput" type="MenuButton" parent="Popups/MenuConfig/VBox/Items"]
-margin_left = 198.0
-margin_top = 104.0
-margin_right = 246.0
-margin_bottom = 138.0
+margin_left = 163.0
+margin_top = 54.0
+margin_right = 211.0
+margin_bottom = 88.0
 rect_min_size = Vector2( 48, 0 )
 size_flags_horizontal = 0
 custom_fonts/font = ExtResource( 4 )
 flat = false
-items = [ "Any", null, 0, false, false, 0, 0, null, "", false, "Inj", null, 0, false, false, 1, 0, null, "", false, "Sur", null, 0, false, false, 2, 0, null, "", false ]
+items = [ "Sequence", null, 0, false, false, 0, 0, null, "", false, "Permutation", null, 0, false, false, 1, 0, null, "", false, "Subset", null, 0, false, false, 2, 0, null, "", false, "Multisubset", null, 0, false, false, 3, 0, null, "", false, "Partition", null, 0, false, false, 4, 0, null, "", false, "Composition", null, 0, false, false, 5, 0, null, "", false ]
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="SizeLabel" type="Label" parent="Popups/MenuConfig/VBox/Items"]
-margin_top = 157.0
-margin_right = 182.0
-margin_bottom = 185.0
+margin_top = 107.0
+margin_right = 147.0
+margin_bottom = 135.0
 custom_fonts/font = ExtResource( 4 )
 text = "Size"
 __meta__ = {
@@ -333,10 +335,10 @@ __meta__ = {
 }
 
 [node name="SizeInput" type="MenuButton" parent="Popups/MenuConfig/VBox/Items"]
-margin_left = 198.0
-margin_top = 154.0
-margin_right = 246.0
-margin_bottom = 188.0
+margin_left = 163.0
+margin_top = 104.0
+margin_right = 211.0
+margin_bottom = 138.0
 rect_min_size = Vector2( 48, 0 )
 size_flags_horizontal = 0
 custom_fonts/font = ExtResource( 4 )
@@ -504,6 +506,7 @@ __meta__ = {
 }
 
 [node name="MenuGroup" type="PopupDialog" parent="Popups"]
+visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -544,7 +547,7 @@ __meta__ = {
 [node name="Items" type="GridContainer" parent="Popups/MenuGroup/VBox"]
 margin_top = 50.0
 margin_right = 491.0
-margin_bottom = 126.0
+margin_bottom = 146.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/vseparation = 16
@@ -593,10 +596,36 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="GroupsLabel" type="Label" parent="Popups/MenuGroup/VBox"]
-margin_top = 130.0
+[node name="Filler" type="Label" parent="Popups/MenuGroup/VBox/Items"]
+margin_top = 65.0
+margin_right = 73.0
+margin_bottom = 79.0
+
+[node name="Filler2" type="Label" parent="Popups/MenuGroup/VBox/Items"]
+margin_left = 89.0
+margin_top = 54.0
+margin_right = 267.0
+margin_bottom = 90.0
+rect_min_size = Vector2( 0, 36 )
+
+[node name="DistInput" type="CheckBox" parent="Popups/MenuGroup/VBox/Items"]
+margin_left = 283.0
+margin_top = 54.0
 margin_right = 491.0
-margin_bottom = 158.0
+margin_bottom = 90.0
+focus_mode = 0
+custom_fonts/font = ExtResource( 4 )
+pressed = true
+enabled_focus_mode = 0
+text = "Distinguishable"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GroupsLabel" type="Label" parent="Popups/MenuGroup/VBox"]
+margin_top = 150.0
+margin_right = 491.0
+margin_bottom = 178.0
 custom_fonts/font = ExtResource( 4 )
 text = "Selected:"
 autowrap = true
@@ -605,14 +634,14 @@ __meta__ = {
 }
 
 [node name="Filler" type="Label" parent="Popups/MenuGroup/VBox"]
-margin_top = 162.0
+margin_top = 182.0
 margin_right = 491.0
-margin_bottom = 176.0
+margin_bottom = 196.0
 
 [node name="Buttons" type="HBoxContainer" parent="Popups/MenuGroup/VBox"]
-margin_top = 180.0
+margin_top = 200.0
 margin_right = 491.0
-margin_bottom = 214.0
+margin_bottom = 234.0
 custom_constants/separation = 256
 alignment = 1
 

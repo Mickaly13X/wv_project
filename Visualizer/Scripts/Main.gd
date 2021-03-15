@@ -138,7 +138,8 @@ func create_cola_file() -> void:
 	
 	var file = File.new()
 	file.open("input_cola.pl", File.WRITE)
-	file.
+	file.store_string(g.problem.to_cola())
+	file.close()
 
 
 func fetch(function_name: String, arguments: Array = []) -> PoolStringArray:
@@ -312,8 +313,9 @@ func set_config(size : int, custom_name : String, is_distinct : bool) -> void:
 
 func run():
 	
-	var sol = fetch("coso")
-	show_message("Solution is " + sol[0])
+	create_cola_file()
+	#var sol = fetch("coso")
+	#show_message("Solution is " + sol[0])
 #	if Config.get_size() ==  0:
 #		show_message("Config not defined!")
 #	if Universe.get_size() ==  0:

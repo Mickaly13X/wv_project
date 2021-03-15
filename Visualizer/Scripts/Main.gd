@@ -134,6 +134,13 @@ func check_config() -> void:
 	toggle_menu_config(false)
 
 
+func create_cola_file() -> void:
+	
+	var file = File.new()
+	file.open("input_cola.pl", File.WRITE)
+	file.
+
+
 func fetch(function_name: String, arguments: Array = []) -> PoolStringArray:
 	
 	var request_func: String = "\""+function_name + "(" + \

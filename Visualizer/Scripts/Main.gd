@@ -136,9 +136,9 @@ func check_config() -> void:
 
 func fetch(function_name: String, arguments: Array = []) -> PoolStringArray:
 	
-	var request_func: String = function_name + "(" + \
+	var request_func: String = "\""+function_name + "(" + \
 		str(arguments).lstrip("[").rstrip("]") + \
-	")"
+	")\""
 	var args = ["fetch.py", request_func]
 	var output = []
 	print(">external call " + request_func)

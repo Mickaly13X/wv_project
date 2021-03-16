@@ -150,8 +150,12 @@ class Problem:
 		return get_domain(group_name) != null
 	
 	
-	func set_config(config : Configuration) -> void:
-		self.config = config
+	func set_config(_name : String, _size : int, _type : String, _domain = null) -> void:
+		
+		self.config.set_name(_name)
+		self.config.set_size(_size)
+		self.config.set_type(_type)
+		self.config.set_domain(_domain)
 	
 	
 	func set_universe(size: int) -> void:
@@ -287,7 +291,7 @@ class Configuration:
 	var type_string_list = []
 	var domain
 	
-	func _init(_name = "", _size = 1, _type = "", _domain = null):
+	func _init(_name = "config", _size = 1, _type = "", _domain = null):
 		
 		print(_type)
 		config_name = _name
@@ -344,6 +348,33 @@ class Configuration:
 	
 	func set_type(_type : String):
 		type = _type
+		
+		match type:
+			
+			"sequence":
+				
+				type_string_list = ["[", "|| ", "]"]
+				
+			"permutation":
+				
+				type_string_list = ["[", "| ", "]"]
+				
+			"subset":
+				
+				type_string_list = ["{", "| ", "}"]
+			
+			"multisubset":
+				
+				type_string_list = ["{", "|| ", "}"]
+			
+			"partition":
+				
+				type_string_list = ["partitions", "(", ")"]
+			
+			"composition":
+				
+				type_string_list = ["compositions", "(", ")"]
+	
 	
 	
 	func get_domain():

@@ -336,9 +336,10 @@ func set_universe() -> void:
 	if new_size == "- -":
 		show_message("Please choose a size")
 		return
-		
-	Containers.get_node(container_menu).init(int(new_size), true, new_name)
 	
+	
+	
+	Containers.get_node(container_menu).init(int(new_size), true, new_name)
 	g.problem.set_universe(int(new_size))
 	
 	CoLaInput.text += new_name + "{[1," + str(new_size) + "]}"

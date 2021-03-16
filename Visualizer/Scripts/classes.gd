@@ -26,6 +26,7 @@ class Problem:
 		
 		for i in elements_ids:
 			universe.erase_elem(i)
+			self.elem_counter -= 1
 			for domain in domains:
 				domain.erase_elem(i)
 		check_empty_domains()
@@ -33,8 +34,12 @@ class Problem:
 	
 	func add_elements(no_elements : int):
 		
-		universe.add_elements(range(elem_counter+1,elem_counter+no_elements+1))
-		elem_counter += no_elements
+		var new_elements = []
+		for i in no_elements:
+			for j in range(1,elem_counter+2):
+				if !universe.get_elements().has(j):
+					universe.add_elements([j])
+					elem_counter += 1
 	
 	
 	func add_to_domain(domain_name, _element : int) -> void:

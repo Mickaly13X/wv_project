@@ -93,7 +93,8 @@ func add_elements(no_elements : int):
 		
 		var new_element = ELEMENT.instance()
 		new_element.init(self)
-		new_element.set_id(counter + i + 1)
+		
+		new_element.set_id(get_new_id())
 		$Elements.add_child(new_element)
 		
 		if no_elements == 1: 
@@ -121,6 +122,23 @@ func deselect_elements():
 	
 	for I in get_elements_selected():
 		I.is_selected = false
+
+
+func get_new_id() -> int:
+	var count = get_elements().size()
+	var _max = count + 2
+	for i in range(1,_max):
+		if !has_id(i):
+			print("new id ",i)
+			return i
+	return 0
+
+
+func has_id(id : int):
+	for el in get_elements():
+		if el.name == str(id):
+			return true
+	return false
 
 
 func draw_circle_custom(radius: float, pos: Vector2, \

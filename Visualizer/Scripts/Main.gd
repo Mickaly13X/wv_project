@@ -321,9 +321,6 @@ func run():
 func set_universe() -> void:
 	
 	var new_name = MenuContainer.get_node("VBox/Items/NameInput").text
-#	if new_name == "":
-#		show_message("Please specify a name")
-#		return
 	
 	var new_size = MenuContainer.get_node("VBox/Items/SizeInput").text
 	if new_size == "- -":
@@ -332,9 +329,7 @@ func set_universe() -> void:
 		
 	Containers.get_node(container_menu).init(int(new_size), true, new_name)
 	
-	g.problem.clear_domains()
-	var new_universe = g.Domain.new(new_name,range(1,int(new_size)+1))
-	g.problem.set_universe(new_universe)
+	g.problem.set_universe(new_size)
 	
 	CoLaInput.text += new_name + "{[1," + str(new_size) + "]}"
 	toggle_menu_container(false)

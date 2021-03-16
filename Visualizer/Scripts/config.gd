@@ -75,7 +75,7 @@ func set_size(size : int) -> void:
 	var starting_point = get_center() + (total_length / 2.0) * Vector2.UP
 	for i in range(size):
 		var new_element = ELEMENT.instance()
-		new_element.init("var", Color.white)
+		new_element.init("var")
 		new_element.position = \
 			starting_point + (2*ELEMENT_SIZE + ELEMENT_OFFSET) * i * Vector2.DOWN
 		$Elements.add_child(new_element)

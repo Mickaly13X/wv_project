@@ -313,21 +313,26 @@ func update_circles_domain(venn_circles : Array) -> void:
 		new_circle.domain = get_domains()[i]
 		circles_domain.append(new_circle)
 	
+	update_domain_names()
 	update_element_positions()
 	update()
 
 
-#func update_domain_names() -> void:
-#
-#	for i in range(3):
-#		var DomainName = get_node("DomainName" + str(i))
-#		if i < len(domains):
-#			DomainName.text = circles_domain[i].domain
-#			DomainName.rect_position = \
-#				circles_domain[i].pos - circles_domain[i].radius * Vector2.ONE
-#			DomainName.show()
-#		else:
-#			DomainName.hide()
+func update_domain_names() -> void:
+	
+	var domains = get_domains()
+	for i in range(3):
+		
+		var DomainName = get_node("DomainName" + str(i))
+		
+		if i < len(domains):
+			DomainName.text = domains[i].get_name()
+			DomainName.rect_position = \
+				circles_domain[i].pos - circles_domain[i].radius * Vector2.ONE
+			DomainName.show()
+		else:
+			DomainName.hide()
+
 
 func update_dist() -> void:
 	

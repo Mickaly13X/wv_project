@@ -56,6 +56,7 @@ func init(container : String) -> void:
 		shape_selected.set_corner_radius_all(r)
 		shape_selected.border_color = Color(1, 1, 1)
 	else: # box
+		set_color(Color.white)
 		shape_unselected.bg_color = Color.transparent
 		shape_unselected.set_border_width_all(5)
 		shape_unselected.border_width_top = 0

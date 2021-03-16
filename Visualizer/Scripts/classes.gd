@@ -152,6 +152,12 @@ class Problem:
 		self.config = config
 	
 	
+	func set_universe(size: int) -> void:
+		
+		g.problem.clear_domains()
+		add_elements(size)
+	
+	
 	func to_cola() -> String:
 		
 		var cola = ""

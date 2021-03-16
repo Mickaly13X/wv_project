@@ -71,6 +71,11 @@ func _pressed(button_name : String) -> void:
 		
 		"Add": 
 			add_elements(1)
+		
+		"Delete":
+			#popup confirmation
+			delete_selected_elements()
+		
 		"Group":
 			Main.toggle_menu_group(true)
 	
@@ -310,6 +315,16 @@ func group_selected_elements(group_name : String, dist = true) -> void:
 	check_empty_domains(new_domain_name)
 	# update visible structure
 	init(get_size(), false)
+
+
+func delete_selected_elements():
+	
+	for I in get_elements():
+		var added_elements = []
+		if I.selected:
+			#g.problem.remove_from_universe(get_elements().find(I)+1)
+			I.free()
+	
 
 
 func has_max_elements() -> bool:

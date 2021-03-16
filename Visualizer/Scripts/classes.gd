@@ -19,9 +19,14 @@ class Problem:
 	
 	
 	func add_to_universe(element : int):
+		universe.add_element(element)
+	
+	
+	func remove_from_universe(_element : int):
 		
-		if !universe.get_elements().has(element):
-			universe.add_element(element)
+		universe	.remove_element(_element)
+		for domain in domains:
+			domain.remove_element(_element)
 	
 	
 	func get_universe():
@@ -85,7 +90,7 @@ class Problem:
 class Domain:
 	
 	var domain_name
-	var elements
+	var elements = []
 	var is_distinct
 	
 	func _init(_name : String, _elements = [], _is_distinct = true):
@@ -112,6 +117,11 @@ class Domain:
 		
 		if !elements.has(_element):
 			elements.append(_element)
+	
+	
+	func remove_element(_element : int):
+		elements.erase(_element)
+		
 	
 	
 	# Get domain size
@@ -248,13 +258,19 @@ class Configuration:
 		return cola
 
 
-class PosConstraint:
+class Constraint:
+	
+	func _init():
+		pass
+
+
+class PosConstraint extends Constraint:
 	
 	var configuration
 	var domain
 	var position
 	
-	func _init(_config : Configuration, _position : int, _domain : Domain):
+	func _init(_config : Configuration, _position : int, _domain : Domain).():
 		
 		configuration = _config
 		position = _position
@@ -264,13 +280,13 @@ class PosConstraint:
 	
 	
 
-class SizeConstraint:
+class SizeConstraint extends Constraint:
 	
 	var domain
 	var op
 	var size
 	
-	func _init(_domain : Domain, _op : String, _size : int):
+	func _init(_domain : Domain, _op : String, _size : int).():
 		
 		domain = _domain
 		op = _op

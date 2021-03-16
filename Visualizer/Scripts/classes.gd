@@ -160,7 +160,11 @@ class Problem:
 	
 	func set_config(_name : String, _size : int, _type : String, _domain = null) -> void:
 		
-		self.config.set_name(_name)
+		_name = _name.strip_edges()
+		if _name != "":
+			self.config.set_name(_name)
+		else:
+			self.config.set_name("config")
 		self.config.set_size(_size)
 		self.config.set_type(_type)
 		self.config.set_domain(_domain)
@@ -295,7 +299,7 @@ class Configuration:
 	var size
 	var config_name
 	var type
-	var type_string_list = []
+	var type_string_list = ["","",""]
 	var domain
 	
 	func _init(_name = "config", _size = 1, _type = "", _domain = null):

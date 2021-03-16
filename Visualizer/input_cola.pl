@@ -1,2 +1,2 @@
-R in [|| Null];
-#R = 1;
+config in Null;
+#config = 1;

@@ -289,6 +289,7 @@ class Configuration:
 	
 	func _init(_name = "", _size = 1, _type = "", _domain = null):
 		
+		print(_type)
 		config_name = _name
 		size = _size
 		type = _type

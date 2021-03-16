@@ -135,10 +135,10 @@ class Problem:
 		return universe
 	
 	
-	func group(elements: PoolIntArray, group_name: String) -> void:
+	func group(elements: PoolIntArray, group_name: String, is_dist : bool) -> void:
 		
 		if !is_domain(group_name):
-			var new_domain = g.Domain.new(group_name, elements)
+			var new_domain = g.Domain.new(group_name, elements, is_dist)
 			domains.append(new_domain)
 		else:
 			get_domain(group_name).add_elements(elements)

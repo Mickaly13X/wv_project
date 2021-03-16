@@ -275,8 +275,14 @@ func group(group_name : String, is_dist = true) -> void:
 	for i in get_element_ids(get_elements_selected()):
 		selected_elements.append(i)
 	
-	g.problem.group(selected_elements, group_name)
+	g.problem.group(selected_elements, group_name, is_dist)
 	
+	if is_dist:
+		for e in get_elements_selected():
+			e.set_color(ELEMENT_COLORS[int(e.name)-1])
+	else:
+		for e in get_elements_selected():
+			e.set_color(Color(1, 1, 1))
 	# update visible structure
 	init(get_size(), false)
 

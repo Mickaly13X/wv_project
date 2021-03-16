@@ -373,7 +373,7 @@ func update_dist() -> void:
 	var color_counter = 0
 	for i in get_elements():
 		if g.problem.is_dist_elem(i.get_id()):
-			i.set_color(ELEMENT_COLORS[color_counter])
+			i.set_color(ELEMENT_COLORS[int(i.name)-1])
 			color_counter += 1
 		else:
 			i.set_color(Color.white)

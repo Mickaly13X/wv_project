@@ -25,9 +25,8 @@ var circles_domain = []
 var custom_name
 
 # element_object : Node, index : int
-var elements = {}
+#var elements = {}
 
-var domains : Dictionary
 var is_distinct : bool
 var shape
 
@@ -38,8 +37,8 @@ func _ready():
 	shape.bg_color = Color.transparent
 	shape.set_border_width_all(3)
 	shape.set_corner_radius_all(30)
-	g.problem.set_universe(g.Domain.new("universe"))
 	
+	g.problem.universe = g.Domain.new("_universe")
 	set_name("")
 
 
@@ -79,54 +78,26 @@ func _pressed(button_name : String) -> void:
 
 func add_elements(no_elements : int):
 	
+	var counter = g.problem.elem_counter
+	
+	g.problem.add_elements(no_elements)
+	
 	var flag = false
 	
-	for _i in range(no_elements):
+	for i in range(no_elements):
 		
 		var new_element = ELEMENT.instance()
-		var color : Color
-		if is_distinct:
-			color = ELEMENT_COLORS[get_size()]
-		else:
-			color = Color.white
-		new_element.init("uni", color)
+		new_element.init("uni")
+		new_element.name = str(counter + i)
 		$Elements.add_child(new_element)
 		
-		g.problem.add_to_universe(elements.size()+1)
-		elements[new_element] = elements.size()+1
-		
-	
 		if no_elements == 1: 
 			update_element_positions([new_element])
 			flag = true
 	
+	update_dist()
 	if flag == false:
 		update_element_positions()
-	
-	print(g.problem._print())
-
-func check_empty_domains(exclude_domain : String) -> void:
-	
-	if len(g.problem.get_domains()) > 1:
-		
-		var queue_delete = []
-		for i in range(len(g.problem.get_domains())):
-			if get_domains_strict()[i] == []:
-				queue_delete.append(domains.values()[i])
-		
-		for domain in queue_delete:
-			var domain_name = get_domain_name(domain)
-			#if domain_name != exclude_domain:
-			delete_domain(domain_name)
-
-
-# @post circles rebuilt needed (invalid refs)
-func delete_domain(domain_name : String) -> void:
-	
-	domains.erase(domain_name)
-#	for i in range(len(domains)):
-#		if Main.GroupInput.get_popup().get_item_text(i) == domain_name:
-#			Main.GroupInput.get_popup().remove_item(i)
 
 
 func deselect_elements():
@@ -165,22 +136,24 @@ func draw_self():
 # for 3-part venns, domain_intersections = [A, B, C, AB, BC, AC, ABC]
 func fetch_venn_circles(domain_inter_sizes : Array) -> Array:
 	
+	print(domain_inter_sizes)
 	var venn_circles = []
 	
 	if len(domain_inter_sizes) == 1: 
-		venn_circles.append([Vector2(0, 0), len(domains.keys()[0])])
+		venn_circles.append([Vector2(0, 0), domain_inter_sizes[0]])
 	else:
 		# external fetch
 		var venn_size = 2 + int(len(domain_inter_sizes) > 3)
 		var arguments = [venn_size] + domain_inter_sizes
-		var output: Array = Main.fetch("venn", arguments)
+		var output: PoolStringArray = Main.fetch("venn", arguments)
 		
 		# convert to float[]
 		for i in range(len(output) / 3):
 			var pos = Vector2(float(output[i*3]), float(output[i*3 + 1]))
 			var radius = float(output[i*3 + 2])
 			venn_circles.append([pos, radius])
-		
+	
+	print(venn_circles)
 	return fetch_venn_circles_formatted(venn_circles)
 
 
@@ -202,7 +175,7 @@ func fetch_venn_circles_formatted(venn_circles : Array) -> Array:
 			smallest_radius = venn_circles[i][1]
 	
 	# scaling
-	var smallest_domain_size = get_lengths(domains.values()).min()
+	var smallest_domain_size = Array(g.problem.get_domain_sizes()).min()
 	var venn_circles_formatted = []
 	for i in range(len(venn_circles)):
 		var scalar = sqrt(smallest_domain_size) * 140 #+ int(len(domains) == 3) * 32)
@@ -225,58 +198,12 @@ func get_center(offset = Vector2.ZERO) -> Vector2:
 	return $Mask.rect_position + $Mask.rect_size / 2 + offset
 
 
-# for 1-part venns, return = [A]
-# for 2-part venns, return = [A, B, AB]
-# for 3-part venns, return = [A, B, C, AB, BC, AC, ABC]
-func get_domain_intersections() -> Array:
-	
-	var _domains = domains.values()
-	var domain_intersections = []
-	for i in _domains:
-		domain_intersections.append(i)
-	
-	# intersections if there are at least 2 domains
-	match len(_domains):
-		2:
-			domain_intersections.append(g.intersection(_domains[0], _domains[1]))
-		3:
-			domain_intersections.append(g.intersection(_domains[0], _domains[1]))
-			domain_intersections.append(g.intersection(_domains[0], _domains[2]))
-			domain_intersections.append(g.intersection(_domains[1], _domains[2]))
-			domain_intersections.append(
-				g.intersection(g.intersection(_domains[0], _domains[1]), _domains[2])
-			)
-	return domain_intersections
-
-
-func get_domain_name(domain : Array) -> String:
-	
-	for i in domains:
-		if domains[i] == domain:
-			return i
-	return ""
-
-
-func get_domains_strict() -> Array:
-	
-	var domains_strict = domains.values().duplicate(true)
-	var intersections = get_domain_intersections()
-	for i in domains_strict:
-		for j in range(len(domains), len(intersections)):
-			i = g.exclude(i, intersections[j])
-	return domains_strict
+func get_domains() -> Array:
+	return g.problem.get_domains()
 
 
 func get_elements() -> Array:
 	return $Elements.get_children()
-
-
-func get_lengths(arrays : Array) -> Array:
-	
-	var lengths = []
-	for i in arrays:
-		lengths.append(len(i))
-	return lengths
 
 
 func get_name() -> String:
@@ -291,23 +218,15 @@ func get_size() -> int:
 	return len(get_elements())
 
 
-# @return exit_code
-func group_selected_elements(group_name : String, dist = true) -> void:
+func group(group_name : String, dist = true) -> void:
 	
-	var new_domain_name = ""
-	if !domains.has(group_name):
-		domains[group_name] = []
-		var new_domain = g.Domain.new(group_name)
-		g.problem.add_domain(new_domain)
-		new_domain_name = group_name
-	
+	var selected_elements = PoolIntArray()
 	for I in get_elements():
-		var added_elements = []
-		if I.selected && !domains[group_name].has(I):
-			domains[group_name].append(I)
-			g.problem.add_to_domain(group_name,elements[I])
+		if I.selected:
+			selected_elements.append(int(I.name))
 	
-	check_empty_domains(new_domain_name)
+	g.problem.group(selected_elements, group_name)
+	
 	# update visible structure
 	init(get_size(), false)
 
@@ -333,19 +252,13 @@ func init(size : int, is_rebuild = true, custom_name = get_name()) -> void:
 		for I in get_elements():
 			 I.free()
 		add_elements(size)
+	
 	set_name(custom_name)
 	
-	if domains.size() > 0:
+	if get_domains().size() > 0:
 		update_circles_domain(
-			fetch_venn_circles(get_lengths(get_domain_intersections()))
+			fetch_venn_circles(g.lengths(g.problem.get_domain_intersections()))
 		)
-		update_domain_names()
-
-
-func init_distinct(is_distinct : bool) -> void:
-	
-	self.is_distinct = is_distinct
-	init(get_size())
 
 
 func set_name(custom_name : String) -> void:
@@ -353,7 +266,7 @@ func set_name(custom_name : String) -> void:
 	self.custom_name = custom_name
 	if custom_name == "":
 		$Label.text = "Universe"
-		g.problem.get_universe().set_name("universe")
+		g.problem.get_universe().set_name("_universe")
 	else:
 		$Label.text = "Universe (" + custom_name + ")"
 		g.problem.get_universe().set_name(custom_name)
@@ -382,24 +295,34 @@ func update_circles_domain(venn_circles : Array) -> void:
 		var new_circle = {}
 		new_circle.pos = venn_circles[i][0]
 		new_circle.radius = venn_circles[i][1]
-		new_circle.domain = get_domain_name(domains.values()[i])
+		new_circle.domain = get_domains()[i]
 		circles_domain.append(new_circle)
 	
 	update_element_positions()
 	update()
 
 
-func update_domain_names() -> void:
+#func update_domain_names() -> void:
+#
+#	for i in range(3):
+#		var DomainName = get_node("DomainName" + str(i))
+#		if i < len(domains):
+#			DomainName.text = circles_domain[i].domain
+#			DomainName.rect_position = \
+#				circles_domain[i].pos - circles_domain[i].radius * Vector2.ONE
+#			DomainName.show()
+#		else:
+#			DomainName.hide()
+
+func update_dist() -> void:
 	
-	for i in range(3):
-		var DomainName = get_node("DomainName" + str(i))
-		if i < len(domains):
-			DomainName.text = circles_domain[i].domain
-			DomainName.rect_position = \
-				circles_domain[i].pos - circles_domain[i].radius * Vector2.ONE
-			DomainName.show()
+	var color_counter = 0
+	for i in get_elements():
+		if g.problem.is_dist_elem(i.get_id()):
+			i.set_color(ELEMENT_COLORS[color_counter])
+			color_counter += 1
 		else:
-			DomainName.hide()
+			i.set_color(Color.white)
 
 
 func update_element_positions(elements = get_elements()) -> void:
@@ -414,7 +337,7 @@ func update_element_positions(elements = get_elements()) -> void:
 		var outside_circles = []
 		
 		for i in circles_domain:
-			if element in domains[i.domain]:
+			if element.get_id() in i.domain.get_elements():
 				inside_circles.append(i)
 			else:
 				outside_circles.append(i)

@@ -51,7 +51,6 @@ func _ready():
 	set_config(0, "", true)
 	#var file_path = "res://tests/paper/constrained/permutation_5_4.test"
 	#var domains = get_domains(get_input(file_path))
-	#print(domains)
 	#set_diagram(get_venn_areas(domains.values()))
 
 
@@ -144,9 +143,9 @@ func create_cola_file() -> void:
 
 func fetch(function_name: String, arguments: Array = []) -> PoolStringArray:
 	
-	var request_func: String = "\""+function_name + "(" + \
+	var request_func: String = function_name + "(" + \
 		str(arguments).lstrip("[").rstrip("]") + \
-	")\""
+	")"
 	var args = ["fetch.py", request_func]
 	var output = []
 	print(">external call " + request_func)
@@ -256,10 +255,10 @@ func group() -> bool:
 			group_dist = DistInput.pressed
 			GroupInput.get_popup().add_item(group_name)
 			GroupInput.get_popup().set_item_as_checkable(GroupInput.get_popup().get_item_count()-1,true)
-			Universe.group_selected_elements(group_name,group_dist)
+			Universe.group(group_name, group_dist)
 		else:
 			group_name = i
-			Universe.group_selected_elements(group_name)
+			Universe.group(group_name)
 	
 	for id in selected_ids:
 		GroupInput.get_popup().set_item_checked(id,false)
@@ -305,10 +304,7 @@ func popup_import():
 
 
 func set_config(size : int, custom_name : String, is_distinct : bool) -> void:
-	
 	Config.init(size, custom_name)
-	Universe.init_distinct(is_distinct)
-#	$Structure.text = "Structure = " + STRUCTURE_NAMES[distinct][set_function]
 
 
 func run():
@@ -339,8 +335,6 @@ func set_universe() -> void:
 	g.problem.clear_domains()
 	var new_universe = g.Domain.new(new_name,range(1,int(new_size)+1))
 	g.problem.set_universe(new_universe)
-	
-	print(g.problem._print())
 	
 	CoLaInput.text += new_name + "{[1," + str(new_size) + "]}"
 	toggle_menu_container(false)

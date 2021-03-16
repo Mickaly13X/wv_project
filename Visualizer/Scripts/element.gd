@@ -42,10 +42,13 @@ func _gui_input(event):
 				get_parent().get_parent().toggle_group_button(true)
 
 
-func init(container : String, color : Color) -> void:
+func get_id() -> int:
+	return int(name)
+
+
+func init(container : String) -> void:
 	
 	self.container = container
-	set_color(color)
 	
 	if container == "uni": # ball
 		shape_unselected.set_corner_radius_all(r)
@@ -70,3 +73,7 @@ func set_color(new_color : Color):
 		shape_selected.bg_color = new_color
 	else:
 		shape_unselected.border_color = new_color
+
+
+func set_id(id: int) -> void:
+	name = str(id)

@@ -1,10 +1,12 @@
 class Problem:
 	
-	var universe
-	var domains
-	var configuration
-	var entity_map
-	var count_formulas
+	var domains: Array
+	var config : Configuration
+	var elem_counter: int
+	var entity_map: Dictionary
+	var count_formulas: Array
+	var universe: Domain
+	
 	
 	
 	func _init():
@@ -12,11 +14,10 @@ class Problem:
 		domains = []
 		entity_map = {}
 		count_formulas = []
-		universe = null
 	
 	
-	func set_universe(_universe : Domain):
-		universe = _universe
+	func add_domain(domain : Domain) -> void:
+		domains.append(domain)
 	
 	
 	func add_to_universe(element : int):
@@ -28,23 +29,11 @@ class Problem:
 		universe	.remove_element(_element)
 		for domain in domains:
 			domain.remove_element(_element)
-	
-	
-	func get_universe():
-		return universe
-	
-	
-	func clear_domains():
-		domains = []
-		universe = null
-	
-	
-	func get_domains():
-		return domains
-	
-	
-	func add_domain(domain : Domain) -> void:
-		domains.append(domain)
+
+	func add_elements(no_elements : int):
+		
+		universe.add_elements(range(no_elements))
+		elem_counter += no_elements
 	
 	
 	func add_to_domain(domain_name, _element : int) -> void:
@@ -52,14 +41,115 @@ class Problem:
 		for dom in domains:
 			if dom.get_name() == domain_name:
 				dom.add_element(_element)
-
+	
+	
+	func check_empty_domains() -> void:
+		
+		var no_domains = len(get_domains())
+		if no_domains > 1:
+			
+			var queue_delete = []
+			var domains_strict = get_domains_strict()
+			for i in range(no_domains):
+				if Array(domains_strict[i]) == []:
+					queue_delete.append(i)
+			
+			for i in queue_delete:
+				remove_domain(i)
+	
+	
+	func clear_domains():
+		domains = []
+		universe.clear()
+	
+	
+	func get_domain(domain_name: String) -> Domain:
+		
+		for i in get_domains():
+			if i.get_name() == domain_name:
+				return i
+		return null
+	
+	
+	func get_domain_elements() -> Array:
+		
+		var domains_elements = []
+		for i in get_domains():
+			domains_elements.append(i.get_elements())
+		return domains_elements
+	
+	
+	# no_domains == 1, return = [A]
+	# no_domains == 2, return = [A, B, AB]
+	# no_domains == 3, return = [A, B, C, AB, BC, AC, ABC]
+	func get_domain_intersections() -> PoolIntArray:
+		
+		var domain_elements = get_domain_elements()
+		var intersections = []
+		for i in domain_elements:
+			intersections.append(i)
+		
+		# intersections if there are at least 2 domains
+		match len(domain_elements):
+			2:
+				intersections.append(g.intersection(domain_elements[0], domain_elements[1]))
+			3:
+				intersections.append(g.intersection(domain_elements[0], domain_elements[1]))
+				intersections.append(g.intersection(domain_elements[0], domain_elements[2]))
+				intersections.append(g.intersection(domain_elements[1], domain_elements[2]))
+				intersections.append(g.intersection(
+					g.intersection(domain_elements[0], domain_elements[1]), domain_elements[2])
+				)
+		return intersections
+	
+	
+	func get_domain_sizes() -> PoolIntArray:
+		return g.lengths(get_domain_elements())
+	
+	
+	func get_domains():
+		return domains
+	
+	
+	func get_domains_strict() -> Array:
+	
+		var domains_strict = get_domain_elements()
+		var intersections = get_domain_intersections()
+		for i in domains_strict:
+			for j in range(len(domains), len(intersections)):
+				i = g.exclude(i, intersections[j])
+		return domains_strict
+	
+	
+	func get_universe():
+		return universe
+	
+	
+	func group(elements: PoolIntArray, group_name: String) -> void:
+		
+		if !is_domain(group_name):
+			var new_domain = g.Domain.new(group_name, elements)
+			domains.append(new_domain)
+		else:
+			get_domain(group_name).add_elements(elements)
+		
+		check_empty_domains()
+	
+	
+	func is_dist_elem(elem_id: int) -> bool:
+		
+		for i in get_domains():
+			if elem_id in i && !i.is_distinct:
+				return false
+		return true
+	
+	
+	func is_domain(group_name) -> bool:
+		return get_domain(group_name) != null
+	
 	
 	func set_config(config : Configuration) -> void:
-		configuration = config
-	
-	
-	func add_constraint():
-		pass
+		self.config = config
 	
 	
 	func to_cola() -> String:
@@ -69,30 +159,34 @@ class Problem:
 			cola += dom.to_cola()
 			cola += "\n"
 		
-		cola += configuration.to_cola()
+		cola += config.to_cola()
 		
 		return cola
 	
 	
+	func remove_domain(index : int) -> void:
+		domains.remove(index)
+	
+	
 	func reset():
 		
-		domains = []
 		entity_map = {}
 		count_formulas = []
-		configuration = null
-		universe = null
+		config = null
+		clear_domains()
 	
 	
-	func _print():
-		return [universe.get_elements(), domains, configuration]
+#	func _print():
+#		return [universe.get_elements(), domains, configuration]
 
 
 # Domain class
 class Domain:
-	
-	var domain_name
-	var elements = []
-	var is_distinct
+
+	var domain_name: String
+	var elements: Array
+	var is_distinct: bool
+
 	
 	func _init(_name : String, _elements = [], _is_distinct = true):
 		
@@ -101,11 +195,15 @@ class Domain:
 		is_distinct = _is_distinct
 	
 	
+	func clear() -> void:
+		elements = Array()
+	
+	
 	func get_name() -> String:
 		return domain_name
 	
 	
-	func set_name(_name):
+	func set_name(_name) -> void:
 		domain_name = _name
 	
 	
@@ -114,10 +212,8 @@ class Domain:
 		return elements
 	
 	
-	func add_element(_element : int):
-		
-		if !elements.has(_element):
-			elements.append(_element)
+	func add_elements(new_elements : Array) -> void:
+		elements = g.union(elements, new_elements)
 	
 	
 	func remove_element(_element : int):
@@ -152,25 +248,23 @@ class Domain:
 	
 	# Checks if this domain is an interval
 	func is_interval() -> bool:
-		#UNFINISHED
-		if typeof(elements) != TYPE_INT_ARRAY:# && typeof(elements) != TYPE_ARRAY:
-			return false
-		var hi = elements.max()
-		var lo = elements.min()
-		elements.sort()
-		if elements == range(lo,hi+1):
-			return true
-		return false
+		
+		Array(elements).sort()
+		for i in range(len(elements)):
+			if elements[i] != elements[0] + i:
+				return false 
+		return true
 	
 	
 	# Return interval object
-	func get_interval():
+	func get_interval() -> Interval:
 		
 		if is_interval():
-			var hi = elements.max()
-			var lo = elements.min()
-			return Interval.new(lo,hi)
-		return -1
+			# sorted by is_interval()
+			var lo = elements[0]
+			var hi = elements[-1]
+			return Interval.new(lo, hi)
+		return null
 	
 	
 	func is_distinct() -> bool:

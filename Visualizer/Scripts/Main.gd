@@ -28,6 +28,8 @@ onready var MenuContainer = $Popups/MenuContainer
 onready var Popups = $Popups
 onready var SizeInput = $Popups/MenuContainer/VBox/Items/SizeInput
 onready var Universe = $HSplit/MainPanel/Containers/Universe
+onready var PosInput = $Popups/MenuPosConstraint/VBox/Items/PosInput
+onready var DomainInput = $Popups/MenuPosConstraint/VBox/Items/DomainInput
 
 onready var GroupsLabel = $Popups/MenuGroup/VBox/GroupsLabel
 
@@ -403,6 +405,18 @@ func toggle_menu_config(is_opened : bool) -> void:
 		$Popups/MenuConfig.popup()
 	else:
 		$Popups/MenuConfig.hide()
+
+
+
+func toggle_menu_constraint(is_opened : bool) -> void:
+	
+	if is_opened:
+		DomainInput.text = "-Select Domain-"
+		Popups.get_node("MenuPosConstraint").popup()
+	else:
+		
+		Popups.get_node("MenuPosConstraint").hide()
+
 
 
 func get_selected_group_names_as_string() -> String:

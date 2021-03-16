@@ -6,6 +6,7 @@ class Problem:
 	var entity_map
 	var count_formulas
 	
+	
 	func _init():
 		
 		domains = []

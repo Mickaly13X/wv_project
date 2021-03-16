@@ -765,7 +765,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CnstraintLabel" type="Label" parent="Popups/MenuPosConstraint/VBox"]
+[node name="ConstraintLabel" type="Label" parent="Popups/MenuPosConstraint/VBox"]
 margin_top = 130.0
 margin_right = 491.0
 margin_bottom = 158.0
@@ -891,6 +891,5 @@ __meta__ = {
 [connection signal="button_up" from="Popups/MenuContainer/VBox/Buttons/AddButton" to="." method="set_universe"]
 [connection signal="button_up" from="Popups/MenuGroup/VBox/Buttons/CancelButton" to="." method="toggle_menu_group" binds= [ false ]]
 [connection signal="button_up" from="Popups/MenuGroup/VBox/Buttons/Group" to="." method="group"]
-[connection signal="button_up" from="Popups/MenuPosConstraint/VBox/Buttons/CancelButton" to="." method="toggle_menu_group" binds= [ false ]]
-[connection signal="button_up" from="Popups/MenuPosConstraint/VBox/Buttons/DoneButton" to="." method="group"]
+[connection signal="button_up" from="Popups/MenuPosConstraint/VBox/Buttons/CancelButton" to="." method="toggle_menu_constraint" binds= [ false ]]
 [connection signal="file_selected" from="Popups/OpenFile" to="." method="_on_cola_file_selected"]

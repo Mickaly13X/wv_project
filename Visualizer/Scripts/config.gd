@@ -86,7 +86,7 @@ func _pressed(button_name : String) -> void:
 	match button_name:
 		
 		"Constraint": 
-			pass
+			Main.toggle_menu_constraint(true)
 	
 	$Menu.hide()
 

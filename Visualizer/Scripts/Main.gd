@@ -15,7 +15,7 @@ enum SetFunction {ANY, INJ, SUR}
 onready var CoLaInput = $HSplit/CoLaPanel/CoLaInput
 onready var CoLaPanel = $HSplit/CoLaPanel
 onready var Config = $HSplit/MainPanel/Containers/Config
-onready var ConfigFuncInput = $Popups/MenuConfig/VBox/Items/NameInput
+onready var ConfigFuncInput = $Popups/MenuConfig/VBox/Items/FuncInput
 onready var ConfigNameInput = $Popups/MenuConfig/VBox/Items/NameInput
 onready var ConfigSizeInput = $Popups/MenuConfig/VBox/Items/SizeInput
 onready var Containers = $HSplit/MainPanel/Containers
@@ -130,7 +130,7 @@ func check_config() -> void:
 	var size = int(ConfigSizeInput.text)
 	var type = ConfigFuncInput.text
 	
-	g.problem.get_config()._init(custom_name, size, type)
+	g.problem.set_config(custom_name, size, type.to_lower())
 	set_config(size, custom_name)
 	toggle_menu_config(false)
 

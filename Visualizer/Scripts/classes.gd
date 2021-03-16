@@ -7,7 +7,6 @@ class Problem:
 	var count_formulas: Array
 	var universe = g.Domain.new("_universe")
 	
-	
 	func _init():
 		
 		domains = []

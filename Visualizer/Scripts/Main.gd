@@ -331,7 +331,7 @@ func set_universe() -> void:
 		
 	Containers.get_node(container_menu).init(int(new_size), true, new_name)
 	
-	g.problem.set_universe(new_size)
+	g.problem.set_universe(int(new_size))
 	
 	CoLaInput.text += new_name + "{[1," + str(new_size) + "]}"
 	toggle_menu_container(false)

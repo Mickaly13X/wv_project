@@ -33,7 +33,7 @@ class Problem:
 	
 	func add_elements(no_elements : int):
 		
-		universe.add_elements(range(no_elements))
+		universe.add_elements(range(elem_counter+1,elem_counter+no_elements+1))
 		elem_counter += no_elements
 	
 	
@@ -191,8 +191,8 @@ class Problem:
 		clear_domains()
 	
 	
-#	func _print():
-#		return [universe.get_elements(), domains, configuration]
+	func _print():
+		return [universe.get_elements(), domains, config]
 
 
 # Domain class

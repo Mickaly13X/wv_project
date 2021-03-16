@@ -68,10 +68,12 @@ func _pressed(button_name : String) -> void:
 		
 		"Add": 
 			add_elements(1)
+			print(g.problem._print())
 		
 		"Delete":
 			#TODO: popup confirmation
-			delete_elements(get_elements_selected())
+			delete_elements(get_element_ids(get_elements_selected()))
+			print(g.problem._print())
 		
 		"Group":
 			Main.toggle_menu_group(true)
@@ -91,7 +93,7 @@ func add_elements(no_elements : int):
 		
 		var new_element = ELEMENT.instance()
 		new_element.init(self)
-		new_element.set_id(counter + i)
+		new_element.set_id(counter + i + 1)
 		$Elements.add_child(new_element)
 		
 		if no_elements == 1: 

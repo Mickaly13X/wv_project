@@ -19,6 +19,7 @@ const ELEMENT_COLORS = [
 	Color(0.558594, 0.218878, 0.218878), 
 	Color(0.237456, 0.218878, 0.558594)]
 
+onready var Buttons = $Menu/Buttons
 onready var Main : Node
 
 var circles_domain = []
@@ -54,12 +55,10 @@ func _gui_input(event):
 	
 	if event.is_pressed():
 		if event.button_index == BUTTON_LEFT:
-			toggle_menu(false)
 			deselect_elements()
+			toggle_menu(false)
 		elif event.button_index == BUTTON_RIGHT:
-			var has_selected_elements = has_selected_elements()
-			toggle_group_button(has_selected_elements)
-			toggle_add_button(!(has_max_elements() || has_selected_elements))
+			deselect_elements()
 			toggle_menu(true)
 
 
@@ -71,8 +70,8 @@ func _pressed(button_name : String) -> void:
 			add_elements(1)
 		
 		"Delete":
-			#popup confirmation
-			delete_selected_elements()
+			#TODO: popup confirmation
+			delete_elements(get_elements_selected())
 		
 		"Group":
 			Main.toggle_menu_group(true)
@@ -91,8 +90,8 @@ func add_elements(no_elements : int):
 	for i in range(no_elements):
 		
 		var new_element = ELEMENT.instance()
-		new_element.init("uni")
-		new_element.name = str(counter + i)
+		new_element.init(self)
+		new_element.set_id(counter + i)
 		$Elements.add_child(new_element)
 		
 		if no_elements == 1: 
@@ -104,11 +103,22 @@ func add_elements(no_elements : int):
 		update_element_positions()
 
 
+func delete_elements(element_ids: PoolIntArray = get_element_ids()) -> void:
+	
+	print(element_ids)
+	g.problem.erase_elements(element_ids)
+	for i in element_ids:
+		var element = $Elements.get_node(str(i))
+		if element != null:
+			element.free()
+	if !element_ids.empty():
+		init(get_size(), false)
+
+
 func deselect_elements():
 	
-	for I in $Elements.get_children():
-		if I.selected:
-			I.selected = false
+	for I in get_elements_selected():
+		I.is_selected = false
 
 
 func draw_circle_custom(radius: float, pos: Vector2, \
@@ -206,8 +216,25 @@ func get_domains() -> Array:
 	return g.problem.get_domains()
 
 
+func get_element_ids(elements: Array = get_elements()) -> PoolIntArray:
+	
+	var element_ids = PoolIntArray()
+	for I in elements:
+		element_ids.append(I.get_id())
+	return element_ids
+
+
 func get_elements() -> Array:
 	return $Elements.get_children()
+
+
+func get_elements_selected() -> Array:
+	
+	var elements_selected = []
+	for I in get_elements():
+		if I.is_selected:
+			elements_selected.append(I)
+	return elements_selected
 
 
 func get_name() -> String:
@@ -222,27 +249,16 @@ func get_size() -> int:
 	return len(get_elements())
 
 
-func group(group_name : String, dist = true) -> void:
+func group(group_name : String, is_dist = true) -> void:
 	
 	var selected_elements = PoolIntArray()
-	for I in get_elements():
-		if I.selected:
-			selected_elements.append(int(I.name))
+	for i in get_element_ids(get_elements_selected()):
+		selected_elements.append(i)
 	
 	g.problem.group(selected_elements, group_name)
 	
 	# update visible structure
 	init(get_size(), false)
-
-
-func delete_selected_elements():
-	
-	for I in get_elements():
-		var added_elements = []
-		if I.selected:
-			#g.problem.remove_from_universe(get_elements().find(I)+1)
-			I.free()
-	
 
 
 func has_max_elements() -> bool:
@@ -255,7 +271,7 @@ func has_max_elements() -> bool:
 func has_selected_elements() -> bool:
 	
 	for I in get_elements():
-		if I.selected:
+		if I.is_selected:
 			return true
 	return false
 
@@ -263,8 +279,7 @@ func has_selected_elements() -> bool:
 func init(size : int, is_rebuild = true, custom_name = get_name()) -> void:
 	
 	if is_rebuild:
-		for I in get_elements():
-			 I.free()
+		delete_elements()
 		add_elements(size)
 	
 	set_name(custom_name)
@@ -291,14 +306,14 @@ func toggle_menu(is_visible : bool):
 	$Menu.visible = is_visible
 	if is_visible:
 		$Menu.position = get_local_mouse_position()
+		var has_selected_elements = has_selected_elements()
+		toggle_menu_button("Add", !(has_max_elements() || has_selected_elements))
+		toggle_menu_button("Delete", has_selected_elements)
+		toggle_menu_button("Group", has_selected_elements)
 
 
-func toggle_add_button(is_pressable : bool):
-	$Menu/Buttons/Add.disabled = !is_pressable
-
-
-func toggle_group_button(is_pressable : bool):
-	$Menu/Buttons/Group.disabled = !is_pressable
+func toggle_menu_button(buttom_name: String, is_pressable : bool):
+	Buttons.get_node(buttom_name).disabled = !is_pressable
 
 
 func update_circles_domain(venn_circles : Array) -> void:

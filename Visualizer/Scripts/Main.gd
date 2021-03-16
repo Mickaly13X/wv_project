@@ -25,9 +25,8 @@ onready var GroupInput = $Popups/MenuGroup/VBox/Items/GroupInput
 onready var HSplit = $HSplit
 onready var NewGroupInput = $Popups/MenuGroup/VBox/Items/NewGroupInput
 onready var OpenCoLa = $HSplit/MainPanel/UI/HUD/OpenCoLa
-onready var MenuContainer = $Popups/MenuContainer
 onready var Popups = $Popups
-onready var SizeInput = $Popups/MenuContainer/VBox/Items/SizeInput
+onready var UnivSizeInput = $Popups/MenuUniverse/VBox/Items/SizeInput
 onready var Universe = $HSplit/MainPanel/Containers/Universe
 onready var PosInput = $Popups/MenuPosConstraint/VBox/Items/PosInput
 onready var DomainInput = $Popups/MenuPosConstraint/VBox/Items/DomainInput
@@ -275,20 +274,30 @@ func init_children() -> void:
 	Config.Main = self 
 
 
+func is_checked(group_name : String) -> bool:
+	
+	var checked = false
+	for id in groups_selection:
+		if group_name == GroupInput.get_popup().get_item_text(id):
+			checked = groups_selection[id]
+	return checked
+
+
 func init_menus() -> void:
 	
 	# structure menu
 	FuncInput.get_popup().connect("id_pressed", self, "_pressed_mb_input", [FuncInput])
-	#DistInput.get_popup().connect("id_pressed", self, "_pressed_mb_input", [DistInput])
-	ConfigSizeInput.get_popup().connect("id_pressed", self, "_pressed_mb_input", [ConfigSizeInput])
+	ConfigSizeInput.get_popup().connect(
+		"id_pressed", self, "_pressed_mb_input", [ConfigSizeInput])
 	
 	# universe menu
-	SizeInput.get_popup().connect("id_pressed", self, "_pressed_mb_input", [SizeInput])
+	UnivSizeInput.get_popup().connect(
+		"id_pressed", self, "_pressed_mb_input", [UnivSizeInput])
 	
 	for i in range(MAX_SET_SIZE):
 		#to add zero before single digits like 01, 02 instead of 1, 2
 		var numberstr = "0" + str(i + 1) if i + 1 < 10 else str(i + 1)
-		SizeInput.get_popup().add_item(numberstr)
+		UnivSizeInput.get_popup().add_item(numberstr)
 	
 	for i in range(MAX_CONFIG_SIZE):
 		#to add zero before single digits like 01, 02 instead of 1, 2
@@ -322,9 +331,8 @@ func run():
 
 func set_universe() -> void:
 	
-	var new_name = MenuContainer.get_node("VBox/Items/NameInput").text
-	
-	var new_size = MenuContainer.get_node("VBox/Items/SizeInput").text
+	var new_name = $Popups/MenuUniverse/VBox/Items/NameInput.text
+	var new_size = UnivSizeInput.text
 	if new_size == "- -":
 		show_message("Please choose a size")
 		return
@@ -361,14 +369,14 @@ func toggle_menu_container(is_opened : bool, ref : String = "Universe") -> void:
 	if is_opened:
 		container_menu = ref
 		if ref == "Universe":
-			$Popups/MenuContainer/VBox/Title.text = "Set Universe"
+			$Popups/MenuUniverse/VBox/Title.text = "Set Universe"
 		else:
-			$Popups/MenuContainer/VBox/Title.text = "Set Variables"
-		$Popups/MenuContainer.popup()
+			$Popups/MenuUniverse/VBox/Title.text = "Set Variables"
+		$Popups/MenuUniverse.popup()
 	else:
-		#$Popups/MenuContainer/VBox/Items/NameInput.text = ""
+		#$Popups/MenuUniverse/VBox/Items/NameInput.text = ""
 		#SizeInput.text = "- -"
-		$Popups/MenuContainer.hide()
+		$Popups/MenuUniverse.hide()
 
 
 func toggle_menu_group(is_opened : bool) -> void:
@@ -436,14 +444,6 @@ func get_selected_group_names() -> String:
 		if groups_selection[id] == true:
 			group_names.append(GroupInput.get_popup().get_item_text(id))
 	return group_names
-
-func is_checked(group_name : String) -> bool:
-	
-	var checked = false
-	for id in groups_selection:
-		if group_name == GroupInput.get_popup().get_item_text(id):
-			checked = groups_selection[id]
-	return checked
 
 
 # Parse CoLa input

@@ -1,13 +1,13 @@
 extends Node2D
 
-onready var MASK = $Mask
+onready var Mask = $Mask
+onready var Container_
 
-var container : String
 var shape_selected = StyleBoxFlat.new() 
 var shape_unselected = StyleBoxFlat.new() 
 
 var r = 20
-var selected = false
+var is_selected = false
 
 
 func _ready():
@@ -20,8 +20,8 @@ func _process(_delta):
 
 func _draw():
 	
-	if container == "uni":
-		if selected == false:
+	if is_in_universe():
+		if is_selected == false:
 			draw_style_box(shape_unselected, Rect2(-r, -r, 2*r, 2*r))
 		else:
 			draw_style_box(shape_selected, Rect2(-r, -r, 2*r, 2*r))
@@ -31,26 +31,24 @@ func _draw():
 
 func _gui_input(event):
 	
-	if container == "uni":
+	if is_in_universe():
 		if event.is_pressed():
 			if event.button_index == BUTTON_LEFT:
-				selected = !selected
+				is_selected = !is_selected
 			elif event.button_index == BUTTON_RIGHT:
-				selected = true
-				get_parent().get_parent().toggle_menu(true)
-				get_parent().get_parent().toggle_add_button(false)
-				get_parent().get_parent().toggle_group_button(true)
+				is_selected = true
+				Container_.toggle_menu(true)
 
 
 func get_id() -> int:
 	return int(name)
 
 
-func init(container : String) -> void:
+func init(Container_ : Node2D) -> void:
 	
-	self.container = container
+	self.Container_ = Container_
 	
-	if container == "uni": # ball
+	if is_in_universe(): # ball
 		shape_unselected.set_corner_radius_all(r)
 		shape_selected.set_border_width_all(4)
 		shape_selected.set_corner_radius_all(r)
@@ -63,13 +61,17 @@ func init(container : String) -> void:
 
 
 func init_mask():
-	MASK.rect_position = Vector2(-r,-r)
-	MASK.rect_size = Vector2(2*r,2*r)
+	Mask.rect_position = Vector2(-r,-r)
+	Mask.rect_size = Vector2(2*r,2*r)
+
+
+func is_in_universe():
+	return Container_.name == "Universe"
 
 
 func set_color(new_color : Color):
 	
-	if container == "uni":
+	if is_in_universe():
 		shape_unselected.bg_color = new_color
 		shape_selected.bg_color = new_color
 	else:

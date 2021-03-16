@@ -178,11 +178,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Universe" parent="HSplit/MainPanel/Containers" instance=ExtResource( 2 )]
-position = Vector2( 755, 270 )
-
 [node name="Config" parent="HSplit/MainPanel/Containers" instance=ExtResource( 3 )]
 position = Vector2( 422.115, 270 )
+
+[node name="Universe" parent="HSplit/MainPanel/Containers" instance=ExtResource( 2 )]
+position = Vector2( 755, 270 )
 
 [node name="Popups" type="Control" parent="."]
 anchor_left = 0.5
@@ -379,7 +379,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MenuContainer" type="PopupDialog" parent="Popups"]
+[node name="MenuUniverse" type="PopupDialog" parent="Popups"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -395,7 +395,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBox" type="VBoxContainer" parent="Popups/MenuContainer"]
+[node name="VBox" type="VBoxContainer" parent="Popups/MenuUniverse"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 32.0
@@ -406,7 +406,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Title" type="Label" parent="Popups/MenuContainer/VBox"]
+[node name="Title" type="Label" parent="Popups/MenuUniverse/VBox"]
 margin_right = 503.0
 margin_bottom = 46.0
 custom_fonts/font = ExtResource( 5 )
@@ -417,7 +417,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Items" type="GridContainer" parent="Popups/MenuContainer/VBox"]
+[node name="Items" type="GridContainer" parent="Popups/MenuUniverse/VBox"]
 margin_top = 50.0
 margin_right = 503.0
 margin_bottom = 181.0
@@ -430,7 +430,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NameLabel" type="Label" parent="Popups/MenuContainer/VBox/Items"]
+[node name="NameLabel" type="Label" parent="Popups/MenuUniverse/VBox/Items"]
 margin_top = 5.0
 margin_right = 64.0
 margin_bottom = 33.0
@@ -441,7 +441,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NameInput" type="LineEdit" parent="Popups/MenuContainer/VBox/Items"]
+[node name="NameInput" type="LineEdit" parent="Popups/MenuUniverse/VBox/Items"]
 margin_left = 80.0
 margin_right = 503.0
 margin_bottom = 38.0
@@ -455,7 +455,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SizeLabel" type="Label" parent="Popups/MenuContainer/VBox/Items"]
+[node name="SizeLabel" type="Label" parent="Popups/MenuUniverse/VBox/Items"]
 margin_top = 57.0
 margin_right = 64.0
 margin_bottom = 85.0
@@ -465,7 +465,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SizeInput" type="MenuButton" parent="Popups/MenuContainer/VBox/Items"]
+[node name="SizeInput" type="MenuButton" parent="Popups/MenuUniverse/VBox/Items"]
 margin_left = 80.0
 margin_top = 54.0
 margin_right = 128.0
@@ -479,21 +479,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Buttons" type="HBoxContainer" parent="Popups/MenuContainer/VBox"]
+[node name="Buttons" type="HBoxContainer" parent="Popups/MenuUniverse/VBox"]
 margin_top = 185.0
 margin_right = 503.0
 margin_bottom = 219.0
 custom_constants/separation = 256
 alignment = 1
 
-[node name="CancelButton" type="Button" parent="Popups/MenuContainer/VBox/Buttons"]
+[node name="CancelButton" type="Button" parent="Popups/MenuUniverse/VBox/Buttons"]
 margin_left = 48.0
 margin_right = 132.0
 margin_bottom = 34.0
 custom_fonts/font = ExtResource( 4 )
 text = "Cancel"
 
-[node name="AddButton" type="Button" parent="Popups/MenuContainer/VBox/Buttons"]
+[node name="AddButton" type="Button" parent="Popups/MenuUniverse/VBox/Buttons"]
 margin_left = 388.0
 margin_right = 454.0
 margin_bottom = 34.0
@@ -864,9 +864,9 @@ popup_exclusive = true
 window_title = "Open een Bestand"
 mode = 0
 access = 2
-current_dir = "/Users/erickim/wv_project/Visualizer"
+current_dir = "/Users/Joran/Git/wv_project/Visualizer"
 current_file = "~"
-current_path = "/Users/erickim/wv_project/Visualizer/~"
+current_path = "/Users/Joran/Git/wv_project/Visualizer/~"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -887,8 +887,8 @@ __meta__ = {
 [connection signal="button_up" from="HSplit/MainPanel/UI/HUD/Main/Run" to="." method="run"]
 [connection signal="button_up" from="Popups/MenuConfig/VBox/Buttons/CancelButton" to="." method="toggle_menu_config" binds= [ false ]]
 [connection signal="button_up" from="Popups/MenuConfig/VBox/Buttons/AddButton" to="." method="check_config"]
-[connection signal="button_up" from="Popups/MenuContainer/VBox/Buttons/CancelButton" to="." method="toggle_menu_container" binds= [ false ]]
-[connection signal="button_up" from="Popups/MenuContainer/VBox/Buttons/AddButton" to="." method="set_universe"]
+[connection signal="button_up" from="Popups/MenuUniverse/VBox/Buttons/CancelButton" to="." method="toggle_menu_container" binds= [ false ]]
+[connection signal="button_up" from="Popups/MenuUniverse/VBox/Buttons/AddButton" to="." method="set_universe"]
 [connection signal="button_up" from="Popups/MenuGroup/VBox/Buttons/CancelButton" to="." method="toggle_menu_group" binds= [ false ]]
 [connection signal="button_up" from="Popups/MenuGroup/VBox/Buttons/Group" to="." method="group"]
 [connection signal="button_up" from="Popups/MenuPosConstraint/VBox/Buttons/CancelButton" to="." method="toggle_menu_constraint" binds= [ false ]]

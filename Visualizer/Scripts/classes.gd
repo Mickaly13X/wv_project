@@ -22,12 +22,15 @@ class Problem:
 		universe.add_element(element)
 	
 	
-	func remove_from_universe(_element : int):
+	func erase_elements(elements_ids : PoolIntArray):
 		
-		universe.remove_element(_element)
-		for domain in domains:
-			domain.remove_element(_element)
-
+		for i in elements_ids:
+			universe.erase_elem(i)
+			for domain in domains:
+				domain.erase_elem(i)
+		check_empty_domains()
+	
+	
 	func add_elements(no_elements : int):
 		
 		universe.add_elements(range(no_elements))
@@ -49,7 +52,7 @@ class Problem:
 			var queue_delete = []
 			var domains_strict = get_domains_strict()
 			for i in range(no_domains):
-				if Array(domains_strict[i]) == []:
+				if domains_strict[i].empty():
 					queue_delete.append(i)
 			
 			for i in queue_delete:
@@ -228,9 +231,8 @@ class Domain:
 		elements = g.union(elements, new_elements)
 	
 	
-	func remove_element(_element : int):
-		elements.erase(_element)
-		
+	func erase_elem(element : int):
+		elements.erase(element)
 	
 	
 	# Get domain size
@@ -293,37 +295,10 @@ class Configuration:
 	
 	func _init(_name = "config", _size = 1, _type = "", _domain = null):
 		
-		print(_type)
 		config_name = _name
 		size = _size
-		type = _type
 		domain = _domain
-		
-		match type:
-			
-			"sequence":
-				
-				type_string_list = ["[", "|| ", "]"]
-				
-			"permutation":
-				
-				type_string_list = ["[", "| ", "]"]
-				
-			"subset":
-				
-				type_string_list = ["{", "| ", "}"]
-			
-			"multisubset":
-				
-				type_string_list = ["{", "|| ", "}"]
-			
-			"partition":
-				
-				type_string_list = ["partitions", "(", ")"]
-			
-			"composition":
-				
-				type_string_list = ["compositions", "(", ")"]
+		set_type(_type)
 	
 	
 	func set_size(_size: int):

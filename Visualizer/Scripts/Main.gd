@@ -15,6 +15,7 @@ enum SetFunction {ANY, INJ, SUR}
 onready var CoLaInput = $HSplit/CoLaPanel/CoLaInput
 onready var CoLaPanel = $HSplit/CoLaPanel
 onready var Config = $HSplit/MainPanel/Containers/Config
+onready var ConfigFuncInput = $Popups/MenuConfig/VBox/Items/NameInput
 onready var ConfigNameInput = $Popups/MenuConfig/VBox/Items/NameInput
 onready var ConfigSizeInput = $Popups/MenuConfig/VBox/Items/SizeInput
 onready var Containers = $HSplit/MainPanel/Containers
@@ -50,7 +51,7 @@ func _ready():
 	init_menus()
 	Popups.get_node("OpenFile").current_dir = ""
 	Popups.get_node("OpenFile").current_path = ""
-	set_config(0, "", true)
+	set_config(0, "")
 	#var file_path = "res://tests/paper/constrained/permutation_5_4.test"
 	#var domains = get_domains(get_input(file_path))
 	#set_diagram(get_venn_areas(domains.values()))
@@ -125,13 +126,12 @@ func check_config() -> void:
 		show_message("Please choose a size")
 		return
 	
-	var _name = ConfigNameInput.text
+	var custom_name = ConfigNameInput.text
 	var size = int(ConfigSizeInput.text)
-	var is_distinct = (config[0] == Distinct.X_SAME || config[0] == Distinct.NONE_SAME)
-	set_config(size, _name, is_distinct)
-	var config = g.Configuration.new(_name)
-	config.set_size(size)
-	g.problem.set_config(config)
+	var type = ConfigFuncInput.text
+	
+	g.problem.get_config()._init(custom_name, size, type)
+	set_config(size, custom_name)
 	toggle_menu_config(false)
 
 
@@ -305,7 +305,7 @@ func popup_import():
 	Popups.get_node("OpenFile").popup()
 
 
-func set_config(size : int, custom_name : String, is_distinct : bool) -> void:
+func set_config(size : int, custom_name : String) -> void:
 	Config.init(size, custom_name)
 
 

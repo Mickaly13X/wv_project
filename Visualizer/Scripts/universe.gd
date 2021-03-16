@@ -38,7 +38,6 @@ func _ready():
 	shape.set_border_width_all(3)
 	shape.set_corner_radius_all(30)
 	
-	g.problem.universe = g.Domain.new("_universe")
 	set_name("")
 
 

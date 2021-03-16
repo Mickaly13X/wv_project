@@ -1,12 +1,11 @@
 class Problem:
 	
 	var domains: Array
-	var config : Configuration
+	var config = g.Configuration.new()
 	var elem_counter: int
 	var entity_map: Dictionary
 	var count_formulas: Array
-	var universe: Domain
-	
+	var universe = g.Domain.new("_universe")
 	
 	
 	func _init():
@@ -26,7 +25,7 @@ class Problem:
 	
 	func remove_from_universe(_element : int):
 		
-		universe	.remove_element(_element)
+		universe.remove_element(_element)
 		for domain in domains:
 			domain.remove_element(_element)
 
@@ -61,6 +60,10 @@ class Problem:
 	func clear_domains():
 		domains = []
 		universe.clear()
+	
+	
+	func get_config() -> Configuration:
+		return config
 	
 	
 	func get_domain(domain_name: String) -> Domain:
@@ -285,7 +288,7 @@ class Configuration:
 	var type_string_list = []
 	var domain
 	
-	func _init(_name = "", _type = "", _domain = null, _size = 1):
+	func _init(_name = "", _size = 1, _type = "", _domain = null):
 		
 		config_name = _name
 		size = _size

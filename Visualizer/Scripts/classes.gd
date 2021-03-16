@@ -286,7 +286,8 @@ class Domain:
 			# sorted by is_interval()
 			var lo = elements[0]
 			var hi = elements[-1]
-			return Interval.new(lo, hi)
+			var interval = g.Interval.new(lo, hi)
+			return interval
 		return null
 	
 	

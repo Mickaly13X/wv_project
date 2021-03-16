@@ -79,3 +79,32 @@ func set_size(size : int) -> void:
 		new_element.position = \
 			starting_point + (2*ELEMENT_SIZE + ELEMENT_OFFSET) * i * Vector2.DOWN
 		$Elements.add_child(new_element)
+
+
+func _pressed(button_name : String) -> void:
+	
+	match button_name:
+		
+		"Constraint": 
+			pass
+	
+	$Menu.hide()
+
+
+func _gui_input(event):
+	if event.is_pressed():
+		if event.button_index == BUTTON_LEFT:
+			toggle_menu(false)
+			#deselect_elements()
+		elif event.button_index == BUTTON_RIGHT:
+			#var has_selected_elements = has_selected_elements()
+			#toggle_group_button(has_selected_elements)
+			#toggle_add_button(!(has_max_elements() || has_selected_elements))
+			toggle_menu(true)
+
+
+func toggle_menu(is_visible : bool):
+	
+	$Menu.visible = is_visible
+	if is_visible:
+		$Menu.position = get_local_mouse_position()

@@ -31,4 +31,21 @@ __meta__ = {
 }
 
 [node name="Elements" type="Node2D" parent="."]
+
+[node name="Menu" type="Node2D" parent="."]
+visible = false
+
+[node name="Buttons" type="VBoxContainer" parent="Menu"]
+margin_right = 106.0
+margin_bottom = 32.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ConstraintButton" type="Button" parent="Menu/Buttons"]
+margin_right = 106.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 0, 32 )
+text = "Add Constraint"
 [connection signal="gui_input" from="Mask" to="." method="_gui_input"]
+[connection signal="button_up" from="Menu/Buttons/ConstraintButton" to="." method="_pressed" binds= [ "Constraint" ]]

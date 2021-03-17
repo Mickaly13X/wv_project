@@ -35,14 +35,14 @@ func _draw():
 
 
 func _gui_input(event):
-	
-	if is_in_universe():
-		if event.is_pressed():
-			if event.button_index == BUTTON_LEFT:
-				is_selected = !is_selected
-			elif event.button_index == BUTTON_RIGHT:
-				is_selected = true
-				Container_.toggle_menu(true)
+	#if is_in_universe():
+	if event.is_pressed():
+		if event.button_index == BUTTON_LEFT:
+			is_selected = !is_selected
+		elif event.button_index == BUTTON_RIGHT:
+			is_selected = true
+			print("1")
+			Container_.toggle_menu(true)
 
 
 func get_id() -> int:

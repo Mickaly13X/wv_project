@@ -7,6 +7,7 @@ const ELEMENT_SIZE = 20
 const Domain = preload("res://Scripts/classes.gd").Domain
 const Interval = preload("res://Scripts/classes.gd").Interval
 
+onready var Buttons = $Menu/Buttons
 onready var Main : Node
 
 var custom_name
@@ -107,4 +108,27 @@ func toggle_menu(is_visible : bool):
 	
 	$Menu.visible = is_visible
 	if is_visible:
+		Main.undo_menu("Universe")
 		$Menu.position = get_local_mouse_position()
+		toggle_menu_button("Constraint", get_size() > 0)
+
+
+func toggle_menu_button(buttom_name: String, is_pressable : bool):
+	Buttons.get_node(buttom_name).disabled = !is_pressable
+	
+func deselect_elements():
+	
+	for I in get_elements_selected():
+		I.is_selected = false
+
+
+func get_elements_selected() -> Array:
+	
+	var elements_selected = []
+	for I in get_elements():
+		if I.is_selected:
+			elements_selected.append(I)
+	return elements_selected
+
+
+

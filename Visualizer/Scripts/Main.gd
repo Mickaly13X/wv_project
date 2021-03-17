@@ -339,11 +339,11 @@ func set_universe() -> void:
 	
 	
 	
-	Containers.get_node(container_menu).init(int(new_size), true, new_name)
+	Containers.get_node("Universe").init(int(new_size), true, new_name)
 	g.problem.set_universe(int(new_size))
 	
 	CoLaInput.text += new_name + "{[1," + str(new_size) + "]}"
-	toggle_menu_container(false)
+	toggle_menu_universe(false)
 
 
 func show_message(message : String) -> void:
@@ -364,22 +364,6 @@ func toggle_cola_panel():
 		OpenCoLa.text = ">"
 
 
-# ref = N or X
-func toggle_menu_container(is_opened : bool, ref : String = "Universe") -> void:
-	
-	if is_opened:
-		container_menu = ref
-		if ref == "Universe":
-			$Popups/MenuUniverse/VBox/Title.text = "Set Universe"
-		else:
-			$Popups/MenuUniverse/VBox/Title.text = "Set Variables"
-		$Popups/MenuUniverse.popup()
-	else:
-		#$Popups/MenuUniverse/VBox/Items/NameInput.text = ""
-		#SizeInput.text = "- -"
-		$Popups/MenuUniverse.hide()
-
-
 func toggle_menu_group(is_opened : bool) -> void:
 	
 	if is_opened:
@@ -395,10 +379,19 @@ func toggle_menu_group(is_opened : bool) -> void:
 		Popups.get_node("MenuGroup").hide()
 
 
+# ref = N or X
+func toggle_menu_universe(is_opened : bool) -> void:
+	
+	if is_opened:
+		$Popups/MenuUniverse/VBox/Title.text = "Set Universe"
+		$Popups/MenuUniverse.popup()
+	else:
+		$Popups/MenuUniverse.hide()
+
+
 func toggle_menu_config(is_opened : bool) -> void:
 	
 	if is_opened:
-		#DistInput.text = DistInput.get_popup().get_item_text(config[0])
 		FuncInput.text = FuncInput.get_popup().get_item_text(config[1])
 		$Popups/MenuConfig.popup()
 	else:
@@ -415,6 +408,12 @@ func toggle_menu_constraint(is_opened : bool) -> void:
 		
 		Popups.get_node("MenuPosConstraint").hide()
 
+
+func undo_menu(ref : String) -> void:
+	
+	var container = Containers.get_node(ref)
+	container.deselect_elements()
+	container.toggle_menu(false)
 
 
 func get_selected_group_names_as_string() -> String:

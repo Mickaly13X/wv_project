@@ -136,12 +136,17 @@ func check_config() -> void:
 
 func check_pos_constraint() -> void:
 	
+	if ConfigSizeInput.text == "-Select Domain-":
+		show_message("Please choose a domain")
+		return
+	
 	var domain_name = DomainInput.get_text()
 	if domain_name == "Universe":
 		g.problem.add_pos_constraint(Config.index_selected, "_universe")
 	else:
 		g.problem.add_pos_constraint(Config.index_selected, domain_name)
 	
+	Config.update()
 	toggle_menu_pos_constraint(false)
 
 
@@ -329,10 +334,6 @@ func popup_import():
 	Popups.get_node("OpenFile").popup()
 
 
-func set_config(size : int, custom_name : String) -> void:
-	Config.init(size, custom_name)
-
-
 func run():
 	
 	#create_cola_file()
@@ -342,6 +343,10 @@ func run():
 #		show_message("Config not defined!")
 #	if Universe.get_size() ==  0:
 #		show_message("Universe not defined!")
+
+
+func set_config(size : int, custom_name : String) -> void:
+	Config.init(size, custom_name)
 
 
 func set_universe() -> void:

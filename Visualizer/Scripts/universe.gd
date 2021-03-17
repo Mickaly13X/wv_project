@@ -211,6 +211,17 @@ func get_circle_approx(circle : Dictionary) -> Rect2:
 	)
 
 
+func get_domain_left_side(domain) -> Vector2:
+	
+	if domain == g.problem.universe:
+		return $Mask.rect_size.y / 2.0 * Vector2.DOWN
+	
+	for i in circles_domain:
+		if i.domain == domain:
+			return i.pos + i.radius * Vector2.LEFT
+	return Vector2.ZERO
+
+
 func get_domains() -> Array:
 	return g.problem.get_domains()
 

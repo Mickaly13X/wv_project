@@ -24,10 +24,19 @@ func _ready():
 
 
 func _draw():
+	
 	draw_style_box(shape, Rect2(Vector2(0, 0), $Mask.rect_size))
+	var constraints = g.problem.pos_constraints
+	var x_rel = (Main.Universe.position.x - position.x) * Vector2.RIGHT
+	for i in constraints:
+		var elem = get_element(int(i))
+		draw_line(elem.position + ELEMENT_SIZE * Vector2.RIGHT,
+				  Main.Universe.get_domain_left_side(constraints[i]) + x_rel,
+				  Color.white, 5)
 
 
 func _gui_input(event):
+	
 	if event.is_pressed():
 		if event.button_index == BUTTON_LEFT:
 			toggle_menu(false)
@@ -49,6 +58,14 @@ func _pressed(button_name : String) -> void:
 	$Menu.hide()
 
 
+func get_element(index: int) -> Node2D:
+	
+	for I in get_elements():
+		if I.index == index:
+			return I
+	return null
+
+
 func has_max_elements() -> bool:
 	
 	if get_size() == 10:
@@ -60,6 +77,7 @@ func init(size : int, custom_name = get_name()) -> void:
 	
 	set_name(custom_name)
 	set_size(size)
+	update()
 
 
 func set_name(custom_name : String) -> void:

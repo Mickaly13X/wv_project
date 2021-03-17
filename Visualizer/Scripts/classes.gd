@@ -49,7 +49,11 @@ class Problem:
 	
 	
 	func add_pos_constraint(pos: int, domain_name: String) -> void:
-		pos_constraints[pos] = get_domain(domain_name)
+		
+		if domain_name == "_universe":
+			pos_constraints[pos] = universe
+		else:
+			pos_constraints[pos] = get_domain(domain_name)
 	
 	
 	func add_to_domain(domain_name, _element : int) -> void:
@@ -189,6 +193,7 @@ class Problem:
 		self.config.set_size(_size)
 		self.config.set_type(_type)
 		self.config.set_domain(_domain)
+		pos_constraints = Dictionary()
 	
 	
 	func set_universe(size: int) -> void:

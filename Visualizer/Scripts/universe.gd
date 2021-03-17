@@ -383,8 +383,8 @@ func update_domain_names() -> void:
 			DomainName.text = domains[i].get_name()
 			var size_constraint = domains[i].size_constraint
 			if size_constraint.operator != "":
-				DomainName.text += "\n Size " + size_constraint.operator + \
-								   " " + str(size_constraint.size)
+				DomainName.text += "\n(Size " + size_constraint.operator + \
+								   " " + str(size_constraint.size) + ")"
 			
 			DomainName.rect_position = \
 				circles_domain[i].pos - circles_domain[i].radius * Vector2.ONE

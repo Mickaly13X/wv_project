@@ -4,8 +4,8 @@ import itertools
 import operator
 from ortools.sat.python import cp_model
 
-from CoSo.src.formulas import *
-from CoSo.src.structure import Domain, LiftedSet, is_singleton
+from formulas import *
+from structure import Domain, LiftedSet, is_singleton
 
 class Unsatisfiable(Exception):
     def __init__(self, value): 

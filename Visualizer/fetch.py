@@ -1,4 +1,3 @@
-import CoSo.src.launcher as launcher
 from matplotlib_venn._venn2 import solve_venn2_circles
 from matplotlib_venn._venn3 import solve_venn3_circles
 from numpy import array
@@ -7,9 +6,9 @@ import sys
 
 
 def coso():
-    path_file = os.path.abspath("input_cola.pl")
-    print(path_file)
-    launcher.launch(path_file)
+    #path_file = os.path.abspath("input_cola.pl")
+    os.system("python CoSo/src/launcher.py input_cola.pl")# + path_file)
+    #launcher.launch(path_file)
 
 
 # venn_size is 2 or 3
@@ -29,7 +28,7 @@ def venn(venn_size, *inter_sizes):
         print(r[i]) # radius
 
 
-function_name: str
+function_name = str
 if int(sys.argv[1]) == 0:
     function_name = "venn"
 else:
@@ -39,5 +38,5 @@ arguments = []
 for i in sys.argv[2:]:
     arguments.append(int(i))
     
-request_func: str = function_name + "(" + str(arguments).strip("[]") + ")"
+request_func = function_name + "(" + str(arguments).strip("[]") + ")"
 eval(request_func)

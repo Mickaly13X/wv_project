@@ -33,19 +33,19 @@ __meta__ = {
 [node name="Elements" type="Node2D" parent="."]
 
 [node name="Menu" type="Node2D" parent="."]
-visible = false
 
 [node name="Buttons" type="VBoxContainer" parent="Menu"]
-margin_right = 106.0
+margin_right = 124.0
 margin_bottom = 32.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="PosConstraint" type="Button" parent="Menu/Buttons"]
-margin_right = 106.0
+margin_right = 124.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 0, 32 )
+size_flags_horizontal = 3
 text = "Pos Constraint"
 [connection signal="gui_input" from="Mask" to="." method="_gui_input"]
 [connection signal="button_up" from="Menu/Buttons/PosConstraint" to="." method="_pressed" binds= [ "Constraint" ]]

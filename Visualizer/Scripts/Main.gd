@@ -336,7 +336,7 @@ func popup_import():
 
 func run():
 	
-	#create_cola_file()
+	create_cola_file()
 	var sol = fetch("coso")
 	#show_message("Solution is " + sol[0])
 #	if Config.get_size() ==  0:

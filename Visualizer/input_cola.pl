@@ -1,2 +1,2 @@
-config in Null;
-#config = 1;
+config in [|| _universe];
+#config = 2;

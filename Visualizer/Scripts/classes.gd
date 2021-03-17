@@ -210,6 +210,7 @@ class Problem:
 			cola += dom.to_cola()
 			cola += "\n"
 		
+		config.set_formula(universe_formula)
 		cola += config.to_cola()
 		
 		return cola
@@ -344,7 +345,8 @@ class Configuration:
 	var config_name
 	var type
 	var type_string_list = ["","",""]
-	var domain
+	var formula
+	var domain : Domain
 	
 	func _init(_name = "config", _size = 1, _type = "", _domain = null):
 		
@@ -406,9 +408,17 @@ class Configuration:
 		domain = _domain
 	
 	
+	func get_formula() -> String:
+		return formula
+	
+	
+	func set_formula(f : String):
+		self.formula = f
+	
+	
 	func to_cola() -> String:
 		
-		var cola = "{c} in {h0}{h1}{d}{h2};".format({"c":config_name,"d":domain, "h0":type_string_list[0], "h1":type_string_list[1], "h2":type_string_list[2]})
+		var cola = "{c} in {h0}{h1}{u}{h2};".format({"c":config_name,"u":formula, "h0":type_string_list[0], "h1":type_string_list[1], "h2":type_string_list[2]})
 		cola += "\n#{c} = {s};".format({"c":config_name, "s":size})
 		
 		return cola

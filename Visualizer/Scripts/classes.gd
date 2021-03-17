@@ -223,8 +223,19 @@ class Problem:
 		cola += config.to_cola()
 		
 		# Pos Constraints
+		var flag = 1
 		for i in pos_constraints:
 			cola += "\n{name}[{i}] = {domain};".format({"name" : config.get_name(), "i" : int(i), "domain" : pos_constraints[i].get_name()})
+#			if flag != pos_constraints.size():
+#				cola += ";"
+#			flag += 1
+		
+		# Size Constraints
+		for domain in domains:
+			if domain.size_constraint.operator != "":
+				cola += "\n#{d} {op} {i};".format({"d":domain.get_name(), "op" : domain.size_constraint.operator, "i" : domain.size_constraint.size})
+
+		cola += "\n"
 		
 		return cola
 	

@@ -145,7 +145,7 @@ func check_pos_constraint() -> void:
 	
 	var domain_name = DomainInput.get_text()
 	if domain_name == "Universe":
-		g.problem.add_pos_constraint(Config.index_selected, "_universe")
+		g.problem.add_pos_constraint(Config.index_selected, "universe")
 	else:
 		g.problem.add_pos_constraint(Config.index_selected, domain_name)
 	

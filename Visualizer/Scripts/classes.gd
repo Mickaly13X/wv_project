@@ -9,6 +9,7 @@ class Problem:
 	var universe = g.Domain.new("_universe")
 	var universe_formula : String
 	
+	
 	func _init():
 		
 		domains = []
@@ -25,20 +26,9 @@ class Problem:
 		universe.add_element(element)
 		update_universe_formula()
 	
-
-	func erase_elements(elements_ids : PoolIntArray):
-		
-		for i in elements_ids:
-			universe.erase_elem(i)
-			for domain in domains:
-				domain.erase_elem(i)
-		check_empty_domains()
-		update_universe_formula()
-	
 	
 	func add_elements(no_elements : int) -> void:
 		
-# warning-ignore:unused_variable
 		var new_elements = []
 		for i in no_elements:
 			var elem_count = universe.get_size()
@@ -71,22 +61,22 @@ class Problem:
 		for i in domains:
 			if i.get_elements().empty():
 				remove_domain(domains.find(i))
-#		var no_domains = len(get_domains())
-#		if no_domains > 0:
-#
-#			var queue_delete = []
-#			var domains_strict = get_domains_strict()
-#			for i in range(no_domains):
-#				if domains_strict[i].empty():
-#					queue_delete.append(i)
-#
-#			for i in queue_delete:
-#				remove_domain(i)
 	
 	
 	func clear_domains():
+		
 		domains = []
 		universe.clear()
+		update_universe_formula()
+	
+	
+	func erase_elements(elements_ids : PoolIntArray):
+		
+		for i in elements_ids:
+			universe.erase_elem(i)
+			for domain in domains:
+				domain.erase_elem(i)
+		check_empty_domains()
 		update_universe_formula()
 	
 	
@@ -184,6 +174,18 @@ class Problem:
 		return get_domain(group_name) != null
 	
 	
+	func remove_domain(index : int) -> void:
+		domains.remove(index)
+	
+	
+	func reset():
+		
+		entity_map = {}
+		count_formulas = []
+		config = null
+		clear_domains()
+	
+	
 	func set_config(_name : String, _size : int, _type : String, _domain = get_universe()) -> void:
 		
 		_name = _name.strip_edges()
@@ -195,6 +197,10 @@ class Problem:
 		self.config.set_type(_type)
 		self.config.set_domain(_domain)
 		pos_constraints = Dictionary()
+	
+	
+	func set_size_constraint(domain_name: String, operator: String, size: int) -> void:
+		get_domain(domain_name).size_constraint.init(operator, size)
 	
 	
 	func set_universe(size: int) -> void:
@@ -224,19 +230,8 @@ class Problem:
 		return cola
 	
 	
-	func remove_domain(index : int) -> void:
-		domains.remove(index)
-	
-	
-	func reset():
-		
-		entity_map = {}
-		count_formulas = []
-		config = null
-		clear_domains()
-	
-	
 	func update_universe_formula():
+		
 		if g.Union(domains).get_size() == universe.get_size():
 			var tmp = ""
 			var size = domains.size()
@@ -261,7 +256,7 @@ class Domain:
 	var domain_name: String
 	var elements: Array
 	var is_distinct: bool
-	var SizeConstraint: SizeConstraint
+	var size_constraint = g.SizeConstraint.new()
 	
 	
 	func _init(_name : String, _elements = [], _is_distinct = true):
@@ -433,35 +428,30 @@ class Configuration:
 		return cola
 
 
-class Constraint:
-	
-	func _init():
-		pass
-
-
-class PosConstraint extends Constraint:
+class PosConstraint:
 	
 	var configuration
 	var domain
 	var position
 	
-	func _init(_config : Configuration, _position : int, _domain : Domain).():
+	func _init(_config : Configuration, _position : int, _domain : Domain):
 		
 		configuration = _config
 		position = _position
 		domain = _domain
 	
 	
-class SizeConstraint extends Constraint:
-	
-	var operator: String
-	var size: int
+class SizeConstraint:
 	
 	
-	func _init(_operator : String, _size : int).():
+	var operator = ""
+	var size = 0
+	
+	
+	func init(operator : String, size : int):
 		
-		operator = _operator
-		size = _size
+		self.operator = operator
+		self.size = size
 
 
 class DomainFormula:

@@ -200,13 +200,20 @@ class Problem:
 	
 	func to_cola() -> String:
 		
+		# Domains
 		var cola = ""
 		for dom in domains:
 			cola += dom.to_cola()
 			cola += "\n"
 		
+		# Configs
 		config.set_formula(universe_formula)
 		cola += config.to_cola()
+		
+		# Pos Constraints
+		for i in pos_constraints:
+			cola += "\n{name}[{i}] = {domain};".format({"name" : config.get_name(), "i" : int(i), "domain" : pos_constraints[i].get_name()})
+		
 		
 		return cola
 	

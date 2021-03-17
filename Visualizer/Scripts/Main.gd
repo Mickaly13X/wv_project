@@ -335,13 +335,17 @@ func set_config(size : int, custom_name : String) -> void:
 
 func run():
 	
+	if Config.get_size() ==  0:
+		show_message("Config not defined!")
+		return
+	if Universe.get_size() ==  0:
+		show_message("Universe not defined!")
+		return
+	
 	create_cola_file()
 	var sol = fetch("coso")
-	#show_message("Solution is " + sol[0])
-#	if Config.get_size() ==  0:
-#		show_message("Config not defined!")
-#	if Universe.get_size() ==  0:
-#		show_message("Universe not defined!")
+	show_message("Solution is " + sol[0])
+
 
 
 func set_universe() -> void:

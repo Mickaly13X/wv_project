@@ -234,7 +234,9 @@ class Problem:
 		for domain in domains:
 			if domain.size_constraint.operator != "":
 				cola += "\n#{d} {op} {i};".format({"d":domain.get_name(), "op" : domain.size_constraint.operator, "i" : domain.size_constraint.size})
-
+		
+		
+		cola.erase(cola.length() - 1, 1)
 		cola += "\n"
 		
 		return cola

@@ -1,5 +1,5 @@
-lol = {2,4};
-config in [| _universe];
+dutch = {1,2,4};
+french = [2:3];
+config in [| dutch + french];
 #config = 2;
-config[1] = lol;
-#lol >= 2;
+config[1] = dutch

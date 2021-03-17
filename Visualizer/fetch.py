@@ -3,11 +3,13 @@ from matplotlib_venn._venn3 import solve_venn3_circles
 from numpy import array
 import os
 import sys
-
+import subprocess
 
 def coso():
     #path_file = os.path.abspath("input_cola.pl")
-    os.system("python CoSo/src/launcher.py -f input_cola.pl")# + path_file)
+    result = subprocess.check_output(["python","CoSo/src/launcher.py","-f","input_cola.pl"], stderr=subprocess.STDOUT)
+    print(result)
+    #print(os.system("python CoSo/src/launcher.py -f input_cola.pl"))# + path_file)
     #launcher.launch(path_file)
 
 

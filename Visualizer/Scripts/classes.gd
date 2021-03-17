@@ -273,7 +273,7 @@ class Domain:
 	
 	func _init(_name : String, _elements = [], _is_distinct = true):
 		
-		domain_name = _name
+		domain_name = _name.to_lower()
 		elements = _elements
 		is_distinct = _is_distinct
 	

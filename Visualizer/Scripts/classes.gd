@@ -4,6 +4,7 @@ class Problem:
 	var config = g.Configuration.new()
 	var entity_map: Dictionary
 	var count_formulas: Array
+	var pos_constraints: Dictionary
 	var universe = g.Domain.new("_universe")
 	var universe_formula : String
 	
@@ -19,7 +20,7 @@ class Problem:
 		domains.append(domain)
 		update_universe_formula()
 	
-	func add_to_universe(element : int):
+	func add_to_universe(element : int) -> void:
 		universe.add_element(element)
 		update_universe_formula()
 	
@@ -34,7 +35,7 @@ class Problem:
 		update_universe_formula()
 	
 	
-	func add_elements(no_elements : int):
+	func add_elements(no_elements : int) -> void:
 		
 # warning-ignore:unused_variable
 		var new_elements = []
@@ -47,6 +48,10 @@ class Problem:
 		update_universe_formula()
 	
 	
+	func add_pos_constraint(pos: int, domain_name: String) -> void:
+		pos_constraints[pos] = get_domain(domain_name)
+	
+	
 	func add_to_domain(domain_name, _element : int) -> void:
 		
 		for dom in domains:
@@ -57,18 +62,21 @@ class Problem:
 	
 	
 	func check_empty_domains() -> void:
-		
-		var no_domains = len(get_domains())
-		if no_domains > 0:
-			
-			var queue_delete = []
-			var domains_strict = get_domains_strict()
-			for i in range(no_domains):
-				if domains_strict[i].empty():
-					queue_delete.append(i)
-			
-			for i in queue_delete:
-				remove_domain(i)
+	
+		for i in domains:
+			if i.get_elements().empty():
+				remove_domain(domains.find(i))
+#		var no_domains = len(get_domains())
+#		if no_domains > 0:
+#
+#			var queue_delete = []
+#			var domains_strict = get_domains_strict()
+#			for i in range(no_domains):
+#				if domains_strict[i].empty():
+#					queue_delete.append(i)
+#
+#			for i in queue_delete:
+#				remove_domain(i)
 	
 	
 	func clear_domains():
@@ -87,6 +95,8 @@ class Problem:
 	
 	func get_domain(domain_name: String) -> Domain:
 		
+		if domain_name == "_universe":
+			return universe
 		for i in get_domains():
 			if i.get_name() == domain_name:
 				return i
@@ -155,8 +165,6 @@ class Problem:
 			update_universe_formula()
 		else:
 			get_domain(group_name).add_elements(elements)
-		
-		check_empty_domains()
 	
 	
 	func is_dist_elem(elem_id: int) -> bool:

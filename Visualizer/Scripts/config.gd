@@ -1,4 +1,4 @@
-extends Node2D
+extends "res://Scripts/container.gd"
 
 
 const ELEMENT = preload("res://Scenes/Element.tscn")
@@ -10,8 +10,7 @@ const Interval = preload("res://Scripts/classes.gd").Interval
 onready var Buttons = $Menu/Buttons
 onready var Main : Node
 
-var custom_name
-var shape
+var index_selected: int
 
 
 func _ready():
@@ -28,20 +27,26 @@ func _draw():
 	draw_style_box(shape, Rect2(Vector2(0, 0), $Mask.rect_size))
 
 
-func get_center(offset = Vector2.ZERO) -> Vector2:
-	return $Mask.rect_position + $Mask.rect_size / 2 + offset
+func _gui_input(event):
+	if event.is_pressed():
+		if event.button_index == BUTTON_LEFT:
+			toggle_menu(false)
+			#deselect_elements()
+		elif event.button_index == BUTTON_RIGHT:
+			#var has_selected_elements = has_selected_elements()
+			#toggle_group_button(has_selected_elements)
+			#toggle_add_button(!(has_max_elements() || has_selected_elements))
+			toggle_menu(false)
 
 
-func get_elements() -> Array:
-	return $Elements.get_children()
-
-
-func get_name() -> String:
-	return custom_name
-
-
-func get_size() -> int:
-	return len(get_elements())
+func _pressed(button_name : String) -> void:
+	
+	match button_name:
+		
+		"Constraint": 
+			Main.toggle_menu_pos_constraint(true)
+	
+	$Menu.hide()
 
 
 func has_max_elements() -> bool:
@@ -49,8 +54,6 @@ func has_max_elements() -> bool:
 	if get_size() == 10:
 		return true
 	return false
-
-
 
 
 func init(size : int, custom_name = get_name()) -> void:
@@ -76,32 +79,11 @@ func set_size(size : int) -> void:
 	var starting_point = get_center() + (total_length / 2.0) * Vector2.UP
 	for i in range(size):
 		var new_element = ELEMENT.instance()
+		new_element.index = i + 1
 		new_element.init(self)
 		new_element.position = \
 			starting_point + (2*ELEMENT_SIZE + ELEMENT_OFFSET) * i * Vector2.DOWN
 		$Elements.add_child(new_element)
-
-
-func _pressed(button_name : String) -> void:
-	
-	match button_name:
-		
-		"Constraint": 
-			Main.toggle_menu_constraint(true)
-	
-	$Menu.hide()
-
-
-func _gui_input(event):
-	if event.is_pressed():
-		if event.button_index == BUTTON_LEFT:
-			toggle_menu(false)
-			#deselect_elements()
-		elif event.button_index == BUTTON_RIGHT:
-			#var has_selected_elements = has_selected_elements()
-			#toggle_group_button(has_selected_elements)
-			#toggle_add_button(!(has_max_elements() || has_selected_elements))
-			toggle_menu(true)
 
 
 func toggle_menu(is_visible : bool):
@@ -110,11 +92,7 @@ func toggle_menu(is_visible : bool):
 	if is_visible:
 		Main.undo_menu("Universe")
 		$Menu.position = get_local_mouse_position()
-		toggle_menu_button("Constraint", get_size() > 0)
-
-
-func toggle_menu_button(buttom_name: String, is_pressable : bool):
-	Buttons.get_node(buttom_name).disabled = !is_pressable
+		toggle_menu_button("PosConstraint", true)
 
 
 func deselect_elements():
@@ -132,4 +110,5 @@ func get_elements_selected() -> Array:
 	return elements_selected
 
 
-
+func toggle_menu_button(buttom_name: String, is_pressable : bool):
+	Buttons.get_node(buttom_name).disabled = !is_pressable

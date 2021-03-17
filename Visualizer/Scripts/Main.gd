@@ -161,10 +161,9 @@ func check_size_constraint() -> void:
 	
 	var domain_name = SizeDomainInput.text
 	var operator = OperatorInput.text
-	var size = IntInput.text
+	var size = int(IntInput.text)
 	
-	
-	g.problem.set_size_constraint(domain_name, "", 0)
+	g.problem.set_size_constraint(domain_name, operator, size)
 	
 	Universe.update_domain_names()
 	toggle_menu_size_constraint(false)

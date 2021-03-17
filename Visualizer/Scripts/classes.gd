@@ -5,20 +5,23 @@ class Problem:
 	var entity_map: Dictionary
 	var count_formulas: Array
 	var universe = g.Domain.new("_universe")
+	var universe_formula : String
 	
 	func _init():
 		
 		domains = []
 		entity_map = {}
 		count_formulas = []
+		universe_formula = universe.get_name()
 	
 	
 	func add_domain(domain : Domain) -> void:
 		domains.append(domain)
-	
+		update_universe_formula()
 	
 	func add_to_universe(element : int):
 		universe.add_element(element)
+		update_universe_formula()
 	
 	
 	func erase_elements(elements_ids : PoolIntArray):
@@ -28,6 +31,7 @@ class Problem:
 			for domain in domains:
 				domain.erase_elem(i)
 		check_empty_domains()
+		update_universe_formula()
 	
 	
 	func add_elements(no_elements : int):
@@ -38,6 +42,8 @@ class Problem:
 			for j in range(1, elem_count+2):
 				if !universe.get_elements().has(j):
 					universe.add_elements([j])
+					
+		update_universe_formula()
 	
 	
 	func add_to_domain(domain_name, _element : int) -> void:
@@ -45,6 +51,8 @@ class Problem:
 		for dom in domains:
 			if dom.get_name() == domain_name:
 				dom.add_element(_element)
+				
+		update_universe_formula()
 	
 	
 	func check_empty_domains() -> void:
@@ -65,6 +73,7 @@ class Problem:
 	func clear_domains():
 		domains = []
 		universe.clear()
+		update_universe_formula()
 	
 	
 	func get_config() -> Configuration:
@@ -142,6 +151,7 @@ class Problem:
 		if !is_domain(group_name):
 			var new_domain = g.Domain.new(group_name, elements, is_dist)
 			domains.append(new_domain)
+			update_universe_formula()
 		else:
 			get_domain(group_name).add_elements(elements)
 		
@@ -176,6 +186,7 @@ class Problem:
 		
 		g.problem.clear_domains()
 		add_elements(size)
+		update_universe_formula()
 	
 	
 	func to_cola() -> String:
@@ -200,6 +211,21 @@ class Problem:
 		count_formulas = []
 		config = null
 		clear_domains()
+	
+	
+	func update_universe_formula():
+		if g.Union(domains).get_size() == universe.get_size():
+			var tmp = ""
+			var size = domains.size()
+			for domain in domains:
+				tmp += domain.get_name()
+				if domains.find(domain)+1 != size:
+					tmp += " + "
+			
+			self.universe_formula = tmp
+		else:
+			self.universe_formula = universe.get_name()
+		print("universe f: ",universe_formula)
 	
 	
 	func _print():

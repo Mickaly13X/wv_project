@@ -2,8 +2,8 @@ import portion
 import operator
 import copy
 
-from CoSo.src.structure import Domain
-from CoSo.src.util import *
+from structure import Domain
+from util import *
 
 class CountingFormula(object):
     """

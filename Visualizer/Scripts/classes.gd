@@ -36,6 +36,7 @@ class Problem:
 	
 	func add_elements(no_elements : int):
 		
+# warning-ignore:unused_variable
 		var new_elements = []
 		for i in no_elements:
 			var elem_count = universe.get_size()
@@ -348,6 +349,7 @@ class Domain:
 		return null
 	
 	
+# warning-ignore:function_conflicts_variable
 	func is_distinct() -> bool:
 		return is_distinct
 
@@ -466,6 +468,7 @@ class DomainFormula:
 	var universe : Domain
 	var domain : Domain
 	
+# warning-ignore:shadowed_variable
 	func _init(universe : Domain):
 		
 		self.universe = universe
@@ -474,6 +477,7 @@ class DomainFormula:
 	
 	
 	
+# warning-ignore:shadowed_variable
 	func Not(domain : Domain) -> Domain:
 		
 		

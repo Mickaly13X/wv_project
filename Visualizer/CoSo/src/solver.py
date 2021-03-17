@@ -4,9 +4,9 @@ import itertools
 
 from problog.logic import Constant
 
-from CoSo.src.formulas import *
-from CoSo.src.sharpCSP import SharpCSP, Solution
-from CoSo.src.structure import Domain, LiftedSet
+from formulas import *
+from sharpCSP import SharpCSP, Solution
+from structure import Domain, LiftedSet
 
 class Solver(object):
     """

@@ -147,13 +147,13 @@ func fetch(function_name: String, arguments: Array = []) -> PoolStringArray:
 #	var request_func: String = function_name + "(" + \
 #		str(arguments).lstrip("[").rstrip("]") + \
 #	")"
-	var function_code = int(function_name == "coso")
+	var function_code = str(int(function_name == "coso"))
 	var args = ["fetch.py", function_code] + arguments
 	var output = []
 	print(">terminal call " + str(args))
 	
 	var exit_code = OS.execute("python", args, true, output)
-	
+	print(output)
 	print(">exit_code: " + str(exit_code))
 	return str(output[0]).split("\n")
 

@@ -2,7 +2,6 @@ class Problem:
 	
 	var domains: Array
 	var config = g.Configuration.new()
-	var elem_counter: int
 	var entity_map: Dictionary
 	var count_formulas: Array
 	var universe = g.Domain.new("_universe")
@@ -26,7 +25,6 @@ class Problem:
 		
 		for i in elements_ids:
 			universe.erase_elem(i)
-			self.elem_counter -= 1
 			for domain in domains:
 				domain.erase_elem(i)
 		check_empty_domains()
@@ -36,10 +34,10 @@ class Problem:
 		
 		var new_elements = []
 		for i in no_elements:
-			for j in range(1,elem_counter+2):
+			var elem_count = universe.get_size()
+			for j in range(1, elem_count+2):
 				if !universe.get_elements().has(j):
 					universe.add_elements([j])
-					elem_counter += 1
 	
 	
 	func add_to_domain(domain_name, _element : int) -> void:
@@ -71,6 +69,10 @@ class Problem:
 	
 	func get_config() -> Configuration:
 		return config
+	
+	
+	func get_elem_count() -> int:
+		return universe.get_size()
 	
 	
 	func get_domain(domain_name: String) -> Domain:
@@ -158,7 +160,7 @@ class Problem:
 		return get_domain(group_name) != null
 	
 	
-	func set_config(_name : String, _size : int, _type : String, _domain = null) -> void:
+	func set_config(_name : String, _size : int, _type : String, _domain = get_universe()) -> void:
 		
 		_name = _name.strip_edges()
 		if _name != "":
@@ -202,6 +204,35 @@ class Problem:
 	
 	func _print():
 		return [universe.get_elements(), domains, config]
+
+
+class Universe extends Domain:
+
+	var formula
+	var domains : Array
+
+	func _init(name = "universe").(name):
+
+		self.formula = name
+
+
+	func add_domain(domain : Domain):
+		
+		domains.append(domain)
+		if g.Union(domains).get_size() == self.get_size():
+			var tmp = ""
+			for domain in domains:
+				tmp += domain.get_name()
+				tmp += " + "
+			tmp -= " + "
+			self.formula = tmp
+	
+	
+	# override
+	func clear():
+		self.elements = Array() #parent
+		self.domains = Array()
+		self.formula = self.domain_name
 
 
 # Domain class
@@ -337,29 +368,22 @@ class Configuration:
 		match type:
 			
 			"sequence":
-				
 				type_string_list = ["[", "|| ", "]"]
 				
 			"permutation":
-				
 				type_string_list = ["[", "| ", "]"]
 				
 			"subset":
-				
 				type_string_list = ["{", "| ", "}"]
 			
 			"multisubset":
-				
 				type_string_list = ["{", "|| ", "}"]
 			
 			"partition":
-				
 				type_string_list = ["partitions", "(", ")"]
 			
 			"composition":
-				
 				type_string_list = ["compositions", "(", ")"]
-	
 	
 	
 	func get_domain():
@@ -397,9 +421,6 @@ class PosConstraint extends Constraint:
 		domain = _domain
 	
 	
-	
-	
-
 class SizeConstraint extends Constraint:
 	
 	var domain
@@ -411,6 +432,27 @@ class SizeConstraint extends Constraint:
 		domain = _domain
 		op = _op
 		size = _size
+
+
+class DomainFormula:
+	
+	var formula : String
+	var universe : Domain
+	var domain : Domain
+	
+	func _init(universe : Domain):
+		
+		self.universe = universe
+		
+	
+	
+	
+	
+	func Not(domain : Domain) -> Domain:
+		
+		
+		
+		return domain
 
 
 # Class for CoLa Expressions

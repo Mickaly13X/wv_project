@@ -83,7 +83,7 @@ func _pressed(button_name : String) -> void:
 
 func add_elements(no_elements : int):
 	
-	var counter = g.problem.elem_counter
+	var counter = g.problem.get_elem_count()
 	
 	g.problem.add_elements(no_elements)
 	

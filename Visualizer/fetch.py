@@ -1,12 +1,17 @@
+import coso.launcher as launcher
 from matplotlib_venn._venn2 import solve_venn2_circles
 from matplotlib_venn._venn3 import solve_venn3_circles
 from numpy import array
 import os
 import sys
-import subprocess
+
 
 def coso():
     path_file = os.path.abspath("input_cola.pl")
+<<<<<<< HEAD
+=======
+    print(path_file)
+>>>>>>> 12a93f890c462011a347873d583ea43bd72eddc0
     launcher.launch(path_file)
 
 

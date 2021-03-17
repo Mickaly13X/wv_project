@@ -1,0 +1,17 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "CoSo",
+            "type": "python",
+            "request": "launch",
+            "program": "launcher.py",
+            "console": "integratedTerminal",
+            "args": ["-v", "-f", "../tests/old/partitions_size.pl"]
+            // "args": ["-v", "-f", "../tests/examples/h605.pl"]
+        }
+    ]
+}

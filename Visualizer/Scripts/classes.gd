@@ -23,7 +23,7 @@ class Problem:
 		universe.add_element(element)
 		update_universe_formula()
 	
-	
+
 	func erase_elements(elements_ids : PoolIntArray):
 		
 		for i in elements_ids:
@@ -58,7 +58,7 @@ class Problem:
 	func check_empty_domains() -> void:
 		
 		var no_domains = len(get_domains())
-		if no_domains > 1:
+		if no_domains > 0:
 			
 			var queue_delete = []
 			var domains_strict = get_domains_strict()

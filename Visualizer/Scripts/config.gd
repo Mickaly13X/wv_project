@@ -115,7 +115,8 @@ func toggle_menu(is_visible : bool):
 
 func toggle_menu_button(buttom_name: String, is_pressable : bool):
 	Buttons.get_node(buttom_name).disabled = !is_pressable
-	
+
+
 func deselect_elements():
 	
 	for I in get_elements_selected():

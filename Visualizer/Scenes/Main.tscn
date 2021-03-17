@@ -669,6 +669,7 @@ __meta__ = {
 }
 
 [node name="MenuPosConstraint" type="PopupDialog" parent="Popups"]
+visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -719,32 +720,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SelectPosition" type="Label" parent="Popups/MenuPosConstraint/VBox/Items"]
-margin_top = 5.0
-margin_right = 91.0
-margin_bottom = 33.0
-custom_fonts/font = ExtResource( 4 )
-text = "Position:"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="PosInput" type="MenuButton" parent="Popups/MenuPosConstraint/VBox/Items"]
-margin_left = 107.0
-margin_right = 171.0
-margin_bottom = 38.0
-rect_min_size = Vector2( 64, 38 )
-size_flags_horizontal = 0
-custom_fonts/font = ExtResource( 4 )
-flat = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="SelectDomain" type="Label" parent="Popups/MenuPosConstraint/VBox/Items"]
-margin_left = 187.0
 margin_top = 5.0
-margin_right = 276.0
+margin_right = 89.0
 margin_bottom = 33.0
 custom_fonts/font = ExtResource( 4 )
 text = "Domain:"
@@ -753,8 +731,8 @@ __meta__ = {
 }
 
 [node name="DomainInput" type="MenuButton" parent="Popups/MenuPosConstraint/VBox/Items"]
-margin_left = 292.0
-margin_right = 475.0
+margin_left = 105.0
+margin_right = 288.0
 margin_bottom = 38.0
 rect_min_size = Vector2( 64, 38 )
 size_flags_horizontal = 0
@@ -891,5 +869,6 @@ __meta__ = {
 [connection signal="button_up" from="Popups/MenuUniverse/VBox/Buttons/AddButton" to="." method="set_universe"]
 [connection signal="button_up" from="Popups/MenuGroup/VBox/Buttons/CancelButton" to="." method="toggle_menu_group" binds= [ false ]]
 [connection signal="button_up" from="Popups/MenuGroup/VBox/Buttons/Group" to="." method="group"]
-[connection signal="button_up" from="Popups/MenuPosConstraint/VBox/Buttons/CancelButton" to="." method="toggle_menu_constraint" binds= [ false ]]
+[connection signal="button_up" from="Popups/MenuPosConstraint/VBox/Buttons/CancelButton" to="." method="toggle_menu_pos_constraint" binds= [ false ]]
+[connection signal="button_up" from="Popups/MenuPosConstraint/VBox/Buttons/DoneButton" to="." method="check_pos_constraint"]
 [connection signal="file_selected" from="Popups/OpenFile" to="." method="_on_cola_file_selected"]

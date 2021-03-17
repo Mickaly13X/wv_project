@@ -789,8 +789,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MenuSizeConstraint2" type="PopupDialog" parent="Popups"]
-visible = true
+[node name="MenuSizeConstraint" type="PopupDialog" parent="Popups"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -806,7 +805,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBox" type="VBoxContainer" parent="Popups/MenuSizeConstraint2"]
+[node name="VBox" type="VBoxContainer" parent="Popups/MenuSizeConstraint"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 32.0
@@ -817,7 +816,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Title" type="Label" parent="Popups/MenuSizeConstraint2/VBox"]
+[node name="Title" type="Label" parent="Popups/MenuSizeConstraint/VBox"]
 margin_right = 491.0
 margin_bottom = 46.0
 custom_fonts/font = ExtResource( 5 )
@@ -828,7 +827,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Items" type="GridContainer" parent="Popups/MenuSizeConstraint2/VBox"]
+[node name="Items" type="GridContainer" parent="Popups/MenuSizeConstraint/VBox"]
 margin_top = 50.0
 margin_right = 491.0
 margin_bottom = 126.0
@@ -841,7 +840,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SelectDomain" type="Label" parent="Popups/MenuSizeConstraint2/VBox/Items"]
+[node name="SelectDomain" type="Label" parent="Popups/MenuSizeConstraint/VBox/Items"]
 visible = false
 margin_top = 5.0
 margin_right = 89.0
@@ -852,7 +851,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="DomainInput" type="MenuButton" parent="Popups/MenuSizeConstraint2/VBox/Items"]
+[node name="DomainInput" type="MenuButton" parent="Popups/MenuSizeConstraint/VBox/Items"]
 margin_right = 183.0
 margin_bottom = 38.0
 rect_min_size = Vector2( 64, 38 )
@@ -864,7 +863,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="OperatorInput" type="MenuButton" parent="Popups/MenuSizeConstraint2/VBox/Items"]
+[node name="OperatorInput" type="MenuButton" parent="Popups/MenuSizeConstraint/VBox/Items"]
 margin_left = 199.0
 margin_right = 263.0
 margin_bottom = 38.0
@@ -876,7 +875,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="IntInput" type="LineEdit" parent="Popups/MenuSizeConstraint2/VBox/Items"]
+[node name="IntInput" type="LineEdit" parent="Popups/MenuSizeConstraint/VBox/Items"]
 margin_left = 279.0
 margin_right = 491.0
 margin_bottom = 38.0
@@ -890,7 +889,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ConstraintLabel" type="Label" parent="Popups/MenuSizeConstraint2/VBox"]
+[node name="ConstraintLabel" type="Label" parent="Popups/MenuSizeConstraint/VBox"]
 margin_top = 130.0
 margin_right = 491.0
 margin_bottom = 158.0
@@ -901,19 +900,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Filler" type="Label" parent="Popups/MenuSizeConstraint2/VBox"]
+[node name="Filler" type="Label" parent="Popups/MenuSizeConstraint/VBox"]
 margin_top = 162.0
 margin_right = 491.0
 margin_bottom = 176.0
 
-[node name="Buttons" type="HBoxContainer" parent="Popups/MenuSizeConstraint2/VBox"]
+[node name="Buttons" type="HBoxContainer" parent="Popups/MenuSizeConstraint/VBox"]
 margin_top = 180.0
 margin_right = 491.0
 margin_bottom = 214.0
 custom_constants/separation = 256
 alignment = 1
 
-[node name="CancelButton" type="Button" parent="Popups/MenuSizeConstraint2/VBox/Buttons"]
+[node name="CancelButton" type="Button" parent="Popups/MenuSizeConstraint/VBox/Buttons"]
 margin_left = 42.0
 margin_right = 126.0
 margin_bottom = 34.0
@@ -925,7 +924,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="DoneButton" type="Button" parent="Popups/MenuSizeConstraint2/VBox/Buttons"]
+[node name="DoneButton" type="Button" parent="Popups/MenuSizeConstraint/VBox/Buttons"]
 margin_left = 382.0
 margin_right = 448.0
 margin_bottom = 34.0
@@ -1018,6 +1017,6 @@ __meta__ = {
 [connection signal="button_up" from="Popups/MenuGroup/VBox/Buttons/Group" to="." method="group"]
 [connection signal="button_up" from="Popups/MenuPosConstraint/VBox/Buttons/CancelButton" to="." method="toggle_menu_pos_constraint" binds= [ false ]]
 [connection signal="button_up" from="Popups/MenuPosConstraint/VBox/Buttons/DoneButton" to="." method="check_pos_constraint"]
-[connection signal="button_up" from="Popups/MenuSizeConstraint2/VBox/Buttons/CancelButton" to="." method="toggle_menu_pos_constraint" binds= [ false ]]
-[connection signal="button_up" from="Popups/MenuSizeConstraint2/VBox/Buttons/DoneButton" to="." method="check_pos_constraint"]
+[connection signal="button_up" from="Popups/MenuSizeConstraint/VBox/Buttons/CancelButton" to="." method="toggle_menu_size_constraint" binds= [ false ]]
+[connection signal="button_up" from="Popups/MenuSizeConstraint/VBox/Buttons/DoneButton" to="." method="check_size_constraint"]
 [connection signal="file_selected" from="Popups/OpenFile" to="." method="_on_cola_file_selected"]

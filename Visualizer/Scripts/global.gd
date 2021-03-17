@@ -8,6 +8,7 @@ const Configuration = preload("res://Scripts/classes.gd").Configuration
 const Interval = preload("res://Scripts/classes.gd").Interval
 const IntervalString = preload("res://Scripts/classes.gd").IntervalString
 const CoLaExpression = preload("res://Scripts/classes.gd").CoLaExpression
+const SizeConstraint = preload("res://Scripts/classes.gd").SizeConstraint
 const OPERATORS = [
 		">",
 		">=",

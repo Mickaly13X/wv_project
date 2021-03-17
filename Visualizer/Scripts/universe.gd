@@ -75,7 +75,10 @@ func _pressed(button_name : String) -> void:
 		
 		"Group":
 			Main.toggle_menu_group(true)
-	
+		
+		"SizeConstraint":
+			Main.toggle_menu_size_constraint(true)
+		
 	$Menu.hide()
 
 

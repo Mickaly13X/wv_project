@@ -43,7 +43,7 @@ __meta__ = {
 }
 
 [node name="Add" type="Button" parent="Menu/Buttons"]
-margin_right = 73.0
+margin_right = 114.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 0, 32 )
 size_flags_horizontal = 3
@@ -54,7 +54,7 @@ __meta__ = {
 
 [node name="Delete" type="Button" parent="Menu/Buttons"]
 margin_top = 36.0
-margin_right = 73.0
+margin_right = 114.0
 margin_bottom = 68.0
 rect_min_size = Vector2( 0, 32 )
 size_flags_horizontal = 3
@@ -65,11 +65,22 @@ __meta__ = {
 
 [node name="Group" type="Button" parent="Menu/Buttons"]
 margin_top = 72.0
-margin_right = 73.0
+margin_right = 114.0
 margin_bottom = 104.0
 rect_min_size = Vector2( 0, 32 )
 size_flags_horizontal = 3
 text = "Group"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SizeConstraints" type="Button" parent="Menu/Buttons"]
+margin_top = 108.0
+margin_right = 114.0
+margin_bottom = 140.0
+rect_min_size = Vector2( 0, 32 )
+size_flags_horizontal = 3
+text = "Size Constraints"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -104,3 +115,4 @@ __meta__ = {
 [connection signal="button_up" from="Menu/Buttons/Add" to="." method="_pressed" binds= [ "Add" ]]
 [connection signal="button_up" from="Menu/Buttons/Delete" to="." method="_pressed" binds= [ "Delete" ]]
 [connection signal="button_up" from="Menu/Buttons/Group" to="." method="_pressed" binds= [ "Group" ]]
+[connection signal="button_up" from="Menu/Buttons/SizeConstraints" to="." method="_pressed" binds= [ "SizeConstraints" ]]

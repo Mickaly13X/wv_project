@@ -30,6 +30,9 @@ onready var UnivSizeInput = $Popups/MenuUniverse/VBox/Items/SizeInput
 onready var Universe = $HSplit/MainPanel/Containers/Universe
 onready var PosInput = $Popups/MenuPosConstraint/VBox/Items/PosInput
 onready var DomainInput = $Popups/MenuPosConstraint/VBox/Items/DomainInput
+onready var SizeConstraintDomainInput = $Popups/MenuSizeConstraint/VBox/Items/DomainInput
+onready var IntInput = $Popups/MenuSizeConstraint/VBox/Items/IntInput
+onready var OperatorInput = $Popups/MenuSizeConstraint/VBox/Items/OperatorInput
 
 onready var GroupsLabel = $Popups/MenuGroup/VBox/GroupsLabel
 
@@ -152,11 +155,16 @@ func check_pos_constraint() -> void:
 
 func check_size_constraint() -> void:
 	
-	if DomainInput.text == "-Select Domain-":
+	if SizeConstraintDomainInput.text == "-Select Domain-":
 		show_message("Please choose a domain")
 		return
 	
-	g.problem.set_size_constraint("", 0)
+	var domain_name = SizeConstraintDomainInput.text
+	var operator = OperatorInput.text
+	var size = IntInput.text
+	
+	
+	g.problem.set_size_constraint(domain_name, "", 0)
 	
 	Universe.update_domain_names()
 	toggle_menu_size_constraint(false)
@@ -326,6 +334,12 @@ func init_menus() -> void:
 	DomainInput.get_popup().connect(
 		"id_pressed", self, "_pressed_mb_input", [DomainInput])
 	
+	SizeConstraintDomainInput.get_popup().connect(
+		"id_pressed", self, "_pressed_mb_input", [SizeConstraintDomainInput])
+	
+	OperatorInput.get_popup().connect(
+		"id_pressed", self, "_pressed_mb_input", [OperatorInput])
+	
 	for i in range(MAX_SET_SIZE):
 		#to add zero before single digits like 01, 02 instead of 1, 2
 		var numberstr = "0" + str(i + 1) if i + 1 < 10 else str(i + 1)
@@ -335,6 +349,9 @@ func init_menus() -> void:
 		#to add zero before single digits like 01, 02 instead of 1, 2
 		var numberstr = "0" + str(i + 1) if i + 1 < 10 else str(i + 1)
 		ConfigSizeInput.get_popup().add_item(numberstr)
+	
+	for op in g.OPERATORS:
+		ConfigSizeInput.get_popup().add_item(op)
 	
 	# group menu
 	GroupInput.get_popup().connect("id_pressed", self, "_pressed_mb_group")
@@ -450,7 +467,7 @@ func toggle_menu_pos_constraint(is_opened : bool) -> void:
 
 func toggle_menu_size_constraint(is_opened : bool) -> void:
 	
-	var Menu = Popups.get_node("MenuPosConstraint")
+	var Menu = Popups.get_node("MenuSizeConstraint")
 	if is_opened:
 		DomainInput.text = "-Select Domain-"
 		DomainInput.get_popup().clear()

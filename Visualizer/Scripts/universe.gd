@@ -112,7 +112,6 @@ func clear_circles() -> void:
 
 func delete_elements(element_ids: PoolIntArray = get_element_ids()) -> void:
 	
-	print(element_ids)
 	g.problem.erase_elements(element_ids)
 	for i in element_ids:
 		var element = $Elements.get_node(str(i))

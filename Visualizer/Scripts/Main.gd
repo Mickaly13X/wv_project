@@ -153,7 +153,6 @@ func fetch(function_name: String, arguments: Array = []) -> PoolStringArray:
 	print(">terminal call " + str(args))
 	
 	var exit_code = OS.execute("python", args, true, output)
-	print(output)
 	print(">exit_code: " + str(exit_code))
 	return str(output[0]).split("\n")
 

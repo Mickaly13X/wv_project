@@ -134,6 +134,17 @@ func check_config() -> void:
 	toggle_menu_config(false)
 
 
+func check_pos_constraint() -> void:
+	
+	var domain_name = DomainInput.get_text()
+	if domain_name == "Universe":
+		g.problem.add_pos_constraint(Config.index_selected, "_universe")
+	else:
+		g.problem.add_pos_constraint(Config.index_selected, domain_name)
+	
+	toggle_menu_pos_constraint(false)
+
+
 func create_cola_file() -> void:
 	
 	var file = File.new()
@@ -286,7 +297,7 @@ func is_checked(group_name : String) -> bool:
 
 func init_menus() -> void:
 	
-	# structure menu
+	# config menu
 	FuncInput.get_popup().connect("id_pressed", self, "_pressed_mb_input", [FuncInput])
 	ConfigSizeInput.get_popup().connect(
 		"id_pressed", self, "_pressed_mb_input", [ConfigSizeInput])
@@ -294,6 +305,10 @@ func init_menus() -> void:
 	# universe menu
 	UnivSizeInput.get_popup().connect(
 		"id_pressed", self, "_pressed_mb_input", [UnivSizeInput])
+	
+	# constraint menu
+	DomainInput.get_popup().connect(
+		"id_pressed", self, "_pressed_mb_input", [DomainInput])
 	
 	for i in range(MAX_SET_SIZE):
 		#to add zero before single digits like 01, 02 instead of 1, 2
@@ -399,15 +414,18 @@ func toggle_menu_config(is_opened : bool) -> void:
 		$Popups/MenuConfig.hide()
 
 
-
-func toggle_menu_constraint(is_opened : bool) -> void:
+func toggle_menu_pos_constraint(is_opened : bool) -> void:
 	
+	var Menu = Popups.get_node("MenuPosConstraint")
 	if is_opened:
 		DomainInput.text = "-Select Domain-"
-		Popups.get_node("MenuPosConstraint").popup()
+		DomainInput.get_popup().clear()
+		DomainInput.get_popup().add_item("Universe")
+		for domain in g.problem.get_domains():
+			DomainInput.get_popup().add_item(domain.get_name())
+		Menu.popup()
 	else:
-		
-		Popups.get_node("MenuPosConstraint").hide()
+		Menu.hide()
 
 
 func undo_menu(ref : String) -> void:
@@ -477,3 +495,7 @@ func parse(cola_string : String) -> Dictionary:
 func domain_interval(_name, interval_string, distinguishable  = true):
 	
 	return g.Domain.new(_name,g.IntervalString.new(interval_string).get_values(),distinguishable)
+
+
+func toggle_menu_constraint_pos(extra_arg_0):
+	pass # Replace with function body.

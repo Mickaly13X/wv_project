@@ -1,4 +1,4 @@
-extends Node2D
+extends "res://Scripts/container.gd"
 
 
 const CIRCLE_COLORS = [
@@ -23,13 +23,11 @@ onready var Buttons = $Menu/Buttons
 onready var Main : Node
 
 var circles_domain = []
-var custom_name
 
 # element_object : Node, index : int
 #var elements = {}
 
 var is_distinct : bool
-var shape
 
 
 func _ready():
@@ -112,7 +110,6 @@ func clear_circles() -> void:
 
 func delete_elements(element_ids: PoolIntArray = get_element_ids()) -> void:
 	
-	print(element_ids)
 	g.problem.erase_elements(element_ids)
 	for i in element_ids:
 		var element = $Elements.get_node(str(i))
@@ -214,10 +211,6 @@ func get_circle_approx(circle : Dictionary) -> Rect2:
 	)
 
 
-func get_center(offset = Vector2.ZERO) -> Vector2:
-	return $Mask.rect_position + $Mask.rect_size / 2 + offset
-
-
 func get_domains() -> Array:
 	return g.problem.get_domains()
 
@@ -230,10 +223,6 @@ func get_element_ids(elements: Array = get_elements()) -> PoolIntArray:
 	return element_ids
 
 
-func get_elements() -> Array:
-	return $Elements.get_children()
-
-
 func get_elements_selected() -> Array:
 	
 	var elements_selected = []
@@ -241,10 +230,6 @@ func get_elements_selected() -> Array:
 		if I.is_selected:
 			elements_selected.append(I)
 	return elements_selected
-
-
-func get_name() -> String:
-	return custom_name
 
 
 func get_new_id() -> int:
@@ -261,17 +246,13 @@ func get_perimeter() -> Rect2:
 	return Rect2($Mask.rect_position, $Mask.rect_size)
 
 
-func get_size() -> int:
-	return len(get_elements())
-
-
 func group(group_name : String, is_dist = true) -> void:
 	
 	var selected_elements = PoolIntArray()
 	for i in get_element_ids(get_elements_selected()):
 		selected_elements.append(i)
 	
-	g.problem.group(selected_elements, group_name, is_dist)
+	g.problem.group(selected_elements, group_name, is_dist)	
 	
 	if is_dist:
 		for e in get_elements_selected():
@@ -314,7 +295,7 @@ func init(size : int, is_rebuild = true, custom_name = get_name()) -> void:
 	set_name(custom_name)
 	
 	if get_domains().size() == 0:
-		clear_circles()
+		update_circles_domain([])
 	else:
 		update_circles_domain(
 			fetch_venn_circles(g.lengths(g.problem.get_domain_intersections()))
@@ -351,16 +332,17 @@ func toggle_menu_button(buttom_name: String, is_pressable : bool):
 func update_circles_domain(venn_circles : Array) -> void:
 	
 	clear_circles()
-	for i in range(len(venn_circles)):
+	if venn_circles != []:
+		for i in range(len(venn_circles)):
+			
+			var new_circle = {}
+			new_circle.pos = venn_circles[i][0]
+			new_circle.radius = venn_circles[i][1]
+			new_circle.domain = get_domains()[i]
+			circles_domain.append(new_circle)
 		
-		var new_circle = {}
-		new_circle.pos = venn_circles[i][0]
-		new_circle.radius = venn_circles[i][1]
-		new_circle.domain = get_domains()[i]
-		circles_domain.append(new_circle)
-	
+		update_element_positions()
 	update_domain_names()
-	update_element_positions()
 	update()
 
 
@@ -435,7 +417,7 @@ func update_element_positions_loop(element : Node, approx : Rect2,
 	var flag = false
 	while (flag == false):
 		
-		print("Positioning Attempt " + str(attempt) + "...")
+		#print("Positioning Attempt " + str(attempt) + "...")
 		flag = true
 		new_pos = g.randomRect(approx.grow(-ELEMENT_SIZE))
 		for i in assigned_positions:

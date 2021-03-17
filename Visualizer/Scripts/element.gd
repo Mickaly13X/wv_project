@@ -8,6 +8,7 @@ extends Node2D
 onready var Mask = $Mask
 onready var Container_
 
+var index: int # only used in Config
 var shape_selected = StyleBoxFlat.new() 
 var shape_unselected = StyleBoxFlat.new() 
 
@@ -35,13 +36,15 @@ func _draw():
 
 
 func _gui_input(event):
-	#if is_in_universe():
 	if event.is_pressed():
-		if event.button_index == BUTTON_LEFT:
-			is_selected = !is_selected
+		if is_in_universe():
+			if event.button_index == BUTTON_LEFT:
+				is_selected = !is_selected
+			elif event.button_index == BUTTON_RIGHT:
+				is_selected = true
+				Container_.toggle_menu(true)
 		elif event.button_index == BUTTON_RIGHT:
-			is_selected = true
-			print("1")
+			Container_.index_selected = index
 			Container_.toggle_menu(true)
 
 

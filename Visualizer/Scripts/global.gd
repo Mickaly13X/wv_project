@@ -4,7 +4,6 @@ extends Node
 
 const Problem = preload("res://Scripts/classes.gd").Problem
 const Domain = preload("res://Scripts/classes.gd").Domain
-const Universe = preload("res://Scripts/classes.gd").Universe
 const Configuration = preload("res://Scripts/classes.gd").Configuration
 const Interval = preload("res://Scripts/classes.gd").Interval
 const IntervalString = preload("res://Scripts/classes.gd").IntervalString

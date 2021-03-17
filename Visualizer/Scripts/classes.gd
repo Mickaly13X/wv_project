@@ -314,7 +314,7 @@ class Domain:
 		var tmp = str(elements).replace("[","{").replace("]","}").replace(" ","")
 		if is_interval():
 			tmp = get_interval().string().replace(",",":").replace(" ","")
-		var cola = "{d} = {e};".format({"d" : domain_name, "e" : tmp})
+		var cola = "{d} = {e};".format({"d" : domain_name.to_lower(), "e" : tmp})
 		return cola
 	
 	

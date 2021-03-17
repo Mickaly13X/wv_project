@@ -136,7 +136,7 @@ func check_config() -> void:
 
 func check_pos_constraint() -> void:
 	
-	if ConfigSizeInput.text == "-Select Domain-":
+	if DomainInput.text == "-Select Domain-":
 		show_message("Please choose a domain")
 		return
 	

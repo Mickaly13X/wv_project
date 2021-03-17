@@ -1,5 +1,6 @@
 class Problem:
 	
+	
 	var domains: Array
 	var config = g.Configuration.new()
 	var entity_map: Dictionary
@@ -247,13 +248,14 @@ class Problem:
 		return [universe.get_elements(), domains, config]
 
 
-# Domain class
 class Domain:
-
+	
+	
 	var domain_name: String
 	var elements: Array
 	var is_distinct: bool
-
+	var SizeConstraint: SizeConstraint
+	
 	
 	func _init(_name : String, _elements = [], _is_distinct = true):
 		
@@ -445,14 +447,13 @@ class PosConstraint extends Constraint:
 	
 class SizeConstraint extends Constraint:
 	
-	var domain
-	var op
-	var size
+	var operator: String
+	var size: int
 	
-	func _init(_domain : Domain, _op : String, _size : int).():
+	
+	func _init(_operator : String, _size : int).():
 		
-		domain = _domain
-		op = _op
+		operator = _operator
 		size = _size
 
 

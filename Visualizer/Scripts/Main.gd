@@ -30,7 +30,7 @@ onready var UnivSizeInput = $Popups/MenuUniverse/VBox/Items/SizeInput
 onready var Universe = $HSplit/MainPanel/Containers/Universe
 onready var PosInput = $Popups/MenuPosConstraint/VBox/Items/PosInput
 onready var DomainInput = $Popups/MenuPosConstraint/VBox/Items/DomainInput
-onready var SizeConstraintDomainInput = $Popups/MenuSizeConstraint/VBox/Items/DomainInput
+onready var SizeDomainInput = $Popups/MenuSizeConstraint/VBox/Items/DomainInput
 onready var IntInput = $Popups/MenuSizeConstraint/VBox/Items/IntInput
 onready var OperatorInput = $Popups/MenuSizeConstraint/VBox/Items/OperatorInput
 
@@ -155,11 +155,11 @@ func check_pos_constraint() -> void:
 
 func check_size_constraint() -> void:
 	
-	if SizeConstraintDomainInput.text == "-Select Domain-":
+	if SizeDomainInput.text == "-Select Domain-":
 		show_message("Please choose a domain")
 		return
 	
-	var domain_name = SizeConstraintDomainInput.text
+	var domain_name = SizeDomainInput.text
 	var operator = OperatorInput.text
 	var size = IntInput.text
 	
@@ -334,8 +334,8 @@ func init_menus() -> void:
 	DomainInput.get_popup().connect(
 		"id_pressed", self, "_pressed_mb_input", [DomainInput])
 	
-	SizeConstraintDomainInput.get_popup().connect(
-		"id_pressed", self, "_pressed_mb_input", [SizeConstraintDomainInput])
+	SizeDomainInput.get_popup().connect(
+		"id_pressed", self, "_pressed_mb_input", [SizeDomainInput])
 	
 	OperatorInput.get_popup().connect(
 		"id_pressed", self, "_pressed_mb_input", [OperatorInput])
@@ -351,7 +351,7 @@ func init_menus() -> void:
 		ConfigSizeInput.get_popup().add_item(numberstr)
 	
 	for op in g.OPERATORS:
-		ConfigSizeInput.get_popup().add_item(op)
+		OperatorInput.get_popup().add_item(op)
 	
 	# group menu
 	GroupInput.get_popup().connect("id_pressed", self, "_pressed_mb_group")
@@ -469,11 +469,11 @@ func toggle_menu_size_constraint(is_opened : bool) -> void:
 	
 	var Menu = Popups.get_node("MenuSizeConstraint")
 	if is_opened:
-		DomainInput.text = "-Select Domain-"
-		DomainInput.get_popup().clear()
-		DomainInput.get_popup().add_item("Universe")
+		SizeDomainInput.text = "-Select Domain-"
+		SizeDomainInput.get_popup().clear()
+		SizeDomainInput.get_popup().add_item("Universe")
 		for domain in g.problem.get_domains():
-			DomainInput.get_popup().add_item(domain.get_name())
+			SizeDomainInput.get_popup().add_item(domain.get_name())
 		Menu.popup()
 	else:
 		Menu.hide()

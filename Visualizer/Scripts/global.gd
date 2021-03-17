@@ -12,7 +12,7 @@ const SizeConstraint = preload("res://Scripts/classes.gd").SizeConstraint
 const OPERATORS = [
 		">",
 		">=",
-		"==",
+		"=",
 		"<",
 		"<="
 	]

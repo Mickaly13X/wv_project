@@ -234,40 +234,11 @@ class Problem:
 			self.universe_formula = tmp
 		else:
 			self.universe_formula = universe.get_name()
-		print("universe f: ",universe_formula)
+		print("universe f: ", universe_formula)
 	
 	
 	func _print():
 		return [universe.get_elements(), domains, config]
-
-
-class Universe extends Domain:
-
-	var formula
-	var domains : Array
-
-	func _init(name = "universe").(name):
-
-		self.formula = name
-
-
-	func add_domain(domain : Domain):
-		
-		domains.append(domain)
-		if g.Union(domains).get_size() == self.get_size():
-			var tmp = ""
-			for domain in domains:
-				tmp += domain.get_name()
-				tmp += " + "
-			tmp -= " + "
-			self.formula = tmp
-	
-	
-	# override
-	func clear():
-		self.elements = Array() #parent
-		self.domains = Array()
-		self.formula = self.domain_name
 
 
 # Domain class

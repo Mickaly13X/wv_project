@@ -1,4 +1,4 @@
-import coso.launcher as launcher
+from coso.launcher import launch
 from matplotlib_venn._venn2 import solve_venn2_circles
 from matplotlib_venn._venn3 import solve_venn3_circles
 from numpy import array
@@ -9,7 +9,7 @@ import sys
 def coso():
     path_file = os.path.abspath("input_cola.pl")
     print(path_file)
-    launcher.launch(path_file)
+    launch(path_file)
 
 
 # venn_size is 2 or 3

@@ -7,7 +7,7 @@ import sys
 
 def coso():
     #path_file = os.path.abspath("input_cola.pl")
-    os.system("python CoSo/src/launcher.py input_cola.pl")# + path_file)
+    os.system("python CoSo/src/launcher.py -f input_cola.pl")# + path_file)
     #launcher.launch(path_file)
 
 

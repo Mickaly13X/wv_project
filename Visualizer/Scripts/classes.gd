@@ -214,6 +214,12 @@ class Problem:
 		
 		# Domains
 		var cola = ""
+		
+		if universe_formula == universe.get_name():
+			cola += universe.to_cola()
+			cola += "\n"
+		
+		
 		for dom in domains:
 			cola += dom.to_cola()
 			cola += "\n"

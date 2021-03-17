@@ -150,6 +150,18 @@ func check_pos_constraint() -> void:
 	toggle_menu_pos_constraint(false)
 
 
+func check_size_constraint() -> void:
+	
+	if DomainInput.text == "-Select Domain-":
+		show_message("Please choose a domain")
+		return
+	
+	g.problem.set_size_constraint("", 0)
+	
+	Universe.update_domain_names()
+	toggle_menu_size_constraint(false)
+
+
 func create_cola_file() -> void:
 	
 	var file = File.new()
@@ -286,8 +298,8 @@ func group() -> bool:
 
 func init_children() -> void:
 	
-	Universe.Main = self 
 	Config.Main = self 
+	Universe.Main = self 
 
 
 func is_checked(group_name : String) -> bool:
@@ -423,6 +435,20 @@ func toggle_menu_config(is_opened : bool) -> void:
 
 
 func toggle_menu_pos_constraint(is_opened : bool) -> void:
+	
+	var Menu = Popups.get_node("MenuPosConstraint")
+	if is_opened:
+		DomainInput.text = "-Select Domain-"
+		DomainInput.get_popup().clear()
+		DomainInput.get_popup().add_item("Universe")
+		for domain in g.problem.get_domains():
+			DomainInput.get_popup().add_item(domain.get_name())
+		Menu.popup()
+	else:
+		Menu.hide()
+
+
+func toggle_menu_size_constraint(is_opened : bool) -> void:
 	
 	var Menu = Popups.get_node("MenuPosConstraint")
 	if is_opened:

@@ -220,7 +220,6 @@ class Problem:
 		for i in pos_constraints:
 			cola += "\n{name}[{i}] = {domain};".format({"name" : config.get_name(), "i" : int(i), "domain" : pos_constraints[i].get_name()})
 		
-		
 		return cola
 	
 	

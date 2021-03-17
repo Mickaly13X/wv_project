@@ -8,7 +8,6 @@ import sys
 
 def coso():
     path_file = os.path.abspath("input_cola.pl")
-    print(path_file)
     launcher.launch(path_file)
 
 

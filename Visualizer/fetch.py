@@ -6,11 +6,8 @@ import sys
 import subprocess
 
 def coso():
-    #path_file = os.path.abspath("input_cola.pl")
-    result = subprocess.check_output(["python","CoSo/src/launcher.py","-f","input_cola.pl"], stderr=subprocess.STDOUT)
-    print(result)
-    #print(os.system("python CoSo/src/launcher.py -f input_cola.pl"))# + path_file)
-    #launcher.launch(path_file)
+    path_file = os.path.abspath("input_cola.pl")
+    launcher.launch(path_file)
 
 
 # venn_size is 2 or 3

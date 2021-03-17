@@ -6,4 +6,4 @@ digits = [0:9];
 plate in [| letters+digits];
 #plate = 8;
 #(letters & plate) = 5;
-#(digits & plate) = 3;
+#(digits & plate) = 3

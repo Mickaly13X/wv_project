@@ -1,5 +1,4 @@
-dutch = [2:4];
-french = {1,3};
-config in [| dutch + french];
+T = [1:1];
+config in [|| T];
 #config = 2;
-config[1] = dutch;
+config[1] = T;

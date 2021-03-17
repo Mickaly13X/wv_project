@@ -340,6 +340,10 @@ func init_menus() -> void:
 	OperatorInput.get_popup().connect(
 		"id_pressed", self, "_pressed_mb_input", [OperatorInput])
 	
+	OperatorInput.get_popup().add_item("")
+	for op in g.OPERATORS:
+		OperatorInput.get_popup().add_item(op)
+	
 	for i in range(MAX_SET_SIZE):
 		#to add zero before single digits like 01, 02 instead of 1, 2
 		var numberstr = "0" + str(i + 1) if i + 1 < 10 else str(i + 1)
@@ -349,9 +353,6 @@ func init_menus() -> void:
 		#to add zero before single digits like 01, 02 instead of 1, 2
 		var numberstr = "0" + str(i + 1) if i + 1 < 10 else str(i + 1)
 		ConfigSizeInput.get_popup().add_item(numberstr)
-	
-	for op in g.OPERATORS:
-		OperatorInput.get_popup().add_item(op)
 	
 	# group menu
 	GroupInput.get_popup().connect("id_pressed", self, "_pressed_mb_group")
@@ -471,7 +472,7 @@ func toggle_menu_size_constraint(is_opened : bool) -> void:
 	if is_opened:
 		SizeDomainInput.text = "-Select Domain-"
 		SizeDomainInput.get_popup().clear()
-		SizeDomainInput.get_popup().add_item("Universe")
+		#SizeDomainInput.get_popup().add_item("Universe")
 		for domain in g.problem.get_domains():
 			SizeDomainInput.get_popup().add_item(domain.get_name())
 		Menu.popup()

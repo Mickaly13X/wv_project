@@ -6,7 +6,7 @@ class Problem:
 	var entity_map: Dictionary
 	var count_formulas: Array
 	var pos_constraints: Dictionary
-	var universe = g.Domain.new("universe")
+	var universe = g.Domain.new("uni")
 	var universe_formula : String
 	
 	
@@ -41,7 +41,7 @@ class Problem:
 	
 	func add_pos_constraint(pos: int, domain_name: String) -> void:
 		
-		if domain_name == "universe":
+		if domain_name == "uni":
 			pos_constraints[pos] = universe
 		else:
 			pos_constraints[pos] = get_domain(domain_name)
@@ -90,7 +90,7 @@ class Problem:
 	
 	func get_domain(domain_name: String) -> Domain:
 		
-		if domain_name == "universe":
+		if domain_name == "uni":
 			return universe
 		for i in get_domains():
 			if i.get_name() == domain_name:

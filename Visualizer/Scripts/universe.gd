@@ -106,6 +106,10 @@ func add_elements(no_elements : int):
 		update_element_positions()
 
 
+func clear_circles() -> void:
+	circles_domain = []
+
+
 func delete_elements(element_ids: PoolIntArray = get_element_ids()) -> void:
 	
 	print(element_ids)
@@ -122,23 +126,6 @@ func deselect_elements():
 	
 	for I in get_elements_selected():
 		I.is_selected = false
-
-
-func get_new_id() -> int:
-	var count = get_elements().size()
-	var _max = count + 2
-	for i in range(1,_max):
-		if !has_id(i):
-			print("new id ",i)
-			return i
-	return 0
-
-
-func has_id(id : int):
-	for el in get_elements():
-		if el.name == str(id):
-			return true
-	return false
 
 
 func draw_circle_custom(radius: float, pos: Vector2, \
@@ -187,7 +174,6 @@ func fetch_venn_circles(domain_inter_sizes : Array) -> Array:
 			var radius = float(output[i*3 + 2])
 			venn_circles.append([pos, radius])
 	
-	print(venn_circles)
 	return fetch_venn_circles_formatted(venn_circles)
 
 
@@ -261,6 +247,16 @@ func get_name() -> String:
 	return custom_name
 
 
+func get_new_id() -> int:
+	var count = get_elements().size()
+	var _max = count + 2
+	for i in range(1,_max):
+		if !has_id(i):
+			print("new id ",i)
+			return i
+	return 0
+
+
 func get_perimeter() -> Rect2:
 	return Rect2($Mask.rect_position, $Mask.rect_size)
 
@@ -287,6 +283,13 @@ func group(group_name : String, is_dist = true) -> void:
 	init(get_size(), false)
 
 
+func has_id(id : int):
+	for el in get_elements():
+		if el.name == str(id):
+			return true
+	return false
+
+
 func has_max_elements() -> bool:
 	
 	if get_size() == 10:
@@ -310,7 +313,9 @@ func init(size : int, is_rebuild = true, custom_name = get_name()) -> void:
 	
 	set_name(custom_name)
 	
-	if get_domains().size() > 0:
+	if get_domains().size() == 0:
+		clear_circles()
+	else:
 		update_circles_domain(
 			fetch_venn_circles(g.lengths(g.problem.get_domain_intersections()))
 		)
@@ -345,7 +350,7 @@ func toggle_menu_button(buttom_name: String, is_pressable : bool):
 
 func update_circles_domain(venn_circles : Array) -> void:
 	
-	circles_domain = [] # remove existing circles
+	clear_circles()
 	for i in range(len(venn_circles)):
 		
 		var new_circle = {}

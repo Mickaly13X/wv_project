@@ -144,12 +144,13 @@ func create_cola_file() -> void:
 
 func fetch(function_name: String, arguments: Array = []) -> PoolStringArray:
 	
-	var request_func: String = function_name + "(" + \
-		str(arguments).lstrip("[").rstrip("]") + \
-	")"
-	var args = ["fetch.py", request_func]
+#	var request_func: String = function_name + "(" + \
+#		str(arguments).lstrip("[").rstrip("]") + \
+#	")"
+	var function_code = int(function_name == "coso")
+	var args = ["fetch.py", function_code] + arguments
 	var output = []
-	print(">external call " + request_func)
+	print(">terminal call " + str(args))
 	
 	var exit_code = OS.execute("python", args, true, output)
 	
@@ -320,8 +321,8 @@ func set_config(size : int, custom_name : String) -> void:
 
 func run():
 	
-	create_cola_file()
-	#var sol = fetch("coso")
+	#create_cola_file()
+	var sol = fetch("coso")
 	#show_message("Solution is " + sol[0])
 #	if Config.get_size() ==  0:
 #		show_message("Config not defined!")

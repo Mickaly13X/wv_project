@@ -22,16 +22,6 @@ class Problem:
 		universe.add_element(element)
 	
 	
-	func erase_elements(elements_ids : PoolIntArray):
-		
-		for i in elements_ids:
-			universe.erase_elem(i)
-			self.elem_counter -= 1
-			for domain in domains:
-				domain.erase_elem(i)
-		check_empty_domains()
-	
-	
 	func add_elements(no_elements : int):
 		
 		var new_elements = []
@@ -52,7 +42,7 @@ class Problem:
 	func check_empty_domains() -> void:
 		
 		var no_domains = len(get_domains())
-		if no_domains > 1:
+		if no_domains > 0:
 			
 			var queue_delete = []
 			var domains_strict = get_domains_strict()
@@ -67,6 +57,15 @@ class Problem:
 	func clear_domains():
 		domains = []
 		universe.clear()
+	
+	
+	func erase_elements(elements_ids : PoolIntArray):
+		
+		for i in elements_ids:
+			universe.erase_elem(i)
+			for domain in domains:
+				domain.erase_elem(i)
+		check_empty_domains()
 	
 	
 	func get_config() -> Configuration:

@@ -29,6 +29,15 @@ def venn(venn_size, *inter_sizes):
         print(r[i]) # radius
 
 
-# system argument 'request_func' must be passed between " " marks
-request_func: str = sys.argv[1]
+function_name: str
+if int(sys.argv[1]) == 0:
+    function_name = "venn"
+else:
+    function_name = "coso"
+
+arguments = []
+for i in sys.argv[2:]:
+    arguments.append(int(i))
+    
+request_func: str = function_name + "(" + str(arguments).strip("[]") + ")"
 eval(request_func)

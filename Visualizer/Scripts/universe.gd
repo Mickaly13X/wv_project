@@ -321,10 +321,8 @@ func set_name(custom_name : String) -> void:
 	self.custom_name = custom_name
 	if custom_name == "":
 		$Label.text = "Universe"
-		g.problem.get_universe().set_name("universe")
 	else:
 		$Label.text = "Universe (" + custom_name + ")"
-		g.problem.get_universe().set_name(custom_name)
 
 
 func toggle_menu(is_visible : bool):

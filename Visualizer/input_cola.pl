@@ -1,3 +1,3 @@
-universe = [1:1];
-config in [|| universe];
+uni = [1:1];
+config in [|| uni];
 #config = 1

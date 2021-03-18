@@ -16,7 +16,6 @@ class Problem:
 		entity_map = {}
 		count_formulas = []
 		universe_formula = universe.get_name()
-		print(universe_formula)
 	
 	
 	func add_domain(domain : Domain) -> void:

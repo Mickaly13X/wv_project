@@ -231,7 +231,7 @@ class Problem:
 		# Pos Constraints
 		var flag = 1
 		for i in pos_constraints:
-			cola += "\n{name}[{i}] = {domain};".format({"name" : config.get_name(), "i" : int(i), "domain" : pos_constraints[i].get_name()})
+			cola += "\n{name}[{i}] = {domain};".format({"name" : config.get_name(), "i" : int(i), "domain" : pos_constraints[i].get_name().to_lower()})
 #			if flag != pos_constraints.size():
 #				cola += ";"
 #			flag += 1
@@ -239,7 +239,7 @@ class Problem:
 		# Size Constraints
 		for domain in domains:
 			if domain.size_constraint.operator != "":
-				cola += "\n#{d} {op} {i};".format({"d":domain.get_name(), "op" : domain.size_constraint.operator, "i" : domain.size_constraint.size})
+				cola += "\n#{d} {op} {i};".format({"d":domain.get_name().to_lower(), "op" : domain.size_constraint.operator, "i" : domain.size_constraint.size})
 		
 		
 		cola.erase(cola.length() - 1, 1)
@@ -254,7 +254,7 @@ class Problem:
 			var tmp = ""
 			var size = domains.size()
 			for domain in domains:
-				tmp += domain.get_name()
+				tmp += domain.get_name().to_lower()
 				if domains.find(domain)+1 != size:
 					tmp += " + "
 			
@@ -279,7 +279,7 @@ class Domain:
 	
 	func _init(_name : String, _elements = [], _is_distinct = true):
 		
-		domain_name = _name.to_lower()
+		domain_name = _name
 		elements = _elements
 		is_distinct = _is_distinct
 	

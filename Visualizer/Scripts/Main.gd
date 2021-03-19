@@ -1,7 +1,10 @@
 extends Control
 
-const EXCEPTION = preload("res://util/ExceptionIDs.gd")
 
+const LIB_PATHS = {
+	"coso": "lib/CoSo/src/",
+	"venn": "lib/"
+	}
 const SET = preload("res://Scenes/Universe.tscn")
 const CONFIG_NAMES = [ \
 	["sequence", "permutation", "composition"],
@@ -172,7 +175,7 @@ func check_size_constraint() -> void:
 func create_cola_file() -> void:
 	
 	var file = File.new()
-	file.open("input_cola.pl", File.WRITE)
+	file.open(LIB_PATHS["coso"] + "input.pl", File.WRITE)
 	file.store_string(g.problem.to_cola())
 	file.close()
 
@@ -182,12 +185,13 @@ func fetch(function_name: String, arguments: Array = []) -> PoolStringArray:
 #	var request_func: String = function_name + "(" + \
 #		str(arguments).lstrip("[").rstrip("]") + \
 #	")"
-	var function_code = str(int(function_name == "coso"))
-	var args = ["fetch.py", function_code] + arguments
+	var path = LIB_PATHS[function_name] + "fetch.py"
+	var args = [path] + arguments
 	var output = []
 	print(">terminal call " + str(args))
 	
 	var exit_code = OS.execute("python", args, true, output)
+	
 	print(">exit_code: " + str(exit_code))
 	return str(output[0]).split("\n")
 
@@ -375,7 +379,6 @@ func run():
 	create_cola_file()
 	var sol = fetch("coso")
 	show_message("Solution is " + sol[0])
-
 
 
 func set_config(size : int, custom_name : String) -> void:

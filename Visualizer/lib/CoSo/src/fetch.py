@@ -1,5 +1,7 @@
 import launcher
+import os
 
 
 # prints solution in launch()
-launcher.launch("lib/CoSo/src/input.pl")
+os.chdir("lib/CoSo/src")
+launcher.launch("input.pl")

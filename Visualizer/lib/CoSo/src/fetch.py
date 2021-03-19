@@ -2,4 +2,4 @@ import launcher
 
 
 # prints solution in launch()
-launcher.launch("src/input.pl")
+launcher.launch("lib/CoSo/src/input.pl")

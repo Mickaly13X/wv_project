@@ -261,7 +261,6 @@ class Problem:
 			self.universe_formula = tmp
 		else:
 			self.universe_formula = universe.get_name()
-		print("universe f: ", universe_formula)
 	
 	
 	func _print():

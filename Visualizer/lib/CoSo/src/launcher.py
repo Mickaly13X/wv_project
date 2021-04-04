@@ -1,11 +1,11 @@
 import os
 import argparse
-from pathlib import Path
+#from pathlib import Path
 from parser_custom import Parser
 
 
 def launch(file):
-
+    
     parser = Parser(file)
     parser.parse()
     count = parser.problem.solve(False)

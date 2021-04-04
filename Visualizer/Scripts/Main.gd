@@ -81,7 +81,6 @@ func _on_cola_file_selected(path):
 	var content = file.get_as_text()
 	#if is_cola()
 	CoLaInput.text = content
-	print(parse(content))
 
 
 func _pressed_mb_group(id):

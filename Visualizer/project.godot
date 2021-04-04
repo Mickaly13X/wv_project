@@ -35,6 +35,10 @@ window/per_pixel_transparency/enabled=true
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 
+[gdnative]
+
+singletons=[ "res://pythonscript.gdnlib" ]
+
 [input]
 
 mouse_left={

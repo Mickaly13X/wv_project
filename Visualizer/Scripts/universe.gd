@@ -66,12 +66,10 @@ func _pressed(button_name : String) -> void:
 		
 		"Add": 
 			add_elements(1)
-			print(g.problem._print())
 		
 		"Delete":
 			#TODO: popup confirmation
 			delete_elements(get_element_ids(get_elements_selected()))
-			print(g.problem._print())
 		
 		"Group":
 			Main.toggle_menu_group(true)
@@ -247,11 +245,11 @@ func get_elements_selected() -> Array:
 
 
 func get_new_id() -> int:
+	
 	var count = get_elements().size()
 	var _max = count + 2
 	for i in range(1,_max):
 		if !has_id(i):
-			print("new id ",i)
 			return i
 	return 0
 

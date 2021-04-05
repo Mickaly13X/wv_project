@@ -2,7 +2,7 @@ extends Control
 
 
 const LIB_PATHS = {
-	"coso": "lib/CoSo/src/",
+	"coso": "lib/CoSo/launcher/",
 	"venn": "lib/"
 	}
 const SET = preload("res://Scenes/Universe.tscn")
@@ -31,7 +31,6 @@ onready var OpenCoLa = $HSplit/MainPanel/UI/HUD/OpenCoLa
 onready var Popups = $Popups
 onready var UnivSizeInput = $Popups/MenuUniverse/VBox/Items/SizeInput
 onready var Universe = $HSplit/MainPanel/Containers/Universe
-onready var PosInput = $Popups/MenuPosConstraint/VBox/Items/PosInput
 onready var DomainInput = $Popups/MenuPosConstraint/VBox/Items/DomainInput
 onready var SizeDomainInput = $Popups/MenuSizeConstraint/VBox/Items/DomainInput
 onready var IntInput = $Popups/MenuSizeConstraint/VBox/Items/IntInput
@@ -185,11 +184,11 @@ func fetch(function_name: String, arguments: Array = []) -> PoolStringArray:
 #		str(arguments).lstrip("[").rstrip("]") + \
 #	")"
 	var path = LIB_PATHS[function_name] + "fetch.py"
-	var args = [path] + arguments
+	#var args = [path] + arguments
 	var output = []
-	print(">terminal call " + str(args))
+	#print(">terminal call " + str(args))
 	
-	var exit_code = OS.execute("python", args, true, output)
+	var exit_code = OS.execute("lib\\CoSo\\launcher\\launcher.exe", [], true, output)
 	
 	print(">exit_code: " + str(exit_code))
 	return str(output[0]).split("\n")

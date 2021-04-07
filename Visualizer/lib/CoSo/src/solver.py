@@ -2,9 +2,9 @@ import portion as P
 import math 
 import itertools
 
-from formulas import *
-from sharpCSP import SharpCSP, Solution
-from structure import Domain, LiftedSet
+from CoSo.src.formulas import *
+from CoSo.src.sharpCSP import SharpCSP, Solution
+from CoSo.src.structure import Domain, LiftedSet
 
 class Solver(object):
     """

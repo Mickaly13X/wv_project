@@ -1,5 +1,6 @@
 import portion as P
-from util import *
+
+from CoSo.src.util import *
 
 
 class Domain(object):

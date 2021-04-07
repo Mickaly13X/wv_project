@@ -8,8 +8,9 @@ import signal
 import random
 import itertools
 from pathlib import Path
-from parser import Parser
-from formulas import PosFormula, And, Or, Not
+
+from CoSo.src.parser import Parser
+from CoSo.src.formulas import PosFormula, And, Or, Not
 
 ops = [">","<","<=",">=","!=","="]
 

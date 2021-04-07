@@ -1,10 +1,6 @@
 extends Control
 
 
-const LIB_PATHS = {
-	"coso": "lib/CoSo/launcher/",
-	"venn": "lib/"
-	}
 const SET = preload("res://Scenes/Universe.tscn")
 const CONFIG_NAMES = [ \
 	["sequence", "permutation", "composition"],
@@ -173,22 +169,19 @@ func check_size_constraint() -> void:
 func create_cola_file() -> void:
 	
 	var file = File.new()
-	file.open(LIB_PATHS["coso"] + "input.pl", File.WRITE)
+	file.open("input.pl", File.WRITE)
 	file.store_string(g.problem.to_cola())
 	file.close()
 
 
 func fetch(function_name: String, arguments: Array = []) -> PoolStringArray:
 	
-#	var request_func: String = function_name + "(" + \
-#		str(arguments).lstrip("[").rstrip("]") + \
-#	")"
-	var path = LIB_PATHS[function_name] + "fetch.py"
-	#var args = [path] + arguments
+	var command = "lib\\fetch\\fetch.exe" # path structure os dependent
+	var args = [function_name.left(1)] + arguments
 	var output = []
-	#print(">terminal call " + str(args))
+	print(">terminal call {} {}".format([command, str(args)], "{}"))
 	
-	var exit_code = OS.execute("lib\\CoSo\\launcher\\launcher.exe", [], true, output)
+	var exit_code = OS.execute(command, args, true, output)
 	
 	print(">exit_code: " + str(exit_code))
 	return str(output[0]).split("\n")
@@ -201,6 +194,12 @@ func get_input(file_path):
 	var content = file.get_as_text()
 	file.close()
 	return content.replace("\n", "").split(".")
+
+
+func get_path_os(godot_path: String, os: String):
+	
+	if os == "win":
+		return godot_path.replace("/", "\\")
 
 
 func get_ouput():

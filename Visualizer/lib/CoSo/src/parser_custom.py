@@ -1,11 +1,12 @@
 import argparse
 import portion
 import operator, functools
-from problem import *
-from formulas import *
 
-import ply.ply.lex as lex
-import ply.ply.yacc as yacc
+from CoSo.src.problem import *
+from CoSo.src.formulas import *
+
+import CoSo.src.ply.ply.lex as lex
+import CoSo.src.ply.ply.yacc as yacc
 
 class Lexer(object):
 

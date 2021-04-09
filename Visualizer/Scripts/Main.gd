@@ -550,3 +550,31 @@ func domain_interval(_name, interval_string, distinguishable  = true):
 
 func toggle_menu_constraint_pos(extra_arg_0):
 	pass # Replace with function body.
+
+
+func eval(string : String) -> bool:
+	
+	var expression = Expression.new()
+	var tmp = g.CoLaExpression.new(string)
+	var c = tmp.translate() # Returns string in func form
+	var error = expression.parse(c,[])
+	if error != OK:
+		push_error(expression.get_error_text())
+		
+	var result = expression.execute([], self)
+	if not expression.has_execute_failed():
+		return true
+	else:
+		return false
+
+
+# iniitates SolverStep objects from CoSo output as string
+func create_steps(string : String):
+	var lines = string.split("\n")
+	for line in lines:
+		# if is a function call
+		eval(line)
+	
+
+
+

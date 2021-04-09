@@ -27,6 +27,8 @@ class Problem:
 	var pos_constraints: Dictionary
 	var universe = g.Domain.new("uni")
 	var universe_formula : String
+	var child_problems : Array
+	var parent_problem : Problem
 	
 	
 	func _init():
@@ -34,7 +36,12 @@ class Problem:
 		domains = []
 		entity_map = {}
 		count_formulas = []
+		child_problems = []
 		universe_formula = universe.get_name()
+	
+	
+	func add_child_problem(problem : Problem) -> void:
+		child_problems.append(problem)
 	
 	
 	func add_domain(domain : Domain) -> void:
@@ -261,7 +268,7 @@ class Problem:
 				cola += "\n#{d} {op} {i};".format({"d":domain.get_name().to_lower(), "op" : domain.size_constraint.operator, "i" : domain.size_constraint.size})
 		
 		
-		cola.erase(cola.length() - 1, 1)
+		#cola.erase(cola.length() - 1, 1)
 		cola += "\n"
 		
 		return cola
@@ -496,11 +503,13 @@ class DomainFormula:
 	var universe : Domain
 	var domain : Domain
 	
-# warning-ignore:shadowed_variable
+	# warning-ignore:shadowed_variable
 	func _init(universe : Domain):
 		
 		self.universe = universe
 		
+	
+	
 	
 	
 	

@@ -38,6 +38,7 @@ var container_menu : String
 var not_domains = ["structure", "size", "pos", "count", "not", "inter", "union", "in"]
 var config = [Distinct.NONE_SAME, SetFunction.ANY]
 var groups_selection = {} # key : idx, value : bool selected, is reset when group is called
+var current_problem = g.problem
 
 
 const MAX_SET_SIZE = 10
@@ -576,5 +577,11 @@ func create_steps(string : String):
 		eval(line)
 	
 
+func child_problem(current_problem : g.Problem):
+	
+	var child_problem = g.Problem.new()# add parameters
+	current_problem.add_child_problem(child_problem)
+	current_problem = child_problem
+	
 
 

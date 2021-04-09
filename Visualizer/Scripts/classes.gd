@@ -1,3 +1,22 @@
+class SolverStep:
+	
+	var next : SolverStep
+	var prev : SolverStep
+	var depth
+	
+	func _init(depth):
+		
+		self.depth = depth
+	
+	
+	func next() -> SolverStep:
+		return self.next
+	
+	
+	func prev() -> SolverStep:
+		return self.prev
+	
+
 class Problem:
 	
 	

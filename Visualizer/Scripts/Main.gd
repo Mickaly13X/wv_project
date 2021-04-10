@@ -578,9 +578,13 @@ func create_steps(string : String) -> void:
 		eval(line)
 
 
-func child_problem(current_problem : g.Problem):
+# pos_contraint is an Array of domains repr as a list of ints
+# size_constraint is an Array of size constraints repr as a list containing domain elements and a list of possible sizes
+func child_problem(type : String, vars = [], pos_constraints = [], size_constraints = []):
 	
 	var child_problem = g.Problem.new()# add parameters
+	var config = g.Configuration.new("config")
+	
 	child_problem.set_parent_problem(current_problem)
 	current_problem.add_child_problem(child_problem)
 	current_problem = child_problem

@@ -25,6 +25,8 @@ class Problem:
 	var entity_map: Dictionary
 	var count_formulas: Array
 	var pos_constraints: Dictionary
+	var solution: int
+	var solver_step: SolverStep
 	var universe = g.Domain.new("uni")
 	var universe_formula : String
 	
@@ -379,6 +381,19 @@ class Domain:
 		return is_distinct
 
 
+class DomainFormula:
+	
+	
+	var arguments : Array
+	var operator : String
+	
+	
+	func _init(universe : Domain):
+		
+		self.universe = universe
+		
+
+
 class Configuration:
 	
 	var size
@@ -488,29 +503,6 @@ class SizeConstraint:
 		
 		self.operator = operator
 		self.size = size
-
-
-class DomainFormula:
-	
-	var formula : String
-	var universe : Domain
-	var domain : Domain
-	
-# warning-ignore:shadowed_variable
-	func _init(universe : Domain):
-		
-		self.universe = universe
-		
-	
-	
-	
-	
-# warning-ignore:shadowed_variable
-	func Not(domain : Domain) -> Domain:
-		
-		
-		
-		return domain
 
 
 # Class for CoLa Expressions

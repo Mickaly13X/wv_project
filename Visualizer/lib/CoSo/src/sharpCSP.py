@@ -608,6 +608,12 @@ class SharpCSP(object):
     def solve(self, log=True):
         self.dolog = log
         self.log(self)
+        # Godot
+        godot_type = self.type
+        godot_vars = [str(list(v.elements.domain())) for v in self.vars]
+        godot_pos_c = [str(c) for c in self.choice_f]
+        godot_size_c = [str(c) for c in self.count_f]
+        print(f"problem_child({godot_type}, {godot_vars}, {godot_pos_c}, {godot_size_c})")
         for c in self.choice_f:
             self.apply_choice(c)
         try:
@@ -620,6 +626,8 @@ class SharpCSP(object):
             count = self.count()
         self.log("=========")
         self.log("tot:" + str(count))
+        # Godot
+        print("problem_parent(" + str(count) + ")")
         return count
 
     def split(self, split_class_vars, rest_classes_vars, split_class_cofs, rest_classes_cofs):

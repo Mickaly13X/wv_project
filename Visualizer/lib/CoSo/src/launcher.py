@@ -7,8 +7,7 @@ def launch(file):
     
     parser = Parser(file)
     parser.parse()
-    count = parser.problem.solve(False)
-    print(count)
+    parser.problem.solve(False)
 
 
 if __name__ == '__main__':

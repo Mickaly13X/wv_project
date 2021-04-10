@@ -121,8 +121,12 @@ class DomainFormula(Domain):
             f = self.name.child
         else:
             f = Not(self)
-        dom = self.universe.elements.domain() - self.elements.domain()
-        return DomainFormula(f, self.universe.elements[dom], self.universe)
+        if self.universe is None: # this set is universe
+            dom = P.IntervalDict()
+        else:
+            els = self.universe.elements.domain() - self.elements.domain()
+            dom = self.universe.elements[els]
+        return DomainFormula(f, dom, self.universe)
 
     def indistinguishable_subsets(self, dom_formula=None):
         df = dom_formula if dom_formula is not None else self

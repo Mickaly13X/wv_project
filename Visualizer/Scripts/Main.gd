@@ -568,13 +568,10 @@ func eval(string : String) -> bool:
 		return false
 
 
-# iniitates SolverStep objects from CoSo output as string
-func create_steps(string : String):
+# initiates SolverStep objects from CoSo output as string
+func create_steps(string : String) -> void:
+	
 	var lines = string.split("\n")
 	for line in lines:
 		# if is a function call
 		eval(line)
-	
-
-
-

@@ -1,10 +1,10 @@
-class SolverStep:
+class SolverStep extends Problem:
 	
 	var next : SolverStep
 	var prev : SolverStep
 	var depth
 	
-	func _init(depth):
+	func _init(depth).():
 		
 		self.depth = depth
 	
@@ -41,7 +41,11 @@ class Problem:
 	
 	
 	func add_child_problem(problem : Problem) -> void:
-		child_problems.append(problem)
+		self.child_problems.append(problem)
+	
+	
+	func set_parent_problem(problem : Problem) -> void:
+		self.parent_problem = problem
 	
 	
 	func add_domain(domain : Domain) -> void:

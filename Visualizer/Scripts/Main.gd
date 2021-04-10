@@ -580,6 +580,7 @@ func create_steps(string : String):
 func child_problem(current_problem : g.Problem):
 	
 	var child_problem = g.Problem.new()# add parameters
+	child_problem.set_parent_problem(current_problem)
 	current_problem.add_child_problem(child_problem)
 	current_problem = child_problem
 	

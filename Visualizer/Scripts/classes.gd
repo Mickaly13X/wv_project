@@ -1,10 +1,10 @@
-class SolverStep:
+class SolverStep extends Problem:
 	
 	var next : SolverStep
 	var prev : SolverStep
 	var depth
 	
-	func _init(depth):
+	func _init(depth).():
 		
 		self.depth = depth
 	
@@ -29,6 +29,8 @@ class Problem:
 	var solver_step: SolverStep
 	var universe = g.Domain.new("uni")
 	var universe_formula : String
+	var child_problems : Array
+	var parent_problem : Problem
 	
 	
 	func _init():
@@ -36,7 +38,16 @@ class Problem:
 		domains = []
 		entity_map = {}
 		count_formulas = []
+		child_problems = []
 		universe_formula = universe.get_name()
+	
+	
+	func add_child_problem(problem : Problem) -> void:
+		self.child_problems.append(problem)
+	
+	
+	func set_parent_problem(problem : Problem) -> void:
+		self.parent_problem = problem
 	
 	
 	func add_domain(domain : Domain) -> void:
@@ -263,7 +274,7 @@ class Problem:
 				cola += "\n#{d} {op} {i};".format({"d":domain.get_name().to_lower(), "op" : domain.size_constraint.operator, "i" : domain.size_constraint.size})
 		
 		
-		cola.erase(cola.length() - 1, 1)
+		#cola.erase(cola.length() - 1, 1)
 		cola += "\n"
 		
 		return cola

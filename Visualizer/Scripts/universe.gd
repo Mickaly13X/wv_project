@@ -102,6 +102,8 @@ func add_elements(element_ids: PoolIntArray) -> void:
 		new_element.init(self)
 		new_element.set_id(i)
 		$Elements.add_child(new_element)
+	
+	update_element_colors()
 
 
 func clear_circles() -> void:
@@ -265,15 +267,8 @@ func group(group_name : String, is_dist = true) -> void:
 		selected_elements.append(i)
 	problem.group(selected_elements, group_name, is_dist)
 	
-	if is_dist:
-		for e in get_elements_selected():
-			e.set_color(ELEMENT_COLORS[int(e.name)-1])
-	else:
-		for e in get_elements_selected():
-			e.set_color(Color(1, 1, 1))
-	
 	# update visual elements
-	set_problem(problem)
+	update_problem(false)
 
 
 func has_id(id : int):
@@ -307,22 +302,23 @@ func set_name(custom_name : String) -> void:
 		$Label.text = "Universe (" + custom_name + ")"
 
 
-func set_problem(new_problem) -> void:
+# @param 'ow_*': whether to ignore update optimizations
+func set_problem(new_problem, ow_uni = false, ow_dom = false) -> void:
 	
-	if !problem.equals_in_universe(new_problem):
+	if ow_uni || !problem.equals_in_universe(new_problem):
 		update_elements(new_problem.get_universe().get_elements())
 	
-	if !problem.equals_in_domain(new_problem):
-		if new_problem.get_domains.size() == 0:
+	if ow_dom || !problem.equals_in_domains(new_problem):
+		if new_problem.get_domains().size() == 0:
 			update_circles_domain([])
 		else:
 			update_circles_domain(
 				fetch_venn_circles(g.lengths(new_problem.get_domain_intersections()))
 			)
+		update_element_colors()
 	
-	self.problem = new_problem.duplicate()
+	self.problem = new_problem
 	set_name(new_problem.get_universe().get_name())
-	update_dist()
 
 
 func toggle_menu(is_visible : bool):
@@ -358,13 +354,15 @@ func update_circles_domain(venn_circles : Array) -> void:
 	update()
 
 
-func update_dist() -> void:
+func update_element_colors() -> void:
 	
-	for i in get_elements():
-		if problem.is_dist_elem(i.get_id()):
-			i.set_color(ELEMENT_COLORS[int(i.name) - 1])
+	var color_count = 0
+	for I in get_elements():
+		if problem.is_dist_elem(I.get_id()):
+			I.set_color(ELEMENT_COLORS[color_count])
+			color_count += 1
 		else:
-			i.set_color(Color.white)
+			I.set_color(Color.white)
 
 
 func update_domain_names() -> void:
@@ -393,6 +391,7 @@ func update_elements(element_ids: PoolIntArray = get_element_ids()) -> void:
 	
 	delete_elements()
 	add_elements(element_ids)
+	update_element_positions()
 
 
 func update_element_positions(elements = get_elements()) -> void:
@@ -407,7 +406,7 @@ func update_element_positions(elements = get_elements()) -> void:
 		var outside_circles = []
 		
 		for i in circles_domain:
-			if Element in i.domain.get_elements():
+			if Element.get_id() in i.domain.get_elements():
 				inside_circles.append(i)
 			else:
 				outside_circles.append(i)
@@ -465,3 +464,7 @@ func update_element_positions_loop(approx : Rect2, inside_circles : Array,
 		else: return Vector2.ZERO
 	
 	return new_pos
+
+
+func update_problem(ow_uni = true, ow_dom = true) -> void:
+	set_problem(problem, ow_uni, ow_dom)

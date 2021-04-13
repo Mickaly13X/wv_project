@@ -129,8 +129,8 @@ func check_config() -> void:
 	var type = ConfigFuncInput.text
 	
 	# order matters
+	g.problem.set_config(type.to_lower(), size, custom_name)
 	Config.set_problem(g.problem)
-	g.problem.set_config(size, type.to_lower(), custom_name)
 	
 	toggle_menu_config(false)
 
@@ -144,8 +144,8 @@ func check_universe() -> void:
 		return
 	
 	# order matters
-	Universe.set_problem(g.problem)
 	g.problem.set_universe(range(int(new_size)), new_name)
+	Universe.set_problem(g.problem, true, true)
 	
 	# TODO fix
 	CoLaInput.text += new_name + "{[1," + str(new_size) + "]}"

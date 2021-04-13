@@ -1,45 +1,39 @@
-class SolverStep extends Problem:
-	
-	var next : SolverStep
-	var prev : SolverStep
-	var depth
-	
-	func _init(depth).():
-		
-		self.depth = depth
-	
-	
-	func next() -> SolverStep:
-		return self.next
-	
-	
-	func prev() -> SolverStep:
-		return self.prev
-	
-
 class Problem:
 	
 	
 	var domains: Array
-	var config = g.Configuration.new()
-	var entity_map: Dictionary
+	var config # static typing gives error
 	var count_formulas: Array
 	var pos_constraints: Dictionary
 	var solution: int
-	var solver_step: SolverStep
 	var universe = g.Domain.new()
 	var universe_formula : String
-	var child_problems : Array
+	var child_problems = []
 	var parent_problem : Problem
 	
 	
-	func _init():
+	func _init(type = "sequence", vars = [], pos_cs = [], size_cs = []):
 		
-		domains = []
-		entity_map = {}
-		count_formulas = []
-		child_problems = []
+		config = g.Configuration.new(type, len(vars))
+		
+		# Vars
+		for domain_elements in vars:
+			var domain = g.Domain.new("domain" + str(vars.find(domain_elements)), domain_elements)
+			add_domain(domain)
+		
+		# Pos constraints with domain name from elems
+		for i in pos_cs:
+			var position = i[0]
+			var domain_name = get_domain_name_from_elements(i[1])
+			add_pos_constraint(position, domain_name)
+		
 		universe_formula = universe.get_name()
+	
+	
+#	func copy() -> Problem:
+#		return g.Problem.new(
+#			get_type(), get_vars(), pos_constraints.duplicate(true), get_size_cs()
+#		)
 	
 	
 	func add_child_problem(problem : Problem) -> void:
@@ -187,8 +181,31 @@ class Problem:
 		return ""
 	
 	
+#	func get_size_cs() -> Array:
+#
+#		var size_cs = Array()
+#		for domain in get_domains():
+#			if domain.has_size_constraint():
+#
+	
+	
+	func get_type() -> String:
+		return config.type
+	
+	
 	func get_universe():
 		return universe
+	
+	
+	func get_vars() -> Array:
+		
+		var vars = Array()
+		for i in range(config.size):
+			if i in pos_constraints:
+				vars.append(pos_constraints[i])
+			else:
+				vars.append(universe)
+		return vars
 	
 	
 	func group(elements: PoolIntArray, group_name: String, is_dist : bool) -> void:
@@ -217,15 +234,15 @@ class Problem:
 		domains.remove(index)
 	
 	
+	# TODO
 	func reset():
 		
-		entity_map = {}
 		count_formulas = []
 		config = null
 		clear_domains()
 	
 	
-	func set_config(_name : String, _size : int, _type : String, _domain = get_universe()) -> void:
+	func set_config( _type : String, _size : int, _name : String, _domain = get_universe()) -> void:
 		
 		_name = _name.strip_edges()
 		if _name != "":
@@ -289,18 +306,18 @@ class Problem:
 	
 	
 	func update_universe_formula():
-		
-		if g.Union(domains).get_size() == universe.get_size():
-			var tmp = ""
-			var size = domains.size()
-			for domain in domains:
-				tmp += domain.get_name().to_lower()
-				if domains.find(domain)+1 != size:
-					tmp += " + "
-			
-			self.universe_formula = tmp
-		else:
-			self.universe_formula = universe.get_name()
+		pass
+#		if g.Union(domains).get_size() == universe.get_size():
+#			var tmp = ""
+#			var size = domains.size()
+#			for domain in domains:
+#				tmp += domain.get_name().to_lower()
+#				if domains.find(domain)+1 != size:
+#					tmp += " + "
+#
+#			self.universe_formula = tmp
+#		else:
+#			self.universe_formula = universe.get_name()
 	
 	
 	func _print():
@@ -327,11 +344,19 @@ class Domain:
 		elements = Array()
 	
 	
+#	func copy() -> Domain:
+#		return g.Domain.new(domain_name, elements, size_constraint)
+	
+	
 	func get_name() -> String:
 		
 		if domain_name == "":
 			return "uni"
 		return domain_name
+	
+	
+	func has_size_cs() -> bool:
+		return size_constraint.operator != ""
 	
 	
 	func set_name(_name) -> void:
@@ -428,7 +453,7 @@ class Configuration:
 	var formula
 	var domain : Domain
 	
-	func _init(_size = 0, _type = "", _domain = null, _name = ""):
+	func _init(_type = "", _size = 0, _domain = null, _name = ""):
 		
 		custom_name = _name
 		size = _size

@@ -3,8 +3,6 @@ extends Node2D
 # name is an int from 1 to max elem size
 
 
-
-
 onready var Mask = $Mask
 onready var Container_
 

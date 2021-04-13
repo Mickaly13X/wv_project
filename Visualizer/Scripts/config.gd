@@ -20,12 +20,12 @@ func _ready():
 	shape.set_border_width_all(3)
 	shape.set_corner_radius_all(30)
 	
-	set_name("")
+	set_size(0)
 
 
 func _draw():
 	
-	draw_style_box(shape, Rect2(Vector2(0, 0), $Mask.rect_size))
+	draw_self()
 	var constraints = g.problem.pos_constraints
 	var x_rel = (Main.Universe.position.x - position.x) * Vector2.RIGHT
 	for i in constraints:
@@ -73,13 +73,6 @@ func has_max_elements() -> bool:
 	return false
 
 
-func init(size : int, custom_name = get_name()) -> void:
-	
-	set_name(custom_name)
-	set_size(size)
-	update()
-
-
 func set_name(custom_name : String) -> void:
 	
 	self.custom_name = custom_name
@@ -87,6 +80,13 @@ func set_name(custom_name : String) -> void:
 		$Label.text = "Config"
 	else:
 		$Label.text = "Config (" + custom_name + ")"
+
+
+func set_problem(problem) -> void:
+	
+	set_name(problem.config.custom_name)
+	set_size(problem.config.size)
+	update()
 
 
 func set_size(size : int) -> void:

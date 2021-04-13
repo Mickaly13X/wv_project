@@ -27,7 +27,7 @@ class Problem:
 	var pos_constraints: Dictionary
 	var solution: int
 	var solver_step: SolverStep
-	var universe = g.Domain.new("uni")
+	var universe = g.Domain.new()
 	var universe_formula : String
 	var child_problems : Array
 	var parent_problem : Problem
@@ -54,26 +54,10 @@ class Problem:
 		domains.append(domain)
 		update_universe_formula()
 	
-	func add_to_universe(element : int) -> void:
-		universe.add_element(element)
-		update_universe_formula()
-	
-	
-	func add_elements(no_elements : int) -> void:
-		
-		var new_elements = []
-		for i in no_elements:
-			var elem_count = universe.get_size()
-			for j in range(1, elem_count+2):
-				if !universe.get_elements().has(j):
-					universe.add_elements([j])
-					
-		update_universe_formula()
-	
 	
 	func add_pos_constraint(pos: int, domain_name: String) -> void:
 		
-		if domain_name == "uni":
+		if domain_name == "":
 			pos_constraints[pos] = universe
 		else:
 			pos_constraints[pos] = get_domain(domain_name)
@@ -95,11 +79,27 @@ class Problem:
 				remove_domain(domains.find(i))
 	
 	
-	func clear_domains():
+	func clear_domains() -> void:
 		
 		domains = []
 		universe.clear()
 		update_universe_formula()
+	
+	
+	func equals_in_domains(other: Problem) -> bool:
+		
+		var domain_elements_self = get_domain_elements()
+		var domain_elements_other = other.get_domain_elements()
+		if len(domain_elements_self) != len(domain_elements_other):
+			return false
+		for i in range(len(domain_elements_self)):
+			if domain_elements_self[i] != domain_elements_other[i]:
+				return false
+		return true
+	
+	
+	func equals_in_universe(other: Problem) -> bool:
+		return get_universe().get_elements() == other.get_universe().get_elements()
 	
 	
 	func erase_elements(elements_ids : PoolIntArray):
@@ -122,7 +122,7 @@ class Problem:
 	
 	func get_domain(domain_name: String) -> Domain:
 		
-		if domain_name == "uni":
+		if domain_name == "":
 			return universe
 		for i in get_domains():
 			if i.get_name() == domain_name:
@@ -166,7 +166,7 @@ class Problem:
 		return g.lengths(get_domain_elements())
 	
 	
-	func get_domains():
+	func get_domains() -> Array:
 		return domains
 	
 	
@@ -180,7 +180,7 @@ class Problem:
 		return domains_strict
 	
 	
-	func get_universe():
+	func get_universe() -> Domain:
 		return universe
 	
 	
@@ -235,10 +235,11 @@ class Problem:
 		get_domain(domain_name).size_constraint.init(operator, size)
 	
 	
-	func set_universe(size: int) -> void:
+	func set_universe(element_ids: PoolIntArray, custom_name: String) -> void:
 		
-		g.problem.clear_domains()
-		add_elements(size)
+		clear_domains()
+		universe.add_elements(element_ids)
+		universe.set_name(custom_name)
 		update_universe_formula()
 	
 	
@@ -303,12 +304,12 @@ class Domain:
 	
 	
 	var domain_name: String
-	var elements: Array
+	var elements: PoolIntArray
 	var is_distinct: bool
 	var size_constraint = g.SizeConstraint.new()
 	
 	
-	func _init(_name : String, _elements = [], _is_distinct = true):
+	func _init(_name = "", _elements = [], _is_distinct = true):
 		
 		domain_name = _name
 		elements = _elements
@@ -320,6 +321,9 @@ class Domain:
 	
 	
 	func get_name() -> String:
+		
+		if domain_name == "":
+			return "uni"
 		return domain_name
 	
 	
@@ -328,20 +332,23 @@ class Domain:
 	
 	
 	# Get a list containing all elements
-	func get_elements() -> Array:
+	func get_elements() -> PoolIntArray:
 		return elements
 	
 	
-	func add_elements(new_elements : Array) -> void:
+	func add_elements(new_elements : PoolIntArray) -> void:
 		elements = g.union(elements, new_elements)
 	
 	
-	func erase_elem(element : int):
-		elements.erase(element)
+	func erase_elem(element : int) -> void:
+		
+		var elements_casted = Array(elements)
+		elements_casted.erase(element)
+		elements = PoolIntArray(elements_casted)
 	
 	
 	# Get domain size
-	func get_size():
+	func get_size() -> int:
 		return len(self.elements)
 	
 
@@ -408,15 +415,15 @@ class DomainFormula:
 class Configuration:
 	
 	var size
-	var config_name
+	var custom_name
 	var type
 	var type_string_list = ["","",""]
 	var formula
 	var domain : Domain
 	
-	func _init(_name = "config", _size = 1, _type = "", _domain = null):
+	func _init(_size = 0, _type = "", _domain = null, _name = ""):
 		
-		config_name = _name
+		custom_name = _name
 		size = _size
 		domain = _domain
 		set_type(_type)
@@ -431,11 +438,11 @@ class Configuration:
 	
 	
 	func get_name():
-		return config_name
+		return custom_name
 	
 	
 	func set_name(_name : String):
-		config_name = _name
+		custom_name = _name
 	
 	
 	func get_type():
@@ -484,8 +491,8 @@ class Configuration:
 	
 	func to_cola() -> String:
 		
-		var cola = "{c} in {h0}{h1}{u}{h2};".format({"c":config_name,"u":formula, "h0":type_string_list[0], "h1":type_string_list[1], "h2":type_string_list[2]})
-		cola += "\n#{c} = {s};".format({"c":config_name, "s":size})
+		var cola = "{c} in {h0}{h1}{u}{h2};".format({"c":custom_name,"u":formula, "h0":type_string_list[0], "h1":type_string_list[1], "h2":type_string_list[2]})
+		cola += "\n#{c} = {s};".format({"c":custom_name, "s":size})
 		
 		return cola
 

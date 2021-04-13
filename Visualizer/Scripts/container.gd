@@ -1,8 +1,12 @@
 extends Node2D
 
 
-var custom_name: String
+var custom_name: String = ""
 var shape: StyleBoxFlat
+
+
+func draw_self() -> void:
+	draw_style_box(shape, Rect2(Vector2(0, 0), $Mask.rect_size))
 
 
 func get_center(offset = Vector2.ZERO) -> Vector2:

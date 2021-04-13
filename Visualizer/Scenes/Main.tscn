@@ -988,9 +988,9 @@ popup_exclusive = true
 window_title = "Open een Bestand"
 mode = 0
 access = 2
-current_dir = "/Users/erickim/wv_project/Visualizer"
+current_dir = "/Users/Joran/Git/wv_project/Visualizer"
 current_file = "~"
-current_path = "/Users/erickim/wv_project/Visualizer/~"
+current_path = "/Users/Joran/Git/wv_project/Visualizer/~"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1012,7 +1012,7 @@ __meta__ = {
 [connection signal="button_up" from="Popups/MenuConfig/VBox/Buttons/CancelButton" to="." method="toggle_menu_config" binds= [ false ]]
 [connection signal="button_up" from="Popups/MenuConfig/VBox/Buttons/AddButton" to="." method="check_config"]
 [connection signal="button_up" from="Popups/MenuUniverse/VBox/Buttons/CancelButton" to="." method="toggle_menu_universe" binds= [ false ]]
-[connection signal="button_up" from="Popups/MenuUniverse/VBox/Buttons/AddButton" to="." method="set_universe"]
+[connection signal="button_up" from="Popups/MenuUniverse/VBox/Buttons/AddButton" to="." method="check_universe"]
 [connection signal="button_up" from="Popups/MenuGroup/VBox/Buttons/CancelButton" to="." method="toggle_menu_group" binds= [ false ]]
 [connection signal="button_up" from="Popups/MenuGroup/VBox/Buttons/Group" to="." method="group"]
 [connection signal="button_up" from="Popups/MenuPosConstraint/VBox/Buttons/CancelButton" to="." method="toggle_menu_pos_constraint" binds= [ false ]]

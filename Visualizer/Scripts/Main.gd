@@ -17,7 +17,6 @@ onready var Config = $HSplit/MainPanel/Containers/Config
 onready var ConfigFuncInput = $Popups/MenuConfig/VBox/Items/FuncInput
 onready var ConfigNameInput = $Popups/MenuConfig/VBox/Items/NameInput
 onready var ConfigSizeInput = $Popups/MenuConfig/VBox/Items/SizeInput
-onready var Containers = $HSplit/MainPanel/Containers
 onready var DistInput = $Popups/MenuGroup/VBox/Items/DistInput
 onready var FuncInput = $Popups/MenuConfig/VBox/Items/FuncInput
 onready var GroupInput = $Popups/MenuGroup/VBox/Items/GroupInput
@@ -52,7 +51,6 @@ func _ready():
 	init_menus()
 	Popups.get_node("OpenFile").current_dir = ""
 	Popups.get_node("OpenFile").current_path = ""
-	set_config(0, "")
 	#var file_path = "res://tests/paper/constrained/permutation_5_4.test"
 	#var domains = get_domains(get_input(file_path))
 	#set_diagram(get_venn_areas(domains.values()))
@@ -130,9 +128,28 @@ func check_config() -> void:
 	var size = int(ConfigSizeInput.text)
 	var type = ConfigFuncInput.text
 	
-	g.problem.set_config(custom_name, size, type.to_lower())
-	set_config(size, custom_name)
+	# order matters
+	Config.set_problem(g.problem)
+	g.problem.set_config(size, type.to_lower(), custom_name)
+	
 	toggle_menu_config(false)
+
+
+func check_universe() -> void:
+	
+	var new_name = $Popups/MenuUniverse/VBox/Items/NameInput.text
+	var new_size = UnivSizeInput.text
+	if new_size == "- -":
+		show_message("Please choose a size")
+		return
+	
+	# order matters
+	Universe.set_problem(g.problem)
+	g.problem.set_universe(range(int(new_size)), new_name)
+	
+	# TODO fix
+	CoLaInput.text += new_name + "{[1," + str(new_size) + "]}"
+	toggle_menu_universe(false)
 
 
 func check_pos_constraint() -> void:
@@ -307,8 +324,9 @@ func group() -> bool:
 
 func init_children() -> void:
 	
-	Config.Main = self 
-	Universe.Main = self 
+	Config.Main = self
+	Universe.Main = self
+	Universe.problem = g.problem
 
 
 func is_checked(group_name : String) -> bool:
@@ -379,25 +397,10 @@ func run():
 	show_message("Solution is " + sol[0])
 
 
-func set_config(size : int, custom_name : String) -> void:
-	Config.init(size, custom_name)
-
-
-func set_universe() -> void:
+func set_problem(problem) -> void:
 	
-	var new_name = $Popups/MenuUniverse/VBox/Items/NameInput.text
-	var new_size = UnivSizeInput.text
-	if new_size == "- -":
-		show_message("Please choose a size")
-		return
-	
-	
-	
-	Containers.get_node("Universe").init(int(new_size), true, new_name)
-	g.problem.set_universe(int(new_size))
-	
-	CoLaInput.text += new_name + "{[1," + str(new_size) + "]}"
-	toggle_menu_universe(false)
+	Config.set_problem(problem)
+	Universe.set_problem(problem)
 
 
 func show_message(message : String) -> void:
@@ -482,7 +485,7 @@ func toggle_menu_size_constraint(is_opened : bool) -> void:
 
 func undo_menu(ref : String) -> void:
 	
-	var container = Containers.get_node(ref)
+	var container = get_node("HSplit/MainPanel/Containers/" + ref)
 	container.deselect_elements()
 	container.toggle_menu(false)
 
@@ -583,7 +586,7 @@ func create_steps(string : String) -> void:
 func child_problem(type : String, vars = [], pos_constraints = [], size_constraints = []):
 	
 	var child_problem = g.Problem.new()# add parameters
-	var config = g.Configuration.new("config")
+	var config = g.Configuration.new()
 	
 	child_problem.set_parent_problem(current_problem)
 	current_problem.add_child_problem(child_problem)

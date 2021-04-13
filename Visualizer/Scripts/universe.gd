@@ -28,6 +28,8 @@ var circles_domain = []
 #var elements = {}
 
 var is_distinct : bool
+var is_editable = true
+var problem
 
 
 func _ready():
@@ -51,58 +53,55 @@ func _draw():
 
 func _gui_input(event):
 	
-	if event.is_pressed():
-		if event.button_index == BUTTON_LEFT:
-			deselect_elements()
-			toggle_menu(false)
-		elif event.button_index == BUTTON_RIGHT:
-			deselect_elements()
-			toggle_menu(true)
+	if is_editable:
+		if event.is_pressed():
+			
+			if event.button_index == BUTTON_LEFT:
+				deselect_elements()
+				toggle_menu(false)
+			elif event.button_index == BUTTON_RIGHT:
+				deselect_elements()
+				toggle_menu(true)
 
 
 func _pressed(button_name : String) -> void:
 	
-	match button_name:
+	if is_editable:
 		
-		"Add": 
-			add_elements(1)
-		
-		"Delete":
-			#TODO: popup confirmation
-			delete_elements(get_element_ids(get_elements_selected()))
-		
-		"Group":
-			Main.toggle_menu_group(true)
-		
-		"SizeConstraints":
-			Main.toggle_menu_size_constraint(true)
-		
-	$Menu.hide()
+		match button_name:
+			
+			"Add":
+				var new_id = get_free_id()
+				problem.universe.add_elements([new_id])
+				add_elements([new_id])
+				update_element_positions([get_element(new_id)])
+			
+			"Delete":
+				#TODO: popup confirmation
+				var element_ids = get_element_ids(get_elements_selected())
+				problem.erase_elements(element_ids)
+				delete_elements(element_ids)
+				# TODO rebuilt only if venn changes
+				update_elements()
+			
+			"Group":
+				Main.toggle_menu_group(true)
+			
+			"SizeConstraints":
+				Main.toggle_menu_size_constraint(true)
+			
+		$Menu.hide()
 
 
-func add_elements(no_elements : int):
+# @pre: 'element_ids' does not contain ids already present
+func add_elements(element_ids: PoolIntArray) -> void:
 	
-	var counter = g.problem.get_elem_count()
+	for i in element_ids:
 	
-	g.problem.add_elements(no_elements)
-	
-	var flag = false
-	
-	for i in range(no_elements):
-		
 		var new_element = ELEMENT.instance()
 		new_element.init(self)
-		
-		new_element.set_id(get_new_id())
+		new_element.set_id(i)
 		$Elements.add_child(new_element)
-		
-		if no_elements == 1: 
-			update_element_positions([new_element])
-			flag = true
-	
-	update_dist()
-	if flag == false:
-		update_element_positions()
 
 
 func clear_circles() -> void:
@@ -111,13 +110,10 @@ func clear_circles() -> void:
 
 func delete_elements(element_ids: PoolIntArray = get_element_ids()) -> void:
 	
-	g.problem.erase_elements(element_ids)
 	for i in element_ids:
 		var element = $Elements.get_node(str(i))
 		if element != null:
 			element.free()
-	if !element_ids.empty():
-		init(get_size(), false)
 
 
 func deselect_elements():
@@ -142,10 +138,6 @@ func draw_circle_custom(radius: float, pos: Vector2, \
 		points.push_back(v * radius + pos)
 	
 	draw_colored_polygon(points, color)
-
-
-func draw_self():
-	draw_style_box(shape, Rect2(Vector2(0, 0), $Mask.rect_size))
 
 
 # @param domain_inter_sizes = list of (sub)set SIZES 
@@ -193,7 +185,7 @@ func fetch_venn_circles_formatted(venn_circles : Array) -> Array:
 			smallest_radius = venn_circles[i][1]
 	
 	# scaling
-	var smallest_domain_size = Array(g.problem.get_domain_sizes()).min()
+	var smallest_domain_size = Array(problem.get_domain_sizes()).min()
 	var venn_circles_formatted = []
 	for i in range(len(venn_circles)):
 		var scalar = sqrt(smallest_domain_size) * 140 #+ int(len(domains) == 3) * 32)
@@ -214,7 +206,7 @@ func get_circle_approx(circle : Dictionary) -> Rect2:
 
 func get_domain_left_side(domain) -> Vector2:
 	
-	if domain == g.problem.universe:
+	if domain == problem.universe:
 		return $Mask.rect_size.y / 2.0 * Vector2.DOWN
 	
 	for i in circles_domain:
@@ -224,7 +216,15 @@ func get_domain_left_side(domain) -> Vector2:
 
 
 func get_domains() -> Array:
-	return g.problem.get_domains()
+	return problem.get_domains()
+
+
+func get_element(element_id) -> Node:
+	
+	for I in get_elements():
+		if I.get_id() == element_id:
+			return I
+	return null
 
 
 func get_element_ids(elements: Array = get_elements()) -> PoolIntArray:
@@ -244,7 +244,7 @@ func get_elements_selected() -> Array:
 	return elements_selected
 
 
-func get_new_id() -> int:
+func get_free_id() -> int:
 	
 	var count = get_elements().size()
 	var _max = count + 2
@@ -263,8 +263,7 @@ func group(group_name : String, is_dist = true) -> void:
 	var selected_elements = PoolIntArray()
 	for i in get_element_ids(get_elements_selected()):
 		selected_elements.append(i)
-	
-	g.problem.group(selected_elements, group_name, is_dist)	
+	problem.group(selected_elements, group_name, is_dist)
 	
 	if is_dist:
 		for e in get_elements_selected():
@@ -272,8 +271,9 @@ func group(group_name : String, is_dist = true) -> void:
 	else:
 		for e in get_elements_selected():
 			e.set_color(Color(1, 1, 1))
-	# update visible structure
-	init(get_size(), false)
+	
+	# update visual elements
+	set_problem(problem)
 
 
 func has_id(id : int):
@@ -298,22 +298,6 @@ func has_selected_elements() -> bool:
 	return false
 
 
-func init(size : int, is_rebuild = true, custom_name = get_name()) -> void:
-	
-	if is_rebuild:
-		delete_elements()
-		add_elements(size)
-	
-	set_name(custom_name)
-	
-	if get_domains().size() == 0:
-		update_circles_domain([])
-	else:
-		update_circles_domain(
-			fetch_venn_circles(g.lengths(g.problem.get_domain_intersections()))
-		)
-
-
 func set_name(custom_name : String) -> void:
 	
 	self.custom_name = custom_name
@@ -321,6 +305,24 @@ func set_name(custom_name : String) -> void:
 		$Label.text = "Universe"
 	else:
 		$Label.text = "Universe (" + custom_name + ")"
+
+
+func set_problem(new_problem) -> void:
+	
+	if !problem.equals_in_universe(new_problem):
+		update_elements(new_problem.get_universe().get_elements())
+	
+	if !problem.equals_in_domain(new_problem):
+		if new_problem.get_domains.size() == 0:
+			update_circles_domain([])
+		else:
+			update_circles_domain(
+				fetch_venn_circles(g.lengths(new_problem.get_domain_intersections()))
+			)
+	
+	self.problem = new_problem.duplicate()
+	set_name(new_problem.get_universe().get_name())
+	update_dist()
 
 
 func toggle_menu(is_visible : bool):
@@ -358,11 +360,9 @@ func update_circles_domain(venn_circles : Array) -> void:
 
 func update_dist() -> void:
 	
-	var color_counter = 0
 	for i in get_elements():
-		if g.problem.is_dist_elem(i.get_id()):
-			i.set_color(ELEMENT_COLORS[int(i.name)-1])
-			color_counter += 1
+		if problem.is_dist_elem(i.get_id()):
+			i.set_color(ELEMENT_COLORS[int(i.name) - 1])
 		else:
 			i.set_color(Color.white)
 
@@ -389,19 +389,25 @@ func update_domain_names() -> void:
 			DomainName.hide()
 
 
+func update_elements(element_ids: PoolIntArray = get_element_ids()) -> void:
+	
+	delete_elements()
+	add_elements(element_ids)
+
+
 func update_element_positions(elements = get_elements()) -> void:
 	
-	var assigned_positions = []
+	var assigned_positions = PoolVector2Array()
 	for i in g.exclude(get_elements(), elements):
 		assigned_positions.append(i.position)
 	
-	for element in elements:
+	for Element in elements:
 		
 		var inside_circles = []
 		var outside_circles = []
 		
 		for i in circles_domain:
-			if element.get_id() in i.domain.get_elements():
+			if Element in i.domain.get_elements():
 				inside_circles.append(i)
 			else:
 				outside_circles.append(i)
@@ -418,14 +424,15 @@ func update_element_positions(elements = get_elements()) -> void:
 		var new_assigned_pos = Vector2.ZERO # invalid pos
 		while new_assigned_pos == Vector2.ZERO:
 			new_assigned_pos = update_element_positions_loop(
-				element, approx, inside_circles, outside_circles, assigned_positions
+				approx, inside_circles, outside_circles, assigned_positions
 			)
+		Element.position = new_assigned_pos
 		assigned_positions.append(new_assigned_pos)
 
 
 # @return exit_code
-func update_element_positions_loop(element : Node, approx : Rect2,
-	inside_circles : Array, outside_circles : Array, assigned_positions : Array
+func update_element_positions_loop(approx : Rect2, inside_circles : Array,
+		outside_circles : Array, assigned_positions : PoolVector2Array
 	) -> Vector2:
 	
 	var attempt = 0
@@ -457,6 +464,4 @@ func update_element_positions_loop(element : Node, approx : Rect2,
 			attempt += 1
 		else: return Vector2.ZERO
 	
-	element.position = new_pos
-	assigned_positions.append(new_pos)
 	return new_pos

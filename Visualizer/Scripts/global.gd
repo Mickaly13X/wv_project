@@ -17,8 +17,8 @@ const OPERATORS = [
 		"<="
 	]
 
-
 onready var problem = Problem.new()
+
 
 #---------------------------GENERAL-FUNCTION-LIBRARY-------------------------------#
 

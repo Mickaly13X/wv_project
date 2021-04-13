@@ -583,7 +583,20 @@ func create_steps(string : String) -> void:
 func child_problem(type : String, vars = [], pos_constraints = [], size_constraints = []):
 	
 	var child_problem = g.Problem.new()# add parameters
-	var config = g.Configuration.new("config")
+	var config = g.Configuration.new("config", 1, type, null)
+	child_problem.set_config(config)
+	# Vars
+	for v in vars:
+		var domain = g.Domain.new("domain"+str(vars.find(v)),v)
+		child_problem.add_domain(domain)
+	
+	# Pos constraints with domain name from elems
+	for pcon in pos_constraints:
+		var pos = pcon[0]
+		var domain_name = child_problem.get_domain_name_from_elements(pcon[1])
+		child_problem.add_pos_constraint(pos, domain_name)
+	
+	# Size constraints with domain name from elems
 	
 	child_problem.set_parent_problem(current_problem)
 	current_problem.add_child_problem(child_problem)

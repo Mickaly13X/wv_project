@@ -180,7 +180,14 @@ class Problem:
 		return domains_strict
 	
 	
-	func get_universe() -> Domain:
+	func get_domain_name_from_elements(elements : Array) -> String:
+		for domain in domains:
+			if elements.sort() == domain.get_elements().sort():
+				return domain.get_name()
+		return ""
+	
+	
+	func get_universe():
 		return universe
 	
 	

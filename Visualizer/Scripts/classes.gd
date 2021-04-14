@@ -27,6 +27,13 @@ class Problem:
 			var domain_name = get_domain_name_from_elements(i[1])
 			add_pos_constraint(position, domain_name)
 		
+		# Size constraint is an Array of size constraints repr as a list containing domain elements and a list of possible sizes
+		for i in size_cs:
+			var domain_elements = i[0]
+			var sizes = i[1]
+			# Find operator somehow
+			set_size_constraint(get_domain_name_from_elements(domain_elements), "operator", sizes.max())
+		
 		universe_formula = universe.get_name()
 	
 	

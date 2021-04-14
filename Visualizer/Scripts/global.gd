@@ -83,6 +83,10 @@ func intersection(a: Array, b: Array) -> Array:
 	return intersection
 
 
+func is_null(x) -> bool:
+	return typeof(x) == 0
+
+
 func lengths(array2D: Array) -> PoolIntArray:
 	
 	var lengths = PoolIntArray()

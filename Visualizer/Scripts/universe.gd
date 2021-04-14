@@ -28,7 +28,6 @@ var circles_domain = []
 #var elements = {}
 
 var is_distinct : bool
-var is_editable = true
 var problem
 
 
@@ -39,7 +38,7 @@ func _ready():
 	shape.set_border_width_all(3)
 	shape.set_corner_radius_all(30)
 	
-	set_name("")
+	problem = g.problem
 
 
 func _draw():
@@ -53,7 +52,7 @@ func _draw():
 
 func _gui_input(event):
 	
-	if is_editable:
+	if is_editable():
 		if event.is_pressed():
 			
 			if event.button_index == BUTTON_LEFT:
@@ -66,7 +65,7 @@ func _gui_input(event):
 
 func _pressed(button_name : String) -> void:
 	
-	if is_editable:
+	if is_editable():
 		
 		match button_name:
 			
@@ -291,6 +290,10 @@ func has_selected_elements() -> bool:
 		if I.is_selected:
 			return true
 	return false
+
+
+func is_editable() -> bool:
+	return Main.is_editable()
 
 
 func set_name(custom_name : String) -> void:

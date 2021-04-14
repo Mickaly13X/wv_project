@@ -1,14 +1,18 @@
 extends Control
 
 
-const SET = preload("res://Scenes/Universe.tscn")
 const CONFIG_NAMES = [ \
 	["sequence", "permutation", "composition"],
 	["multisubset",  "subset", "integer composition"],
 	["partition", "partition", "partition", "partition"],
 	["integer partition", "integer partition", "integer partition", "integer partition"]]
+const MAX_CONFIG_SIZE = 10
+const MAX_UNI_SIZE = 10
+const NOT_DOMAINS = ["structure", "size", "pos", "count", "not", "inter", "union", "in"]
+const SET = preload("res://Scenes/Universe.tscn")
 
 enum Distinct {NONE_SAME, N_SAME, X_SAME, NX_SAME}
+enum Mode {EDIT, STEPS}
 enum SetFunction {ANY, INJ, SUR}
 
 onready var CoLaInput = $HSplit/CoLaPanel/CoLaInput
@@ -19,30 +23,25 @@ onready var ConfigNameInput = $Popups/MenuConfig/VBox/Items/NameInput
 onready var ConfigSizeInput = $Popups/MenuConfig/VBox/Items/SizeInput
 onready var Containers = $HSplit/MainPanel/Containers
 onready var DistInput = $Popups/MenuGroup/VBox/Items/DistInput
+onready var DomainInput = $Popups/MenuPosConstraint/VBox/Items/DomainInput
 onready var FuncInput = $Popups/MenuConfig/VBox/Items/FuncInput
 onready var GroupInput = $Popups/MenuGroup/VBox/Items/GroupInput
+onready var GroupsLabel = $Popups/MenuGroup/VBox/GroupsLabel
 onready var HSplit = $HSplit
+onready var IntInput = $Popups/MenuSizeConstraint/VBox/Items/IntInput
 onready var NewGroupInput = $Popups/MenuGroup/VBox/Items/NewGroupInput
 onready var OpenCoLa = $HSplit/MainPanel/UI/HUD/OpenCoLa
+onready var OperatorInput = $Popups/MenuSizeConstraint/VBox/Items/OperatorInput
 onready var Popups = $Popups
+onready var SizeDomainInput = $Popups/MenuSizeConstraint/VBox/Items/DomainInput
 onready var UnivSizeInput = $Popups/MenuUniverse/VBox/Items/SizeInput
 onready var Universe = $HSplit/MainPanel/Containers/Universe
-onready var DomainInput = $Popups/MenuPosConstraint/VBox/Items/DomainInput
-onready var SizeDomainInput = $Popups/MenuSizeConstraint/VBox/Items/DomainInput
-onready var IntInput = $Popups/MenuSizeConstraint/VBox/Items/IntInput
-onready var OperatorInput = $Popups/MenuSizeConstraint/VBox/Items/OperatorInput
 
-onready var GroupsLabel = $Popups/MenuGroup/VBox/GroupsLabel
-
-var container_menu : String
-var not_domains = ["structure", "size", "pos", "count", "not", "inter", "union", "in"]
 var config = [Distinct.NONE_SAME, SetFunction.ANY]
+var container_menu : String
 var groups_selection = {} # key : idx, value : bool selected, is reset when group is called
-var current_problem = g.problem
-
-
-const MAX_SET_SIZE = 10
-const MAX_CONFIG_SIZE = 10
+var mode: int
+var running_problem
 
 
 func _ready():
@@ -52,7 +51,6 @@ func _ready():
 	init_menus()
 	Popups.get_node("OpenFile").current_dir = ""
 	Popups.get_node("OpenFile").current_path = ""
-	set_config(0, "")
 	#var file_path = "res://tests/paper/constrained/permutation_5_4.test"
 	#var domains = get_domains(get_input(file_path))
 	#set_diagram(get_venn_areas(domains.values()))
@@ -130,9 +128,24 @@ func check_config() -> void:
 	var size = int(ConfigSizeInput.text)
 	var type = ConfigFuncInput.text
 	
-	g.problem.set_config(custom_name, size, type.to_lower())
-	set_config(size, custom_name)
+	g.problem.set_config(type.to_lower(), size, custom_name)
+	Config.set_problem(g.problem)
 	toggle_menu_config(false)
+
+
+func check_universe() -> void:
+	
+	var new_name = $Popups/MenuUniverse/VBox/Items/NameInput.text
+	var new_size = UnivSizeInput.text
+	if new_size == "- -":
+		show_message("Please choose a size")
+		return
+	
+	g.problem.set_universe(range(int(new_size)), new_name)
+	Universe.set_problem(g.problem, true, true)
+	
+	CoLaInput.text += new_name + "{[1," + str(new_size) + "]}"
+	toggle_menu_universe(false)
 
 
 func check_pos_constraint() -> void:
@@ -185,7 +198,7 @@ func fetch(function_name: String, arguments: Array = []) -> PoolStringArray:
 	var exit_code = OS.execute(command, args, true, output)
 
 	print(">exit_code: " + str(exit_code))
-	return str(output[0]).split("\n")
+	return output[0].rstrip("\n").split("\n")
 	
 #	var command = "lib/fetch_osx/fetch" # path structure os dependent
 #	var args = [function_name.left(1)] + arguments
@@ -232,7 +245,7 @@ func get_domains(input):
 	var domain_strings = []
 	for i in input:
 		var is_domain = true
-		for j in not_domains:
+		for j in NOT_DOMAINS:
 			if j in i or i == "":
 				is_domain = false
 				break
@@ -318,7 +331,7 @@ func group() -> bool:
 func init_children() -> void:
 	
 	Config.Main = self 
-	Universe.Main = self 
+	Universe.Main = self
 
 
 func is_checked(group_name : String) -> bool:
@@ -328,6 +341,10 @@ func is_checked(group_name : String) -> bool:
 		if group_name == GroupInput.get_popup().get_item_text(id):
 			checked = groups_selection[id]
 	return checked
+
+
+func is_editable() -> bool:
+	return mode == Mode.EDIT
 
 
 func init_menus() -> void:
@@ -355,7 +372,7 @@ func init_menus() -> void:
 	for op in g.OPERATORS:
 		OperatorInput.get_popup().add_item(op)
 	
-	for i in range(MAX_SET_SIZE):
+	for i in range(MAX_UNI_SIZE):
 		#to add zero before single digits like 01, 02 instead of 1, 2
 		var numberstr = "0" + str(i + 1) if i + 1 < 10 else str(i + 1)
 		UnivSizeInput.get_popup().add_item(numberstr)
@@ -377,37 +394,47 @@ func popup_import():
 
 func run():
 	
-	if Config.get_size() ==  0:
-		show_message("Config not defined!")
-		return
-	if Universe.get_size() ==  0:
-		show_message("Universe not defined!")
-		return
-	
-	create_cola_file()
-	var sol = fetch("coso")
-	show_message("Solution is " + sol[0])
+	if is_editable():
+		
+		if Config.get_size() ==  0:
+			show_message("Config not defined!")
+			return
+		if Universe.get_size() ==  0:
+			show_message("Universe not defined!")
+			return
+		
+		mode = Mode.STEPS
+		create_cola_file()
+		# interpret coso output
+		var function_steps: PoolStringArray = fetch("coso")
+		print(function_steps)
+		for step in function_steps:
+			eval(step)
+#			var expr = Expression.new()
+#			var error = expr.parse(step)
+#			if error != OK:
+#				print(expr.get_error_text())
+#				return
+#			else:
+#				expr.execute()
+#				if expr.has_execute_failed():
+#					print("[error] execution has failed")
 
 
-func set_config(size : int, custom_name : String) -> void:
-	Config.init(size, custom_name)
+# pos_contraint is an Array of domains repr as a list of ints
+# size_constraint is an Array of size constraints repr as a list containing domain elements and a list of possible sizes
+func run_child(type: String, vars: Array, pos_cs: Array, size_cs: Array) -> void:
+	
+	print("child")
+#	var child_problem = g.Problem.new(type, vars, pos_constraints, size_constraints)# add parameters
+#
+#	child_problem.set_parent_problem(running_problem)
+#	running_problem.add_child_problem(child_problem)
+#	running_problem = child_problem
 
 
-func set_universe() -> void:
-	
-	var new_name = $Popups/MenuUniverse/VBox/Items/NameInput.text
-	var new_size = UnivSizeInput.text
-	if new_size == "- -":
-		show_message("Please choose a size")
-		return
-	
-	
-	
-	Containers.get_node("Universe").init(int(new_size), true, new_name)
-	g.problem.set_universe(int(new_size))
-	
-	CoLaInput.text += new_name + "{[1," + str(new_size) + "]}"
-	toggle_menu_universe(false)
+func run_parent(solution: int) -> void:
+	print("parent " + str(solution))
 
 
 func show_message(message : String) -> void:
@@ -509,6 +536,7 @@ func get_selected_group_names_as_string() -> String:
 	
 	return group_names
 
+
 func get_selected_group_ids() -> String:
 	
 	var group_ids = []
@@ -553,6 +581,7 @@ func parse(cola_string : String) -> Dictionary:
 	
 	return parsed_dict
 
+
 # Returns a domain (interval)
 func domain_interval(_name, interval_string, distinguishable  = true):
 	
@@ -577,23 +606,3 @@ func eval(string : String) -> bool:
 		return true
 	else:
 		return false
-
-
-# initiates SolverStep objects from CoSo output as string
-func create_steps(string : String) -> void:
-	
-	var lines = string.split("\n")
-	for line in lines:
-		# if is a function call
-		eval(line)
-
-
-# pos_contraint is an Array of domains repr as a list of ints
-# size_constraint is an Array of size constraints repr as a list containing domain elements and a list of possible sizes
-func child_problem(type : String, vars = [], pos_constraints = [], size_constraints = []):
-	
-	var child_problem = g.Problem.new(type, vars, pos_constraints, size_constraints)# add parameters
-	
-	child_problem.set_parent_problem(current_problem)
-	current_problem.add_child_problem(child_problem)
-	current_problem = child_problem

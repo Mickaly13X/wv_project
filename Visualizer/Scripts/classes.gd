@@ -8,8 +8,8 @@ class Problem:
 	var solution: int
 	var universe = g.Domain.new()
 	var universe_formula : String
-	var child_problems = []
-	var parent_problem : Problem
+	var children: Array
+	var parent: Problem
 	
 	
 	func _init(type = "sequence", vars = [], pos_cs = [], size_cs = []):
@@ -43,12 +43,12 @@ class Problem:
 #		)
 	
 	
-	func add_child_problem(problem : Problem) -> void:
-		self.child_problems.append(problem)
+	func add_child(child: Problem) -> void:
+		children.append(child)
 	
 	
-	func set_parent_problem(problem : Problem) -> void:
-		self.parent_problem = problem
+	func set_parent(parent: Problem) -> void:
+		self.parent = parent
 	
 	
 	func add_domain(domain : Domain) -> void:
@@ -115,10 +115,6 @@ class Problem:
 	
 	func get_config() -> Configuration:
 		return config
-	
-	
-	func get_elem_count() -> int:
-		return universe.get_size()
 	
 	
 	func get_domain(domain_name: String) -> Domain:
@@ -195,6 +191,9 @@ class Problem:
 #			if domain.has_size_constraint():
 #
 	
+	func get_elem_count() -> int:
+		return universe.get_size()
+	
 	
 	func get_type() -> String:
 		return config.type
@@ -237,6 +236,31 @@ class Problem:
 		return get_domain(group_name) != null
 	
 	
+	func next() -> Problem:
+		
+		if !children.empty():
+			return children[0]
+		else:
+			if !parent.empty():
+				var index = parent.children.find(self)
+				if len(parent.children) > index + 1:
+					return parent.children[index + 1]
+				else:
+					return parent.next()
+			return null
+	
+	
+	func prev() -> Problem:
+		
+		if !parent.empty():
+			var index = parent.children.find(self)
+			if index > 0:
+				return parent.children[index - 1]
+			else:
+				return parent.prev()
+		return null
+	
+	
 	func remove_domain(index : int) -> void:
 		domains.remove(index)
 	
@@ -249,13 +273,8 @@ class Problem:
 		clear_domains()
 	
 	
-	func set_config( _type : String, _size : int, _name : String, _domain = get_universe()) -> void:
+	func set_config(_type : String, _size : int, _name : String, _domain = get_universe()) -> void:
 		
-		_name = _name.strip_edges()
-		if _name != "":
-			self.config.set_name(_name)
-		else:
-			self.config.set_name("config")
 		self.config.set_size(_size)
 		self.config.set_type(_type)
 		self.config.set_domain(_domain)
@@ -283,19 +302,22 @@ class Problem:
 			cola += universe.to_cola()
 			cola += "\n"
 		
-		
 		for dom in domains:
 			cola += dom.to_cola()
 			cola += "\n"
 		
 		# Configs
-		config.set_formula(universe_formula)
+		config.set_formula(universe.get_name_cola())
 		cola += config.to_cola()
 		
 		# Pos Constraints
 		var flag = 1
 		for i in pos_constraints:
-			cola += "\n{name}[{i}] = {domain};".format({"name" : config.get_name(), "i" : int(i), "domain" : pos_constraints[i].get_name().to_lower()})
+			cola += "\n{name}[{i}] = {domain};".format(
+				{"name": config.get_name_cola(),
+				 "i": int(i),
+				 "domain": pos_constraints[i].get_name_cola()}
+			)
 #			if flag != pos_constraints.size():
 #				cola += ";"
 #			flag += 1
@@ -303,8 +325,11 @@ class Problem:
 		# Size Constraints
 		for domain in domains:
 			if domain.size_constraint.operator != "":
-				cola += "\n#{d} {op} {i};".format({"d":domain.get_name().to_lower(), "op" : domain.size_constraint.operator, "i" : domain.size_constraint.size})
-		
+				cola += "\n#{d} {op} {i};".format(
+					{"d": domain.get_name_cola(),
+					 "op": domain.size_constraint.operator,
+					 "i": domain.size_constraint.size}
+				)
 		
 		#cola.erase(cola.length() - 1, 1)
 		cola += "\n"
@@ -356,10 +381,14 @@ class Domain:
 	
 	
 	func get_name() -> String:
-		
-		if domain_name == "":
-			return "uni"
 		return domain_name
+	
+	
+	func get_name_cola() -> String:
+		
+		if not domain_name:
+			return "uni"
+		return domain_name.strip_edges().to_lower()
 	
 	
 	func has_size_cs() -> bool:
@@ -397,7 +426,7 @@ class Domain:
 		var tmp = str(elements).replace("[","{").replace("]","}").replace(" ","")
 		if is_interval():
 			tmp = get_interval().string().replace(",",":").replace(" ","")
-		var cola = "{d} = {e};".format({"d" : domain_name.to_lower(), "e" : tmp})
+		var cola = "{d} = {e};".format({"d": get_name_cola(), "e": tmp})
 		return cola
 	
 	
@@ -453,14 +482,14 @@ class DomainFormula:
 
 class Configuration:
 	
-	var size
-	var custom_name
-	var type
+	var size: int
+	var custom_name: String
+	var type: String
 	var type_string_list = ["","",""]
 	var formula
 	var domain : Domain
 	
-	func _init(_type = "", _size = 0, _domain = null, _name = ""):
+	func _init(_type = "", _size = 0, _name = "", _domain = null):
 		
 		custom_name = _name
 		size = _size
@@ -476,8 +505,15 @@ class Configuration:
 		return size
 	
 	
-	func get_name():
+	func get_name() -> String:
 		return custom_name
+	
+	
+	func get_name_cola() -> String:
+		
+		if not custom_name:
+			return "config"
+		return custom_name.strip_edges().to_lower()
 	
 	
 	func set_name(_name : String):
@@ -489,8 +525,8 @@ class Configuration:
 	
 	
 	func set_type(_type : String):
-		type = _type
 		
+		type = _type
 		match type:
 			
 			"sequence":
@@ -530,8 +566,14 @@ class Configuration:
 	
 	func to_cola() -> String:
 		
-		var cola = "{c} in {h0}{h1}{u}{h2};".format({"c":custom_name,"u":formula, "h0":type_string_list[0], "h1":type_string_list[1], "h2":type_string_list[2]})
-		cola += "\n#{c} = {s};".format({"c":custom_name, "s":size})
+		var cola = "{c} in {h0}{h1}{u}{h2};".format(
+			{"c": get_name_cola(),
+			 "u": formula,
+			 "h0": type_string_list[0],
+			 "h1": type_string_list[1],
+			 "h2": type_string_list[2]}
+		)
+		cola += "\n#{c} = {s};".format({"c": get_name_cola(), "s": size})
 		
 		return cola
 

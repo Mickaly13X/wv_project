@@ -133,7 +133,7 @@ func add_step(problem : g.Problem):
 	running_problem = problem
 	var new_step = STEPBUTTON.instance()
 	new_step.init(problem)
-	Steps.add_child()
+	Steps.add_child(new_step)
 
 
 func check_config() -> void:

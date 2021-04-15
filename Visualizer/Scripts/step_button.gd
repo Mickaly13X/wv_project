@@ -10,3 +10,9 @@ func init(problem : g.Problem):
 	self.problem = problem
 	
 	pass
+
+
+func set_text(string : String):
+	self.text = string
+	
+

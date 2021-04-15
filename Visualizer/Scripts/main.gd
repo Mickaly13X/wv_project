@@ -36,6 +36,7 @@ onready var Popups = $Popups
 onready var SizeDomainInput = $Popups/MenuSizeConstraint/VBox/Items/DomainInput
 onready var UnivSizeInput = $Popups/MenuUniverse/VBox/Items/SizeInput
 onready var Universe = $HSplit/VSplit/MainPanel/Containers/Universe
+onready var Steps = $HSplit/VSplit/StepPanel/ScrollBox/Steps
 
 var config = [Distinct.NONE_SAME, SetFunction.ANY]
 var container_menu : String
@@ -439,7 +440,8 @@ func run_child(type: String, vars: Array, pos_cs: Array, size_cs: Array) -> void
 	child_problem.set_parent(running_problem)
 	running_problem.add_child(child_problem)
 	running_problem = child_problem
-	steps.append(running_problem)
+	#steps.append(running_problem)
+	
 
 
 func run_parent(solution: int) -> void:

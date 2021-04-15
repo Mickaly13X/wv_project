@@ -414,18 +414,13 @@ func run():
 
 # pos_contraint is an Array of domains repr as a list of ints
 # size_constraint is an Array of size constraints repr as a list containing domain elements and a list of possible sizes
-func run_child(type: String, vars, pos_cs, size_cs) -> void:
+func run_child(type: String, vars: Array, pos_cs: Array, size_cs: Array) -> void:
 	
-	print("child")
-	print(type)
-	print(vars)
-	print(pos_cs)
-	print(size_cs)
-#	var child_problem = g.Problem.new(type, vars, pos_constraints, size_constraints)# add parameters
-#
-#	child_problem.set_parent_problem(running_problem)
-#	running_problem.add_child_problem(child_problem)
-#	running_problem = child_problem
+	var child_problem = g.Problem.new(type, vars, pos_cs, size_cs)# add parameters
+
+	child_problem.set_parent_problem(running_problem)
+	running_problem.add_child_problem(child_problem)
+	running_problem = child_problem
 
 
 func run_parent(solution: int) -> void:

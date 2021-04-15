@@ -79,11 +79,12 @@ __meta__ = {
 [node name="VSplit" type="VSplitContainer" parent="HSplit"]
 margin_right = 1920.0
 margin_bottom = 1080.0
+mouse_filter = 2
 split_offset = 200
 
 [node name="MainPanel" type="Panel" parent="HSplit/VSplit"]
 margin_right = 1920.0
-margin_bottom = 800.0
+margin_bottom = 1080.0
 rect_min_size = Vector2( 1024, 600 )
 mouse_filter = 2
 custom_styles/panel = SubResource( 2 )
@@ -190,6 +191,7 @@ position = Vector2( 422.115, 270 )
 position = Vector2( 755, 270 )
 
 [node name="StepPanel" type="Panel" parent="HSplit/VSplit"]
+visible = false
 margin_top = 812.0
 margin_right = 1920.0
 margin_bottom = 1080.0

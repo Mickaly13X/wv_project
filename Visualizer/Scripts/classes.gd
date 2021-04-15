@@ -179,7 +179,7 @@ class Problem:
 	
 	func get_domain_name_from_elements(elements : Array) -> String:
 		for domain in domains:
-			if elements.sort() == domain.get_elements().sort():
+			if elements.sort() == Array(domain.get_elements()).sort():
 				return domain.get_name()
 		return ""
 	
@@ -194,6 +194,10 @@ class Problem:
 	
 	func get_universe():
 		return universe
+	
+	
+	func get_parent() -> Problem:
+		return parent
 	
 	
 	func get_no_vars() -> int:
@@ -233,29 +237,25 @@ class Problem:
 		return get_domain(group_name) != null
 	
 	
-	func next() -> Problem:
+	func next(index = 0) -> Problem:
 		
-		if !children.empty():
-			return children[0]
+		if index > len(children) - 1:
+			if g.is_null(parent):
+				return null
+			return parent.next(parent.children.find(self) + 1)
 		else:
-			if !parent.empty():
-				var index = parent.children.find(self)
-				if len(parent.children) > index + 1:
-					return parent.children[index + 1]
-				else:
-					return parent.next()
-			return null
+			return children[index]
 	
 	
-	func prev() -> Problem:
+	func prev(index = -2) -> Problem:
 		
-		if !parent.empty():
-			var index = parent.children.find(self)
-			if index > 0:
-				return parent.children[index - 1]
-			else:
-				return parent.prev()
-		return null
+		if index == -1: return self
+		if index < 0:
+			if g.is_null(parent):
+				return null
+			return parent.prev(parent.children.find(self) - 1)
+		else:
+			return children[index]
 	
 	
 	func remove_domain(index : int) -> void:
@@ -272,8 +272,9 @@ class Problem:
 	
 	func set_config(_type : String, _size : int, _name : String, _domain = get_universe()) -> void:
 		
-		self.config.set_size(_size)
 		self.config.set_type(_type)
+		self.config.set_size(_size)
+		self.config.set_name(_name)
 		self.config.set_domain(_domain)
 		pos_constraints = Dictionary()
 	
@@ -613,13 +614,16 @@ class PosConstraint:
 	
 class SizeConstraint:
 	
+	
 	var operator = ""
 	var size = 0
 	var domain : Domain
 	var values : Array
 	
+	
 	func _init():
 		pass
+	
 	
 	func init(domain : Domain, operator : String, size : int):
 		
@@ -651,7 +655,7 @@ class SizeConstraint:
 		if len(values) - 1 == no_vars:
 			return ""
 		if len(values) == no_vars:
-			return "!= " + g.exclude(range(no_vars), values)
+			return "!= " + str(g.exclude(range(no_vars), values))
 		
 		var is_continious = true
 		for i in range(values[0] + 1, values[0] + len(values)):

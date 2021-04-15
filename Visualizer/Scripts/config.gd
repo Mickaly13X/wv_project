@@ -8,7 +8,6 @@ const Domain = preload("res://Scripts/classes.gd").Domain
 const Interval = preload("res://Scripts/classes.gd").Interval
 
 onready var Buttons = $Menu/Buttons
-onready var Main : Node
 
 var index_selected: int
 
@@ -77,15 +76,16 @@ func set_name(custom_name : String) -> void:
 	
 	self.custom_name = custom_name
 	if custom_name == "":
-		$Label.text = "Config"
+		$Tag.text = "Config"
 	else:
-		$Label.text = "Config (" + custom_name + ")"
+		$Tag.text = "Config (" + custom_name + ")"
 
 
 func set_problem(problem) -> void:
 	
 	set_name(problem.config.custom_name)
 	set_size(problem.config.size)
+	$Type.text = ">type = " + problem.get_type()
 	update()
 
 

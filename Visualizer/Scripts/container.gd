@@ -4,6 +4,8 @@ extends Node2D
 var custom_name: String = ""
 var shape: StyleBoxFlat
 
+onready var Main: Node
+
 
 func draw_self() -> void:
 	draw_style_box(shape, Rect2(Vector2(0, 0), $Mask.rect_size))

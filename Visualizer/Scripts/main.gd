@@ -17,11 +17,11 @@ enum SetFunction {ANY, INJ, SUR}
 
 onready var CoLaInput = $HSplit/CoLaPanel/CoLaInput
 onready var CoLaPanel = $HSplit/CoLaPanel
-onready var Config = $HSplit/MainPanel/Containers/Config
+onready var Config = $HSplit/VSplit/MainPanel/Containers/Config
 onready var ConfigFuncInput = $Popups/MenuConfig/VBox/Items/FuncInput
 onready var ConfigNameInput = $Popups/MenuConfig/VBox/Items/NameInput
 onready var ConfigSizeInput = $Popups/MenuConfig/VBox/Items/SizeInput
-onready var Containers = $HSplit/MainPanel/Containers
+onready var Containers = $HSplit/VSplit/MainPanel/Containers
 onready var DistInput = $Popups/MenuGroup/VBox/Items/DistInput
 onready var DomainInput = $Popups/MenuPosConstraint/VBox/Items/DomainInput
 onready var FuncInput = $Popups/MenuConfig/VBox/Items/FuncInput
@@ -35,7 +35,7 @@ onready var OperatorInput = $Popups/MenuSizeConstraint/VBox/Items/OperatorInput
 onready var Popups = $Popups
 onready var SizeDomainInput = $Popups/MenuSizeConstraint/VBox/Items/DomainInput
 onready var UnivSizeInput = $Popups/MenuUniverse/VBox/Items/SizeInput
-onready var Universe = $HSplit/MainPanel/Containers/Universe
+onready var Universe = $HSplit/VSplit/MainPanel/Containers/Universe
 
 var config = [Distinct.NONE_SAME, SetFunction.ANY]
 var container_menu : String
@@ -66,6 +66,11 @@ func _process(_delta):
 		Universe.update_element_positions()
 	if Input.is_action_pressed("mouse_left"):
 		Universe.toggle_menu(false)
+	if Input.is_action_just_pressed("enter"):
+		check_config()
+		check_pos_constraint()
+		check_size_constraint()
+		check_universe()
 
 
 func _on_cola_file_selected(path):
@@ -120,64 +125,72 @@ func _pressed_mb_input(index, TypeInput):
 
 func check_config() -> void:
 	
-	if ConfigSizeInput.text == "- -":
-		show_message("Please choose a size")
-		return
-	
-	var custom_name = ConfigNameInput.text
-	var size = int(ConfigSizeInput.text)
-	var type = ConfigFuncInput.text
-	
-	g.problem.set_config(type.to_lower(), size, custom_name)
-	Config.set_problem(g.problem)
-	toggle_menu_config(false)
+	if $Popups/MenuConfig.visible:
+		
+		if ConfigSizeInput.text == "- -":
+			show_message("Please choose a size")
+			return
+		
+		var custom_name = ConfigNameInput.text
+		var size = int(ConfigSizeInput.text)
+		var type = ConfigFuncInput.text
+		
+		g.problem.set_config(type.to_lower(), size, custom_name)
+		Config.set_problem(g.problem)
+		toggle_menu_config(false)
 
 
 func check_universe() -> void:
 	
-	var new_name = $Popups/MenuUniverse/VBox/Items/NameInput.text
-	var new_size = UnivSizeInput.text
-	if new_size == "- -":
-		show_message("Please choose a size")
-		return
-	
-	g.problem.set_universe(range(int(new_size)), new_name)
-	Universe.set_problem(g.problem, true, true)
-	
-	CoLaInput.text += new_name + "{[1," + str(new_size) + "]}"
-	toggle_menu_universe(false)
+	if $Popups/MenuUniverse.visible:
+		
+		var new_name = $Popups/MenuUniverse/VBox/Items/NameInput.text
+		var new_size = UnivSizeInput.text
+		if new_size == "- -":
+			show_message("Please choose a size")
+			return
+		
+		g.problem.set_universe(range(int(new_size)), new_name)
+		Universe.set_problem(g.problem, true, true)
+		
+		CoLaInput.text += new_name + "{[1," + str(new_size) + "]}"
+		toggle_menu_universe(false)
 
 
 func check_pos_constraint() -> void:
 	
-	if DomainInput.text == "-Select Domain-":
-		show_message("Please choose a domain")
-		return
-	
-	var domain_name = DomainInput.get_text()
-	if domain_name == "Universe":
-		g.problem.add_pos_constraint(Config.index_selected, "universe")
-	else:
-		g.problem.add_pos_constraint(Config.index_selected, domain_name)
-	
-	Config.update()
-	toggle_menu_pos_constraint(false)
+	if $Popups/MenuPosConstraint.visible:
+		
+		if DomainInput.text == "-Select Domain-":
+			show_message("Please choose a domain")
+			return
+		
+		var domain_name = DomainInput.get_text()
+		if domain_name == "Universe":
+			g.problem.add_pos_constraint(Config.index_selected, "universe")
+		else:
+			g.problem.add_pos_constraint(Config.index_selected, domain_name)
+		
+		Config.update()
+		toggle_menu_pos_constraint(false)
 
 
 func check_size_constraint() -> void:
 	
-	if SizeDomainInput.text == "-Select Domain-":
-		show_message("Please choose a domain")
-		return
-	
-	var domain_name = SizeDomainInput.text
-	var operator = OperatorInput.text
-	var size = int(IntInput.text)
-	
-	g.problem.set_size_constraint(domain_name, operator, size)
-	
-	Universe.update_domain_names()
-	toggle_menu_size_constraint(false)
+	if $Popups/MenuSizeConstraint.visible:
+		
+		if SizeDomainInput.text == "-Select Domain-":
+			show_message("Please choose a domain")
+			return
+		
+		var domain_name = SizeDomainInput.text
+		var operator = OperatorInput.text
+		var size = int(IntInput.text)
+		
+		g.problem.set_size_constraint(domain_name, operator, size)
+		
+		Universe.update_domain_names()
+		toggle_menu_size_constraint(false)
 
 
 func create_cola_file() -> void:
@@ -403,30 +416,85 @@ func run():
 			show_message("Universe not defined!")
 			return
 		
-		mode = Mode.STEPS
 		create_cola_file()
+		running_problem = g.problem
 		# interpret coso output
 		var function_steps: PoolStringArray = fetch("coso")
 		print(function_steps)
-		for step in function_steps:
-			eval(step)
+		for i in range(1, len(function_steps)):
+			eval(function_steps[i])
+		set_mode(Mode.STEPS)
+		update_step_panel(g.problem)
 
 
 # pos_contraint is an Array of domains repr as a list of ints
 # size_constraint is an Array of size constraints repr as a list containing domain elements and a list of possible sizes
 func run_child(type: String, vars: Array, pos_cs: Array, size_cs: Array) -> void:
 	
-	var child_problem = g.Problem.new(type, vars, pos_cs, size_cs)# add parameters
-
-	child_problem.set_parent_problem(running_problem)
-	running_problem.add_child_problem(child_problem)
+	var child_problem = g.Problem.new(type, vars, pos_cs, size_cs) # add parameters
+		
+	child_problem.set_parent(running_problem)
+	running_problem.add_child(child_problem)
 	running_problem = child_problem
 
 
 func run_parent(solution: int) -> void:
 	
-	running_problem = running_problem.parent()
+	if !g.is_null(running_problem.get_parent()):
+		running_problem = running_problem.get_parent()
 	running_problem.solution = solution
+
+
+func set_mode(mode: int) -> void:
+	
+	self.mode = mode
+	$HSplit/VSplit/StepPanel.visible = !is_editable()
+	
+	var steps: String
+	var current_problem = g.problem
+	var current_step = 1
+	while (!g.is_null(current_problem)):
+		steps += "{}. {}\n".format([current_step, current_problem], "{}")
+		current_problem = current_problem.next()
+		current_step += 1
+	$HSplit/VSplit/StepPanel/HBoxContainer/Steps.text = steps
+
+
+func get_step(problem) -> int:
+	
+	var current_problem = g.problem
+	var current_step = 1
+	while (!g.is_null(current_problem)):
+		if current_problem == problem:
+			return current_step
+		current_problem = current_problem.next()
+		current_step += 1
+	return -1
+
+
+func set_step(problem) -> void:
+	
+	Config.set_problem(problem)
+	Universe.set_problem(problem, true, true)
+	update_step_panel(problem)
+
+
+func set_step_next() -> void:
+	
+	if mode == Mode.STEPS:
+		var new_problem = running_problem.next()
+		if !g.is_null(new_problem):
+			running_problem = new_problem
+			set_step(new_problem)
+
+
+func set_step_prev() -> void:
+	
+	if mode == Mode.STEPS:
+		var new_problem = running_problem.prev()
+		if !g.is_null(new_problem):
+			running_problem = new_problem
+			set_step(new_problem)
 
 
 func show_message(message : String) -> void:
@@ -514,6 +582,14 @@ func undo_menu(ref : String) -> void:
 	var container = Containers.get_node(ref)
 	container.deselect_elements()
 	container.toggle_menu(false)
+
+
+func update_step_panel(problem) -> void:
+	
+	$HSplit/VSplit/StepPanel/HBoxContainer/CurrentStep.text = \
+		"Current step: " + str(get_step(problem))
+	$HSplit/VSplit/StepPanel/HBoxContainer/Solution.text = \
+		"Solution: " + str(problem.solution)
 
 
 func get_selected_group_names_as_string() -> String:

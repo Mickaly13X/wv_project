@@ -20,7 +20,6 @@ const ELEMENT_COLORS = [
 	Color(0.237456, 0.218878, 0.558594)]
 
 onready var Buttons = $Menu/Buttons
-onready var Main : Node
 
 var circles_domain = []
 
@@ -141,12 +140,13 @@ func draw_circle_custom(radius: float, pos: Vector2, \
 	draw_colored_polygon(points, color)
 
 
-# @param domain_inter_sizes = list of (sub)set SIZES 
+# @param 'domain_inter_sizes': list of (sub)set SIZES 
+# @param 'smallest_size': scaling purposes
 # @pre domain_intersections NOT EMPTY
 # for 1-part venns, domain_intersections = [A]
 # for 2-part venns, domain_intersections = [A, B, AB]
 # for 3-part venns, domain_intersections = [A, B, C, AB, BC, AC, ABC]
-func fetch_venn_circles(domain_inter_sizes : Array) -> Array:
+func fetch_venn_circles(domain_inter_sizes: Array, smallest_size: int) -> Array:
 	
 	print(domain_inter_sizes)
 	var venn_circles = []
@@ -165,11 +165,11 @@ func fetch_venn_circles(domain_inter_sizes : Array) -> Array:
 			var radius = float(output[i*3 + 2])
 			venn_circles.append([pos, radius])
 	
-	return fetch_venn_circles_formatted(venn_circles)
+	return fetch_venn_circles_formatted(venn_circles, smallest_size)
 
 
 # venn_circles = [pos, radius]
-func fetch_venn_circles_formatted(venn_circles : Array) -> Array:
+func fetch_venn_circles_formatted(venn_circles : Array, smallest_size: int) -> Array:
 	
 	var average_pos = Vector2.ZERO
 	for i in venn_circles:
@@ -186,10 +186,9 @@ func fetch_venn_circles_formatted(venn_circles : Array) -> Array:
 			smallest_radius = venn_circles[i][1]
 	
 	# scaling
-	var smallest_domain_size = Array(problem.get_domain_sizes()).min()
 	var venn_circles_formatted = []
 	for i in range(len(venn_circles)):
-		var scalar = sqrt(smallest_domain_size) * 140 #+ int(len(domains) == 3) * 32)
+		var scalar = sqrt(smallest_size) * 140 #+ int(len(domains) == 3) * 32)
 		var new_pos = get_center(dviations[i] / smallest_radius * scalar)
 		var new_radius = venn_circles[i][1] / smallest_radius * scalar
 		venn_circles_formatted.append([new_pos, new_radius])
@@ -296,6 +295,44 @@ func is_editable() -> bool:
 	return Main.is_editable()
 
 
+func set_circles_domain(venn_circles: Array, domains = []) -> void:
+	
+	clear_circles()
+	if venn_circles != []:
+		for i in range(len(venn_circles)):
+			
+			var new_circle = {}
+			new_circle.pos = venn_circles[i][0]
+			new_circle.radius = venn_circles[i][1]
+			new_circle.domain = domains[i]
+			circles_domain.append(new_circle)
+		
+		update_element_positions()
+	set_domain_names(domains)
+	update()
+
+
+func set_domain_names(domains: Array) -> void:
+	
+	for i in range(3):
+		
+		var DomainName = get_node("DomainName" + str(i))
+		
+		if i < len(domains):
+			
+			DomainName.text = domains[i].get_name()
+			var size_constraint = domains[i].size_constraint
+			if size_constraint.operator != "":
+				DomainName.text += "\n(Size " + size_constraint.operator + \
+								   " " + str(size_constraint.size) + ")"
+			
+			DomainName.rect_position = \
+				circles_domain[i].pos - circles_domain[i].radius * Vector2.ONE
+			DomainName.show()
+		else:
+			DomainName.hide()
+
+
 func set_name(custom_name : String) -> void:
 	
 	self.custom_name = custom_name
@@ -312,11 +349,15 @@ func set_problem(new_problem, ow_uni = false, ow_dom = false) -> void:
 		update_elements(new_problem.get_universe().get_elements())
 	
 	if ow_dom || !problem.equals_in_domains(new_problem):
-		if new_problem.get_domains().size() == 0:
-			update_circles_domain([])
+		if new_problem.get_domains().empty():
+			set_circles_domain([])
 		else:
-			update_circles_domain(
-				fetch_venn_circles(g.lengths(new_problem.get_domain_intersections()))
+			set_circles_domain(
+				fetch_venn_circles(
+					g.lengths(new_problem.get_domain_intersections()),
+					Array(new_problem.get_domain_sizes()).min()
+				),
+				new_problem.get_domains()
 			)
 		update_element_colors()
 	
@@ -340,23 +381,6 @@ func toggle_menu_button(buttom_name: String, is_pressable : bool):
 	Buttons.get_node(buttom_name).disabled = !is_pressable
 
 
-func update_circles_domain(venn_circles : Array) -> void:
-	
-	clear_circles()
-	if venn_circles != []:
-		for i in range(len(venn_circles)):
-			
-			var new_circle = {}
-			new_circle.pos = venn_circles[i][0]
-			new_circle.radius = venn_circles[i][1]
-			new_circle.domain = get_domains()[i]
-			circles_domain.append(new_circle)
-		
-		update_element_positions()
-	update_domain_names()
-	update()
-
-
 func update_element_colors() -> void:
 	
 	var color_count = 0
@@ -366,28 +390,6 @@ func update_element_colors() -> void:
 			color_count += 1
 		else:
 			I.set_color(Color.white)
-
-
-func update_domain_names() -> void:
-	
-	var domains = get_domains()
-	for i in range(3):
-		
-		var DomainName = get_node("DomainName" + str(i))
-		
-		if i < len(domains):
-			
-			DomainName.text = domains[i].get_name()
-			var size_constraint = domains[i].size_constraint
-			if size_constraint.operator != "":
-				DomainName.text += "\n(Size " + size_constraint.operator + \
-								   " " + str(size_constraint.size) + ")"
-			
-			DomainName.rect_position = \
-				circles_domain[i].pos - circles_domain[i].radius * Vector2.ONE
-			DomainName.show()
-		else:
-			DomainName.hide()
 
 
 func update_elements(element_ids: PoolIntArray = get_element_ids()) -> void:

@@ -39,9 +39,11 @@ onready var Universe = $HSplit/VSplit/MainPanel/Containers/Universe
 
 var config = [Distinct.NONE_SAME, SetFunction.ANY]
 var container_menu : String
+var current_step: int
 var groups_selection = {} # key : idx, value : bool selected, is reset when group is called
 var mode: int
 var running_problem
+var steps: Array
 
 
 func _ready():
@@ -418,6 +420,7 @@ func run():
 		
 		create_cola_file()
 		running_problem = g.problem
+		steps.append(g.problem)
 		# interpret coso output
 		var function_steps: PoolStringArray = fetch("coso")
 		print(function_steps)
@@ -436,12 +439,14 @@ func run_child(type: String, vars: Array, pos_cs: Array, size_cs: Array) -> void
 	child_problem.set_parent(running_problem)
 	running_problem.add_child(child_problem)
 	running_problem = child_problem
+	steps.append(running_problem)
 
 
 func run_parent(solution: int) -> void:
 	
 	if !g.is_null(running_problem.get_parent()):
 		running_problem = running_problem.get_parent()
+		steps.append(running_problem)
 	running_problem.solution = solution
 
 
@@ -472,29 +477,24 @@ func get_step(problem) -> int:
 	return -1
 
 
-func set_step(problem) -> void:
+func set_step(step: int) -> void:
 	
-	Config.set_problem(problem)
-	Universe.set_problem(problem, true, true)
-	update_step_panel(problem)
+	if mode == Mode.STEPS:
+		if step >= 0 && step < len(steps):
+			
+			current_step = step
+			var problem = steps[current_step]
+			Config.set_problem(problem)
+			Universe.set_problem(problem, true, true)
+			update_step_panel(problem)
 
 
 func set_step_next() -> void:
-	
-	if mode == Mode.STEPS:
-		var new_problem = running_problem.next()
-		if !g.is_null(new_problem):
-			running_problem = new_problem
-			set_step(new_problem)
+	set_step(current_step + 1)
 
 
 func set_step_prev() -> void:
-	
-	if mode == Mode.STEPS:
-		var new_problem = running_problem.prev()
-		if !g.is_null(new_problem):
-			running_problem = new_problem
-			set_step(new_problem)
+	set_step(current_step - 1)
 
 
 func show_message(message : String) -> void:

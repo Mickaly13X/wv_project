@@ -34,6 +34,7 @@ func _draw():
 
 
 func _gui_input(event):
+	
 	if event.is_pressed():
 		if is_in_universe():
 			if event.button_index == BUTTON_LEFT:
@@ -50,7 +51,7 @@ func get_id() -> int:
 	return int(name)
 
 
-func init(Container_ : Node2D) -> void:
+func init(Container_: Node2D) -> void:
 	
 	self.Container_ = Container_
 	

@@ -31,8 +31,7 @@ class Problem:
 		for i in size_cs:
 			var domain_elements = i[0]
 			var sizes = i[1]
-			# Find operator somehow
-			set_size_constraint(get_domain_name_from_elements(domain_elements), "operator", sizes.max())
+			set_size_constraint_array(get_domain_name_from_elements(domain_elements), sizes)
 		
 		universe_formula = universe.get_name()
 	
@@ -284,6 +283,10 @@ class Problem:
 		domain.set_size_constraint(domain, operator, size)
 	
 	
+	func set_size_constraint_array(domain_name: String, sizes : Array) -> void:
+		var domain = get_domain(domain_name)
+		domain.set_size_constraint_array(domain, sizes)
+	
 	func set_universe(element_ids: PoolIntArray, custom_name: String) -> void:
 		
 		clear_domains()
@@ -475,6 +478,10 @@ class Domain:
 		size_constraint.init(domain, operator, size)
 	
 	
+	func set_size_constraint_array(domain : Domain, sizes : Array):
+		size_constraint.init_array(domain, sizes)
+	
+	
 # warning-ignore:function_conflicts_variable
 	func is_distinct() -> bool:
 		return is_distinct
@@ -619,6 +626,7 @@ class SizeConstraint:
 		self.domain = domain
 		self.operator = operator
 		self.size = size
+		self.values = []
 	
 	
 	func init_array(domain : Domain, sizes : Array):

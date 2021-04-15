@@ -130,6 +130,7 @@ func _pressed_mb_input(index, TypeInput):
 
 func add_step(problem : g.Problem):
 	
+	running_problem = problem
 	var new_step = STEPBUTTON.instance()
 	new_step.init(problem)
 	Steps.add_child()

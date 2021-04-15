@@ -424,7 +424,9 @@ func run_child(type: String, vars: Array, pos_cs: Array, size_cs: Array) -> void
 
 
 func run_parent(solution: int) -> void:
-	print("parent " + str(solution))
+	
+	running_problem = running_problem.parent()
+	running_problem.solution = solution
 
 
 func show_message(message : String) -> void:

@@ -593,9 +593,7 @@ func toggle_menu_constraint_pos(extra_arg_0):
 func eval(string : String) -> bool:
 	
 	var expression = Expression.new()
-	var tmp = g.CoLaExpression.new(string)
-	var c = tmp.translate() # Returns string in func form
-	var error = expression.parse(c,[])
+	var error = expression.parse(string,[])
 	if error != OK:
 		push_error(expression.get_error_text())
 		

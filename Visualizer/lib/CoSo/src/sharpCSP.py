@@ -613,7 +613,7 @@ class SharpCSP(object):
         godot_vars = [list(P.iterate(v.elements.domain(), step=1)) for v in self.vars]
         godot_pos_c = [[c.pos, list(P.iterate(c.dformula.elements.domain(), step=1))] for c in self.choice_f]
         godot_size_c = [[list(P.iterate(c.formula.elements.domain(), step=1)), c.values] for c in self.count_f]
-        print(f"run_child({godot_type}, {godot_vars}, {godot_pos_c}, {godot_size_c})")
+        print(f"run_child('{godot_type}', {godot_vars}, {godot_pos_c}, {godot_size_c})")
         for c in self.choice_f:
             self.apply_choice(c)
         try:

@@ -184,13 +184,6 @@ class Problem:
 		return ""
 	
 	
-#	func get_size_cs() -> Array:
-#
-#		var size_cs = Array()
-#		for domain in get_domains():
-#			if domain.has_size_constraint():
-#
-	
 	func get_elem_count() -> int:
 		return universe.get_size()
 	
@@ -605,6 +598,35 @@ class SizeConstraint extends SizeConstraintArray:
 		
 		self.operator = operator
 		self.size = size
+	
+	
+	func get_operator() -> String:
+		
+		if values.empty():
+			return ""
+		
+		if len(values) == 1:
+			return "= " + values[0]
+		
+		var no_vars = get_domain().get_problem().get_no_vars()
+		
+		if len(values) - 1 == no_vars:
+			return ""
+		if len(values) == no_vars:
+			return "!= " + g.exclude(range(no_vars), values)
+		
+		var is_continious = true
+		for i in range(values[0] + 1, values[0] + len(values)):
+			if values[i] != i:
+				is_continious = false
+				break
+		if is_continious:
+			if values[0] == 0:
+				return "< " + values[-1] + 1
+			if values[-1] == no_vars:
+				return ">= " + values[0]
+		
+		return "in " + str(values)
 
 
 

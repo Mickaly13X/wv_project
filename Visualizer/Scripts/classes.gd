@@ -52,6 +52,7 @@ class Problem:
 	
 	
 	func add_domain(domain : Domain) -> void:
+		domain.set_problem(self)
 		domains.append(domain)
 		update_universe_formula()
 	
@@ -194,6 +195,10 @@ class Problem:
 	
 	func get_universe():
 		return universe
+	
+	
+	func get_no_vars() -> int:
+		return config.size
 	
 	
 	func get_vars() -> Array:
@@ -357,6 +362,7 @@ class Domain:
 	var elements: PoolIntArray
 	var is_distinct: bool
 	var size_constraint = g.SizeConstraint.new()
+	var problem : Problem
 	
 	
 	func _init(_name = "", _elements = [], _is_distinct = true):
@@ -364,6 +370,7 @@ class Domain:
 		domain_name = _name
 		elements = _elements
 		is_distinct = _is_distinct
+		problem = null
 	
 	
 	func clear() -> void:
@@ -454,6 +461,14 @@ class Domain:
 			var interval = g.Interval.new(lo, hi)
 			return interval
 		return null
+	
+	
+	func set_problem(problem : Problem):
+		self.problem = problem
+	
+	
+	func get_problem() -> Problem:
+		return self.problem
 	
 	
 	func set_size_constraint(domain : Domain, operator : String, size : int):
@@ -582,22 +597,37 @@ class PosConstraint:
 	var domain
 	var position
 	
-	func _init(_config : Configuration, _position : int, _domain : Domain):
+	func init(_config : Configuration, _position : int, _domain : Domain):
 		
 		configuration = _config
 		position = _position
 		domain = _domain
 	
 	
-class SizeConstraint extends SizeConstraintArray:
+class SizeConstraint:
 	
 	var operator = ""
 	var size = 0
+	var domain : Domain
+	var values : Array
 	
-	func _init(domain : Domain, operator : String, size).(domain, []):
+	func _init():
+		pass
+	
+	func init(domain : Domain, operator : String, size : int):
 		
+		self.domain = domain
 		self.operator = operator
 		self.size = size
+	
+	
+	func init_array(domain : Domain, sizes : Array):
+		
+		self.domain = domain
+		self.values = sizes
+		var tmp = get_operator().split(" ")
+		self.operator = tmp[0]
+		self.size = tmp[1]
 	
 	
 	func get_operator() -> String:
@@ -627,18 +657,11 @@ class SizeConstraint extends SizeConstraintArray:
 				return ">= " + values[0]
 		
 		return "in " + str(values)
-
-
-
-class SizeConstraintArray:
 	
-	var domain : Domain
-	var possible_sizes : Array
 	
-	func _init(domain: Domain, sizes : Array):
+	func get_domain() -> Domain:
+		return domain
 		
-		self.domain = domain
-		self.possible_sizes = sizes
 
 # Class for CoLa Expressions
 class CoLaExpression:

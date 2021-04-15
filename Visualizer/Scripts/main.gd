@@ -409,21 +409,19 @@ func run():
 		var function_steps: PoolStringArray = fetch("coso")
 		print(function_steps)
 		for step in function_steps:
-			eval(step)
-#			var expr = Expression.new()
-#			var error = expr.parse(step)
-#			if error != OK:
-#				print(expr.get_error_text())
-#				return
-#			else:
-#				expr.execute()
-#				if expr.has_execute_failed():
-#					print("[error] execution has failed")
+			var expr = Expression.new()
+			var error = expr.parse(step)
+			if error != OK:
+				print(expr.get_error_text())
+			else:
+				expr.execute([], self)
+				if expr.has_execute_failed():
+					print("[error] execution has failed")
 
 
 # pos_contraint is an Array of domains repr as a list of ints
 # size_constraint is an Array of size constraints repr as a list containing domain elements and a list of possible sizes
-func run_child(type: String, vars: Array, pos_cs: Array, size_cs: Array) -> void:
+func run_child(type: String, vars, pos_cs, size_cs) -> void:
 	
 	print("child")
 #	var child_problem = g.Problem.new(type, vars, pos_constraints, size_constraints)# add parameters

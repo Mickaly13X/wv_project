@@ -282,7 +282,8 @@ class Problem:
 	
 	
 	func set_size_constraint(domain_name: String, operator: String, size: int) -> void:
-		get_domain(domain_name).size_constraint.init(operator, size)
+		var domain = get_domain(domain_name)
+		domain.set_size_constraint(domain, operator, size)
 	
 	
 	func set_universe(element_ids: PoolIntArray, custom_name: String) -> void:
@@ -462,6 +463,10 @@ class Domain:
 		return null
 	
 	
+	func set_size_constraint(domain : Domain, operator : String, size : int):
+		size_constraint.init(domain, operator, size)
+	
+	
 # warning-ignore:function_conflicts_variable
 	func is_distinct() -> bool:
 		return is_distinct
@@ -591,18 +596,27 @@ class PosConstraint:
 		domain = _domain
 	
 	
-class SizeConstraint:
-	
+class SizeConstraint extends SizeConstraintArray:
 	
 	var operator = ""
 	var size = 0
 	
-	
-	func init(operator : String, size : int):
+	func _init(domain : Domain, operator : String, size).(domain, []):
 		
 		self.operator = operator
 		self.size = size
 
+
+
+class SizeConstraintArray:
+	
+	var domain : Domain
+	var possible_sizes : Array
+	
+	func _init(domain: Domain, sizes : Array):
+		
+		self.domain = domain
+		self.possible_sizes = sizes
 
 # Class for CoLa Expressions
 class CoLaExpression:

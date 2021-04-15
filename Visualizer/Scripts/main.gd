@@ -42,6 +42,7 @@ var container_menu : String
 var current_step: int
 var groups_selection = {} # key : idx, value : bool selected, is reset when group is called
 var mode: int
+var running_problem
 var steps: Array
 
 
@@ -441,16 +442,18 @@ func run_child(type: String, vars: Array, pos_cs: Array, size_cs: Array) -> void
 	
 	var child_problem = g.Problem.new(type, vars, pos_cs, size_cs) # add parameters
 		
-	child_problem.set_parent(steps[-1])
-	steps[-1].add_child(child_problem)
+	child_problem.set_parent(running_problem)
+	running_problem.add_child(child_problem)
 	add_step(child_problem)
 
 
 func run_parent(solution: int) -> void:
 	
-	if !g.is_null(steps[-1].get_parent()):
-		add_step(running_problem)
-	steps[-1].solution = solution
+	var parent_problem = running_problem.get_parent()
+	
+	if !g.is_null(parent_problem):
+		running_problem = parent_problem
+	running_problem.solution = solution
 
 
 func set_mode(mode: int) -> void:

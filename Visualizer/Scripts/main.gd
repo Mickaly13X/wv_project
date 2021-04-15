@@ -10,6 +10,7 @@ const MAX_CONFIG_SIZE = 10
 const MAX_UNI_SIZE = 10
 const NOT_DOMAINS = ["structure", "size", "pos", "count", "not", "inter", "union", "in"]
 const SET = preload("res://Scenes/Universe.tscn")
+const STEPBUTTON = preload("res://Scenes/StepButton.tscn")
 
 enum Distinct {NONE_SAME, N_SAME, X_SAME, NX_SAME}
 enum Mode {EDIT, STEPS}
@@ -43,7 +44,6 @@ var container_menu : String
 var current_step: int
 var groups_selection = {} # key : idx, value : bool selected, is reset when group is called
 var mode: int
-var running_problem
 var steps: Array
 
 
@@ -71,6 +71,7 @@ func _process(_delta):
 		Universe.toggle_menu(false)
 	if Input.is_action_just_pressed("enter"):
 		check_config()
+		check_group()
 		check_pos_constraint()
 		check_size_constraint()
 		check_universe()
@@ -124,6 +125,13 @@ func _pressed_mb_input(index, TypeInput):
 	
 	#if TypeInput == DistInput: config[0] = index
 	if TypeInput == FuncInput: config[1] = index
+
+
+func add_step(problem : g.Problem):
+	
+	var new_step = STEPBUTTON.instance()
+	new_step.init(problem)
+	Steps.add_child()
 
 
 func check_config() -> void:
@@ -194,6 +202,12 @@ func check_size_constraint() -> void:
 		
 		Universe.update_domain_names()
 		toggle_menu_size_constraint(false)
+
+
+func check_group() -> void:
+	
+	if $Popups/MenuGroup.visible:
+		group()
 
 
 func create_cola_file() -> void:
@@ -420,8 +434,7 @@ func run():
 			return
 		
 		create_cola_file()
-		running_problem = g.problem
-		steps.append(g.problem)
+		add_step(g.problem)
 		# interpret coso output
 		var function_steps: PoolStringArray = fetch("coso")
 		print(function_steps)
@@ -437,19 +450,16 @@ func run_child(type: String, vars: Array, pos_cs: Array, size_cs: Array) -> void
 	
 	var child_problem = g.Problem.new(type, vars, pos_cs, size_cs) # add parameters
 		
-	child_problem.set_parent(running_problem)
-	running_problem.add_child(child_problem)
-	running_problem = child_problem
-	#steps.append(running_problem)
-	
+	child_problem.set_parent(steps[-1])
+	steps[-1].add_child(child_problem)
+	add_step(child_problem)
 
 
 func run_parent(solution: int) -> void:
 	
-	if !g.is_null(running_problem.get_parent()):
-		running_problem = running_problem.get_parent()
-		steps.append(running_problem)
-	running_problem.solution = solution
+	if !g.is_null(steps[-1].get_parent()):
+		add_step(running_problem)
+	steps[-1].solution = solution
 
 
 func set_mode(mode: int) -> void:

@@ -131,8 +131,11 @@ func _pressed_mb_input(index, TypeInput):
 func add_step(problem : g.Problem):
 	
 	running_problem = problem
+	steps.append(running_problem)
 	var new_step = STEPBUTTON.instance()
 	new_step.init(problem)
+	new_step.set_nb(len(steps))
+	new_step.update_text()
 	Steps.add_child(new_step)
 
 
@@ -460,10 +463,18 @@ func run_child(type: String, vars: Array, pos_cs: Array, size_cs: Array) -> void
 func run_parent(solution: int) -> void:
 	
 	var parent_problem = running_problem.get_parent()
+	running_problem.solution = solution
+	get_step_from_problem(running_problem).update_text()
 	
 	if !g.is_null(parent_problem):
 		running_problem = parent_problem
-	running_problem.solution = solution
+
+
+func get_step_from_problem(problem : g.Problem):
+	for step in Steps.get_children():
+		if step.problem == problem:
+			return step
+	return 0
 
 
 func set_mode(mode: int) -> void:

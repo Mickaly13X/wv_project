@@ -689,7 +689,7 @@ func domain_enum(_name, array_string, distinguishable  = true):
 	
 	var int_array = []
 	var list = array_string.replace("[","").replace("]","").split(",")
-	for i in range(len(list)):
+	for i in list:
 		int_array.append(int(i))
 	
 	g.problem.add_domain(g.Domain.new(_name, int_array, bool(distinguishable)))

@@ -1,0 +1,184 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Fonts/font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Scripts/universe.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/config.gd" type="Script" id=3]
+[ext_resource path="res://Scripts/problem.gd" type="Script" id=4]
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[node name="Problem" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="Config" type="Node2D" parent="."]
+position = Vector2( 422, 270 )
+script = ExtResource( 3 )
+
+[node name="Mask" type="Panel" parent="Config"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 175.0
+margin_bottom = 600.0
+mouse_filter = 1
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Elements" type="Node2D" parent="Config"]
+
+[node name="Menu" type="Node2D" parent="Config"]
+visible = false
+
+[node name="Buttons" type="VBoxContainer" parent="Config/Menu"]
+margin_right = 124.0
+margin_bottom = 32.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PosConstraint" type="Button" parent="Config/Menu/Buttons"]
+margin_right = 124.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 0, 32 )
+size_flags_horizontal = 3
+text = "Pos Constraint"
+
+[node name="Tag" type="Label" parent="Config"]
+margin_left = 4.49493
+margin_top = -51.0371
+margin_right = 44.4949
+margin_bottom = -5.03708
+custom_fonts/font = ExtResource( 1 )
+text = "Config"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Type" type="Label" parent="Config"]
+margin_left = 4.49493
+margin_top = -94.0371
+margin_right = 124.495
+margin_bottom = -48.0371
+custom_fonts/font = ExtResource( 1 )
+text = ">type = sequence"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Universe" type="Node2D" parent="."]
+position = Vector2( 755, 270 )
+script = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="Universe"]
+margin_left = 4.49493
+margin_top = -51.0371
+margin_right = 44.4949
+margin_bottom = -5.03708
+custom_fonts/font = ExtResource( 1 )
+text = "Universe"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Mask" type="Panel" parent="Universe"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 750.0
+margin_bottom = 600.0
+mouse_filter = 1
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Elements" type="Node2D" parent="Universe"]
+
+[node name="Menu" type="Node2D" parent="Universe"]
+visible = false
+
+[node name="Buttons" type="VBoxContainer" parent="Universe/Menu"]
+margin_right = 73.0
+margin_bottom = 64.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Add" type="Button" parent="Universe/Menu/Buttons"]
+margin_right = 114.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 0, 32 )
+size_flags_horizontal = 3
+text = "Add"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Delete" type="Button" parent="Universe/Menu/Buttons"]
+margin_top = 36.0
+margin_right = 114.0
+margin_bottom = 68.0
+rect_min_size = Vector2( 0, 32 )
+size_flags_horizontal = 3
+text = "Delete"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Group" type="Button" parent="Universe/Menu/Buttons"]
+margin_top = 72.0
+margin_right = 114.0
+margin_bottom = 104.0
+rect_min_size = Vector2( 0, 32 )
+size_flags_horizontal = 3
+text = "Group"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SizeConstraints" type="Button" parent="Universe/Menu/Buttons"]
+margin_top = 108.0
+margin_right = 114.0
+margin_bottom = 140.0
+rect_min_size = Vector2( 0, 32 )
+size_flags_horizontal = 3
+text = "Size Constraints"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DomainName0" type="Label" parent="Universe"]
+visible = false
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DomainName1" type="Label" parent="Universe"]
+visible = false
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DomainName2" type="Label" parent="Universe"]
+visible = false
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="gui_input" from="Config/Mask" to="Config" method="_gui_input"]
+[connection signal="button_up" from="Config/Menu/Buttons/PosConstraint" to="Config" method="_pressed" binds= [ "Constraint" ]]
+[connection signal="gui_input" from="Universe/Mask" to="Universe" method="_gui_input"]
+[connection signal="button_up" from="Universe/Menu/Buttons/Add" to="Universe" method="_pressed" binds= [ "Add" ]]
+[connection signal="button_up" from="Universe/Menu/Buttons/Delete" to="Universe" method="_pressed" binds= [ "Delete" ]]
+[connection signal="button_up" from="Universe/Menu/Buttons/Group" to="Universe" method="_pressed" binds= [ "Group" ]]
+[connection signal="button_up" from="Universe/Menu/Buttons/SizeConstraints" to="Universe" method="_pressed" binds= [ "SizeConstraints" ]]

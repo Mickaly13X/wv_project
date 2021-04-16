@@ -3,7 +3,6 @@ extends "res://Scripts/container.gd"
 
 const ELEMENT = preload("res://Scenes/Element.tscn")
 const ELEMENT_OFFSET = 24
-const ELEMENT_SIZE = 20
 const Domain = preload("res://Scripts/classes.gd").Domain
 const Interval = preload("res://Scripts/classes.gd").Interval
 
@@ -25,13 +24,6 @@ func _ready():
 func _draw():
 	
 	draw_self()
-	var constraints = g.problem.pos_constraints
-	var x_rel = (Main.Universe.position.x - position.x) * Vector2.RIGHT
-	for i in constraints:
-		var elem = get_element(int(i))
-		draw_line(elem.position + ELEMENT_SIZE * Vector2.RIGHT,
-				  Main.Universe.get_domain_left_side(constraints[i]) + x_rel,
-				  Color.white, 5)
 
 
 func _gui_input(event):
@@ -108,7 +100,7 @@ func toggle_menu(is_visible : bool):
 	
 	$Menu.visible = is_visible
 	if is_visible:
-		Main.undo_menu("Universe")
+		get_parent().close_menus(name)
 		$Menu.position = get_local_mouse_position()
 		toggle_menu_button("PosConstraint", true)
 

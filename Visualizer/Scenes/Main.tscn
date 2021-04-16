@@ -1,8 +1,7 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/main.gd" type="Script" id=1]
-[ext_resource path="res://Scenes/Universe.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scenes/Config.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Problem.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Fonts/font medium.tres" type="DynamicFont" id=4]
 [ext_resource path="res://Fonts/font.tres" type="DynamicFont" id=5]
 
@@ -171,7 +170,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Containers" type="Control" parent="HSplit/VSplit/MainPanel"]
+[node name="Problems" type="Control" parent="HSplit/VSplit/MainPanel"]
 anchor_left = 0.00104167
 anchor_right = 1.00104
 anchor_bottom = 1.0
@@ -185,11 +184,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Config" parent="HSplit/VSplit/MainPanel/Containers" instance=ExtResource( 3 )]
-position = Vector2( 422.115, 270 )
-
-[node name="Universe" parent="HSplit/VSplit/MainPanel/Containers" instance=ExtResource( 2 )]
-position = Vector2( 755, 270 )
+[node name="Problem0" parent="HSplit/VSplit/MainPanel/Problems" instance=ExtResource( 2 )]
 
 [node name="StepPanel" type="Panel" parent="HSplit/VSplit"]
 visible = false
@@ -1089,7 +1084,7 @@ __meta__ = {
 [connection signal="button_up" from="Popups/MenuUniverse/VBox/Buttons/CancelButton" to="." method="toggle_menu_universe" binds= [ false ]]
 [connection signal="button_up" from="Popups/MenuUniverse/VBox/Buttons/AddButton" to="." method="check_universe"]
 [connection signal="button_up" from="Popups/MenuGroup/VBox/Buttons/CancelButton" to="." method="toggle_menu_group" binds= [ false ]]
-[connection signal="button_up" from="Popups/MenuGroup/VBox/Buttons/Group" to="." method="group"]
+[connection signal="button_up" from="Popups/MenuGroup/VBox/Buttons/Group" to="." method="check_group"]
 [connection signal="button_up" from="Popups/MenuPosConstraint/VBox/Buttons/CancelButton" to="." method="toggle_menu_pos_constraint" binds= [ false ]]
 [connection signal="button_up" from="Popups/MenuPosConstraint/VBox/Buttons/DoneButton" to="." method="check_pos_constraint"]
 [connection signal="button_up" from="Popups/MenuSizeConstraint/VBox/Buttons/CancelButton" to="." method="toggle_menu_size_constraint" binds= [ false ]]

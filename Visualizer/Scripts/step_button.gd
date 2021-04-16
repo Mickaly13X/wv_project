@@ -22,4 +22,6 @@ func toggle_selected(toggle : bool) -> void:
 
 
 func update_text() -> void:
-	self.text = str(number) + ". " + "Solution: " + str(problem.solution)
+	
+	var tabulation = "\t".repeat(problem.get_level())
+	self.text = "{}{}. Solution: {}".format([tabulation, number, problem.solution], "{}")

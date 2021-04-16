@@ -43,7 +43,9 @@ class Problem:
 	
 	
 	func add_child(child: Problem) -> void:
+		
 		children.append(child)
+		child.parent = self
 	
 	
 	func set_parent(parent: Problem) -> void:
@@ -186,6 +188,16 @@ class Problem:
 	
 	func get_elem_count() -> int:
 		return universe.get_size()
+	
+	
+	func get_level() -> int:
+		
+		var level = 0
+		var current_problem = self
+		while (current_problem.parent != null):
+			current_problem = current_problem.parent
+			level += 1
+		return level
 	
 	
 	func get_type() -> String:
@@ -630,7 +642,6 @@ class SizeConstraint:
 		self.domain = domain
 		self.operator = operator
 		self.size = size
-		self.values = []
 	
 	
 	func init_array(domain : Domain, sizes : Array):
@@ -648,7 +659,7 @@ class SizeConstraint:
 			return ""
 		
 		if len(values) == 1:
-			return "= " + values[0]
+			return "= " + str(values[0])
 		
 		var no_vars = get_domain().get_problem().get_no_vars()
 		
@@ -664,9 +675,9 @@ class SizeConstraint:
 				break
 		if is_continious:
 			if values[0] == 0:
-				return "< " + values[-1] + 1
+				return "< " + str(values[-1] + 1)
 			if values[-1] == no_vars:
-				return ">= " + values[0]
+				return ">= " + str(values[0])
 		
 		return "in " + str(values)
 	

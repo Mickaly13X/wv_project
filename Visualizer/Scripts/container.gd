@@ -1,6 +1,8 @@
 extends Node2D
 
 
+const ELEMENT_SIZE = 20
+
 var custom_name: String = ""
 var shape: StyleBoxFlat
 

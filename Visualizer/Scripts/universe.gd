@@ -6,7 +6,6 @@ const CIRCLE_COLORS = [
 	Color(0.244292, 0.300939, 0.367188, 0.33),
 	Color(0.244292, 0.300939, 0.367188, 0.33)]
 const ELEMENT = preload("res://Scenes/Element.tscn")
-const ELEMENT_SIZE = 20
 const ELEMENT_COLORS = [
 	Color(1, 0.406122, 0.406122), 
 	Color(0.406122, 0.540673, 1), 
@@ -27,7 +26,6 @@ var circles_domain = []
 #var elements = {}
 
 var is_distinct : bool
-var problem
 
 
 func _ready():
@@ -36,8 +34,6 @@ func _ready():
 	shape.bg_color = Color.transparent
 	shape.set_border_width_all(3)
 	shape.set_corner_radius_all(30)
-	
-	problem = g.problem
 
 
 func _draw():
@@ -70,14 +66,14 @@ func _pressed(button_name : String) -> void:
 			
 			"Add":
 				var new_id = get_free_id()
-				problem.universe.add_elements([new_id])
+				get_problem().universe.add_elements([new_id])
 				add_elements([new_id])
 				update_element_positions([get_element(new_id)])
 			
 			"Delete":
 				#TODO: popup confirmation
 				var element_ids = get_element_ids(get_elements_selected())
-				problem.erase_elements(element_ids)
+				get_problem().erase_elements(element_ids)
 				delete_elements(element_ids)
 				# TODO rebuilt only if venn changes
 				update_elements()
@@ -206,7 +202,7 @@ func get_circle_approx(circle : Dictionary) -> Rect2:
 
 func get_domain_left_side(domain) -> Vector2:
 	
-	if domain == problem.universe:
+	if domain == get_problem().universe:
 		return $Mask.rect_size.y / 2.0 * Vector2.DOWN
 	
 	for i in circles_domain:
@@ -216,7 +212,7 @@ func get_domain_left_side(domain) -> Vector2:
 
 
 func get_domains() -> Array:
-	return problem.get_domains()
+	return get_problem().get_domains()
 
 
 func get_element(element_id) -> Node:
@@ -258,12 +254,16 @@ func get_perimeter() -> Rect2:
 	return Rect2($Mask.rect_position, $Mask.rect_size)
 
 
+func get_problem():
+	return get_parent().problem
+
+
 func group(group_name : String, is_dist = true) -> void:
 	
 	var selected_elements = PoolIntArray()
 	for i in get_element_ids(get_elements_selected()):
 		selected_elements.append(i)
-	problem.group(selected_elements, group_name, is_dist)
+	get_problem().group(selected_elements, group_name, is_dist)
 	
 	# update visual elements
 	update_problem(false)
@@ -345,10 +345,10 @@ func set_name(custom_name : String) -> void:
 # @param 'ow_*': whether to ignore update optimizations
 func set_problem(new_problem, ow_uni = false, ow_dom = false) -> void:
 	
-	if ow_uni || !problem.equals_in_universe(new_problem):
+	if ow_uni || !get_problem().equals_in_universe(new_problem):
 		update_elements(new_problem.get_universe().get_elements())
 	
-	if ow_dom || !problem.equals_in_domains(new_problem):
+	if ow_dom || !get_problem().equals_in_domains(new_problem):
 		if new_problem.get_domains().empty():
 			set_circles_domain([])
 		else:
@@ -361,7 +361,6 @@ func set_problem(new_problem, ow_uni = false, ow_dom = false) -> void:
 			)
 		update_element_colors()
 	
-	self.problem = new_problem
 	set_name(new_problem.get_universe().get_name())
 
 
@@ -369,7 +368,7 @@ func toggle_menu(is_visible : bool):
 	
 	$Menu.visible = is_visible
 	if is_visible:
-		Main.undo_menu("Config")
+		get_parent().close_menus(name)
 		$Menu.position = get_local_mouse_position()
 		var has_selected_elements = has_selected_elements()
 		toggle_menu_button("Add", !(has_max_elements() || has_selected_elements))
@@ -385,7 +384,7 @@ func update_element_colors() -> void:
 	
 	var color_count = 0
 	for I in get_elements():
-		if problem.is_dist_elem(I.get_id()):
+		if get_problem().is_dist_elem(I.get_id()):
 			I.set_color(ELEMENT_COLORS[color_count])
 			color_count += 1
 		else:
@@ -472,4 +471,4 @@ func update_element_positions_loop(approx : Rect2, inside_circles : Array,
 
 
 func update_problem(ow_uni = true, ow_dom = true) -> void:
-	set_problem(problem, ow_uni, ow_dom)
+	set_problem(get_problem(), ow_uni, ow_dom)

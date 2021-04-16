@@ -9,6 +9,7 @@ const CONFIG_NAMES = [ \
 const MAX_CONFIG_SIZE = 10
 const MAX_UNI_SIZE = 10
 const NOT_DOMAINS = ["structure", "size", "pos", "count", "not", "inter", "union", "in"]
+const PROBLEM = preload("res://Scenes/Problem.tscn")
 const SET = preload("res://Scenes/Universe.tscn")
 const STEPBUTTON = preload("res://Scenes/StepButton.tscn")
 
@@ -18,11 +19,10 @@ enum SetFunction {ANY, INJ, SUR}
 
 onready var CoLaInput = $HSplit/CoLaPanel/CoLaInput
 onready var CoLaPanel = $HSplit/CoLaPanel
-onready var Config = $HSplit/VSplit/MainPanel/Containers/Config
+onready var Config = $HSplit/VSplit/MainPanel/Problems/Problem0/Config
 onready var ConfigFuncInput = $Popups/MenuConfig/VBox/Items/FuncInput
 onready var ConfigNameInput = $Popups/MenuConfig/VBox/Items/NameInput
 onready var ConfigSizeInput = $Popups/MenuConfig/VBox/Items/SizeInput
-onready var Containers = $HSplit/VSplit/MainPanel/Containers
 onready var DistInput = $Popups/MenuGroup/VBox/Items/DistInput
 onready var DomainInput = $Popups/MenuPosConstraint/VBox/Items/DomainInput
 onready var FuncInput = $Popups/MenuConfig/VBox/Items/FuncInput
@@ -36,7 +36,7 @@ onready var OperatorInput = $Popups/MenuSizeConstraint/VBox/Items/OperatorInput
 onready var Popups = $Popups
 onready var SizeDomainInput = $Popups/MenuSizeConstraint/VBox/Items/DomainInput
 onready var Steps = $HSplit/VSplit/StepPanel/ScrollBox/Steps
-onready var Universe = $HSplit/VSplit/MainPanel/Containers/Universe
+onready var Universe = $HSplit/VSplit/MainPanel/Problems/Problem0/Universe
 onready var UnivSizeInput = $Popups/MenuUniverse/VBox/Items/SizeInput
 
 var config = [Distinct.NONE_SAME, SetFunction.ANY]
@@ -130,6 +130,13 @@ func _pressed_mb_input(index, TypeInput):
 
 func add_step(problem : g.Problem):
 	
+	# order matters
+	if problem != g.problem:
+		var new_problem = PROBLEM.instance()
+		new_problem.init(problem)
+		new_problem.name = "Problem" + str(len(Steps.get_children()))
+		$HSplit/VSplit/MainPanel/Problems.add_child(new_problem)
+	
 	running_problem = problem
 	steps.append(running_problem)
 	var new_step = STEPBUTTON.instance()
@@ -187,7 +194,7 @@ func check_pos_constraint() -> void:
 		else:
 			g.problem.add_pos_constraint(Config.index_selected, domain_name)
 		
-		Config.update()
+		$HSplit/VSplit/MainPanel/Problems/Problem0.update()
 		toggle_menu_pos_constraint(false)
 
 
@@ -367,6 +374,7 @@ func init_children() -> void:
 	
 	Config.Main = self 
 	Universe.Main = self
+	$HSplit/VSplit/MainPanel/Problems/Problem0.set_self(g.problem)
 
 
 func is_checked(group_name : String) -> bool:
@@ -446,7 +454,6 @@ func run():
 		for i in range(1, len(function_steps)):
 			eval(function_steps[i])
 		set_mode(Mode.STEPS)
-		update_step_panel(g.problem)
 
 
 # pos_contraint is an Array of domains repr as a list of ints
@@ -454,27 +461,27 @@ func run():
 func run_child(type: String, vars: Array, pos_cs: Array, size_cs: Array) -> void:
 	
 	var child_problem = g.Problem.new(type, vars, pos_cs, size_cs) # add parameters
-		
-	child_problem.set_parent(running_problem)
+	
 	running_problem.add_child(child_problem)
 	add_step(child_problem)
 
 
 func run_parent(solution: int) -> void:
 	
-	var parent_problem = running_problem.get_parent()
 	running_problem.solution = solution
 	get_step_from_problem(running_problem).update_text()
 	
+	var parent_problem = running_problem.get_parent()
 	if !g.is_null(parent_problem):
 		running_problem = parent_problem
 
 
-func get_step_from_problem(problem : g.Problem):
+func get_step_from_problem(problem : g.Problem) -> Node:
+	
 	for step in Steps.get_children():
 		if step.problem == problem:
 			return step
-	return 0
+	return null
 
 
 func set_mode(mode: int) -> void:
@@ -510,10 +517,9 @@ func set_step(step: int) -> void:
 		if step >= 0 && step < len(steps):
 			
 			current_step = step
-			var problem = steps[current_step]
-			Config.set_problem(problem)
-			Universe.set_problem(problem, true, true)
-			update_step_panel(problem)
+			for i in range(len($HSplit/VSplit/MainPanel/Problems.get_children)):
+				get_node("HSplit/VSplit/MainPanel/Problems/Problem" + str(i)) \
+					.visible = (i == step)
 
 
 func set_step_next() -> void:
@@ -602,21 +608,6 @@ func toggle_menu_size_constraint(is_opened : bool) -> void:
 		Menu.popup()
 	else:
 		Menu.hide()
-
-
-func undo_menu(ref : String) -> void:
-	
-	var container = Containers.get_node(ref)
-	container.deselect_elements()
-	container.toggle_menu(false)
-
-
-func update_step_panel(problem) -> void:
-	
-	$HSplit/VSplit/StepPanel/HBoxContainer/CurrentStep.text = \
-		"Current step: " + str(get_step(problem))
-	$HSplit/VSplit/StepPanel/HBoxContainer/Solution.text = \
-		"Solution: " + str(problem.solution)
 
 
 func get_selected_group_names_as_string() -> String:

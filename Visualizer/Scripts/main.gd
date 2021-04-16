@@ -671,7 +671,12 @@ func domain_interval(_name, interval_string, distinguishable = true):
 
 func domain_enum(_name, array_string, distinguishable = true):
 	
-	g.problem.add_domain(g.Domain.new(_name, array_string, bool(distinguishable)))
+	var int_array = []
+	var list = array_string.replace("[","").replace("]","").split(",")
+	for i in range(len(list)):
+		int_array.append(int(i))
+	
+	g.problem.add_domain(g.Domain.new(_name, int_array, bool(distinguishable)))
 
 
 func config(type, size, _name, domain_name):

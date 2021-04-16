@@ -343,6 +343,11 @@ class Problem:
 		return cola
 	
 	
+	func calculate_universe():
+		for domain in domains:
+			universe = universe.union(domain)
+	
+	
 	func update_universe_formula():
 		pass
 #		if g.Union(domains).get_size() == universe.get_size():
@@ -359,6 +364,7 @@ class Problem:
 	
 	
 	func _print():
+		print(universe.get_elements())
 		for dom in domains:
 			print(dom.get_name()+": "+ str(dom.get_elements()))
 		print(config.get_type())

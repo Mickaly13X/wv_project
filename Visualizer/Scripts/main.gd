@@ -86,6 +86,7 @@ func _on_cola_file_selected(path):
 	#if is_cola()
 	CoLaInput.text = content
 	parse(content)
+	g.problem.calculate_universe()
 	g.problem._print()
 
 

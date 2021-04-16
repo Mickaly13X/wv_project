@@ -345,7 +345,7 @@ class Problem:
 	
 	func calculate_universe():
 		for domain in domains:
-			universe = universe.union(domain)
+			universe.elements = g.union(universe.elements,domain.get_elements())
 	
 	
 	func update_universe_formula():
@@ -364,7 +364,7 @@ class Problem:
 	
 	
 	func _print():
-		print(universe.get_elements())
+		print("universe: "+str(universe.get_elements()))
 		for dom in domains:
 			print(dom.get_name()+": "+ str(dom.get_elements()))
 		print(config.get_type())
@@ -453,6 +453,10 @@ class Domain:
 	
 	# Returns the union with the specified domain
 	func union(domain : Domain) -> Domain:
+		
+		var new_array = domain.get_elements()
+		new_array = new_array + self.get_elements()
+		
 		return domain
 	
 	

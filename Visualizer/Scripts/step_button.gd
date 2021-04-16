@@ -5,6 +5,7 @@ var selected = false
 var problem
 var number
 
+
 func init(problem : g.Problem) -> void:
 	self.problem = problem
 	

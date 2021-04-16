@@ -34,6 +34,7 @@ onready var NewGroupInput = $Popups/MenuGroup/VBox/Items/NewGroupInput
 onready var OpenCoLa = $HSplit/VSplit/MainPanel/UI/HUD/OpenCoLa
 onready var OperatorInput = $Popups/MenuSizeConstraint/VBox/Items/OperatorInput
 onready var Popups = $Popups
+onready var Problem = $HSplit/VSplit/MainPanel/Problems/Problem0
 onready var SizeDomainInput = $Popups/MenuSizeConstraint/VBox/Items/DomainInput
 onready var Steps = $HSplit/VSplit/StepPanel/ScrollBox/Steps
 onready var Universe = $HSplit/VSplit/MainPanel/Problems/Problem0/Universe
@@ -51,7 +52,7 @@ var steps: Array
 func _ready():
 	
 	randomize()
-	init_children()
+	Problem.set_self(g.problem, self)
 	init_menus()
 	Popups.get_node("OpenFile").current_dir = ""
 	Popups.get_node("OpenFile").current_path = ""
@@ -135,7 +136,7 @@ func add_step(problem : g.Problem):
 	# order matters
 	if problem != g.problem:
 		var new_problem = PROBLEM.instance()
-		new_problem.init(problem)
+		new_problem.set_self(problem, self)
 		new_problem.name = "Problem" + str(len(Steps.get_children()))
 		$HSplit/VSplit/MainPanel/Problems.add_child(new_problem)
 	
@@ -196,7 +197,7 @@ func check_pos_constraint() -> void:
 		else:
 			g.problem.add_pos_constraint(Config.index_selected, domain_name)
 		
-		$HSplit/VSplit/MainPanel/Problems/Problem0.update()
+		Problem.update()
 		toggle_menu_pos_constraint(false)
 
 
@@ -370,13 +371,6 @@ func group() -> bool:
 		groups_selection[id] = false
 	toggle_menu_group(false)
 	return true
-
-
-func init_children() -> void:
-	
-	Config.Main = self 
-	Universe.Main = self
-	$HSplit/VSplit/MainPanel/Problems/Problem0.set_self(g.problem)
 
 
 func is_checked(group_name : String) -> bool:
@@ -644,7 +638,7 @@ func get_selected_group_names() -> String:
 
 
 # Parse CoLa input
-func parse(cola_string : String) -> Dictionary:
+func parse(cola_string : String) -> void:
 	
 	g.problem.reset()
 
@@ -667,15 +661,15 @@ func parse(cola_string : String) -> Dictionary:
 		if not expression.has_execute_failed():
 			pass
 	
-	return parsed_dict
+	Problem.set_self(g.problem)
 
 
-func domain_interval(_name, interval_string, distinguishable  = true):
+func domain_interval(_name, interval_string, distinguishable = true):
 	
 	g.problem.add_domain(g.Domain.new(_name, g.IntervalString.new(interval_string).get_values(), bool(distinguishable)))
 
 
-func domain_enum(_name, array_string, distinguishable  = true):
+func domain_enum(_name, array_string, distinguishable = true):
 	
 	g.problem.add_domain(g.Domain.new(_name, array_string, bool(distinguishable)))
 

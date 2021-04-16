@@ -255,7 +255,7 @@ func get_perimeter() -> Rect2:
 
 
 func get_problem():
-	return get_parent().problem
+	return Problem.problem
 
 
 func group(group_name : String, is_dist = true) -> void:
@@ -368,7 +368,7 @@ func toggle_menu(is_visible : bool):
 	
 	$Menu.visible = is_visible
 	if is_visible:
-		get_parent().close_menus(name)
+		Problem.close_menus(name)
 		$Menu.position = get_local_mouse_position()
 		var has_selected_elements = has_selected_elements()
 		toggle_menu_button("Add", !(has_max_elements() || has_selected_elements))

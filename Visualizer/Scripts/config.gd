@@ -78,7 +78,6 @@ func set_problem(problem) -> void:
 	set_name(problem.config.custom_name)
 	set_size(problem.config.size)
 	$Type.text = ">type = " + problem.get_type()
-	update()
 
 
 func set_size(size : int) -> void:
@@ -100,7 +99,7 @@ func toggle_menu(is_visible : bool):
 	
 	$Menu.visible = is_visible
 	if is_visible:
-		get_parent().close_menus(name)
+		Problem.close_menus(name)
 		$Menu.position = get_local_mouse_position()
 		toggle_menu_button("PosConstraint", true)
 

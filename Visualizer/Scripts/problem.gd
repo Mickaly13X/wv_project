@@ -26,8 +26,15 @@ func close_menus(except: String) -> void:
 			I.toggle_menu(false)
 
 
-func set_self(problem) -> void:
+func set_self(problem, Main: Node = null) -> void:
+	
+	if !g.is_null(Main):
+		$Config.Main = Main
+		$Universe.Main = Main
+	$Config.Problem = self
+	$Universe.Problem = self
 	
 	$Config.set_problem(problem)
 	$Universe.set_problem(problem, true, true)
 	self.problem = problem
+	update()

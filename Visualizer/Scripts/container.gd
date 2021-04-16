@@ -7,6 +7,7 @@ var custom_name: String = ""
 var shape: StyleBoxFlat
 
 onready var Main: Node
+onready var Problem: Node
 
 
 func draw_self() -> void:

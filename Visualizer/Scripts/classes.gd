@@ -386,7 +386,7 @@ class Domain:
 	var problem : Problem
 	
 	
-	func _init(_name = "", _elements = [], _is_distinct = true):
+	func _init(_name = "", _elements = PoolIntArray(), _is_distinct = true):
 		
 		domain_name = _name
 		elements = _elements

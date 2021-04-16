@@ -86,6 +86,7 @@ func _on_cola_file_selected(path):
 	#if is_cola()
 	CoLaInput.text = content
 	parse(content)
+	g.problem._print()
 
 
 func _pressed_mb_group(id):
@@ -680,18 +681,18 @@ func parse(cola_string : String) -> Dictionary:
 
 func domain_interval(_name, interval_string, distinguishable  = true):
 	
-	g.problem.add_domain(g.Domain.new(_name, g.IntervalString.new(interval_string).get_values(), distinguishable))
+	g.problem.add_domain(g.Domain.new(_name, g.IntervalString.new(interval_string).get_values(), bool(distinguishable)))
 
 
 func domain_enum(_name, array_string, distinguishable  = true):
 	
-	g.problem.add_domain(g.Domain.new(_name, array_string, distinguishable))
+	g.problem.add_domain(g.Domain.new(_name, array_string, bool(distinguishable)))
 
 
 func config(type, size, _name, domain_name):
 	
 	var domain = g.problem.get_domain(domain_name)
-	g.problem.set_config(type, size, _name, domain)
+	g.problem.set_config(type, int(size), _name, domain)
 
 
 func config_size(size):
@@ -702,15 +703,15 @@ func config_size(size):
 func size_constraint(_name, op, size):
 	
 	if g.problem.get_config().get_name() == _name && op == "=":
-		g.problem.get_config().set_size(size)
+		g.problem.get_config().set_size(int(size))
 	
 	else:
-		g.problem.set_size_constraint(_name, op, size)
+		g.problem.set_size_constraint(_name, op, int(size))
 	
 
 func pos_constraint(position, domain_name):
 	
-	g.problem.add_pos_constraint(position, domain_name)
+	g.problem.add_pos_constraint(int(position), domain_name)
 
 
 func toggle_menu_constraint_pos(extra_arg_0):

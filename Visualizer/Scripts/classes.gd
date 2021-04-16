@@ -269,7 +269,7 @@ class Problem:
 		pos_constraints = {}
 		solution = 0
 		children = []
-		config = null
+		config = g.Configuration.new()
 		clear_domains()
 	
 	
@@ -359,7 +359,9 @@ class Problem:
 	
 	
 	func _print():
-		return [universe.get_elements(), domains, config]
+		for dom in domains:
+			print(dom.get_name()+": "+ str(dom.get_elements()))
+		print(config.get_type())
 
 
 class Domain:
@@ -767,10 +769,10 @@ class CoLaExpression:
 			
 			"domain_interval":
 				
-				var dist = true
+				var dist = "true"
 				var list = cola_string.split("=")
 				if "ïndist" in list[0]:
-					dist = false
+					dist = "false"
 					list[0].replace("indist","")
 					list[0].replace(" ","")
 				list[1].replace(" ","")
@@ -780,10 +782,10 @@ class CoLaExpression:
 			
 			"domain_enum":
 				
-				var dist = true
+				var dist = "true"
 				var list = cola_string.split("=")
 				if "ïndist" in list[0]:
-					dist = false
+					dist = "false"
 					list[0].replace("indist","")
 					list[0].replace(" ","")
 				list[1].replace(" ","")

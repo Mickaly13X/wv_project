@@ -85,6 +85,7 @@ func _on_cola_file_selected(path):
 	var content = file.get_as_text()
 	#if is_cola()
 	CoLaInput.text = content
+	parse(content)
 
 
 func _pressed_mb_group(id):
@@ -652,35 +653,64 @@ func get_selected_group_names() -> String:
 
 # Parse CoLa input
 func parse(cola_string : String) -> Dictionary:
+	
+	g.problem.reset()
 
 	var parsed_dict = {}
 	var commands = cola_string.replace(";","").replace("\t","").split("\n")
 	for command in commands:
-		
+		# Ignore comments
 		if "%" in command or command.replace(" ","").length() <= 1:
 			continue
-		var expression = Expression.new()
+		
+		
 		var tmp = g.CoLaExpression.new(command)
 		var c = tmp.translate() # Returns string in func form
+		var expression = Expression.new()
 		var error = expression.parse(c,[])
 		if error != OK:
 			push_error(expression.get_error_text())
 		
 		var result = expression.execute([], self)
 		if not expression.has_execute_failed():
-			var key = tmp.get_global_type()
-			if parsed_dict.has(key):
-				parsed_dict[key].append(result)
-			else:
-				parsed_dict[key] = [result]
+			pass
 	
 	return parsed_dict
 
 
-# Returns a domain (interval)
 func domain_interval(_name, interval_string, distinguishable  = true):
 	
-	return g.Domain.new(_name,g.IntervalString.new(interval_string).get_values(),distinguishable)
+	g.problem.add_domain(g.Domain.new(_name, g.IntervalString.new(interval_string).get_values(), distinguishable))
+
+
+func domain_enum(_name, array_string, distinguishable  = true):
+	
+	g.problem.add_domain(g.Domain.new(_name, array_string, distinguishable))
+
+
+func config(type, size, _name, domain_name):
+	
+	var domain = g.problem.get_domain(domain_name)
+	g.problem.set_config(type, size, _name, domain)
+
+
+func config_size(size):
+	
+	g.problem.get_config().set_size(size)
+
+
+func size_constraint(_name, op, size):
+	
+	if g.problem.get_config().get_name() == _name && op == "=":
+		g.problem.get_config().set_size(size)
+	
+	else:
+		g.problem.set_size_constraint(_name, op, size)
+	
+
+func pos_constraint(position, domain_name):
+	
+	g.problem.add_pos_constraint(position, domain_name)
 
 
 func toggle_menu_constraint_pos(extra_arg_0):

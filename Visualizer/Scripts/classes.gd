@@ -266,6 +266,9 @@ class Problem:
 	func reset():
 		
 		count_formulas = []
+		pos_constraints = {}
+		solution = 0
+		children = []
 		config = null
 		clear_domains()
 	
@@ -692,16 +695,17 @@ class CoLaExpression:
 		
 		#Counts
 		elif "#" in expression:
-			if "(" in expression:
-				type = "constraint_count"
-			else:
-				type = "config_size"
+			type = "constraint_count"
 		
 		# Domain or  positionconstraint
 		elif "=" in expression:
 			# Domain
 			if "[" in expression:
-				type = "domain_interval"
+				var list = expression.split("=")
+				if "[" in list[0]:
+					type = "constraint_position"
+				else:
+					type = "domain_interval"
 			elif "{" in expression:
 				type = "domain_enum"
 		
@@ -776,32 +780,85 @@ class CoLaExpression:
 			
 			"domain_enum":
 				
-				tmp = "1"
+				var dist = true
+				var list = cola_string.split("=")
+				if "ïndist" in list[0]:
+					dist = false
+					list[0].replace("indist","")
+					list[0].replace(" ","")
+				list[1].replace(" ","")
+				var _name = list[0]
+				var array_string = list[1].replace("{","[").replace("}","]")
+				tmp = "domain_enum('{n}','{s}','{d}')".format({"n" : _name, "s" : array_string,"d" : dist})
 			
 			"config_sequence":
 				
-				tmp = "seq"
+				var list = cola_string.split(" in ")
+				var name = list[0]
+				var domain_name = list[1].replace(" ","").replace("[","").replace("]","").replace("{","").replace("}","").replace("|","")
+				var type = "sequence"
+				var size = "0"
+				tmp = "config('{t}','{s}','{n}','{d}')".format({"t" : type, "s" : size,"n" : name, "d" : domain_name})
 			
 			"config_permutation":
-				tmp = "perm"
+				
+				var list = cola_string.split(" in ")
+				var name = list[0]
+				var domain_name = list[1].replace(" ","").replace("[","").replace("]","").replace("{","").replace("}","").replace("|","")
+				var type = "permutation"
+				var size = "0"
+				tmp = "config('{t}','{s}','{n}','{d}')".format({"t" : type, "s" : size,"n" : name, "d" : domain_name})
 			
 			"config_mulitsubset":
-				tmp = "msubset"
+				
+				var list = cola_string.split(" in ")
+				var name = list[0]
+				var domain_name = list[1].replace(" ","").replace("[","").replace("]","").replace("{","").replace("}","").replace("|","")
+				var type = "multisubset"
+				var size = "0"
+				tmp = "config('{t}','{s}','{n}','{d}')".format({"t" : type, "s" : size,"n" : name, "d" : domain_name})
 			
 			"config_subset":
-				tmp = "subset"
+				
+				var list = cola_string.split(" in ")
+				var name = list[0]
+				var domain_name = list[1].replace(" ","").replace("[","").replace("]","").replace("{","").replace("}","").replace("|","")
+				var type = "subset"
+				var size = "0"
+				tmp = "config('{t}','{s}','{n}','{d}')".format({"t" : type, "s" : size,"n" : name, "d" : domain_name})
 			
 			"config_partition":
-				tmp = "part"
+				
+				var list = cola_string.split(" in ")
+				var name = list[0]
+				var domain_name = list[1].replace("partitions","").replace("(","").replace(")","")
+				var type = "partition"
+				var size = "0"
+				tmp = "config('{t}','{s}','{n}','{d}')".format({"t" : type, "s" : size,"n" : name, "d" : domain_name})
 				
 			"config_composition":
-				tmp = "composition"
-			
-			"config_size":
-				tmp = "config_size"
-			
+				
+				var list = cola_string.split(" in ")
+				var name = list[0]
+				var domain_name = list[1].replace("compositions","").replace("(","").replace(")","")
+				var type = "composition"
+				var size = "0"
+				tmp = "config('{t}','{s}','{n}','{d}')".format({"t" : type, "s" : size,"n" : name, "d" : domain_name})
+				
 			"constraint_count":
-				tmp = "constraint_count"
+				
+				var list = cola_string.split(" ")
+				var name = list[0].replace("#","")
+				var operator = list[1]
+				var size = list[2]
+				tmp = "size_constraint('{n}','{op}','{s}')".format({"n" : name, "op" : operator,"s" : size})
+			
+			"constraint_position":
+				
+				var list = cola_string.split("=")
+				var position = list[0].split("[")[1].replace(" ","").replace("]","")
+				var domain_name = list[1].replace(" ","")
+				tmp = "pos_constraint('{p}','{d}')".format({"p" : position, "d" : domain_name})
 				
 		return tmp
 

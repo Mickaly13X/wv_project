@@ -423,11 +423,12 @@ func update_element_positions(elements = get_elements()) -> void:
 				# rect intersection
 				approx = approx.clip(get_circle_approx(inside_circles[i]))
 		
-		var new_assigned_pos = Vector2.ZERO # invalid pos
-		while new_assigned_pos == Vector2.ZERO:
-			new_assigned_pos = update_element_positions_loop(
+		var new_assigned_pos = update_element_positions_loop(
 				approx, inside_circles, outside_circles, assigned_positions
 			)
+		if new_assigned_pos == Vector2.ZERO: # invalid pos
+			print ("[error] No valid position arrangement found. Defaulting to (0, 0)...")
+		
 		Element.position = new_assigned_pos
 		assigned_positions.append(new_assigned_pos)
 
@@ -442,7 +443,6 @@ func update_element_positions_loop(approx : Rect2, inside_circles : Array,
 	var flag = false
 	while (flag == false):
 		
-		#print("Positioning Attempt " + str(attempt) + "...")
 		flag = true
 		new_pos = g.randomRect(approx.grow(-ELEMENT_SIZE))
 		for i in assigned_positions:

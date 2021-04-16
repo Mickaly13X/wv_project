@@ -88,7 +88,6 @@ func _on_cola_file_selected(path):
 	CoLaInput.text = content
 	parse(content)
 	g.problem.calculate_universe()
-	g.problem._print()
 	Problem.set_self(g.problem)
 
 
@@ -140,6 +139,7 @@ func add_step(problem : g.Problem):
 		var new_problem = PROBLEM.instance()
 		new_problem.set_self(problem, self)
 		new_problem.name = "Problem" + str(len(Steps.get_children()))
+		new_problem.hide()
 		$HSplit/VSplit/MainPanel/Problems.add_child(new_problem)
 	
 	running_problem = problem
@@ -147,6 +147,7 @@ func add_step(problem : g.Problem):
 	var new_step = STEPBUTTON.instance()
 	new_step.init(problem)
 	new_step.set_nb(len(steps))
+	new_step.toggle_selected(problem == g.problem)
 	new_step.update_text()
 	Steps.add_child(new_step)
 
@@ -448,8 +449,8 @@ func run():
 		add_step(g.problem)
 		# interpret coso output
 		var function_steps: PoolStringArray = fetch("coso")
-		print(function_steps)
 		for i in range(1, len(function_steps)):
+			print(function_steps[i])
 			eval(function_steps[i])
 		set_mode(Mode.STEPS)
 
@@ -467,18 +468,22 @@ func run_child(type: String, vars: Array, pos_cs: Array, size_cs: Array) -> void
 func run_parent(solution: int) -> void:
 	
 	running_problem.solution = solution
-	get_step_from_problem(running_problem).update_text()
+	get_step_button(running_problem).update_text()
 	
 	var parent_problem = running_problem.get_parent()
 	if !g.is_null(parent_problem):
 		running_problem = parent_problem
 
 
-func get_step_from_problem(problem : g.Problem) -> Node:
+func get_step(problem) -> int:
+	return Steps.get_children().find(get_step_button(problem))
+
+
+func get_step_button(problem: g.Problem) -> Node:
 	
-	for step in Steps.get_children():
-		if step.problem == problem:
-			return step
+	for step_button in Steps.get_children():
+		if step_button.problem == problem:
+			return step_button
 	return null
 
 
@@ -497,27 +502,15 @@ func set_mode(mode: int) -> void:
 #	$HSplit/VSplit/StepPanel/HBoxContainer/Steps.text = steps
 
 
-func get_step(problem) -> int:
-	
-	var current_problem = g.problem
-	var current_step = 1
-	while (!g.is_null(current_problem)):
-		if current_problem == problem:
-			return current_step
-		current_problem = current_problem.next()
-		current_step += 1
-	return -1
-
-
 func set_step(step: int) -> void:
 	
 	if mode == Mode.STEPS:
 		if step >= 0 && step < len(steps):
 			
-			current_step = step
-			for i in range(len($HSplit/VSplit/MainPanel/Problems.get_children)):
+			for i in range(len(Steps.get_children())):
 				get_node("HSplit/VSplit/MainPanel/Problems/Problem" + str(i)) \
 					.visible = (i == step)
+				Steps.get_child(i).toggle_selected(i == step)
 
 
 func set_step_next() -> void:

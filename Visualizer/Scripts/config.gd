@@ -64,20 +64,10 @@ func has_max_elements() -> bool:
 	return false
 
 
-func set_name(custom_name : String) -> void:
-	
-	self.custom_name = custom_name
-	if custom_name == "":
-		$Tag.text = "Config"
-	else:
-		$Tag.text = "Config (" + custom_name + ")"
-
-
 func set_problem(problem) -> void:
 	
-	set_name(problem.config.custom_name)
+	set_tag(problem.config.custom_name, problem.get_type().capitalize())
 	set_size(problem.config.size)
-	$Type.text = ">type = " + problem.get_type()
 
 
 func set_size(size : int) -> void:
@@ -93,6 +83,16 @@ func set_size(size : int) -> void:
 		new_element.position = \
 			starting_point + (2*ELEMENT_SIZE + ELEMENT_OFFSET) * i * Vector2.DOWN
 		$Elements.add_child(new_element)
+
+
+func set_tag(custom_name: String, type: String) -> void:
+	
+	self.custom_name = custom_name
+	if custom_name == "":
+		$Label.text = "Config:"
+	else:
+		$Label.text = "Config (" + custom_name + "):"
+	$Label.text += "\n" + type
 
 
 func toggle_menu(is_visible : bool):

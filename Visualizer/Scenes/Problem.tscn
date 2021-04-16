@@ -5,9 +5,9 @@
 [ext_resource path="res://Scripts/config.gd" type="Script" id=3]
 [ext_resource path="res://Scripts/problem.gd" type="Script" id=4]
 
-[sub_resource type="StyleBoxEmpty" id=2]
-
 [sub_resource type="StyleBoxEmpty" id=1]
+
+[sub_resource type="StyleBoxEmpty" id=2]
 
 [node name="Problem" type="Node2D"]
 script = ExtResource( 4 )
@@ -22,7 +22,7 @@ anchor_bottom = 1.0
 margin_right = 175.0
 margin_bottom = 600.0
 mouse_filter = 1
-custom_styles/panel = SubResource( 2 )
+custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -46,24 +46,14 @@ rect_min_size = Vector2( 0, 32 )
 size_flags_horizontal = 3
 text = "Pos Constraint"
 
-[node name="Tag" type="Label" parent="Config"]
+[node name="Label" type="Label" parent="Config"]
 margin_left = 4.49493
 margin_top = -51.0371
 margin_right = 44.4949
 margin_bottom = -5.03708
+grow_vertical = 0
 custom_fonts/font = ExtResource( 1 )
 text = "Config"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Type" type="Label" parent="Config"]
-margin_left = 4.49493
-margin_top = -94.0371
-margin_right = 124.495
-margin_bottom = -48.0371
-custom_fonts/font = ExtResource( 1 )
-text = ">type = sequence"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -89,7 +79,7 @@ anchor_bottom = 1.0
 margin_right = 750.0
 margin_bottom = 600.0
 mouse_filter = 1
-custom_styles/panel = SubResource( 1 )
+custom_styles/panel = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

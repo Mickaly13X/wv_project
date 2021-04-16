@@ -8,8 +8,8 @@ func _draw() -> void:
 	
 	$Config.update()
 	$Universe.update()
+	# pos constraints
 	var constraints = problem.pos_constraints
-	#var x_rel = (Universe.position.x - position.x) * Vector2.RIGHT
 	for i in constraints:
 		var elem = $Config.get_element(int(i))
 		draw_line(elem.global_position + $Config.ELEMENT_SIZE * Vector2.RIGHT,

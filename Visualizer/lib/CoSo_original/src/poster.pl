@@ -1,5 +1,5 @@
-dutch = {s1, s2, s3};
-french = {s3, s4};
+dutch = {1, 2, 3};
+french = {3, 4};
 row in [| dutch + french];
 #row = 2;
 row[1] = dutch;

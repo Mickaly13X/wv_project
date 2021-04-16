@@ -59,11 +59,7 @@ class Problem:
 	
 	
 	func add_pos_constraint(pos: int, domain_name: String) -> void:
-		
-		if domain_name == "":
-			pos_constraints[pos] = universe
-		else:
-			pos_constraints[pos] = get_domain(domain_name)
+		pos_constraints[pos] = get_domain(domain_name)
 	
 	
 	func add_to_domain(domain_name, _element : int) -> void:
@@ -356,8 +352,9 @@ class Problem:
 	
 	
 	func calculate_universe():
+		
 		for domain in domains:
-			universe.elements = g.union(universe.elements,domain.get_elements())
+			universe.elements = g.union(universe.elements, domain.get_elements())
 	
 	
 	func update_universe_formula():

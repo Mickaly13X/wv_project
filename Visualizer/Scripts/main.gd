@@ -89,6 +89,7 @@ func _on_cola_file_selected(path):
 	parse(content)
 	g.problem.calculate_universe()
 	g.problem._print()
+	Problem.set_self(g.problem)
 
 
 func _pressed_mb_group(id):
@@ -650,7 +651,6 @@ func parse(cola_string : String) -> void:
 		if "%" in command or command.replace(" ","").length() <= 1:
 			continue
 		
-		
 		var tmp = g.CoLaExpression.new(command)
 		var c = tmp.translate() # Returns string in func form
 		var expression = Expression.new()
@@ -661,8 +661,6 @@ func parse(cola_string : String) -> void:
 		var result = expression.execute([], self)
 		if not expression.has_execute_failed():
 			pass
-	
-	Problem.set_self(g.problem)
 
 
 func domain_interval(_name, interval_string, distinguishable = true):
@@ -674,7 +672,7 @@ func domain_enum(_name, array_string, distinguishable = true):
 	
 	var int_array = []
 	var list = array_string.replace("[","").replace("]","").split(",")
-	for i in range(len(list)):
+	for i in list:
 		int_array.append(int(i))
 	
 	g.problem.add_domain(g.Domain.new(_name, int_array, bool(distinguishable)))
@@ -701,7 +699,6 @@ func size_constraint(_name, op, size):
 	
 
 func pos_constraint(position, domain_name):
-	
 	g.problem.add_pos_constraint(int(position), domain_name)
 
 

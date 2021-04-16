@@ -31,13 +31,13 @@ onready var GroupsLabel = $Popups/MenuGroup/VBox/GroupsLabel
 onready var HSplit = $HSplit
 onready var IntInput = $Popups/MenuSizeConstraint/VBox/Items/IntInput
 onready var NewGroupInput = $Popups/MenuGroup/VBox/Items/NewGroupInput
-onready var OpenCoLa = $HSplit/MainPanel/UI/HUD/OpenCoLa
+onready var OpenCoLa = $HSplit/VSplit/MainPanel/UI/HUD/OpenCoLa
 onready var OperatorInput = $Popups/MenuSizeConstraint/VBox/Items/OperatorInput
 onready var Popups = $Popups
 onready var SizeDomainInput = $Popups/MenuSizeConstraint/VBox/Items/DomainInput
-onready var UnivSizeInput = $Popups/MenuUniverse/VBox/Items/SizeInput
-onready var Universe = $HSplit/VSplit/MainPanel/Containers/Universe
 onready var Steps = $HSplit/VSplit/StepPanel/ScrollBox/Steps
+onready var Universe = $HSplit/VSplit/MainPanel/Containers/Universe
+onready var UnivSizeInput = $Popups/MenuUniverse/VBox/Items/SizeInput
 
 var config = [Distinct.NONE_SAME, SetFunction.ANY]
 var container_menu : String
@@ -474,11 +474,11 @@ func set_mode(mode: int) -> void:
 	var steps: String
 	var current_problem = g.problem
 	var current_step = 1
-	while (!g.is_null(current_problem)):
-		steps += "{}. {}\n".format([current_step, current_problem], "{}")
-		current_problem = current_problem.next()
-		current_step += 1
-	$HSplit/VSplit/StepPanel/HBoxContainer/Steps.text = steps
+#	while (!g.is_null(current_problem)):
+#		steps += "{}. {}\n".format([current_step, current_problem], "{}")
+#		current_problem = current_problem.next()
+#		current_step += 1
+#	$HSplit/VSplit/StepPanel/HBoxContainer/Steps.text = steps
 
 
 func get_step(problem) -> int:

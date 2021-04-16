@@ -68,8 +68,8 @@ func init(Container_: Node2D) -> void:
 
 
 func init_mask():
-	Mask.rect_position = Vector2(-r,-r)
-	Mask.rect_size = Vector2(2*r,2*r)
+	Mask.rect_position = Vector2(-r, -r)
+	Mask.rect_size = Vector2(2*r, 2*r)
 
 
 func is_in_universe():

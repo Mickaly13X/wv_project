@@ -65,9 +65,9 @@ func _process(_delta):
 	
 	if Input.is_action_pressed("ui_cancel"):
 		get_tree().quit()
-	if Input.is_action_just_pressed("reload"):
+	if Input.is_action_just_pressed("ctrl_R"):
 		get_tree().reload_current_scene()
-	if Input.is_action_just_pressed("rebuild"):
+	if Input.is_action_just_pressed("ctrl_B"):
 		Universe.update_element_positions()
 	if Input.is_action_pressed("mouse_left"):
 		Universe.toggle_menu(false)

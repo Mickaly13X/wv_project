@@ -139,6 +139,7 @@ func sum(list: Array) -> int:
 	return sum
 
 # returns the union of 2 arrays
+# Note: result = set
 func union(a: Array, b: Array) -> Array:
 	return array2set(a + b)
 

@@ -112,12 +112,6 @@ func delete_elements(element_ids: PoolIntArray = get_element_ids()) -> void:
 			element.free()
 
 
-func deselect_elements():
-	
-	for I in get_elements_selected():
-		I.is_selected = false
-
-
 func draw_circle_custom(radius: float, pos: Vector2, \
 	color: Color = Color.white, maxerror = 0.25):
 	
@@ -231,15 +225,6 @@ func get_element_ids(elements: Array = get_elements()) -> PoolIntArray:
 	return element_ids
 
 
-func get_elements_selected() -> Array:
-	
-	var elements_selected = []
-	for I in get_elements():
-		if I.is_selected:
-			elements_selected.append(I)
-	return elements_selected
-
-
 func get_free_id() -> int:
 	
 	var count = get_elements().size()
@@ -281,6 +266,20 @@ func has_max_elements() -> bool:
 	if get_size() == 10:
 		return true
 	return false
+
+
+func has_new_domains(new_problem) -> bool:
+	
+	if g.is_null(get_problem()):
+		return true
+	return !get_problem().equals_in_domains(new_problem)
+
+
+func has_new_universe(new_problem) -> bool:
+	
+	if g.is_null(get_problem()):
+		return true
+	return !get_problem().equals_in_universe(new_problem)
 
 
 func has_selected_elements() -> bool:
@@ -345,10 +344,10 @@ func set_name(custom_name : String) -> void:
 # @param 'ow_*': whether to ignore update optimizations
 func set_problem(new_problem, ow_uni = false, ow_dom = false) -> void:
 	
-	if ow_uni || !get_problem().equals_in_universe(new_problem):
+	if ow_uni || has_new_universe(new_problem):
 		update_elements(new_problem.get_universe().get_elements())
 	
-	if ow_dom || !get_problem().equals_in_domains(new_problem):
+	if ow_dom || has_new_domains(new_problem):
 		if new_problem.get_domains().empty():
 			set_circles_domain([])
 		else:

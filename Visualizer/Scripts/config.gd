@@ -104,20 +104,5 @@ func toggle_menu(is_visible : bool):
 		toggle_menu_button("PosConstraint", true)
 
 
-func deselect_elements():
-	
-	for I in get_elements_selected():
-		I.is_selected = false
-
-
-func get_elements_selected() -> Array:
-	
-	var elements_selected = []
-	for I in get_elements():
-		if I.is_selected:
-			elements_selected.append(I)
-	return elements_selected
-
-
 func toggle_menu_button(buttom_name: String, is_pressable : bool):
 	Buttons.get_node(buttom_name).disabled = !is_pressable

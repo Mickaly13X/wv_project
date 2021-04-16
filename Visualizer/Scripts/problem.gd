@@ -34,7 +34,7 @@ func set_self(problem, Main: Node = null) -> void:
 	$Config.Problem = self
 	$Universe.Problem = self
 	
+	self.problem = problem
 	$Config.set_problem(problem)
 	$Universe.set_problem(problem, true, true)
-	self.problem = problem
 	update()

@@ -18,10 +18,6 @@ func _ready():
 	init_mask()
 
 
-func _process(_delta):
-	update()
-
-
 func _draw():
 	
 	if is_in_universe():
@@ -38,9 +34,9 @@ func _gui_input(event):
 	if event.is_pressed():
 		if is_in_universe():
 			if event.button_index == BUTTON_LEFT:
-				is_selected = !is_selected
+				set_selected(!is_selected)
 			elif event.button_index == BUTTON_RIGHT:
-				is_selected = true
+				set_selected(true)
 				Container_.toggle_menu(true)
 		elif event.button_index == BUTTON_RIGHT:
 			Container_.index_selected = index
@@ -65,9 +61,11 @@ func init(Container_: Node2D) -> void:
 		shape_unselected.bg_color = Color.transparent
 		shape_unselected.set_border_width_all(5)
 		shape_unselected.border_width_top = 0
+	update()
 
 
 func init_mask():
+	
 	Mask.rect_position = Vector2(-r, -r)
 	Mask.rect_size = Vector2(2*r, 2*r)
 
@@ -83,7 +81,14 @@ func set_color(new_color : Color):
 		shape_selected.bg_color = new_color
 	else:
 		shape_unselected.border_color = new_color
+	update()
 
 
 func set_id(id: int) -> void:
 	name = str(id)
+
+
+func set_selected(is_selected: bool) -> void:
+	
+	self.is_selected = is_selected
+	update()

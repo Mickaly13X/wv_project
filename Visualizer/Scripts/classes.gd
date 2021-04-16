@@ -794,7 +794,7 @@ class CoLaExpression:
 					list[0].replace("indist","")
 					list[0].replace(" ","")
 				list[1].replace(" ","")
-				var _name = list[0]
+				var _name = list[0].replace(" ","")
 				var interval_string = list[1].replace(":",",")
 				tmp = "domain_interval('{n}','{s}','{d}')".format({"n" : _name, "s" : interval_string,"d" : dist})
 			
@@ -807,14 +807,14 @@ class CoLaExpression:
 					list[0].replace("indist","")
 					list[0].replace(" ","")
 				list[1].replace(" ","")
-				var _name = list[0]
+				var _name = list[0].replace(" ","")
 				var array_string = list[1].replace("{","[").replace("}","]")
 				tmp = "domain_enum('{n}','{s}','{d}')".format({"n" : _name, "s" : array_string,"d" : dist})
 			
 			"config_sequence":
 				
 				var list = cola_string.split(" in ")
-				var name = list[0]
+				var name = list[0].replace(" ","")
 				var domain_name = list[1].replace(" ","").replace("[","").replace("]","").replace("{","").replace("}","").replace("|","")
 				var type = "sequence"
 				var size = "0"
@@ -823,7 +823,7 @@ class CoLaExpression:
 			"config_permutation":
 				
 				var list = cola_string.split(" in ")
-				var name = list[0]
+				var name = list[0].replace(" ","")
 				var domain_name = list[1].replace(" ","").replace("[","").replace("]","").replace("{","").replace("}","").replace("|","")
 				var type = "permutation"
 				var size = "0"
@@ -832,7 +832,7 @@ class CoLaExpression:
 			"config_mulitsubset":
 				
 				var list = cola_string.split(" in ")
-				var name = list[0]
+				var name = list[0].replace(" ","")
 				var domain_name = list[1].replace(" ","").replace("[","").replace("]","").replace("{","").replace("}","").replace("|","")
 				var type = "multisubset"
 				var size = "0"
@@ -841,7 +841,7 @@ class CoLaExpression:
 			"config_subset":
 				
 				var list = cola_string.split(" in ")
-				var name = list[0]
+				var name = list[0].replace(" ","")
 				var domain_name = list[1].replace(" ","").replace("[","").replace("]","").replace("{","").replace("}","").replace("|","")
 				var type = "subset"
 				var size = "0"
@@ -850,7 +850,7 @@ class CoLaExpression:
 			"config_partition":
 				
 				var list = cola_string.split(" in ")
-				var name = list[0]
+				var name = list[0].replace(" ","")
 				var domain_name = list[1].replace("partitions","").replace("(","").replace(")","")
 				var type = "partition"
 				var size = "0"
@@ -859,7 +859,7 @@ class CoLaExpression:
 			"config_composition":
 				
 				var list = cola_string.split(" in ")
-				var name = list[0]
+				var name = list[0].replace(" ","")
 				var domain_name = list[1].replace("compositions","").replace("(","").replace(")","")
 				var type = "composition"
 				var size = "0"

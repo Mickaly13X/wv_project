@@ -141,18 +141,24 @@ func randomVect(vect: Vector2) -> Vector2:
 	return Vector2(random(vect.x), random(vect.y))
 
 # returns the sum of all elements from the given list
-# @pre 'list' only contains integer values
-func sum(list: Array) -> int:
+# @pre 'list' not empty
+func sum(list: Array):
 	
-	var sum = 0
-	for i in list:
-		sum += i
+	var sum = list[0]
+	for i in range(1, len(list)):
+		sum += list[i]
 	return sum
 
 # returns the union of 2 arrays
 # Note: result = set
 func union(a: Array, b: Array) -> Array:
 	return array2set(a + b)
+
+
+# returns the union of multiple arrays
+# Note: result = set
+func union_array(arrays: Array) -> Array:
+	return array2set(sum(arrays))
 
 
 # domains is an array of Domain classes

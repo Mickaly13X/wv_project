@@ -1,6 +1,10 @@
-universe = [1:5];
-indist yellow = [1:4];
-indist purple = [1:3];
-indist red = [1:5];
-rooms in [| uni];
+% indist yellow = [1:4];
+% indist purple = [1:3];
+% indist red = [1:5];
+% rooms in [| yellow+purple+red];
+% #rooms = 10;
+indist yellow = {y1,y2,y3,y4};
+indist purple = {p1,p2,p3};
+indist red = {r1,r2,r3,r4,r5};
+rooms in [| yellow+purple+red];
 #rooms = 10;

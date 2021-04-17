@@ -26,14 +26,16 @@ func close_menus(except: String) -> void:
 			I.toggle_menu(false)
 
 
-func set_self(problem, Main: Node = null) -> void:
+func set_self(Main, problem) -> void:
 	
+	# parent Node refs
 	if !g.is_null(Main):
 		$Config.Main = Main
 		$Universe.Main = Main
 	$Config.Problem = self
 	$Universe.Problem = self
 	
+	# problem class
 	self.problem = problem
 	$Config.set_problem(problem)
 	$Universe.set_problem(problem, true, true)

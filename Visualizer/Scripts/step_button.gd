@@ -12,11 +12,15 @@ func _press():
 	Main.set_step(Main.get_step(problem))
 
 
-func init(problem : g.Problem) -> void:
-	self.problem = problem
+func init(problem, number: int, is_selected: bool) -> void:
 	
+	self.problem = problem
+	set_number(number)
+	toggle_selected(is_selected)
+	update_text()
 
-func set_nb(nb : int) -> void:
+
+func set_number(nb : int) -> void:
 	self.number = nb
 
 

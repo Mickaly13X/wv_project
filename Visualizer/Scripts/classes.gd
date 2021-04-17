@@ -33,6 +33,7 @@ class Problem:
 			var sizes = i[1]
 			set_size_constraint_array(get_domain_name_from_elements(domain_elements), sizes)
 		
+		calculate_universe()
 		universe_formula = universe.get_name()
 	
 	
@@ -299,7 +300,7 @@ class Problem:
 		var domain = get_domain(domain_name)
 		domain.set_size_constraint_array(domain, sizes)
 	
-	func set_universe(element_ids: PoolIntArray, custom_name: String) -> void:
+	func set_universe(element_ids: PoolIntArray, custom_name = "") -> void:
 		
 		clear_domains()
 		universe.add_elements(element_ids)
@@ -796,7 +797,7 @@ class CoLaExpression:
 				list[1].replace(" ","")
 				var _name = list[0].replace(" ","")
 				var interval_string = list[1].replace(":",",")
-				tmp = "domain_interval('{n}','{s}','{d}')".format({"n" : _name, "s" : interval_string,"d" : dist})
+				tmp = "parse_domain_interval('{n}','{s}','{d}')".format({"n" : _name, "s" : interval_string,"d" : dist})
 			
 			"domain_enum":
 				
@@ -809,7 +810,7 @@ class CoLaExpression:
 				list[1].replace(" ","")
 				var _name = list[0].replace(" ","")
 				var array_string = list[1].replace("{","[").replace("}","]")
-				tmp = "domain_enum('{n}','{s}','{d}')".format({"n" : _name, "s" : array_string,"d" : dist})
+				tmp = "parse_domain_enum('{n}','{s}','{d}')".format({"n" : _name, "s" : array_string,"d" : dist})
 			
 			"config_sequence":
 				
@@ -818,7 +819,7 @@ class CoLaExpression:
 				var domain_name = list[1].replace(" ","").replace("[","").replace("]","").replace("{","").replace("}","").replace("|","")
 				var type = "sequence"
 				var size = "0"
-				tmp = "config('{t}','{s}','{n}','{d}')".format({"t" : type, "s" : size,"n" : name, "d" : domain_name})
+				tmp = "parse_config('{t}','{s}','{n}','{d}')".format({"t" : type, "s" : size,"n" : name, "d" : domain_name})
 			
 			"config_permutation":
 				
@@ -827,7 +828,7 @@ class CoLaExpression:
 				var domain_name = list[1].replace(" ","").replace("[","").replace("]","").replace("{","").replace("}","").replace("|","")
 				var type = "permutation"
 				var size = "0"
-				tmp = "config('{t}','{s}','{n}','{d}')".format({"t" : type, "s" : size,"n" : name, "d" : domain_name})
+				tmp = "parse_config('{t}','{s}','{n}','{d}')".format({"t" : type, "s" : size,"n" : name, "d" : domain_name})
 			
 			"config_mulitsubset":
 				
@@ -836,7 +837,7 @@ class CoLaExpression:
 				var domain_name = list[1].replace(" ","").replace("[","").replace("]","").replace("{","").replace("}","").replace("|","")
 				var type = "multisubset"
 				var size = "0"
-				tmp = "config('{t}','{s}','{n}','{d}')".format({"t" : type, "s" : size,"n" : name, "d" : domain_name})
+				tmp = "parse_config('{t}','{s}','{n}','{d}')".format({"t" : type, "s" : size,"n" : name, "d" : domain_name})
 			
 			"config_subset":
 				
@@ -845,7 +846,7 @@ class CoLaExpression:
 				var domain_name = list[1].replace(" ","").replace("[","").replace("]","").replace("{","").replace("}","").replace("|","")
 				var type = "subset"
 				var size = "0"
-				tmp = "config('{t}','{s}','{n}','{d}')".format({"t" : type, "s" : size,"n" : name, "d" : domain_name})
+				tmp = "parse_config('{t}','{s}','{n}','{d}')".format({"t" : type, "s" : size,"n" : name, "d" : domain_name})
 			
 			"config_partition":
 				
@@ -854,7 +855,7 @@ class CoLaExpression:
 				var domain_name = list[1].replace("partitions","").replace("(","").replace(")","")
 				var type = "partition"
 				var size = "0"
-				tmp = "config('{t}','{s}','{n}','{d}')".format({"t" : type, "s" : size,"n" : name, "d" : domain_name})
+				tmp = "parse_config('{t}','{s}','{n}','{d}')".format({"t" : type, "s" : size,"n" : name, "d" : domain_name})
 				
 			"config_composition":
 				
@@ -863,7 +864,7 @@ class CoLaExpression:
 				var domain_name = list[1].replace("compositions","").replace("(","").replace(")","")
 				var type = "composition"
 				var size = "0"
-				tmp = "config('{t}','{s}','{n}','{d}')".format({"t" : type, "s" : size,"n" : name, "d" : domain_name})
+				tmp = "parse_config('{t}','{s}','{n}','{d}')".format({"t" : type, "s" : size,"n" : name, "d" : domain_name})
 				
 			"constraint_count":
 				
@@ -871,14 +872,14 @@ class CoLaExpression:
 				var name = list[0].replace("#","")
 				var operator = list[1]
 				var size = list[2]
-				tmp = "size_constraint('{n}','{op}','{s}')".format({"n" : name, "op" : operator,"s" : size})
+				tmp = "parse_size_cs('{n}','{op}','{s}')".format({"n" : name, "op" : operator,"s" : size})
 			
 			"constraint_position":
 				
 				var list = cola_string.split("=")
 				var position = list[0].split("[")[1].replace(" ","").replace("]","")
 				var domain_name = list[1].replace(" ","")
-				tmp = "pos_constraint('{p}','{d}')".format({"p" : position, "d" : domain_name})
+				tmp = "parse_pos_cs('{p}','{d}')".format({"p" : position, "d" : domain_name})
 				
 		return tmp
 

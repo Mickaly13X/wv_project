@@ -93,8 +93,7 @@ func add_elements(element_ids: PoolIntArray) -> void:
 	for i in element_ids:
 	
 		var new_element = ELEMENT.instance()
-		new_element.init(self)
-		new_element.set_id(i)
+		new_element.init(self, i)
 		$Elements.add_child(new_element)
 	
 	update_element_colors()
@@ -138,7 +137,6 @@ func draw_circle_custom(radius: float, pos: Vector2, \
 # for 3-part venns, domain_intersections = [A, B, C, AB, BC, AC, ABC]
 func fetch_venn_circles(domain_inter_sizes: Array, smallest_size: int) -> Array:
 	
-	print(domain_inter_sizes)
 	var venn_circles = []
 	
 	if len(domain_inter_sizes) == 1: 
@@ -209,14 +207,6 @@ func get_domains() -> Array:
 	return get_problem().get_domains()
 
 
-func get_element(element_id) -> Node:
-	
-	for I in get_elements():
-		if I.get_id() == element_id:
-			return I
-	return null
-
-
 func get_element_ids(elements: Array = get_elements()) -> PoolIntArray:
 	
 	var element_ids = PoolIntArray()
@@ -230,7 +220,7 @@ func get_free_id() -> int:
 	var count = get_elements().size()
 	var _max = count + 2
 	for i in range(1,_max):
-		if !has_id(i):
+		if !has_element(i):
 			return i
 	return 0
 
@@ -252,20 +242,6 @@ func group(group_name : String, is_dist = true) -> void:
 	
 	# update visual elements
 	update_problem(false)
-
-
-func has_id(id : int):
-	for el in get_elements():
-		if el.name == str(id):
-			return true
-	return false
-
-
-func has_max_elements() -> bool:
-	
-	if get_size() == 10:
-		return true
-	return false
 
 
 func has_new_domains(new_problem) -> bool:

@@ -4,9 +4,8 @@ extends Node2D
 
 
 onready var Mask = $Mask
-onready var Container_
+onready var container
 
-var index: int # only used in Config
 var shape_selected = StyleBoxFlat.new() 
 var shape_unselected = StyleBoxFlat.new() 
 
@@ -37,19 +36,20 @@ func _gui_input(event):
 				set_selected(!is_selected)
 			elif event.button_index == BUTTON_RIGHT:
 				set_selected(true)
-				Container_.toggle_menu(true)
+				container.toggle_menu(true)
 		elif event.button_index == BUTTON_RIGHT:
-			Container_.index_selected = index
-			Container_.toggle_menu(true)
+			container.elem_selected = get_id()
+			container.toggle_menu(true)
 
 
 func get_id() -> int:
 	return int(name)
 
 
-func init(Container_: Node2D) -> void:
+func init(container: Node, id: int) -> void:
 	
-	self.Container_ = Container_
+	self.container = container
+	set_id(id)
 	
 	if is_in_universe(): # ball
 		shape_unselected.set_corner_radius_all(r)
@@ -71,7 +71,7 @@ func init_mask():
 
 
 func is_in_universe():
-	return Container_.name == "Universe"
+	return container.name == "Universe"
 
 
 func set_color(new_color : Color):

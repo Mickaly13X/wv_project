@@ -10,7 +10,6 @@ const MAX_CONFIG_SIZE = 10
 const MAX_UNI_SIZE = 10
 const NOT_DOMAINS = ["structure", "size", "pos", "count", "not", "inter", "union", "in"]
 const PROBLEM = preload("res://Scenes/Problem.tscn")
-const SET = preload("res://Scenes/Universe.tscn")
 const STEPBUTTON = preload("res://Scenes/StepButton.tscn")
 
 enum Distinct {NONE_SAME, N_SAME, X_SAME, NX_SAME}
@@ -46,13 +45,12 @@ var current_step: int
 var groups_selection = {} # key : idx, value : bool selected, is reset when group is called
 var mode: int
 var running_problem
-var steps: Array
 
 
 func _ready():
 	
 	randomize()
-	Problem.set_self(g.problem, self)
+	Problem.set_self(self, g.problem)
 	init_menus()
 	Popups.get_node("OpenFile").current_dir = ""
 	Popups.get_node("OpenFile").current_path = ""
@@ -67,16 +65,18 @@ func _process(_delta):
 		get_tree().quit()
 	if Input.is_action_just_pressed("ctrl_R"):
 		get_tree().reload_current_scene()
-	if Input.is_action_just_pressed("ctrl_B"):
-		Universe.update_element_positions()
-	if Input.is_action_pressed("mouse_left"):
-		Universe.toggle_menu(false)
-	if Input.is_action_just_pressed("enter"):
-		check_config()
-		check_group()
-		check_pos_constraint()
-		check_size_constraint()
-		check_universe()
+	
+	if is_editable():
+		if Input.is_action_just_pressed("ctrl_B"):
+			Universe.update_element_positions()
+		if Input.is_action_pressed("mouse_left"):
+			Universe.toggle_menu(false)
+		if Input.is_action_just_pressed("enter"):
+			check_config()
+			check_group()
+			check_pos_constraint()
+			check_size_constraint()
+			check_universe()
 
 
 func _on_cola_file_selected(path):
@@ -88,7 +88,7 @@ func _on_cola_file_selected(path):
 	CoLaInput.text = content
 	parse(content)
 	g.problem.calculate_universe()
-	Problem.set_self(g.problem)
+	Problem.set_self(self, g.problem)
 
 
 func _pressed_mb_group(id):
@@ -134,21 +134,19 @@ func _pressed_mb_input(index, TypeInput):
 
 func add_step(problem : g.Problem):
 	
+	var no_steps = len(Steps.get_children())
+	
 	# order matters
 	if problem != g.problem:
 		var new_problem = PROBLEM.instance()
-		new_problem.set_self(problem, self)
-		new_problem.name = "Problem" + str(len(Steps.get_children()))
+		new_problem.set_self(self, problem)
+		new_problem.name = "Problem" + str(no_steps)
 		new_problem.hide()
 		$HSplit/VSplit/MainPanel/Problems.add_child(new_problem)
 	
 	running_problem = problem
-	steps.append(running_problem)
 	var new_step = STEPBUTTON.instance()
-	new_step.init(problem)
-	new_step.set_nb(len(steps))
-	new_step.toggle_selected(problem == g.problem)
-	new_step.update_text()
+	new_step.init(problem, no_steps, (problem == g.problem))
 	Steps.add_child(new_step)
 
 
@@ -342,38 +340,34 @@ func get_domain_value(domain_string):
 	return -1
 
 
-# @return exit_code
-func group() -> bool:
-	
-	var group_name : String
-	var group_dist : bool
+func group() -> void:
 	
 	var selected_ids = get_selected_group_ids()
-	
 	if len(selected_ids) == 0:
 		print("Exception in group(): no elements selected")
-		return false
+		return
 	
-	for i in get_selected_group_names():
-		if i == "New group":
-			if NewGroupInput.text == "New group" || NewGroupInput.text == "":
+	for selected_name in get_selected_group_names():
+		
+		if selected_name == "New group":
+			
+			var group_name: String = NewGroupInput.text
+			var group_dist: bool = DistInput.pressed
+			if group_name == "New group" || group_name == "":
 				show_message("Please enter a group name")
-				return false
-				
-			group_name = NewGroupInput.text
-			group_dist = DistInput.pressed
+				return
+			
 			GroupInput.get_popup().add_item(group_name)
 			GroupInput.get_popup().set_item_as_checkable(GroupInput.get_popup().get_item_count()-1,true)
 			Universe.group(group_name, group_dist)
 		else:
-			group_name = i
-			Universe.group(group_name)
+			Universe.group(selected_name)
 	
 	for id in selected_ids:
 		GroupInput.get_popup().set_item_checked(id,false)
 		groups_selection[id] = false
 	toggle_menu_group(false)
-	return true
+	return
 
 
 func is_checked(group_name : String) -> bool:
@@ -491,21 +485,12 @@ func set_mode(mode: int) -> void:
 	
 	self.mode = mode
 	$HSplit/VSplit/StepPanel.visible = !is_editable()
-	
-	var steps: String
-	var current_problem = g.problem
-	var current_step = 1
-#	while (!g.is_null(current_problem)):
-#		steps += "{}. {}\n".format([current_step, current_problem], "{}")
-#		current_problem = current_problem.next()
-#		current_step += 1
-#	$HSplit/VSplit/StepPanel/HBoxContainer/Steps.text = steps
 
 
 func set_step(step: int) -> void:
 	
 	if mode == Mode.STEPS:
-		if step >= 0 && step < len(steps):
+		if step >= 0 && step < len(Steps.get_children()):
 			
 			for i in range(len(Steps.get_children())):
 				get_node("HSplit/VSplit/MainPanel/Problems/Problem" + str(i)) \
@@ -636,8 +621,7 @@ func get_selected_group_names() -> String:
 func parse(cola_string : String) -> void:
 	
 	g.problem.reset()
-
-	var parsed_dict = {}
+	
 	var commands = cola_string.replace(";","").replace("\t","").split("\n")
 	for command in commands:
 		# Ignore comments
@@ -651,17 +635,17 @@ func parse(cola_string : String) -> void:
 		if error != OK:
 			push_error(expression.get_error_text())
 		
-		var result = expression.execute([], self)
+		expression.execute([], self)
 		if not expression.has_execute_failed():
 			pass
 
 
-func domain_interval(_name, interval_string, distinguishable = true):
+func parse_domain_interval(_name, interval_string, distinguishable = true):
 	
 	g.problem.add_domain(g.Domain.new(_name, g.IntervalString.new(interval_string).get_values(), bool(distinguishable)))
 
 
-func domain_enum(_name, array_string, distinguishable = true):
+func parse_domain_enum(_name, array_string, distinguishable = true):
 	
 	var int_array = []
 	var list = array_string.replace("[","").replace("]","").split(",")
@@ -671,18 +655,13 @@ func domain_enum(_name, array_string, distinguishable = true):
 	g.problem.add_domain(g.Domain.new(_name, int_array, bool(distinguishable)))
 
 
-func config(type, size, _name, domain_name):
+func parse_config(type, size, _name, domain_name):
 	
 	var domain = g.problem.get_domain(domain_name)
 	g.problem.set_config(type, int(size), _name, domain)
 
 
-func config_size(size):
-	
-	g.problem.get_config().set_size(size)
-
-
-func size_constraint(_name, op, size):
+func parse_size_cs(_name, op, size):
 	
 	if g.problem.get_config().get_name() == _name && op == "=":
 		g.problem.get_config().set_size(int(size))
@@ -691,12 +670,8 @@ func size_constraint(_name, op, size):
 		g.problem.set_size_constraint(_name, op, int(size))
 	
 
-func pos_constraint(position, domain_name):
+func parse_pos_cs(position, domain_name):
 	g.problem.add_pos_constraint(int(position), domain_name)
-
-
-func toggle_menu_constraint_pos(extra_arg_0):
-	pass # Replace with function body.
 
 
 func eval(string : String) -> bool:
@@ -706,7 +681,7 @@ func eval(string : String) -> bool:
 	if error != OK:
 		push_error(expression.get_error_text())
 		
-	var result = expression.execute([], self)
+	expression.execute([], self)
 	if not expression.has_execute_failed():
 		return true
 	else:

@@ -452,7 +452,7 @@ class Domain:
 		var tmp = str(elements).replace("[","{").replace("]","}").replace(" ","")
 		if is_interval():
 			tmp = get_interval().string().replace(",",":").replace(" ","")
-		var cola = "{d} = {e};".format({"d": get_name_cola(), "e": tmp})
+		var cola = "{dist}{d} = {e};".format({"dist" : get_dist_str(),"d": get_name_cola(), "e": tmp})
 		return cola
 	
 	
@@ -490,6 +490,12 @@ class Domain:
 			var interval = g.Interval.new(lo, hi)
 			return interval
 		return null
+	
+	
+	func get_dist_str():
+		if is_distinct():
+			return "indist "
+		return ""
 	
 	
 	func set_problem(problem : Problem):
@@ -798,9 +804,9 @@ class CoLaExpression:
 				var list = cola_string.split("=")
 				if "ïndist" in list[0]:
 					dist = "false"
-					list[0].replace("indist","")
-					list[0].replace(" ","")
-				list[1].replace(" ","")
+					list[0] = list[0].replace("indist","")
+					list[0] = list[0].replace(" ","")
+				list[1] = list[1].replace(" ","")
 				var _name = list[0].replace(" ","")
 				var interval_string = list[1].replace(":",",")
 				tmp = "parse_domain_interval('{n}','{s}','{d}')".format({"n" : _name, "s" : interval_string,"d" : dist})
@@ -811,9 +817,9 @@ class CoLaExpression:
 				var list = cola_string.split("=")
 				if "ïndist" in list[0]:
 					dist = "false"
-					list[0].replace("indist","")
-					list[0].replace(" ","")
-				list[1].replace(" ","")
+					list[0] = list[0].replace("indist","")
+					list[0] = list[0].replace(" ","")
+				list[1] = list[1].replace(" ","")
 				var _name = list[0].replace(" ","")
 				var array_string = list[1].replace("{","[").replace("}","]")
 				tmp = "parse_domain_enum('{n}','{s}','{d}')".format({"n" : _name, "s" : array_string,"d" : dist})

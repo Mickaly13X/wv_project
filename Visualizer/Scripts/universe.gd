@@ -438,7 +438,7 @@ func update_element_positions_loop(approx : Rect2, inside_circles : Array,
 					flag = false
 					break
 		
-		if attempt < 32:
+		if attempt < 64:
 			attempt += 1
 		else: return Vector2.ZERO
 	

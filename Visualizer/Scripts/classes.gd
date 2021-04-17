@@ -802,12 +802,11 @@ class CoLaExpression:
 				
 				var dist = "true"
 				var list = cola_string.split("=")
+				var _name = list[0].replace(" ","")
 				if "ïndist" in list[0]:
 					dist = "false"
-					list[0] = list[0].replace("indist","")
-					list[0] = list[0].replace(" ","")
+					_name = list[0].replace("indist","").replace(" ","")
 				list[1] = list[1].replace(" ","")
-				var _name = list[0].replace(" ","")
 				var interval_string = list[1].replace(":",",")
 				tmp = "parse_domain_interval('{n}','{s}','{d}')".format({"n" : _name, "s" : interval_string,"d" : dist})
 			
@@ -815,12 +814,11 @@ class CoLaExpression:
 				
 				var dist = "true"
 				var list = cola_string.split("=")
+				var _name = list[0].replace(" ","")
 				if "ïndist" in list[0]:
 					dist = "false"
-					list[0] = list[0].replace("indist","")
-					list[0] = list[0].replace(" ","")
+					_name = list[0].replace("indist","").replace(" ","")
 				list[1] = list[1].replace(" ","")
-				var _name = list[0].replace(" ","")
 				var array_string = list[1].replace("{","[").replace("}","]")
 				tmp = "parse_domain_enum('{n}','{s}','{d}')".format({"n" : _name, "s" : array_string,"d" : dist})
 			

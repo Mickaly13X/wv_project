@@ -311,6 +311,7 @@ class Problem:
 		# Domains
 		var cola = ""
 		
+		
 		if universe_formula == universe.get_name():
 			cola += universe.to_cola()
 			cola += "\n"
@@ -490,8 +491,8 @@ class Domain:
 	
 	func get_dist_str():
 		if is_distinct():
-			return "indist "
-		return ""
+			return ""
+		return "indist "
 	
 	
 	func set_problem(problem : Problem):

@@ -81,7 +81,7 @@ func _process(_delta):
 			check_universe()
 
 
-func _on_cola_file_selected(path):
+func _import(path):
 	
 	var file = File.new()
 	file.open(path, File.READ)
@@ -144,7 +144,7 @@ func add_step(problem : g.Problem):
 		new_problem.set_self(self, problem)
 		new_problem.name = "Problem" + str(no_steps)
 		new_problem.hide()
-		$HSplit/VSplit/MainPanel/Problems.add_child(new_problem)
+		Problems.add_child(new_problem)
 	
 	running_problem = problem
 	var new_step = STEPBUTTON.instance()
@@ -446,7 +446,6 @@ func run():
 		# interpret coso output
 		var function_steps: PoolStringArray = fetch("coso")
 		for i in range(1, len(function_steps)):
-			print(function_steps[i])
 			eval(function_steps[i])
 		set_mode(Mode.STEPS)
 
@@ -486,9 +485,16 @@ func get_step_button(problem: g.Problem) -> Node:
 func set_mode(mode: int) -> void:
 	
 	self.mode = mode
-	$HSplit/VSplit/StepPanel.visible = !is_editable()
-	$HSplit/VSplit/MainPanel/UI/HUD.visible = is_editable()
-	toggle_main_panel(!is_editable())
+	$HSplit/VSplit/StepPanel.visible = (mode == Mode.STEPS)
+	$HSplit/VSplit/MainPanel/UI/HUD.visible = (mode == Mode.EDIT)
+	toggle_main_panel(mode == Mode.STEPS)
+	
+	if mode == Mode.EDIT:
+		for I in $Steps.get_children():
+			I.free()
+		for I in $Problems.get_children():
+			if I.name != "Problem0":
+				I.free()
 
 
 func set_step(step: int) -> void:
@@ -497,7 +503,7 @@ func set_step(step: int) -> void:
 		if step >= 0 && step < len(Steps.get_children()):
 			
 			for i in range(len(Steps.get_children())):
-				get_node("HSplit/VSplit/MainPanel/Problems/Problem" + str(i)) \
+				Problems.get_node("Problem" + str(i)) \
 					.visible = (i == step)
 				Steps.get_child(i).toggle_selected(i == step)
 
@@ -531,12 +537,10 @@ func toggle_cola_panel():
 func toggle_main_panel(is_opened : bool) -> void:
 	
 	if is_opened:
-		for problem in Problems.get_children():
-			problem.position.y -= $HSplit/VSplit/MainPanel/UI/HUD.rect_size[1] + 120
+		Problems.rect_position.y -= $HSplit/VSplit/MainPanel/UI/HUD.rect_size[1] + 60
 
 	else:
-		for problem in Problems.get_children():
-			problem.position.y += $HSplit/VSplit/MainPanel/UI/HUD.rect_size[1] + 120
+		Problems.rect_position.y += $HSplit/VSplit/MainPanel/UI/HUD.rect_size[1] + 60
 
 
 func toggle_menu_group(is_opened : bool) -> void:

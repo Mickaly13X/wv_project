@@ -35,7 +35,7 @@ func toggle_selected(is_selected: bool) -> void:
 
 func update_text() -> void:
 	
-	var tabulation = "       ".repeat(3 + problem.get_level())
+	var tabulation = "         ".repeat(2 + problem.get_level())
 	var solution_label = "solution"
 	if problem == g.problem:
 		solution_label = "Total solution"

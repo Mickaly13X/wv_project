@@ -150,8 +150,8 @@ class Problem:
 				intersections.append(g.intersection(domain_elements[0], domain_elements[1]))
 			3:
 				intersections.append(g.intersection(domain_elements[0], domain_elements[1]))
-				intersections.append(g.intersection(domain_elements[0], domain_elements[2]))
 				intersections.append(g.intersection(domain_elements[1], domain_elements[2]))
+				intersections.append(g.intersection(domain_elements[0], domain_elements[2]))
 				intersections.append(g.intersection(
 					g.intersection(domain_elements[0], domain_elements[1]), domain_elements[2])
 				)

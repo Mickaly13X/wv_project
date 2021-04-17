@@ -753,6 +753,9 @@ class CoLaExpression:
 			elif "compositions" in expression:
 				type = "config_composition"
 		
+		else:
+			type = "newline"
+		
 		global_type = type.split("_")[0] + "s"
 	
 	
@@ -784,6 +787,9 @@ class CoLaExpression:
 		match type:
 			
 			"comment":
+				pass
+			
+			"newline":
 				pass
 			
 			"domain_interval":

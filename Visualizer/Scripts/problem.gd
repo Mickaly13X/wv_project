@@ -12,9 +12,13 @@ func _draw() -> void:
 	var constraints = problem.pos_constraints
 	for i in constraints:
 		var elem = $Config.get_element(int(i))
-		draw_line(elem.global_position + $Config.ELEMENT_SIZE * Vector2.RIGHT,
-				  $Universe.get_domain_left_side(constraints[i]) + $Universe.position,
-				  Color.white, 5)
+		var elem_position = $Config.position + elem.position
+		draw_line(
+			elem_position + $Config.ELEMENT_SIZE * Vector2.RIGHT,
+			$Universe.get_domain_left_side(constraints[i]) + $Universe.position,
+			Color.white,
+			5
+		)
 
 
 func close_menus(except: String) -> void:

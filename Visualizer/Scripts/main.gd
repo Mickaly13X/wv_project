@@ -18,7 +18,7 @@ enum SetFunction {ANY, INJ, SUR}
 
 onready var CoLaInput = $HSplit/CoLaPanel/CoLaInput
 onready var CoLaPanel = $HSplit/CoLaPanel
-onready var Config = $HSplit/VSplit/MainPanel/Problems/Problem0/Config
+onready var Config = $HSplit/VBox/MainPanel/Problems/Problem0/Config
 onready var ConfigFuncInput = $Popups/MenuConfig/VBox/Items/FuncInput
 onready var ConfigNameInput = $Popups/MenuConfig/VBox/Items/NameInput
 onready var ConfigSizeInput = $Popups/MenuConfig/VBox/Items/SizeInput
@@ -30,14 +30,14 @@ onready var GroupsLabel = $Popups/MenuGroup/VBox/GroupsLabel
 onready var HSplit = $HSplit
 onready var IntInput = $Popups/MenuSizeConstraint/VBox/Items/IntInput
 onready var NewGroupInput = $Popups/MenuGroup/VBox/Items/NewGroupInput
-onready var OpenCoLa = $HSplit/VSplit/MainPanel/UI/HUD/OpenCoLa
+onready var OpenCoLa = $HSplit/VBox/MainPanel/UI/HUD/OpenCoLa
 onready var OperatorInput = $Popups/MenuSizeConstraint/VBox/Items/OperatorInput
 onready var Popups = $Popups
-onready var Problem = $HSplit/VSplit/MainPanel/Problems/Problem0
-onready var Problems = $HSplit/VSplit/MainPanel/Problems
+onready var Problem = $HSplit/VBox/MainPanel/Problems/Problem0
+onready var Problems = $HSplit/VBox/MainPanel/Problems
 onready var SizeDomainInput = $Popups/MenuSizeConstraint/VBox/Items/DomainInput
-onready var Steps = $HSplit/VSplit/StepPanel/ScrollBox/Steps
-onready var Universe = $HSplit/VSplit/MainPanel/Problems/Problem0/Universe
+onready var Steps = $HSplit/VBox/StepPanel/ScrollBox/Steps
+onready var Universe = $HSplit/VBox/MainPanel/Problems/Problem0/Universe
 onready var UnivSizeInput = $Popups/MenuUniverse/VBox/Items/SizeInput
 
 var config = [Distinct.NONE_SAME, SetFunction.ANY]
@@ -484,17 +484,19 @@ func get_step_button(problem: g.Problem) -> Node:
 
 func set_mode(mode: int) -> void:
 	
-	self.mode = mode
-	$HSplit/VSplit/StepPanel.visible = (mode == Mode.STEPS)
-	$HSplit/VSplit/MainPanel/UI/HUD.visible = (mode == Mode.EDIT)
-	toggle_main_panel(mode == Mode.STEPS)
-	
 	if mode == Mode.EDIT:
-		for I in $Steps.get_children():
+		set_step(0)
+		for I in Steps.get_children():
 			I.free()
-		for I in $Problems.get_children():
+		for I in Problems.get_children():
 			if I.name != "Problem0":
 				I.free()
+	
+	self.mode = mode
+	$HSplit/VBox/StepPanel.visible = (mode == Mode.STEPS)
+	$HSplit/VBox/MainPanel/UI/HUD.visible = (mode == Mode.EDIT)
+	$Edit.visible = (mode == Mode.STEPS)
+	toggle_main_panel(mode == Mode.STEPS)
 
 
 func set_step(step: int) -> void:
@@ -537,10 +539,10 @@ func toggle_cola_panel():
 func toggle_main_panel(is_opened : bool) -> void:
 	
 	if is_opened:
-		Problems.rect_position.y -= $HSplit/VSplit/MainPanel/UI/HUD.rect_size[1] + 60
+		Problems.rect_position.y -= $HSplit/VBox/MainPanel/UI/HUD.rect_size[1] + 60
 
 	else:
-		Problems.rect_position.y += $HSplit/VSplit/MainPanel/UI/HUD.rect_size[1] + 60
+		Problems.rect_position.y += $HSplit/VBox/MainPanel/UI/HUD.rect_size[1] + 60
 
 
 func toggle_menu_group(is_opened : bool) -> void:

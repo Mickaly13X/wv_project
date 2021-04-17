@@ -37,7 +37,6 @@ __meta__ = {
 }
 
 [node name="Canvas" type="ColorRect" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -80,35 +79,35 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VSplit" type="VSplitContainer" parent="HSplit"]
+[node name="VBox" type="VBoxContainer" parent="HSplit"]
 margin_right = 1920.0
 margin_bottom = 1080.0
-mouse_filter = 2
-split_offset = 280
-dragger_visibility = 2
+custom_constants/separation = 10
 
-[node name="MainPanel" type="Panel" parent="HSplit/VSplit"]
+[node name="MainPanel" type="Panel" parent="HSplit/VBox"]
 margin_right = 1920.0
 margin_bottom = 1080.0
-rect_min_size = Vector2( 1024, 600 )
+rect_min_size = Vector2( 1024, 870 )
 mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 custom_styles/panel = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="UI" type="VBoxContainer" parent="HSplit/VSplit/MainPanel"]
+[node name="UI" type="VBoxContainer" parent="HSplit/VBox/MainPanel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HUD" type="HBoxContainer" parent="HSplit/VSplit/MainPanel/UI"]
+[node name="HUD" type="HBoxContainer" parent="HSplit/VBox/MainPanel/UI"]
 margin_right = 1920.0
 margin_bottom = 34.0
 
-[node name="OpenCoLa" type="Button" parent="HSplit/VSplit/MainPanel/UI/HUD"]
+[node name="OpenCoLa" type="Button" parent="HSplit/VBox/MainPanel/UI/HUD"]
 margin_right = 23.0
 margin_bottom = 34.0
 focus_mode = 0
@@ -119,7 +118,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Main" type="HBoxContainer" parent="HSplit/VSplit/MainPanel/UI/HUD"]
+[node name="Main" type="HBoxContainer" parent="HSplit/VBox/MainPanel/UI/HUD"]
 margin_left = 27.0
 margin_right = 1920.0
 margin_bottom = 34.0
@@ -127,7 +126,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
-[node name="Import" type="Button" parent="HSplit/VSplit/MainPanel/UI/HUD/Main"]
+[node name="Import" type="Button" parent="HSplit/VBox/MainPanel/UI/HUD/Main"]
 margin_left = 703.0
 margin_right = 787.0
 margin_bottom = 34.0
@@ -139,7 +138,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SetConfig" type="Button" parent="HSplit/VSplit/MainPanel/UI/HUD/Main"]
+[node name="SetConfig" type="Button" parent="HSplit/VBox/MainPanel/UI/HUD/Main"]
 margin_left = 791.0
 margin_right = 987.0
 margin_bottom = 34.0
@@ -151,7 +150,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SetUniverse" type="Button" parent="HSplit/VSplit/MainPanel/UI/HUD/Main"]
+[node name="SetUniverse" type="Button" parent="HSplit/VBox/MainPanel/UI/HUD/Main"]
 margin_left = 991.0
 margin_right = 1133.0
 margin_bottom = 34.0
@@ -163,7 +162,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Run" type="Button" parent="HSplit/VSplit/MainPanel/UI/HUD/Main"]
+[node name="Run" type="Button" parent="HSplit/VBox/MainPanel/UI/HUD/Main"]
 margin_left = 1137.0
 margin_right = 1189.0
 margin_bottom = 34.0
@@ -175,7 +174,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Problems" type="Control" parent="HSplit/VSplit/MainPanel"]
+[node name="Problems" type="Control" parent="HSplit/VBox/MainPanel"]
 anchor_left = 0.00104167
 anchor_right = 1.00104
 anchor_bottom = 1.0
@@ -189,17 +188,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Problem0" parent="HSplit/VSplit/MainPanel/Problems" instance=ExtResource( 2 )]
+[node name="Problem0" parent="HSplit/VBox/MainPanel/Problems" instance=ExtResource( 2 )]
 
-[node name="StepPanel" type="Panel" parent="HSplit/VSplit"]
+[node name="StepPanel" type="Panel" parent="HSplit/VBox"]
 visible = false
-margin_top = 860.0
+margin_top = 880.0
 margin_right = 1920.0
 margin_bottom = 1080.0
-rect_min_size = Vector2( 1920, 50 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
 custom_styles/panel = SubResource( 4 )
 
-[node name="ScrollBox" type="ScrollContainer" parent="HSplit/VSplit/StepPanel"]
+[node name="ScrollBox" type="ScrollContainer" parent="HSplit/VBox/StepPanel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 scroll_horizontal_enabled = false
@@ -207,9 +207,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Steps" type="VBoxContainer" parent="HSplit/VSplit/StepPanel/ScrollBox"]
+[node name="Steps" type="VBoxContainer" parent="HSplit/VBox/StepPanel/ScrollBox"]
 margin_right = 1920.0
-margin_bottom = 220.0
+margin_bottom = 200.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -1024,11 +1024,23 @@ current_path = "/Users/Joran/Git/wv_project/Visualizer/~"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="button_up" from="HSplit/VSplit/MainPanel/UI/HUD/OpenCoLa" to="." method="toggle_cola_panel"]
-[connection signal="button_up" from="HSplit/VSplit/MainPanel/UI/HUD/Main/Import" to="." method="popup_import"]
-[connection signal="button_up" from="HSplit/VSplit/MainPanel/UI/HUD/Main/SetConfig" to="." method="toggle_menu_config" binds= [ true ]]
-[connection signal="button_up" from="HSplit/VSplit/MainPanel/UI/HUD/Main/SetUniverse" to="." method="toggle_menu_universe" binds= [ true ]]
-[connection signal="button_up" from="HSplit/VSplit/MainPanel/UI/HUD/Main/Run" to="." method="run"]
+
+[node name="Edit" type="Button" parent="."]
+visible = false
+margin_left = 1841.77
+margin_top = 0.0530624
+margin_right = 1919.77
+margin_bottom = 52.0531
+custom_fonts/font = ExtResource( 5 )
+text = "Edit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="button_up" from="HSplit/VBox/MainPanel/UI/HUD/OpenCoLa" to="." method="toggle_cola_panel"]
+[connection signal="button_up" from="HSplit/VBox/MainPanel/UI/HUD/Main/Import" to="." method="popup_import"]
+[connection signal="button_up" from="HSplit/VBox/MainPanel/UI/HUD/Main/SetConfig" to="." method="toggle_menu_config" binds= [ true ]]
+[connection signal="button_up" from="HSplit/VBox/MainPanel/UI/HUD/Main/SetUniverse" to="." method="toggle_menu_universe" binds= [ true ]]
+[connection signal="button_up" from="HSplit/VBox/MainPanel/UI/HUD/Main/Run" to="." method="run"]
 [connection signal="button_up" from="Popups/MenuConfig/VBox/Buttons/CancelButton" to="." method="toggle_menu_config" binds= [ false ]]
 [connection signal="button_up" from="Popups/MenuConfig/VBox/Buttons/AddButton" to="." method="check_config"]
 [connection signal="button_up" from="Popups/MenuUniverse/VBox/Buttons/CancelButton" to="." method="toggle_menu_universe" binds= [ false ]]
@@ -1040,3 +1052,4 @@ __meta__ = {
 [connection signal="button_up" from="Popups/MenuSizeConstraint/VBox/Buttons/CancelButton" to="." method="toggle_menu_size_constraint" binds= [ false ]]
 [connection signal="button_up" from="Popups/MenuSizeConstraint/VBox/Buttons/DoneButton" to="." method="check_size_constraint"]
 [connection signal="file_selected" from="Popups/OpenFile" to="." method="_import"]
+[connection signal="button_up" from="Edit" to="." method="set_mode" binds= [ 0 ]]

@@ -15,6 +15,7 @@ class Problem:
 	func _init(type = "sequence", vars = [], pos_cs = [], size_cs = []):
 		
 		config = g.Configuration.new(type, len(vars))
+		config.problem = self
 		
 		# Vars
 		for domain_elements in vars:
@@ -54,9 +55,9 @@ class Problem:
 	
 	
 	func add_domain(domain : Domain) -> void:
+		
 		domain.set_problem(self)
 		domains.append(domain)
-		update_universe_formula()
 	
 	
 	func add_pos_constraint(pos: int, domain_name: String) -> void:
@@ -68,8 +69,6 @@ class Problem:
 		for dom in domains:
 			if dom.get_name() == domain_name:
 				dom.add_element(_element)
-				
-		update_universe_formula()
 	
 	
 	func check_empty_domains() -> void:
@@ -83,7 +82,6 @@ class Problem:
 		
 		domains = []
 		universe.clear()
-		update_universe_formula()
 	
 	
 	func equals_in_domains(other: Problem) -> bool:
@@ -109,7 +107,6 @@ class Problem:
 			for domain in domains:
 				domain.erase_elem(i)
 		check_empty_domains()
-		update_universe_formula()
 	
 	
 	func get_config() -> Configuration:
@@ -229,7 +226,6 @@ class Problem:
 		if !is_domain(group_name):
 			var new_domain = g.Domain.new(group_name, elements, is_dist)
 			domains.append(new_domain)
-			update_universe_formula()
 		else:
 			get_domain(group_name).add_elements(elements)
 	
@@ -279,6 +275,7 @@ class Problem:
 		solution = 0
 		children = []
 		config = g.Configuration.new()
+		config.problem = self
 		clear_domains()
 	
 	
@@ -305,10 +302,11 @@ class Problem:
 		clear_domains()
 		universe.add_elements(element_ids)
 		universe.set_name(custom_name)
-		update_universe_formula()
 	
 	
 	func to_cola() -> String:
+		
+		update_universe_formula()
 		
 		# Domains
 		var cola = ""
@@ -322,7 +320,6 @@ class Problem:
 			cola += "\n"
 		
 		# Configs
-		config.set_formula(universe.get_name_cola())
 		cola += config.to_cola()
 		
 		# Pos Constraints
@@ -359,18 +356,17 @@ class Problem:
 	
 	
 	func update_universe_formula():
-		pass
-#		if g.Union(domains).get_size() == universe.get_size():
-#			var tmp = ""
-#			var size = domains.size()
-#			for domain in domains:
-#				tmp += domain.get_name().to_lower()
-#				if domains.find(domain)+1 != size:
-#					tmp += " + "
-#
-#			self.universe_formula = tmp
-#		else:
-#			self.universe_formula = universe.get_name()
+		
+		if len(g.union_array(get_domain_elements())) == universe.get_size():
+			var tmp = ""
+			var size = domains.size()
+			for domain in domains:
+				tmp += domain.get_name().to_lower()
+				if domains.find(domain) + 1 != size:
+					tmp += "+"
+			self.universe_formula = tmp
+		else:
+			self.universe_formula = universe.get_name()
 	
 	
 	func _print():
@@ -538,7 +534,7 @@ class Configuration:
 	var custom_name: String
 	var type: String
 	var type_string_list = ["","",""]
-	var formula
+	var problem : Problem
 	var domain : Domain
 	
 	func _init(_type = "", _size = 0, _name = "", _domain = null):
@@ -608,19 +604,11 @@ class Configuration:
 		domain = _domain
 	
 	
-	func get_formula() -> String:
-		return formula
-	
-	
-	func set_formula(f : String):
-		self.formula = f
-	
-	
 	func to_cola() -> String:
 		
 		var cola = "{c} in {h0}{h1}{u}{h2};".format(
 			{"c": get_name_cola(),
-			 "u": formula,
+			 "u": problem.universe_formula,
 			 "h0": type_string_list[0],
 			 "h1": type_string_list[1],
 			 "h2": type_string_list[2]}

@@ -1,5 +1,5 @@
-indist yellow = [1:4];
-indist purple = [1:3];
-indist red = [1:5];
-rooms in [| yellow+purple+red];
-#rooms = 10;
+indist dutch = [1:3];
+indist french = [3:4];
+row in [| dutch+french];
+#row = 2;
+row[1] = dutch;

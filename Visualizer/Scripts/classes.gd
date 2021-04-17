@@ -803,7 +803,7 @@ class CoLaExpression:
 				var dist = "true"
 				var list = cola_string.split("=")
 				var _name = list[0].replace(" ","")
-				if "ïndist" in list[0]:
+				if "indist" in list[0]:
 					dist = "false"
 					_name = list[0].replace("indist","").replace(" ","")
 				list[1] = list[1].replace(" ","")
@@ -815,7 +815,7 @@ class CoLaExpression:
 				var dist = "true"
 				var list = cola_string.split("=")
 				var _name = list[0].replace(" ","")
-				if "ïndist" in list[0]:
+				if "indist" in list[0]:
 					dist = "false"
 					_name = list[0].replace("indist","").replace(" ","")
 				list[1] = list[1].replace(" ","")

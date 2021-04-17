@@ -1,6 +1,6 @@
-uni = [1:5];
-indistyellow = [1:4];
-indistpurple = [1:3];
-indistred = [1:5];
+universe = [1:5];
+indist yellow = [1:4];
+indist purple = [1:3];
+indist red = [1:5];
 rooms in [| uni];
 #rooms = 10;

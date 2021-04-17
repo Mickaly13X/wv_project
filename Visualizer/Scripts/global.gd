@@ -73,6 +73,17 @@ func exclude(a: Array, b: Array) -> Array:
 			exclude.erase(element)
 	return exclude
 
+# returns a / b
+# @param 'b': 2D Array
+func exclude_array(a: Array, b: Array) -> Array:
+	
+	var exclude = a
+	for b_sub in b:
+		if exclude.empty():
+			break
+		exclude = exclude(a, b_sub)
+	return exclude
+
 # returns the intersection of 2 arrays
 func intersection(a: Array, b: Array) -> Array:
 	

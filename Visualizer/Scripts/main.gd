@@ -274,44 +274,32 @@ func get_path_os(godot_path: String, os: String):
 		return godot_path.replace("/", "\\")
 
 
-func get_ouput():
-	pass
-
-
-func get_universe_name_from_cola():
-	pass
-
-
-func get_universe_size_from_cola():
-	pass
-
-
-#Returns a dictionary with name(of domain):value
-func get_domains(input):
-	
-	var domain = {}  #the dict to be returned
-	var domain_strings = []
-	for i in input:
-		var is_domain = true
-		for j in NOT_DOMAINS:
-			if j in i or i == "":
-				is_domain = false
-				break
-		if is_domain:
-			domain_strings.append(i)
-	for i in domain_strings:
-		var key = get_domain_name(i)
-		var value = get_domain_value(i)
-		domain[key] = value
-	#delete domain with highest length -> universe
-	var highest = [0, ""]
-	for key in domain:
-		if len(domain[key]) > highest[0]:
-			highest[0] = len(domain[key])
-			highest[1] = key
-		domain.erase(highest[1])
-	
-	return domain
+##Returns a dictionary with name(of domain):value
+#func get_domains(input):
+#
+#	var domain = {}  #the dict to be returned
+#	var domain_strings = []
+#	for i in input:
+#		var is_domain = true
+#		for j in NOT_DOMAINS:
+#			if j in i or i == "":
+#				is_domain = false
+#				break
+#		if is_domain:
+#			domain_strings.append(i)
+#	for i in domain_strings:
+#		var key = get_domain_name(i)
+#		var value = get_domain_value(i)
+#		domain[key] = value
+#	#delete domain with highest length -> universe
+#	var highest = [0, ""]
+#	for key in domain:
+#		if len(domain[key]) > highest[0]:
+#			highest[0] = len(domain[key])
+#			highest[1] = key
+#		domain.erase(highest[1])
+#
+#	return domain
 
 
 func get_domain_name(domain_string):

@@ -1,6 +1,6 @@
-indist uni = [1:4];
-indist dutch = [1:3];
-indist french = [3:4];
-row in [| uni];
-#row = 2;
-row[1] = dutch;
+indist uni = [1:5];
+indist yellow = [1:4];
+indist purple = [1:3];
+indist red = [1:5];
+rooms in [| uni];
+#rooms = 10;

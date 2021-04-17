@@ -35,6 +35,7 @@ onready var OpenCoLa = $HSplit/VSplit/MainPanel/UI/HUD/OpenCoLa
 onready var OperatorInput = $Popups/MenuSizeConstraint/VBox/Items/OperatorInput
 onready var Popups = $Popups
 onready var Problem = $HSplit/VSplit/MainPanel/Problems/Problem0
+onready var Problems = $HSplit/VSplit/MainPanel/Problems
 onready var SizeDomainInput = $Popups/MenuSizeConstraint/VBox/Items/DomainInput
 onready var Steps = $HSplit/VSplit/StepPanel/ScrollBox/Steps
 onready var Universe = $HSplit/VSplit/MainPanel/Problems/Problem0/Universe
@@ -491,6 +492,8 @@ func set_mode(mode: int) -> void:
 	
 	self.mode = mode
 	$HSplit/VSplit/StepPanel.visible = !is_editable()
+	$HSplit/VSplit/MainPanel/UI/HUD.visible = is_editable()
+	toggle_main_panel(!is_editable())
 	
 	var steps: String
 	var current_problem = g.problem
@@ -537,6 +540,17 @@ func toggle_cola_panel():
 		HSplit.set_dragger_visibility(SplitContainer.DRAGGER_HIDDEN_COLLAPSED)
 		CoLaPanel.hide()
 		OpenCoLa.text = ">"
+
+
+func toggle_main_panel(is_opened : bool) -> void:
+	
+	if is_opened:
+		for problem in Problems.get_children():
+			problem.position.y -= $HSplit/VSplit/MainPanel/UI/HUD.rect_size[1] + 120
+
+	else:
+		for problem in Problems.get_children():
+			problem.position.y += $HSplit/VSplit/MainPanel/UI/HUD.rect_size[1] + 120
 
 
 func toggle_menu_group(is_opened : bool) -> void:

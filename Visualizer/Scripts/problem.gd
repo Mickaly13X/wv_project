@@ -1,6 +1,7 @@
 extends Node2D
 
 
+var block_close = false
 var problem
 
 
@@ -21,13 +22,21 @@ func _draw() -> void:
 		)
 
 
-func close_menus(except: String) -> void:
+func close_menus(is_close_only = false, except = "") -> void:
+	
+	if block_close:
+		block_close = false
+		return
 	
 	for I in get_children():
 		
 		if I.name != except:
-			I.deselect_elements()
+			if !is_close_only: I.deselect_elements()
 			I.toggle_menu(false)
+
+
+func has_open_menu() -> bool:
+	return $Config/Menu.visible || $Universe/Menu.visible
 
 
 func set_self(Main, problem) -> void:

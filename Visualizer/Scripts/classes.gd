@@ -230,6 +230,10 @@ class Problem:
 			get_domain(group_name).add_elements(elements)
 	
 	
+	func is_bound_elem(elem_id: int) -> bool:
+		return elem_id in g.union_array(get_domain_elements())
+	
+	
 	func is_dist_elem(elem_id: int) -> bool:
 		
 		for i in get_domains():
@@ -312,7 +316,7 @@ class Problem:
 		var cola = ""
 		
 		
-		if universe_formula == universe.get_name():
+		if universe_formula == universe.get_name_cola():
 			cola += universe.to_cola()
 			cola += "\n"
 		
@@ -367,13 +371,13 @@ class Problem:
 					tmp += "+"
 			self.universe_formula = tmp
 		else:
-			self.universe_formula = universe.get_name()
+			self.universe_formula = universe.get_name_cola()
 	
 	
 	func _print():
-		print("universe: "+str(universe.get_elements()))
+		print("universe: " + str(universe.get_elements()))
 		for dom in domains:
-			print(dom.get_name()+": "+ str(dom.get_elements()))
+			print(dom.get_name() + ": " + str(dom.get_elements()))
 		print(config.get_type())
 
 

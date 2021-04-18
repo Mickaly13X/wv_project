@@ -13,8 +13,8 @@ onready var Problem: Node
 
 func deselect_elements():
 	
-	for I in get_elements_selected():
-		I.set_selected(false)
+	for I in get_elements():
+		I.toggle_selected(false)
 
 
 func draw_self() -> void:
@@ -64,3 +64,7 @@ func has_element(id : int):
 
 func has_max_elements() -> bool:
 	return get_size() == MAX_ELEMENTS
+
+
+func is_editable() -> bool:
+	return Main.is_editable()

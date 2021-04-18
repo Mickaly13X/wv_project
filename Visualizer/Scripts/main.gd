@@ -6,6 +6,7 @@ const CONFIG_NAMES = [ \
 	["multisubset",  "subset", "integer composition"],
 	["partition", "partition", "partition", "partition"],
 	["integer partition", "integer partition", "integer partition", "integer partition"]]
+const MAX_DOMAINS = 3
 const MAX_CONFIG_SIZE = 10
 const MAX_UNI_SIZE = 10
 const NOT_DOMAINS = ["structure", "size", "pos", "count", "not", "inter", "union", "in"]
@@ -65,14 +66,14 @@ func _process(_delta):
 	if Input.is_action_pressed("ui_cancel"):
 		get_tree().quit()
 	if Input.is_action_just_pressed("ctrl_R"):
-		g.problem = g.Problem.new()
-		get_tree().reload_current_scene()
+		clear()
 	
 	if is_editable():
 		if Input.is_action_just_pressed("ctrl_B"):
 			Universe.update_element_positions()
-		if Input.is_action_pressed("mouse_left"):
-			Universe.toggle_menu(false)
+		if Input.is_action_just_pressed("mouse_left"):
+			if !Popups.get_node("MenuGroup").visible:
+				 Problem.close_menus(Problem.has_open_menu())
 		if Input.is_action_just_pressed("enter"):
 			check_config()
 			check_group()
@@ -196,9 +197,9 @@ func check_pos_constraint() -> void:
 		
 		var domain_name = DomainInput.get_text()
 		if domain_name == "Universe":
-			g.problem.add_pos_constraint(Config.index_selected, "universe")
+			g.problem.add_pos_constraint(Config.elem_selected, "universe")
 		else:
-			g.problem.add_pos_constraint(Config.index_selected, domain_name)
+			g.problem.add_pos_constraint(Config.elem_selected, domain_name)
 		
 		Problem.update()
 		toggle_menu_pos_constraint(false)
@@ -218,7 +219,7 @@ func check_size_constraint() -> void:
 		
 		g.problem.set_size_constraint(domain_name, operator, size)
 		
-		Universe.update_domain_names()
+		Universe.set_domain_tags()
 		toggle_menu_size_constraint(false)
 
 
@@ -226,6 +227,12 @@ func check_group() -> void:
 	
 	if $Popups/MenuGroup.visible:
 		group()
+
+
+func clear() -> void:
+	
+	g.problem = g.Problem.new()
+	get_tree().reload_current_scene()
 
 
 func create_cola_file() -> void:
@@ -341,6 +348,10 @@ func group() -> void:
 		
 		if selected_name == "New group":
 			
+			if len(g.problem.get_domains()) >= MAX_DOMAINS:
+				show_message("There cannot be more than " + str(MAX_DOMAINS) + " groups")
+				return
+			
 			var group_name: String = NewGroupInput.text
 			var group_dist: bool = DistInput.pressed
 			if group_name == "New group" || group_name == "":
@@ -435,6 +446,11 @@ func run():
 		var function_steps: PoolStringArray = fetch("coso")
 		for i in range(1, len(function_steps)):
 			eval(function_steps[i])
+		
+		for I in Config.get_elements():
+			I.toggle_selected(false)
+		for I in Universe.get_elements():
+			I.toggle_selected(false)
 		set_mode(Mode.STEPS)
 
 

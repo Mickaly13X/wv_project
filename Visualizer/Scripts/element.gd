@@ -30,16 +30,19 @@ func _draw():
 
 func _gui_input(event):
 	
-	if event.is_pressed():
-		if is_in_universe():
-			if event.button_index == BUTTON_LEFT:
-				set_selected(!is_selected)
+	if container.is_editable():
+		if event.is_pressed():
+			
+			if is_in_universe():
+				if event.button_index == BUTTON_LEFT:
+					container.Problem.block_close = true
+					toggle_selected(!is_selected)
+				elif event.button_index == BUTTON_RIGHT:
+					toggle_selected(true)
+					container.toggle_menu(true)
 			elif event.button_index == BUTTON_RIGHT:
-				set_selected(true)
+				container.elem_selected = get_id()
 				container.toggle_menu(true)
-		elif event.button_index == BUTTON_RIGHT:
-			container.elem_selected = get_id()
-			container.toggle_menu(true)
 
 
 func get_id() -> int:
@@ -88,7 +91,12 @@ func set_id(id: int) -> void:
 	name = str(id)
 
 
-func set_selected(is_selected: bool) -> void:
+func toggle_entered(is_entered: bool):
+	self.is_entered = is_entered
+
+
+func toggle_selected(is_selected: bool) -> void:
 	
-	self.is_selected = is_selected
-	update()
+	if container.is_editable():
+		self.is_selected = is_selected
+		update()

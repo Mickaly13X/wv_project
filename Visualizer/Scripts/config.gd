@@ -25,22 +25,21 @@ func _draw():
 
 func _gui_input(event):
 	
-	if event.is_pressed():
-		if event.button_index == BUTTON_LEFT:
-			toggle_menu(false)
-			#deselect_elements()
-		elif event.button_index == BUTTON_RIGHT:
-			#var has_selected_elements = has_selected_elements()
-			#toggle_group_button(has_selected_elements)
-			#toggle_add_button(!(has_max_elements() || has_selected_elements))
-			toggle_menu(false)
+	if is_editable():
+		if event.is_pressed():
+			
+			if event.button_index == BUTTON_RIGHT:
+				#var has_selected_elements = has_selected_elements()
+				#toggle_group_button(has_selected_elements)
+				#toggle_add_button(!(has_max_elements() || has_selected_elements))
+				toggle_menu(false)
 
 
 func _pressed(button_name : String) -> void:
 	
 	match button_name:
 		
-		"Constraint": 
+		"Constraint":
 			Main.toggle_menu_pos_constraint(true)
 	
 	$Menu.hide()
@@ -80,7 +79,7 @@ func toggle_menu(is_visible : bool):
 	
 	$Menu.visible = is_visible
 	if is_visible:
-		Problem.close_menus(name)
+		Problem.close_menus(false, name)
 		$Menu.position = get_local_mouse_position()
 		toggle_menu_button("PosConstraint", true)
 

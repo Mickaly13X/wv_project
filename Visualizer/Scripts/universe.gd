@@ -25,8 +25,6 @@ var circles_domain = []
 # element_object : Node, index : int
 #var elements = {}
 
-var is_distinct : bool
-
 
 func _ready():
 	
@@ -50,11 +48,7 @@ func _gui_input(event):
 	if is_editable():
 		if event.is_pressed():
 			
-			if event.button_index == BUTTON_LEFT:
-				deselect_elements()
-				toggle_menu(false)
-			elif event.button_index == BUTTON_RIGHT:
-				deselect_elements()
+			if event.button_index == BUTTON_RIGHT:
 				toggle_menu(true)
 
 
@@ -73,10 +67,12 @@ func _pressed(button_name : String) -> void:
 			"Delete":
 				#TODO: popup confirmation
 				var element_ids = get_element_ids(get_elements_selected())
+				var needs_new_circles = delete_elements(element_ids)
 				get_problem().erase_elements(element_ids)
-				delete_elements(element_ids)
-				# TODO rebuilt only if venn changes
-				update_elements()
+				if needs_new_circles:
+					update_circles()
+					update_elements()
+			
 			
 			"Group":
 				Main.toggle_menu_group(true)
@@ -103,12 +99,17 @@ func clear_circles() -> void:
 	circles_domain = []
 
 
-func delete_elements(element_ids: PoolIntArray = get_element_ids()) -> void:
+# @return whether new circles need to be calculated
+func delete_elements(element_ids: PoolIntArray = get_element_ids()) -> bool:
 	
+	var needs_new_circles = false
 	for i in element_ids:
 		var element = $Elements.get_node(str(i))
 		if element != null:
+			if get_problem().is_bound_elem(i):
+				needs_new_circles = true
 			element.free()
+	return needs_new_circles
 
 
 func draw_circle_custom(radius: float, pos: Vector2, \
@@ -266,10 +267,6 @@ func has_selected_elements() -> bool:
 	return false
 
 
-func is_editable() -> bool:
-	return Main.is_editable()
-
-
 func set_circles_domain(venn_circles: Array, domains = []) -> void:
 	
 	clear_circles()
@@ -283,11 +280,11 @@ func set_circles_domain(venn_circles: Array, domains = []) -> void:
 			circles_domain.append(new_circle)
 		
 		update_element_positions()
-	set_domain_names(domains)
-	update()
+	set_domain_tags(domains)
+	Problem.update()
 
 
-func set_domain_names(domains: Array) -> void:
+func set_domain_tags(domains: Array = get_domains()) -> void:
 	
 	for i in range(3):
 		
@@ -308,6 +305,12 @@ func set_domain_names(domains: Array) -> void:
 			DomainName.hide()
 
 
+func set_elements(element_ids: PoolIntArray) -> void:
+	
+	delete_elements()
+	add_elements(element_ids)
+
+
 func set_name(custom_name : String) -> void:
 	
 	self.custom_name = custom_name
@@ -320,22 +323,18 @@ func set_name(custom_name : String) -> void:
 # @param 'ow_*': whether to ignore update optimizations
 func set_problem(new_problem, ow_uni = false, ow_dom = false) -> void:
 	
+	var has_changed = false
 	if ow_uni || has_new_universe(new_problem):
-		update_elements(new_problem.get_universe().get_elements())
+		set_elements(new_problem.get_universe().get_elements())
+		has_changed = true
 	
 	if ow_dom || has_new_domains(new_problem):
-		if new_problem.get_domains().empty():
-			set_circles_domain([])
-		else:
-			set_circles_domain(
-				fetch_venn_circles(
-					g.lengths(new_problem.get_domain_intersections()),
-					Array(new_problem.get_domain_sizes()).min()
-				),
-				new_problem.get_domains()
-			)
+		update_circles(new_problem)
 		update_element_colors()
+		has_changed = true
 	
+	if has_changed:
+		update_element_positions()
 	set_name(new_problem.get_universe().get_name())
 
 
@@ -343,7 +342,7 @@ func toggle_menu(is_visible : bool):
 	
 	$Menu.visible = is_visible
 	if is_visible:
-		Problem.close_menus(name)
+		Problem.close_menus(false, name)
 		$Menu.position = get_local_mouse_position()
 		var has_selected_elements = has_selected_elements()
 		toggle_menu_button("Add", !(has_max_elements() || has_selected_elements))
@@ -366,10 +365,23 @@ func update_element_colors() -> void:
 			I.set_color(Color.white)
 
 
+func update_circles(problem = get_problem()):
+	
+	if problem.get_domains().empty():
+		set_circles_domain([])
+	else:
+		set_circles_domain(
+			fetch_venn_circles(
+				g.lengths(problem.get_domain_intersections()),
+				Array(problem.get_domain_sizes()).min()
+			),
+			problem.get_domains()
+		)
+
+
 func update_elements(element_ids: PoolIntArray = get_element_ids()) -> void:
 	
-	delete_elements()
-	add_elements(element_ids)
+	update_element_colors()
 	update_element_positions()
 
 

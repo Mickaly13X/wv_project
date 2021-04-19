@@ -23,6 +23,15 @@ onready var problem = Problem.new()
 #---------------------------GENERAL-FUNCTION-LIBRARY-------------------------------#
 
 
+# returns true if all members of 'group' have 'value' assigned to their 'attr'
+func all(group: Array, attr: String, value = true) -> bool:
+	
+	for i in group:
+		if i.get(attr) != value:
+			return false
+	return true
+
+
 # returns copy of 'array' without any duplicates
 func array2set(array: Array) -> Array:
 	

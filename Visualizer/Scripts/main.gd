@@ -82,15 +82,14 @@ func _process(_delta):
 			check_universe()
 
 
-func _import(path):
+func _import(file_path):
 	
 	var file = File.new()
-	file.open(path, File.READ)
+	file.open(file_path, File.READ)
 	var content = file.get_as_text()
 	#if is_cola()
-	CoLaInput.text = content
+	CoLaInput.text = content #TODO
 	parse(content)
-	g.problem.calculate_universe()
 	Problem.set_self(self, g.problem)
 
 
@@ -358,11 +357,12 @@ func group() -> void:
 				show_message("Please enter a group name")
 				return
 			
+			#TODO: duplicate groups
 			GroupInput.get_popup().add_item(group_name)
-			GroupInput.get_popup().set_item_as_checkable(GroupInput.get_popup().get_item_count()-1,true)
+			GroupInput.get_popup().set_item_as_checkable(GroupInput.get_popup().get_item_count() - 1,true)
 			Universe.group(group_name, group_dist)
-		else:
-			Universe.group(selected_name)
+			
+		else: Universe.group(selected_name)
 	
 	for id in selected_ids:
 		GroupInput.get_popup().set_item_checked(id,false)
@@ -654,55 +654,47 @@ func parse(cola_string : String) -> void:
 			continue
 		
 		var tmp = g.CoLaExpression.new(command)
-		var c = tmp.translate() # Returns string in func form
-		var expression = Expression.new()
-		var error = expression.parse(c,[])
-		if error != OK:
-			push_error(expression.get_error_text())
-		
-		expression.execute([], self)
-		if not expression.has_execute_failed():
-			pass
+		eval(tmp.translate())
 
 
-func parse_domain_interval(_name, interval_string, distinguishable = true):
+func parse_domain_interval(domain_name, interval_string, is_dist = true):
 	
-	g.problem.add_domain(g.Domain.new(_name, g.IntervalString.new(interval_string).get_values(), bool(distinguishable)))
+	var elements = g.IntervalString.new(interval_string).get_values()
+	g.problem.add_domain(g.Domain.new(domain_name, elements, is_dist))
 
 
-func parse_domain_enum(_name, array_string, distinguishable = true):
+func parse_domain_enum(domain_name: String, elem_liststr: String, is_dist = true):
 	
-	var int_array = []
-	var list = array_string.replace("[","").replace("]","").split(",")
-	for i in list:
-		int_array.append(int(i))
+	var elem_names: PoolStringArray = \
+		elem_liststr.replace("[", "").replace("]", "").split(",")
 	
-	g.problem.add_domain(g.Domain.new(_name, int_array, bool(distinguishable)))
+	var new_domain = g.Domain.new(domain_name, [], is_dist)
+	g.problem.add_domain(new_domain)
+	g.problem.add_strlist_to_domain(new_domain, elem_names)
 
 
-func parse_config(type, size, _name, domain_name):
+func parse_config(type, size: int, custom_name: String, domain_name: String):
 	
 	var domain = g.problem.get_domain(domain_name)
-	g.problem.set_config(type, int(size), _name, domain)
+	g.problem.set_config(type, size, custom_name, domain)
 
 
-func parse_size_cs(_name, op, size):
+func parse_size_cs(_name, op, size: int):
 	
-	if g.problem.get_config().get_name() == _name && op == "=":
-		g.problem.get_config().set_size(int(size))
-	
+	if _name == g.problem.get_config().get_name() && op == "=":
+		g.problem.get_config().set_size(size)
 	else:
-		g.problem.set_size_constraint(_name, op, int(size))
+		g.problem.set_size_constraint(_name, op, size)
 	
 
 func parse_pos_cs(position, domain_name):
 	g.problem.add_pos_constraint(int(position), domain_name)
 
 
-func eval(string : String) -> bool:
+func eval(func_str : String) -> bool:
 	
 	var expression = Expression.new()
-	var error = expression.parse(string,[])
+	var error = expression.parse(func_str, [])
 	if error != OK:
 		push_error(expression.get_error_text())
 		

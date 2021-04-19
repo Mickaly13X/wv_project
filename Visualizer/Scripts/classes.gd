@@ -1,21 +1,25 @@
 class Problem:
 	
 	
-	var domains: Array
+	const MIN_ELEM_ID = 1
+	
+	var children: Array
 	var config # static typing gives error
 	var count_formulas: Array
+	var domains: Array
+	var elem_map: Dictionary # used during import
+	var parent: Problem
 	var pos_constraints: Dictionary
 	var solution: int
-	var universe = g.Domain.new()
-	var universe_formula : String
-	var children: Array
-	var parent: Problem
+	var universe # static typing gives error
 	
 	
 	func _init(type = "sequence", vars = [], pos_cs = [], size_cs = []):
 		
 		config = g.Configuration.new(type, len(vars))
 		config.problem = self
+		universe = g.Domain.new()
+		universe.problem = self
 		
 		# Vars
 		for domain_elements in vars:
@@ -33,15 +37,6 @@ class Problem:
 			var domain_elements = i[0]
 			var sizes = i[1]
 			set_size_constraint_array(get_domain_name_from_elements(domain_elements), sizes)
-		
-		calculate_universe()
-		universe_formula = universe.get_name()
-	
-	
-#	func copy() -> Problem:
-#		return g.Problem.new(
-#			get_type(), get_vars(), pos_constraints.duplicate(true), get_size_cs()
-#		)
 	
 	
 	func add_child(child: Problem) -> void:
@@ -54,7 +49,7 @@ class Problem:
 		self.parent = parent
 	
 	
-	func add_domain(domain : Domain) -> void:
+	func add_domain(domain: Domain) -> void:
 		
 		domain.set_problem(self)
 		domains.append(domain)
@@ -64,11 +59,28 @@ class Problem:
 		pos_constraints[pos] = get_domain(domain_name)
 	
 	
-	func add_to_domain(domain_name, _element : int) -> void:
+	func add_to_domain(domain_name: String, elem_id : int) -> void:
+		get_domain(domain_name).add_element(elem_id)
+	
+	
+	func add_strlist_to_domain(domain: Domain, elem_names: PoolStringArray) -> void:
 		
-		for dom in domains:
-			if dom.get_name() == domain_name:
-				dom.add_element(_element)
+		if domain in domains:
+			
+			var elem_ids: PoolIntArray
+			var new_elem_names: PoolStringArray
+			for i in elem_names:
+				if i.is_valid_integer():
+					elem_ids.append(int(i))
+				elif i in elem_map:
+					elem_ids.append(elem_map[i])
+				else:
+					new_elem_names.append(i)
+			
+			var new_elem_ids = get_free_ids(len(new_elem_names))
+			for i in range(len(new_elem_names)):
+				elem_map[new_elem_names[i]] = new_elem_ids[i]
+			domain.add_elements(elem_ids + new_elem_ids)
 	
 	
 	func check_empty_domains() -> void:
@@ -184,6 +196,18 @@ class Problem:
 		return universe.get_size()
 	
 	
+	# returns a number of element id that are not in use
+	func get_free_ids(no_ids: int) -> PoolIntArray:
+		
+		var free_ids: PoolIntArray
+		var current_id = MIN_ELEM_ID
+		while (len(free_ids) < no_ids):
+			if !current_id in universe.elements:
+				free_ids.append(current_id)
+			current_id += 1
+		return free_ids
+	
+	
 	func get_level() -> int:
 		
 		var level = 0
@@ -206,8 +230,26 @@ class Problem:
 		return parent
 	
 	
+	func get_relevant_domains() -> Array:
+		
+		if domains.empty():
+			return [universe]
+		if g.union_array(get_domain_elements()).size() == universe.get_size():
+			return get_domains()
+		return get_domains() + [universe]
+	
+	
 	func get_no_vars() -> int:
 		return config.size
+	
+	
+	func get_universe_formula() -> String:
+		
+		var relevant_domains = get_relevant_domains()
+		var universe_formula = relevant_domains[0].get_name_cola()
+		for i in range(1, len(relevant_domains)):
+			universe_formula += "+" + relevant_domains[i].get_name_cola()
+		return universe_formula
 	
 	
 	func get_vars() -> Array:
@@ -221,7 +263,7 @@ class Problem:
 		return vars
 	
 	
-	func group(elements: PoolIntArray, group_name: String, is_dist : bool) -> void:
+	func group(elements: PoolIntArray, group_name: String, is_dist: bool) -> void:
 		
 		if !is_domain(group_name):
 			var new_domain = g.Domain.new(group_name, elements, is_dist)
@@ -237,7 +279,7 @@ class Problem:
 	func is_dist_elem(elem_id: int) -> bool:
 		
 		for i in get_domains():
-			if elem_id in i && !i.is_distinct:
+			if elem_id in i.get_elements() && !i.is_distinct:
 				return false
 		return true
 	
@@ -293,13 +335,16 @@ class Problem:
 	
 	
 	func set_size_constraint(domain_name: String, operator: String, size: int) -> void:
+		
 		var domain = get_domain(domain_name)
 		domain.set_size_constraint(domain, operator, size)
 	
 	
 	func set_size_constraint_array(domain_name: String, sizes : Array) -> void:
+		
 		var domain = get_domain(domain_name)
 		domain.set_size_constraint_array(domain, sizes)
+	
 	
 	func set_universe(element_ids: PoolIntArray, custom_name = "") -> void:
 		
@@ -310,18 +355,12 @@ class Problem:
 	
 	func to_cola() -> String:
 		
-		update_universe_formula()
-		
-		# Domains
+		var universe_formula: String = get_universe_formula()
 		var cola = ""
 		
-		
-		if universe_formula == universe.get_name_cola():
-			cola += universe.to_cola()
-			cola += "\n"
-		
-		for dom in domains:
-			cola += dom.to_cola()
+		# Domains
+		for domain in get_relevant_domains():
+			cola += domain.to_cola()
 			cola += "\n"
 		
 		# Configs
@@ -354,26 +393,6 @@ class Problem:
 		return cola
 	
 	
-	func calculate_universe():
-		
-		for domain in domains:
-			universe.elements = g.union(universe.elements, domain.get_elements())
-	
-	
-	func update_universe_formula():
-		
-		if len(g.union_array(get_domain_elements())) == universe.get_size():
-			var tmp = ""
-			var size = domains.size()
-			for domain in domains:
-				tmp += domain.get_name().to_lower()
-				if domains.find(domain) + 1 != size:
-					tmp += "+"
-			self.universe_formula = tmp
-		else:
-			self.universe_formula = universe.get_name_cola()
-	
-	
 	func _print():
 		print("universe: " + str(universe.get_elements()))
 		for dom in domains:
@@ -391,16 +410,15 @@ class Domain:
 	var problem : Problem
 	
 	
-	func _init(_name = "", _elements = PoolIntArray(), _is_distinct = true):
+	func _init(domain_name = "", _elements = PoolIntArray(), _is_distinct = true):
 		
-		domain_name = _name
+		self.domain_name = domain_name
 		elements = _elements
 		is_distinct = _is_distinct
-		problem = null
 	
 	
 	func clear() -> void:
-		elements = Array()
+		elements = PoolIntArray()
 	
 	
 #	func copy() -> Domain:
@@ -432,7 +450,11 @@ class Domain:
 	
 	
 	func add_elements(new_elements : PoolIntArray) -> void:
+		
 		elements = g.union(elements, new_elements)
+		if problem != null:
+			if self != problem.get_universe():
+				problem.get_universe().add_elements(new_elements)
 	
 	
 	func erase_elem(element : int) -> void:
@@ -450,25 +472,12 @@ class Domain:
 	# Translates to cola expression
 	func to_cola() -> String:
 		
-		var tmp = str(elements).replace("[","{").replace("]","}").replace(" ","")
+		var elements = str(elements).replace("[","{").replace("]","}").replace(" ","")
 		if is_interval():
-			tmp = get_interval().string().replace(",",":").replace(" ","")
-		var cola = "{dist}{d} = {e};".format({"dist" : get_dist_str(),"d": get_name_cola(), "e": tmp})
+			elements = get_interval().string().replace(",",":").replace(" ","")
+		var dist = "indist ".repeat(int(!is_distinct))
+		var cola = "{}{} = {};".format([dist, get_name_cola(), elements], "{}")
 		return cola
-	
-	
-	# Returns the intersection with the specified domain
-	func inter(domain : Domain) -> Domain:
-		return domain
-	
-	
-	# Returns the union with the specified domain
-	func union(domain : Domain) -> Domain:
-		
-		var new_array = domain.get_elements()
-		new_array = new_array + self.get_elements()
-		
-		return domain
 	
 	
 	# Checks if this domain is an interval
@@ -491,12 +500,6 @@ class Domain:
 			var interval = g.Interval.new(lo, hi)
 			return interval
 		return null
-	
-	
-	func get_dist_str():
-		if is_distinct():
-			return ""
-		return "indist "
 	
 	
 	func set_problem(problem : Problem):
@@ -613,7 +616,7 @@ class Configuration:
 		
 		var cola = "{c} in {h0}{h1}{u}{h2};".format(
 			{"c": get_name_cola(),
-			 "u": problem.universe_formula,
+			 "u": problem.get_universe_formula(),
 			 "h0": type_string_list[0],
 			 "h1": type_string_list[1],
 			 "h2": type_string_list[2]}
@@ -705,51 +708,51 @@ class CoLaExpression:
 	var global_type
 	var cola_string
 	
-	func _init(expression : String):
+	func _init(cola_string : String):
 		
-		cola_string = expression
+		self.cola_string = cola_string
 		
 		# Comment
-		if "%" in expression:
+		if "%" in cola_string:
 			type = "comment"
 		
 		#Counts
-		elif "#" in expression:
+		elif "#" in cola_string:
 			type = "constraint_count"
 		
 		# Domain or  positionconstraint
-		elif "=" in expression:
+		elif "=" in cola_string:
 			# Domain
-			if "[" in expression:
-				var list = expression.split("=")
+			if "[" in cola_string:
+				var list = cola_string.split("=")
 				if "[" in list[0]:
 					type = "constraint_position"
 				else:
 					type = "domain_interval"
-			elif "{" in expression:
+			elif "{" in cola_string:
 				type = "domain_enum"
 		
 		# Coniguration
-		elif "in" in expression:
+		elif "in" in cola_string:
 			
-			if "[" in expression:
+			if "[" in cola_string:
 				
-				if "||" in expression:
+				if "||" in cola_string:
 					type = "config_sequence"
-				elif "|" in expression:
+				elif "|" in cola_string:
 					type = "config_permutation"
 					
-			elif "{" in expression:
+			elif "{" in cola_string:
 				
-				if "||" in expression:
+				if "||" in cola_string:
 					type = "config_multisubset"
-				elif "|" in expression:
+				elif "|" in cola_string:
 					type = "config_subset"
 			
-			elif "partitions" in  expression:
+			elif "partitions" in  cola_string:
 				type = "config_partition"
 			
-			elif "compositions" in expression:
+			elif "compositions" in cola_string:
 				type = "config_composition"
 		
 		else:
@@ -758,30 +761,10 @@ class CoLaExpression:
 		global_type = type.split("_")[0] + "s"
 	
 	
-	func get_type() -> String:
-		return type
-	
-	
-	func is_type(string : String) -> bool:
-		return type == string
-	
-	
-	func get_global_type() -> String:
-		return global_type
-	
-	
-	func is_global_type(string : String) -> bool:
-		return global_type == string
-	
-		
-	func get_string() -> String:
-		return cola_string
-	
-	
-	#translates CoLa string to func string
+	# translates CoLa string to func string
 	func translate() -> String:
 		
-		var tmp = "0"
+		var func_str = ""
 		
 		match type:
 			
@@ -801,19 +784,21 @@ class CoLaExpression:
 					_name = list[0].replace("indist","").replace(" ","")
 				list[1] = list[1].replace(" ","")
 				var interval_string = list[1].replace(":",",")
-				tmp = "parse_domain_interval('{n}','{s}','{d}')".format({"n" : _name, "s" : interval_string,"d" : dist})
+				func_str = "parse_domain_interval('{n}','{s}',{d})" \
+					.format({"n" : _name, "s" : interval_string, "d" : dist})
 			
 			"domain_enum":
 				
 				var dist = "true"
 				var list = cola_string.split("=")
-				var _name = list[0].replace(" ","")
+				var _name = list[0].replace(" ", "")
 				if "indist" in list[0]:
 					dist = "false"
-					_name = list[0].replace("indist","").replace(" ","")
-				list[1] = list[1].replace(" ","")
-				var array_string = list[1].replace("{","[").replace("}","]")
-				tmp = "parse_domain_enum('{n}','{s}','{d}')".format({"n" : _name, "s" : array_string,"d" : dist})
+					_name = list[0].replace("indist", "").replace(" ", "")
+				list[1] = list[1].replace(" ", "")
+				var array_string = list[1].replace("{", "[").replace("}", "]")
+				func_str = "parse_domain_enum('{n}','{s}',{d})" \
+					.format({"n" : _name, "s" : array_string, "d" : dist})
 			
 			"config_sequence":
 				
@@ -822,7 +807,8 @@ class CoLaExpression:
 				var domain_name = list[1].replace(" ","").replace("[","").replace("]","").replace("{","").replace("}","").replace("|","")
 				var type = "sequence"
 				var size = "0"
-				tmp = "parse_config('{t}','{s}','{n}','{d}')".format({"t" : type, "s" : size,"n" : name, "d" : domain_name})
+				func_str = "parse_config('{t}',{s},'{n}','{d}')" \
+					.format({"t" : type, "s" : size, "n" : name, "d" : domain_name})
 			
 			"config_permutation":
 				
@@ -831,7 +817,8 @@ class CoLaExpression:
 				var domain_name = list[1].replace(" ","").replace("[","").replace("]","").replace("{","").replace("}","").replace("|","")
 				var type = "permutation"
 				var size = "0"
-				tmp = "parse_config('{t}','{s}','{n}','{d}')".format({"t" : type, "s" : size,"n" : name, "d" : domain_name})
+				func_str = "parse_config('{t}',{s},'{n}','{d}')" \
+					.format({"t" : type, "s" : size,"n" : name, "d" : domain_name})
 			
 			"config_mulitsubset":
 				
@@ -840,7 +827,8 @@ class CoLaExpression:
 				var domain_name = list[1].replace(" ","").replace("[","").replace("]","").replace("{","").replace("}","").replace("|","")
 				var type = "multisubset"
 				var size = "0"
-				tmp = "parse_config('{t}','{s}','{n}','{d}')".format({"t" : type, "s" : size,"n" : name, "d" : domain_name})
+				func_str = "parse_config('{t}',{s},'{n}','{d}')" \
+					.format({"t" : type, "s" : size,"n" : name, "d" : domain_name})
 			
 			"config_subset":
 				
@@ -849,7 +837,8 @@ class CoLaExpression:
 				var domain_name = list[1].replace(" ","").replace("[","").replace("]","").replace("{","").replace("}","").replace("|","")
 				var type = "subset"
 				var size = "0"
-				tmp = "parse_config('{t}','{s}','{n}','{d}')".format({"t" : type, "s" : size,"n" : name, "d" : domain_name})
+				func_str = "parse_config('{t}',{s},'{n}','{d}')" \
+					.format({"t" : type, "s" : size,"n" : name, "d" : domain_name})
 			
 			"config_partition":
 				
@@ -858,7 +847,8 @@ class CoLaExpression:
 				var domain_name = list[1].replace("partitions","").replace("(","").replace(")","")
 				var type = "partition"
 				var size = "0"
-				tmp = "parse_config('{t}','{s}','{n}','{d}')".format({"t" : type, "s" : size,"n" : name, "d" : domain_name})
+				func_str = "parse_config('{t}',{s},'{n}','{d}')" \
+					.format({"t" : type, "s" : size,"n" : name, "d" : domain_name})
 				
 			"config_composition":
 				
@@ -867,7 +857,8 @@ class CoLaExpression:
 				var domain_name = list[1].replace("compositions","").replace("(","").replace(")","")
 				var type = "composition"
 				var size = "0"
-				tmp = "parse_config('{t}','{s}','{n}','{d}')".format({"t" : type, "s" : size,"n" : name, "d" : domain_name})
+				func_str = "parse_config('{t}',{s},'{n}','{d}')" \
+					.format({"t" : type, "s" : size,"n" : name, "d" : domain_name})
 				
 			"constraint_count":
 				
@@ -875,16 +866,18 @@ class CoLaExpression:
 				var name = list[0].replace("#","")
 				var operator = list[1]
 				var size = list[2]
-				tmp = "parse_size_cs('{n}','{op}','{s}')".format({"n" : name, "op" : operator,"s" : size})
+				func_str = "parse_size_cs('{n}','{op}',{s})" \
+					.format({"n" : name, "op" : operator, "s" : size})
 			
 			"constraint_position":
 				
 				var list = cola_string.split("=")
 				var position = list[0].split("[")[1].replace(" ","").replace("]","")
 				var domain_name = list[1].replace(" ","")
-				tmp = "parse_pos_cs('{p}','{d}')".format({"p" : position, "d" : domain_name})
+				func_str = "parse_pos_cs({p},'{d}')" \
+					.format({"p" : position, "d" : domain_name})
 				
-		return tmp
+		return func_str
 
 # Interval class
 class Interval extends IntervalString:

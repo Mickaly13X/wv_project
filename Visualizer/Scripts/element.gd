@@ -77,7 +77,7 @@ func is_in_universe():
 	return container.name == "Universe"
 
 
-func set_color(new_color : Color):
+func set_color(new_color: Color):
 	
 	if is_in_universe():
 		shape_unselected.bg_color = new_color

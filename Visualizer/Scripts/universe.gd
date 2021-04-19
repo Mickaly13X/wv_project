@@ -59,8 +59,8 @@ func _pressed(button_name : String) -> void:
 		match button_name:
 			
 			"Add":
-				var new_id = get_free_id()
-				get_problem().universe.add_elements([new_id])
+				var new_id = get_problem().get_free_ids(1)[0]
+				get_problem().get_universe().add_elements([new_id])
 				add_elements([new_id])
 				update_element_positions([get_element(new_id)])
 			
@@ -216,16 +216,6 @@ func get_element_ids(elements: Array = get_elements()) -> PoolIntArray:
 	return element_ids
 
 
-func get_free_id() -> int:
-	
-	var count = get_elements().size()
-	var _max = count + 2
-	for i in range(1,_max):
-		if !has_element(i):
-			return i
-	return 0
-
-
 func get_perimeter() -> Rect2:
 	return Rect2($Mask.rect_position, $Mask.rect_size)
 
@@ -354,17 +344,6 @@ func toggle_menu_button(buttom_name: String, is_pressable : bool):
 	Buttons.get_node(buttom_name).disabled = !is_pressable
 
 
-func update_element_colors() -> void:
-	
-	var color_count = 0
-	for I in get_elements():
-		if get_problem().is_dist_elem(I.get_id()):
-			I.set_color(ELEMENT_COLORS[color_count])
-			color_count += 1
-		else:
-			I.set_color(Color.white)
-
-
 func update_circles(problem = get_problem()):
 	
 	if problem.get_domains().empty():
@@ -383,6 +362,17 @@ func update_elements(element_ids: PoolIntArray = get_element_ids()) -> void:
 	
 	update_element_colors()
 	update_element_positions()
+
+
+func update_element_colors() -> void:
+	
+	var color_count = 0
+	for I in get_elements():
+		if get_problem().is_dist_elem(I.get_id()):
+			I.set_color(ELEMENT_COLORS[color_count])
+			color_count += 1
+		else:
+			I.set_color(Color.white)
 
 
 func update_element_positions(elements = get_elements()) -> void:

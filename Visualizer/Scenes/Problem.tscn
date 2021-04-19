@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Fonts/font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Scripts/universe.gd" type="Script" id=2]
 [ext_resource path="res://Scripts/config.gd" type="Script" id=3]
 [ext_resource path="res://Scripts/problem.gd" type="Script" id=4]
+[ext_resource path="res://Scripts/venn.gd" type="Script" id=5]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -83,6 +84,9 @@ custom_styles/panel = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Venn" type="Node2D" parent="Universe"]
+script = ExtResource( 5 )
 
 [node name="Elements" type="Node2D" parent="Universe"]
 

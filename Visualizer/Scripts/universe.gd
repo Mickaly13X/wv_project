@@ -1,6 +1,7 @@
 extends "res://Scripts/container.gd"
 
-
+const WIDTH = 750
+const HEIGHT = 600
 const CIRCLE_COLORS = [
 	Color(0.244292, 0.300939, 0.367188, 0.33),
 	Color(0.244292, 0.300939, 0.367188, 0.33),
@@ -16,7 +17,18 @@ const ELEMENT_COLORS = [
 	Color(1, 0.406122, 0.781936), 
 	Color(0.406122, 0.958243, 1), 
 	Color(0.558594, 0.218878, 0.218878), 
-	Color(0.237456, 0.218878, 0.558594)]
+	Color(0.237456, 0.218878, 0.558594),
+	
+	Color(0.527344, 0.522786, 0.235667), 
+	Color(0.641367, 0.497714, 0.730469), 
+	Color(0.5625, 0.363865, 0.171343), 
+	Color(0.09519, 0.371094, 0.325828),
+	Color(0.25906, 0.075941, 0.425781), 
+	Color(0.082449, 0.367188, 0.080207), 
+	Color(0.402344, 0.104013, 0.15995), 
+	Color(0.255135, 0.4375, 0.300726), 
+	Color(0.515625, 0.322395, 0.485433), 
+	Color(0.147169, 0.293623, 0.390625)]
 
 onready var Buttons = $Menu/Buttons
 
@@ -37,10 +49,47 @@ func _ready():
 func _draw():
 	
 	draw_self()
+	$Venn.circles_domain = circles_domain
+	$Venn.CIRCLE_COLORS = CIRCLE_COLORS
+	$Venn.update()
+	
+	var most_right_pos = 0
+	var most_left_pos = 0
+	var r_right = 0
+	var r_left = 0
+	
+	var most_up_pos = 0
+	var most_down_pos = 0
+	var r_up = 0
+	var r_down = 0
+	
 	for i in range(len(circles_domain)):
-		draw_circle_custom(
-			circles_domain[i].radius, circles_domain[i].pos, CIRCLE_COLORS[i]
-		)
+		
+		if circles_domain[i].pos[0] > most_right_pos:
+			most_right_pos = circles_domain[i].pos[0]
+			r_right = circles_domain[i].radius
+		if circles_domain[i].pos[0] < most_left_pos || most_left_pos == 0:
+			most_left_pos = circles_domain[i].pos[0]
+			r_left = circles_domain[i].radius
+		
+		if circles_domain[i].pos[0] > most_down_pos:
+			most_down_pos = circles_domain[i].pos[0]
+			r_down = circles_domain[i].radius
+		if circles_domain[i].pos[0] < most_up_pos || most_up_pos == 0:
+			most_up_pos = circles_domain[i].pos[0]
+			r_up = circles_domain[i].radius
+	
+	var diagram_width = r_left + (most_right_pos - most_left_pos) + r_right
+	if diagram_width > WIDTH && diagram_width != 0:
+		scale_diagram(WIDTH / diagram_width)
+	
+	var diagram_height = r_up + (most_down_pos - most_up_pos) + r_down
+	if diagram_height > HEIGHT && diagram_height != 0:
+		scale_diagram(HEIGHT / diagram_height)
+	
+#		draw_circle_custom(
+#			circles_domain[i].radius, circles_domain[i].pos, CIRCLE_COLORS[i]
+#		)
 
 
 func _gui_input(event):
@@ -256,6 +305,12 @@ func has_selected_elements() -> bool:
 			return true
 	return false
 
+
+func scale_diagram(scalar : float) -> void:
+	
+	$Venn.set_scale(Vector2(scalar, scalar))
+	$Elements.set_scale(Vector2(scalar, scalar))
+	
 
 func set_circles_domain(venn_circles: Array, domains = []) -> void:
 	

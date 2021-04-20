@@ -88,6 +88,33 @@ __meta__ = {
 [node name="Venn" type="Node2D" parent="Universe"]
 script = ExtResource( 5 )
 
+[node name="DomainName0" type="Label" parent="Universe/Venn"]
+visible = false
+margin_right = 40.0
+margin_bottom = 46.0
+custom_fonts/font = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DomainName1" type="Label" parent="Universe/Venn"]
+visible = false
+margin_right = 40.0
+margin_bottom = 46.0
+custom_fonts/font = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DomainName2" type="Label" parent="Universe/Venn"]
+visible = false
+margin_right = 40.0
+margin_bottom = 46.0
+custom_fonts/font = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Elements" type="Node2D" parent="Universe"]
 
 [node name="Menu" type="Node2D" parent="Universe"]
@@ -139,33 +166,6 @@ margin_bottom = 140.0
 rect_min_size = Vector2( 0, 32 )
 size_flags_horizontal = 3
 text = "Size Constraints"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="DomainName0" type="Label" parent="Universe"]
-visible = false
-margin_right = 40.0
-margin_bottom = 14.0
-custom_fonts/font = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="DomainName1" type="Label" parent="Universe"]
-visible = false
-margin_right = 40.0
-margin_bottom = 14.0
-custom_fonts/font = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="DomainName2" type="Label" parent="Universe"]
-visible = false
-margin_right = 40.0
-margin_bottom = 14.0
-custom_fonts/font = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

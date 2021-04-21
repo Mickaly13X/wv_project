@@ -40,6 +40,9 @@ onready var SizeDomainInput = $Popups/MenuSizeConstraint/VBox/Items/DomainInput
 onready var Steps = $HSplit/VBox/StepPanel/ScrollBox/Steps
 onready var Universe = $HSplit/VBox/MainPanel/Problems/Problem0/Universe
 onready var UnivSizeInput = $Popups/MenuUniverse/VBox/Items/SizeInput
+onready var FileMenu = $HSplit/VBox/MainPanel/UI/HUD/Main/File
+onready var EditMenu = $HSplit/VBox/MainPanel/UI/HUD/Main/Edit
+onready var ProblemMenu = $HSplit/VBox/MainPanel/UI/HUD/Main/Problem
 
 var config = [Distinct.NONE_SAME, SetFunction.ANY]
 var container_menu : String
@@ -93,6 +96,16 @@ func _import(file_path):
 	Problem.set_self(self, g.problem)
 
 
+func _export():
+	
+	var file = File.new()
+	var file_path = Popups.get_node("SaveFile").current_path
+	file.open(file_path, File.WRITE)
+	file.store_string(g.problem.to_cola())
+	file.close()
+	#show_message("Succesfully exported to " + str(file_path))
+
+
 func _pressed_mb_group(id):
 	
 	var popup = GroupInput.get_popup()
@@ -132,6 +145,40 @@ func _pressed_mb_input(index, TypeInput):
 	
 	#if TypeInput == DistInput: config[0] = index
 	if TypeInput == FuncInput: config[1] = index
+
+
+func _pressed_mb_main(index, TypeInput):
+	
+	var PUMenu = TypeInput.get_popup()
+	var SelectedText = PUMenu.get_item_text(index)
+	match SelectedText:
+		
+		"Import":
+			popup_import()
+		
+		"Export":
+			popup_export()
+		
+		"Clear":
+			clear()
+		
+		"New Universe":
+			toggle_menu_universe(true)
+		
+		"New Configuration":
+			toggle_menu_config(true)
+		
+		"Add Element":
+			Universe._pressed("Add")
+		
+		"Group":
+			toggle_menu_group(true)
+		
+		"Add Position Constraint":
+			toggle_menu_pos_constraint(true, true)
+		
+		"Add Size Constraint":
+			toggle_menu_size_constraint(true)
 
 
 func add_step(problem : g.Problem):
@@ -193,12 +240,22 @@ func check_pos_constraint() -> void:
 		if DomainInput.text == "-Select Domain-":
 			show_message("Please choose a domain")
 			return
+		var position = Config.elem_selected
+		if $Popups/MenuPosConstraint/VBox/Items/Position.visible:
+			if $Popups/MenuPosConstraint/VBox/Items/PositionInput.text == "":
+				show_message("Please specify a position")
+				return
+			position = int($Popups/MenuPosConstraint/VBox/Items/PositionInput.text)
+#			if position != OK:
+#				show_message("Size must be an integer")
+#				return
+			
 		
 		var domain_name = DomainInput.get_text()
 		if domain_name == "Universe":
-			g.problem.add_pos_constraint(Config.elem_selected, "universe")
+			g.problem.add_pos_constraint(position, "universe")
 		else:
-			g.problem.add_pos_constraint(Config.elem_selected, domain_name)
+			g.problem.add_pos_constraint(position, domain_name)
 		
 		Problem.update()
 		toggle_menu_pos_constraint(false)
@@ -263,6 +320,14 @@ func fetch(function_name: String, arguments: Array = []) -> PoolStringArray:
 #
 #	print(">exit_code: " + str(exit_code))
 #	return str(output[0]).split("\n")
+
+
+func get_item_idx_from_string(PUMenu : PopupMenu, item_name : String) -> int:
+	
+	for i in range(PUMenu.get_item_count()):
+		if PUMenu.get_item_text(i) == item_name:
+			return i
+	return -1
 
 
 func get_input(file_path):
@@ -386,6 +451,30 @@ func is_editable() -> bool:
 
 func init_menus() -> void:
 	
+	# MAIN
+	
+	# file
+	FileMenu.get_popup().connect("id_pressed", self, "_pressed_mb_main", [FileMenu])
+	FileMenu.get_popup().add_item("Import")
+	FileMenu.get_popup().add_item("Export")
+	
+	# edit
+	EditMenu.get_popup().connect("id_pressed", self, "_pressed_mb_main", [EditMenu])
+	EditMenu.get_popup().add_item("Clear")
+	
+	#problem
+	ProblemMenu.get_popup().connect("id_pressed", self, "_pressed_mb_main", [ProblemMenu])
+	ProblemMenu.get_popup().add_item("New Universe")
+	ProblemMenu.get_popup().add_item("New Configuration")
+	ProblemMenu.get_popup().add_item("",100)
+	ProblemMenu.get_popup().add_item("Add Element")
+	ProblemMenu.get_popup().add_item("Group")
+	ProblemMenu.get_popup().add_item("",101)
+	ProblemMenu.get_popup().add_item("Add Position Constraint")
+	ProblemMenu.get_popup().add_item("Add Size Constraint")
+	ProblemMenu.get_popup().set_item_as_separator(ProblemMenu.get_popup().get_item_index(100), true)
+	ProblemMenu.get_popup().set_item_as_separator(ProblemMenu.get_popup().get_item_index(101), true)
+	
 	# config menu
 	FuncInput.get_popup().connect("id_pressed", self, "_pressed_mb_input", [FuncInput])
 	ConfigSizeInput.get_popup().connect(
@@ -427,6 +516,10 @@ func init_menus() -> void:
 
 func popup_import():
 	Popups.get_node("OpenFile").popup()
+
+
+func popup_export():
+	Popups.get_node("SaveFile").popup()
 
 
 func run():
@@ -564,6 +657,11 @@ func toggle_menu_group(is_opened : bool) -> void:
 		Popups.get_node("MenuGroup").hide()
 
 
+func toggle_menu_problem_button(button_name : String, is_pressable : bool):
+	
+	ProblemMenu.get_popup().set_item_disabled(get_item_idx_from_string(ProblemMenu.get_popup(), button_name), !is_pressable)
+
+
 # ref = N or X
 func toggle_menu_universe(is_opened : bool) -> void:
 	
@@ -583,7 +681,7 @@ func toggle_menu_config(is_opened : bool) -> void:
 		$Popups/MenuConfig.hide()
 
 
-func toggle_menu_pos_constraint(is_opened : bool) -> void:
+func toggle_menu_pos_constraint(is_opened : bool, ask_position : bool = false) -> void:
 	
 	var Menu = Popups.get_node("MenuPosConstraint")
 	if is_opened:
@@ -592,6 +690,12 @@ func toggle_menu_pos_constraint(is_opened : bool) -> void:
 		DomainInput.get_popup().add_item("Universe")
 		for domain in g.problem.get_domains():
 			DomainInput.get_popup().add_item(domain.get_name())
+		if ask_position:
+			Menu.get_node("VBox/Items/Position").show()
+			Menu.get_node("VBox/Items/PositionInput").show()
+		else:
+			Menu.get_node("VBox/Items/Position").hide()
+			Menu.get_node("VBox/Items/PositionInput").hide()
 		Menu.popup()
 	else:
 		Menu.hide()
@@ -703,3 +807,12 @@ func eval(func_str : String) -> bool:
 		return true
 	else:
 		return false
+
+
+func _update_item_disabled():
+	
+	toggle_menu_problem_button("Add Elements", !(Universe.has_max_elements() || Universe.has_selected_elements()))
+	#toggle_menu_problem_button("Delete", Universe.has_selected_elements)
+	toggle_menu_problem_button("Group", Universe.has_selected_elements())
+	toggle_menu_problem_button("Add Position Constraint", len(Config.get_elements()) != 0)
+	

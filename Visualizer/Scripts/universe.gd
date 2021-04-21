@@ -79,17 +79,18 @@ func _draw():
 			most_up_pos = circles_domain[i].pos[0]
 			r_up = circles_domain[i].radius
 	
-	var diagram_width = r_left + (most_right_pos - most_left_pos) + r_right
-	if diagram_width > WIDTH && diagram_width != 0:
-		scale_diagram(WIDTH / diagram_width)
-	
+	var diagram_width = r_left + (most_right_pos - most_left_pos) + r_right 
 	var diagram_height = r_up + (most_down_pos - most_up_pos) + r_down
-	if diagram_height > HEIGHT && diagram_height != 0:
-		scale_diagram(HEIGHT / diagram_height)
+	var scaling = 1
 	
-#		draw_circle_custom(
-#			circles_domain[i].radius, circles_domain[i].pos, CIRCLE_COLORS[i]
-#		)
+	if diagram_width > WIDTH && diagram_width != 0:
+		scaling = WIDTH / float(diagram_width)
+	
+	if diagram_height > HEIGHT && diagram_height != 0:
+		scaling = min(scaling, HEIGHT / float(diagram_height))
+	
+	var offset = (get_dimensions()-get_dimensions()*scaling)/(1 + int(scaling != 1))
+	scale_diagram(scaling, offset)
 
 
 func _gui_input(event):
@@ -306,10 +307,14 @@ func has_selected_elements() -> bool:
 	return false
 
 
-func scale_diagram(scalar : float) -> void:
+func scale_diagram(scalar : float, offset : Vector2) -> void:
+	
+	$Venn.position = offset
+	$Elements.position = offset
 	
 	$Venn.set_scale(Vector2(scalar, scalar))
 	$Elements.set_scale(Vector2(scalar, scalar))
+	
 	
 
 func set_circles_domain(venn_circles: Array, domains = []) -> void:
@@ -333,7 +338,7 @@ func set_domain_tags(domains: Array = get_domains()) -> void:
 	
 	for i in range(3):
 		
-		var DomainName = get_node("DomainName" + str(i))
+		var DomainName = get_node("Venn/DomainName" + str(i))
 		
 		if i < len(domains):
 			

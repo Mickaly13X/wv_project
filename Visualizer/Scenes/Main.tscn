@@ -106,6 +106,7 @@ margin_right = 1920.0
 margin_bottom = 34.0
 
 [node name="OpenCoLa" type="Button" parent="HSplit/VBox/MainPanel/UI/HUD"]
+visible = false
 margin_right = 23.0
 margin_bottom = 34.0
 focus_mode = 0
@@ -117,16 +118,43 @@ __meta__ = {
 }
 
 [node name="Main" type="HBoxContainer" parent="HSplit/VBox/MainPanel/UI/HUD"]
-margin_left = 27.0
-margin_right = 1920.0
+margin_right = 1864.0
 margin_bottom = 34.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
+[node name="File" type="MenuButton" parent="HSplit/VBox/MainPanel/UI/HUD/Main"]
+margin_left = 828.0
+margin_right = 874.0
+margin_bottom = 34.0
+custom_fonts/font = ExtResource( 4 )
+text = "File"
+flat = false
+switch_on_hover = true
+
+[node name="Edit" type="MenuButton" parent="HSplit/VBox/MainPanel/UI/HUD/Main"]
+margin_left = 878.0
+margin_right = 931.0
+margin_bottom = 34.0
+custom_fonts/font = ExtResource( 4 )
+text = "Edit"
+flat = false
+switch_on_hover = true
+
+[node name="Problem" type="MenuButton" parent="HSplit/VBox/MainPanel/UI/HUD/Main"]
+margin_left = 935.0
+margin_right = 1035.0
+margin_bottom = 34.0
+custom_fonts/font = ExtResource( 4 )
+text = "Problem"
+flat = false
+switch_on_hover = true
+
 [node name="Import" type="Button" parent="HSplit/VBox/MainPanel/UI/HUD/Main"]
-margin_left = 667.0
-margin_right = 751.0
+visible = false
+margin_left = 786.0
+margin_right = 870.0
 margin_bottom = 34.0
 focus_mode = 0
 custom_fonts/font = ExtResource( 4 )
@@ -137,8 +165,9 @@ __meta__ = {
 }
 
 [node name="SetConfig" type="Button" parent="HSplit/VBox/MainPanel/UI/HUD/Main"]
-margin_left = 755.0
-margin_right = 951.0
+visible = false
+margin_left = 830.0
+margin_right = 1026.0
 margin_bottom = 34.0
 focus_mode = 0
 custom_fonts/font = ExtResource( 4 )
@@ -149,8 +178,9 @@ __meta__ = {
 }
 
 [node name="SetUniverse" type="Button" parent="HSplit/VBox/MainPanel/UI/HUD/Main"]
-margin_left = 955.0
-margin_right = 1097.0
+visible = false
+margin_left = 930.0
+margin_right = 1072.0
 margin_bottom = 34.0
 focus_mode = 0
 custom_fonts/font = ExtResource( 4 )
@@ -161,8 +191,9 @@ __meta__ = {
 }
 
 [node name="Clear" type="Button" parent="HSplit/VBox/MainPanel/UI/HUD/Main"]
-margin_left = 1101.0
-margin_right = 1169.0
+visible = false
+margin_left = 1003.0
+margin_right = 1071.0
 margin_bottom = 34.0
 focus_mode = 0
 custom_fonts/font = ExtResource( 4 )
@@ -172,9 +203,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Run" type="Button" parent="HSplit/VBox/MainPanel/UI/HUD/Main"]
-margin_left = 1173.0
-margin_right = 1225.0
+[node name="Run" type="Button" parent="HSplit/VBox/MainPanel/UI/HUD"]
+margin_left = 1868.0
+margin_right = 1920.0
 margin_bottom = 34.0
 focus_mode = 0
 custom_fonts/font = ExtResource( 4 )
@@ -735,7 +766,7 @@ __meta__ = {
 }
 
 [node name="Title" type="Label" parent="Popups/MenuPosConstraint/VBox"]
-margin_right = 491.0
+margin_right = 493.0
 margin_bottom = 46.0
 custom_fonts/font = ExtResource( 5 )
 text = "Add a Position Constraint"
@@ -747,7 +778,7 @@ __meta__ = {
 
 [node name="Items" type="GridContainer" parent="Popups/MenuPosConstraint/VBox"]
 margin_top = 50.0
-margin_right = 491.0
+margin_right = 493.0
 margin_bottom = 126.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -781,9 +812,36 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Position" type="Label" parent="Popups/MenuPosConstraint/VBox/Items"]
+visible = false
+margin_left = 304.0
+margin_top = 5.0
+margin_right = 395.0
+margin_bottom = 33.0
+custom_fonts/font = ExtResource( 4 )
+text = "Position:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PositionInput" type="LineEdit" parent="Popups/MenuPosConstraint/VBox/Items"]
+visible = false
+margin_left = 304.0
+margin_right = 386.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 32, 24 )
+size_flags_horizontal = 13
+size_flags_vertical = 13
+custom_fonts/font = ExtResource( 4 )
+max_length = 2
+caret_blink = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="ConstraintLabel" type="Label" parent="Popups/MenuPosConstraint/VBox"]
 margin_top = 130.0
-margin_right = 491.0
+margin_right = 493.0
 margin_bottom = 158.0
 custom_fonts/font = ExtResource( 4 )
 text = "Constraint:"
@@ -794,19 +852,19 @@ __meta__ = {
 
 [node name="Filler" type="Label" parent="Popups/MenuPosConstraint/VBox"]
 margin_top = 162.0
-margin_right = 491.0
+margin_right = 493.0
 margin_bottom = 176.0
 
 [node name="Buttons" type="HBoxContainer" parent="Popups/MenuPosConstraint/VBox"]
 margin_top = 180.0
-margin_right = 491.0
+margin_right = 493.0
 margin_bottom = 214.0
 custom_constants/separation = 256
 alignment = 1
 
 [node name="CancelButton" type="Button" parent="Popups/MenuPosConstraint/VBox/Buttons"]
-margin_left = 42.0
-margin_right = 126.0
+margin_left = 43.0
+margin_right = 127.0
 margin_bottom = 34.0
 focus_mode = 0
 custom_fonts/font = ExtResource( 4 )
@@ -817,8 +875,8 @@ __meta__ = {
 }
 
 [node name="DoneButton" type="Button" parent="Popups/MenuPosConstraint/VBox/Buttons"]
-margin_left = 382.0
-margin_right = 448.0
+margin_left = 383.0
+margin_right = 449.0
 margin_bottom = 34.0
 focus_mode = 0
 custom_fonts/font = ExtResource( 4 )
@@ -1035,6 +1093,27 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="SaveFile" type="FileDialog" parent="Popups"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -460.5
+margin_top = -291.5
+margin_right = 460.5
+margin_bottom = 291.5
+rect_min_size = Vector2( 400, 140 )
+popup_exclusive = true
+window_title = "Save as CoLa (.pl) file"
+access = 2
+filters = PoolStringArray( "*.pl ; CoLa Files" )
+current_dir = "/Users/erickim/wv_project/Visualizer"
+current_file = "~"
+current_path = "/Users/erickim/wv_project/Visualizer/~"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Edit" type="Button" parent="."]
 visible = false
 margin_left = 1841.77
@@ -1048,11 +1127,12 @@ __meta__ = {
 }
 [connection signal="gui_input" from="Mask" to="." method="_gui_input"]
 [connection signal="button_up" from="HSplit/VBox/MainPanel/UI/HUD/OpenCoLa" to="." method="toggle_cola_panel"]
+[connection signal="about_to_show" from="HSplit/VBox/MainPanel/UI/HUD/Main/Problem" to="." method="_update_item_disabled"]
 [connection signal="button_up" from="HSplit/VBox/MainPanel/UI/HUD/Main/Import" to="." method="popup_import"]
 [connection signal="button_up" from="HSplit/VBox/MainPanel/UI/HUD/Main/SetConfig" to="." method="toggle_menu_config" binds= [ true ]]
 [connection signal="button_up" from="HSplit/VBox/MainPanel/UI/HUD/Main/SetUniverse" to="." method="toggle_menu_universe" binds= [ true ]]
 [connection signal="button_up" from="HSplit/VBox/MainPanel/UI/HUD/Main/Clear" to="." method="clear"]
-[connection signal="button_up" from="HSplit/VBox/MainPanel/UI/HUD/Main/Run" to="." method="run"]
+[connection signal="button_up" from="HSplit/VBox/MainPanel/UI/HUD/Run" to="." method="run"]
 [connection signal="button_up" from="Popups/MenuConfig/VBox/Buttons/CancelButton" to="." method="toggle_menu_config" binds= [ false ]]
 [connection signal="button_up" from="Popups/MenuConfig/VBox/Buttons/AddButton" to="." method="check_config"]
 [connection signal="button_up" from="Popups/MenuUniverse/VBox/Buttons/CancelButton" to="." method="toggle_menu_universe" binds= [ false ]]
@@ -1064,4 +1144,5 @@ __meta__ = {
 [connection signal="button_up" from="Popups/MenuSizeConstraint/VBox/Buttons/CancelButton" to="." method="toggle_menu_size_constraint" binds= [ false ]]
 [connection signal="button_up" from="Popups/MenuSizeConstraint/VBox/Buttons/DoneButton" to="." method="check_size_constraint"]
 [connection signal="file_selected" from="Popups/OpenFile" to="." method="_import"]
+[connection signal="confirmed" from="Popups/SaveFile" to="." method="_export"]
 [connection signal="button_up" from="Edit" to="." method="set_mode" binds= [ 0 ]]

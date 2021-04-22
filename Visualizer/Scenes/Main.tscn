@@ -1089,9 +1089,9 @@ window_title = "Open een Bestand"
 mode = 0
 access = 2
 filters = PoolStringArray( "*.pl ; CoLa Files" )
-current_dir = "/Users/Joran/Git/wv_project/Visualizer"
+current_dir = "/Users/erickim/wv_project/Visualizer"
 current_file = "~"
-current_path = "/Users/Joran/Git/wv_project/Visualizer/~"
+current_path = "/Users/erickim/wv_project/Visualizer/~"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1110,20 +1110,19 @@ popup_exclusive = true
 window_title = "Save as CoLa (.pl) file"
 access = 2
 filters = PoolStringArray( "*.pl ; CoLa Files" )
-current_dir = "/Users/Joran/Git/wv_project/Visualizer"
+current_dir = "/Users/erickim/wv_project/Visualizer"
 current_file = "~"
-current_path = "/Users/Joran/Git/wv_project/Visualizer/~"
+current_path = "/Users/erickim/wv_project/Visualizer/~"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Edit" type="Button" parent="."]
 visible = false
-margin_left = 1841.77
-margin_top = 0.0530624
-margin_right = 1919.77
-margin_bottom = 52.0531
-custom_fonts/font = ExtResource( 5 )
+margin_left = 1867.0
+margin_right = 1920.0
+margin_bottom = 34.0
+custom_fonts/font = ExtResource( 4 )
 text = "Edit"
 __meta__ = {
 "_edit_use_anchors_": false

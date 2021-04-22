@@ -255,7 +255,7 @@ func check_pos_constraint() -> void:
 		
 		var domain_name = DomainInput.get_text()
 		if domain_name == "Universe":
-			g.problem.add_pos_constraint(position, "universe")
+			g.problem.add_pos_constraint(position, "")
 		else:
 			g.problem.add_pos_constraint(position, domain_name)
 		

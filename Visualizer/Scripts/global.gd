@@ -41,20 +41,24 @@ func array2set(array: Array) -> Array:
 			set.append(i)
 	return set
 
+
 # returns -1 for false; 1 for true
 func bool2sign(b: bool) -> int:
 	
 	if b: return 1
 	else: return -1
 
+
 # returns true with a chance of 1 / n
 func chance(n: int) -> bool:
 	return random(n - 1) == 0
+
 
 # returns random value from given list
 # @pre 'list' is NOT empty
 func choose(list: Array): 
 	return list[random(len(list)) - 1]
+
 
 # returns a random index number from 'weights', where
 # 	| higher weight -> higher chance to be picked
@@ -69,9 +73,11 @@ func choose_weighted(weights: Array) -> int:
 			return weights.find(i)
 	return -1
 
+
 # returns decibel value of given percentage, relative to a given 'full' (db)
 func db(percentage: float, full_volume: float) -> float: 
 	return -20 + (full_volume + 20) * percentage
+
 
 # returns a / b
 func exclude(a: Array, b: Array) -> Array:
@@ -81,6 +87,7 @@ func exclude(a: Array, b: Array) -> Array:
 		if a.has(element):
 			exclude.erase(element)
 	return exclude
+
 
 # returns a / b
 # @param 'b': 2D Array
@@ -92,6 +99,7 @@ func exclude_array(a: Array, b: Array) -> Array:
 			break
 		exclude = exclude(a, b_sub)
 	return exclude
+
 
 # returns the intersection of 2 arrays
 func intersection(a: Array, b: Array) -> Array:
@@ -124,6 +132,16 @@ func max_list(list):
 		if i > max_value: max_value = i
 	return max_value
 
+
+# returns true if no member of 'group' has 'value' assigned to their 'attr'
+func none(group: Array, attr: String, value = true) -> bool:
+	
+	for i in group:
+		if i.get(attr) == value:
+			return false
+	return true
+
+
 # returns 'value' if value is between [low, high]
 # returns 'low' if value < low
 # returns 'high' if value > high
@@ -133,21 +151,26 @@ func normal(value: float, low: float, high: float) -> float:
 	if value > high: return high
 	return value
 
+
 # returns an integer between [0, n]
 func random(n: int) -> int:
 	return randi() % (n + 1)
+
 
 # returns a float between [0, n]
 func randomf(n: float) -> float: 
 	return randf() * n
 
+
 # returns a random Vector2 point inside a given rect
 func randomRect(rect: Rect2) -> Vector2:
 	return rect.position + randomVect(rect.size)
 
+
 # returns a Vector2 with as values 2 integer between [0, n]
 func randomVect(vect: Vector2) -> Vector2:
 	return Vector2(random(vect.x), random(vect.y))
+
 
 # returns the sum of all elements from the given list
 func sum(list: Array):
@@ -158,6 +181,7 @@ func sum(list: Array):
 	for i in range(1, len(list)):
 		sum += list[i]
 	return sum
+
 
 # returns the union of 2 arrays
 # Note: result = set
@@ -173,15 +197,3 @@ func union_array(arrays: Array) -> Array:
 	if is_null(sum):
 		return []
 	return array2set(sum)
-
-
-# domains is an array of Domain classes
-func Union(domains : Array) -> Domain:
-	
-	var u : Array
-	
-	for domain in domains:
-		u = u + domain.get_elements()
-	return Domain.new("",array2set(u))
-	
-	

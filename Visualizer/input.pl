@@ -1,6 +1,5 @@
-a = [17:17];
+a = Null;
 b = Null;
-c = Null;
-uni = [1:20];
-config in [|| a+b+c+uni];
-#config = 3;
+c = [4:5];
+config in [|| a+b+c];
+#config = 2;

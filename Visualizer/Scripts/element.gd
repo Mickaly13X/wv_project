@@ -2,14 +2,13 @@ extends Node2D
 
 # name is an int from 1 to max elem size
 
+const BORDER_WIDTH = 5
+const R = 20
 
 onready var Mask = $Mask
 onready var container
 
-var shape_selected = StyleBoxFlat.new() 
-var shape_unselected = StyleBoxFlat.new() 
-
-var r = 20
+var shape = StyleBoxFlat.new() 
 var is_selected = false
 
 
@@ -18,14 +17,7 @@ func _ready():
 
 
 func _draw():
-	
-	if is_in_universe():
-		if is_selected == false:
-			draw_style_box(shape_unselected, Rect2(-r, -r, 2*r, 2*r))
-		else:
-			draw_style_box(shape_selected, Rect2(-r, -r, 2*r, 2*r))
-	else:
-		draw_style_box(shape_unselected, Rect2(-r, -r, 2*r, 2*r))
+	draw_style_box(shape, Rect2(-R, -R, 2*R, 2*R))
 
 
 func _gui_input(event):
@@ -41,7 +33,8 @@ func _gui_input(event):
 					toggle_selected(true)
 					container.toggle_menu(true)
 			elif event.button_index == BUTTON_RIGHT:
-				container.elem_selected = get_id()
+				container.deselect_elements()
+				toggle_selected(true)
 				container.toggle_menu(true)
 
 
@@ -55,22 +48,21 @@ func init(container: Node, id: int) -> void:
 	set_id(id)
 	
 	if is_in_universe(): # ball
-		shape_unselected.set_corner_radius_all(r)
-		shape_selected.set_border_width_all(4)
-		shape_selected.set_corner_radius_all(r)
-		shape_selected.border_color = Color(1, 1, 1)
+		shape.set_corner_radius_all(R)
 	else: # box
 		set_color(Color.white)
-		shape_unselected.bg_color = Color.transparent
-		shape_unselected.set_border_width_all(5)
-		shape_unselected.border_width_top = 0
+		shape.bg_color = Color.transparent
+		shape.set_border_width_all(BORDER_WIDTH)
+		shape.border_width_top = 0
+		
+	toggle_selected(false)
 	update()
 
 
 func init_mask():
 	
-	Mask.rect_position = Vector2(-r, -r)
-	Mask.rect_size = Vector2(2*r, 2*r)
+	Mask.rect_position = Vector2(-R, -R)
+	Mask.rect_size = Vector2(2*R, 2*R)
 
 
 func is_in_universe():
@@ -80,10 +72,11 @@ func is_in_universe():
 func set_color(new_color: Color):
 	
 	if is_in_universe():
-		shape_unselected.bg_color = new_color
-		shape_selected.bg_color = new_color
+		shape.bg_color = new_color
+	if new_color != Color.white:
+		shape.border_color = Color.white
 	else:
-		shape_unselected.border_color = new_color
+		shape.border_color = Color.blue
 	update()
 
 
@@ -91,12 +84,12 @@ func set_id(id: int) -> void:
 	name = str(id)
 
 
-func toggle_entered(is_entered: bool):
-	self.is_entered = is_entered
-
-
 func toggle_selected(is_selected: bool) -> void:
 	
 	if container.is_editable():
 		self.is_selected = is_selected
+		if is_in_universe():
+			shape.set_border_width_all(BORDER_WIDTH * int(is_selected))
+		else:
+			set_color(Color.white * int(is_selected))
 		update()

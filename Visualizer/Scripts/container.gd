@@ -25,10 +25,6 @@ func get_center(offset = Vector2.ZERO) -> Vector2:
 	return $Mask.rect_position + $Mask.rect_size / 2 + offset
 
 
-func get_dimensions() -> Vector2:
-	return $Mask.rect_size
-
-
 func get_element(element_id: int) -> Node:
 	
 	for I in get_elements():
@@ -41,10 +37,6 @@ func get_elements() -> Array:
 	return $Elements.get_children()
 
 
-func get_name() -> String:
-	return custom_name
-
-
 func get_elements_selected() -> Array:
 	
 	var elements_selected = []
@@ -54,8 +46,16 @@ func get_elements_selected() -> Array:
 	return elements_selected
 
 
-func get_size() -> int:
+func get_name() -> String:
+	return custom_name
+
+
+func get_no_elements() -> int:
 	return len(get_elements())
+
+
+func get_size() -> Vector2:
+	return $Mask.rect_size
 
 
 func has_element(id : int):
@@ -67,8 +67,12 @@ func has_element(id : int):
 
 
 func has_max_elements() -> bool:
-	return get_size() == MAX_ELEMENTS
+	return get_no_elements() == MAX_ELEMENTS
 
 
 func is_editable() -> bool:
 	return Main.is_editable()
+
+
+func toggle_menu(is_visible: bool) -> void:
+	pass

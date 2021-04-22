@@ -33,7 +33,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Canvas" type="ColorRect" parent="."]
+[node name="Mask" type="ColorRect" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -85,7 +86,7 @@ custom_constants/separation = 10
 margin_right = 1920.0
 margin_bottom = 1080.0
 rect_min_size = Vector2( 1024, 870 )
-mouse_filter = 2
+mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_styles/panel = SubResource( 2 )
@@ -1045,6 +1046,7 @@ text = "Edit"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="gui_input" from="Mask" to="." method="_gui_input"]
 [connection signal="button_up" from="HSplit/VBox/MainPanel/UI/HUD/OpenCoLa" to="." method="toggle_cola_panel"]
 [connection signal="button_up" from="HSplit/VBox/MainPanel/UI/HUD/Main/Import" to="." method="popup_import"]
 [connection signal="button_up" from="HSplit/VBox/MainPanel/UI/HUD/Main/SetConfig" to="." method="toggle_menu_config" binds= [ true ]]

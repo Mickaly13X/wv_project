@@ -56,9 +56,6 @@ func _ready():
 	init_menus()
 	Popups.get_node("OpenFile").current_dir = ""
 	Popups.get_node("OpenFile").current_path = ""
-	#var file_path = "res://tests/paper/constrained/permutation_5_4.test"
-	#var domains = get_domains(get_input(file_path))
-	#set_diagram(get_venn_areas(domains.values()))
 
 
 func _process(_delta):
@@ -71,15 +68,19 @@ func _process(_delta):
 	if is_editable():
 		if Input.is_action_just_pressed("ctrl_B"):
 			Universe.update_element_positions()
-		if Input.is_action_just_pressed("mouse_left"):
-			if !Popups.get_node("MenuGroup").visible:
-				 Problem.close_menus(Problem.has_open_menu())
 		if Input.is_action_just_pressed("enter"):
 			check_config()
 			check_group()
 			check_pos_constraint()
 			check_size_constraint()
 			check_universe()
+
+
+func _gui_input(event):
+	
+	if is_editable():
+		if event.is_pressed():
+			Problem.close_menus()
 
 
 func _import(file_path):
@@ -433,10 +434,10 @@ func run():
 	
 	if is_editable():
 		
-		if Config.get_size() ==  0:
+		if Config.get_no_elements() ==  0:
 			show_message("Config not defined!")
 			return
-		if Universe.get_size() ==  0:
+		if Universe.get_no_elements() ==  0:
 			show_message("Universe not defined!")
 			return
 		

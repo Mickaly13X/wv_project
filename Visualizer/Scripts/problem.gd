@@ -22,16 +22,12 @@ func _draw() -> void:
 		)
 
 
-func close_menus(is_close_only = false, except = "") -> void:
-	
-	if block_close:
-		block_close = false
-		return
+func close_menus(except = "") -> void:
 	
 	for I in get_children():
 		
 		if I.name != except:
-			if !is_close_only: I.deselect_elements()
+			I.deselect_elements()
 			I.toggle_menu(false)
 
 

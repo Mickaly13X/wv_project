@@ -3,8 +3,8 @@ extends "res://Scripts/container.gd"
 
 const ELEMENT = preload("res://Scenes/Element.tscn")
 const ELEMENT_OFFSET = 24
-const Domain = preload("res://Scripts/classes.gd").Domain
-const Interval = preload("res://Scripts/classes.gd").Interval
+const DOMAIN = preload("res://Scripts/classes.gd").Domain
+const INTERVAL = preload("res://Scripts/classes.gd").Interval
 
 onready var Buttons = $Menu/Buttons
 
@@ -27,12 +27,8 @@ func _gui_input(event):
 	
 	if is_editable():
 		if event.is_pressed():
-			
-			if event.button_index == BUTTON_RIGHT:
-				#var has_selected_elements = has_selected_elements()
-				#toggle_group_button(has_selected_elements)
-				#toggle_add_button(!(has_max_elements() || has_selected_elements))
-				toggle_menu(false)
+			deselect_elements()
+			toggle_menu(false)
 
 
 func _pressed(button_name : String) -> void:
@@ -79,7 +75,7 @@ func toggle_menu(is_visible : bool):
 	
 	$Menu.visible = is_visible
 	if is_visible:
-		Problem.close_menus(false, name)
+		Problem.close_menus(name)
 		$Menu.position = get_local_mouse_position()
 		toggle_menu_button("PosConstraint", true)
 

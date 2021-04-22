@@ -1,7 +1,5 @@
 extends "res://Scripts/container.gd"
 
-const WIDTH = 750
-const HEIGHT = 600
 const CIRCLE_COLORS = [
 	Color(0.244292, 0.300939, 0.367188, 0.33),
 	Color(0.244292, 0.300939, 0.367188, 0.33),
@@ -83,13 +81,13 @@ func _draw():
 	var diagram_height = r_up + (most_down_pos - most_up_pos) + r_down
 	var scaling = 1
 	
-	if diagram_width > WIDTH && diagram_width != 0:
-		scaling = WIDTH / float(diagram_width)
+	if diagram_width > get_size().x && diagram_width != 0:
+		scaling = get_size().x / float(diagram_width)
 	
-	if diagram_height > HEIGHT && diagram_height != 0:
-		scaling = min(scaling, HEIGHT / float(diagram_height))
+	if diagram_height > get_size().y && diagram_height != 0:
+		scaling = min(scaling, get_size().y / float(diagram_height))
 	
-	var offset = (get_dimensions()-get_dimensions()*scaling)/(1 + int(scaling != 1))
+	var offset = get_size() * (1 - scaling) / (1 + int(scaling != 1))
 	scale_diagram(scaling, offset)
 
 
@@ -98,7 +96,10 @@ func _gui_input(event):
 	if is_editable():
 		if event.is_pressed():
 			
-			if event.button_index == BUTTON_RIGHT:
+			if event.button_index == BUTTON_LEFT:
+				toggle_menu(false)
+				deselect_elements()
+			elif event.button_index == BUTTON_RIGHT:
 				toggle_menu(true)
 
 
@@ -392,7 +393,7 @@ func toggle_menu(is_visible : bool):
 	
 	$Menu.visible = is_visible
 	if is_visible:
-		Problem.close_menus(false, name)
+		Problem.close_menus(name)
 		$Menu.position = get_local_mouse_position()
 		var has_selected_elements = has_selected_elements()
 		toggle_menu_button("Add", !(has_max_elements() || has_selected_elements))

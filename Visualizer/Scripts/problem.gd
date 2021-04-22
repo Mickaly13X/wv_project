@@ -1,7 +1,6 @@
-extends Node2D
+extends Control
 
 
-var block_close = false
 var problem
 
 
@@ -13,22 +12,21 @@ func _draw() -> void:
 	var constraints = problem.pos_constraints
 	for i in constraints:
 		var elem = $Config.get_element(int(i))
-		var elem_position = $Config.position + elem.position
+		var elem_position = $Config.rect_position + elem.position
 		draw_line(
 			elem_position + $Config.ELEMENT_SIZE * Vector2.RIGHT,
-			$Universe.get_domain_left_side(constraints[i]) + $Universe.position,
+			$Universe.get_domain_left_side(constraints[i]) + $Universe.rect_position,
 			Color.white,
 			5
 		)
 
 
-func close_menus(except = "") -> void:
+func lose_focus(except = "") -> void:
 	
 	for I in get_children():
 		
 		if I.name != except:
-			I.deselect_elements()
-			I.toggle_menu(false)
+			I.lose_focus()
 
 
 func has_open_menu() -> bool:

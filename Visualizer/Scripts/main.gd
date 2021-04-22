@@ -83,7 +83,7 @@ func _gui_input(event):
 	
 	if is_editable():
 		if event.is_pressed():
-			Problem.close_menus()
+			Problem.lose_focus()
 
 
 func _import(file_path):
@@ -150,6 +150,7 @@ func _pressed_mb_input(index, TypeInput):
 
 func _pressed_mb_main(index, TypeInput):
 	
+	Problem.lose_focus()
 	var PUMenu = TypeInput.get_popup()
 	var SelectedText = PUMenu.get_item_text(index)
 	match SelectedText:
@@ -241,7 +242,7 @@ func check_pos_constraint() -> void:
 		if DomainInput.text == "-Select Domain-":
 			show_message("Please choose a domain")
 			return
-		var position = Config.elem_selected
+		var position = Config.get_elements_selected()[0].get_id()
 		if $Popups/MenuPosConstraint/VBox/Items/Position.visible:
 			if $Popups/MenuPosConstraint/VBox/Items/PositionInput.text == "":
 				show_message("Please specify a position")
@@ -258,6 +259,7 @@ func check_pos_constraint() -> void:
 		else:
 			g.problem.add_pos_constraint(position, domain_name)
 		
+		Config.deselect_elements()
 		Problem.update()
 		toggle_menu_pos_constraint(false)
 

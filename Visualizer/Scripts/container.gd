@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 
 const ELEMENT_SIZE = 20
@@ -72,6 +72,11 @@ func has_max_elements() -> bool:
 
 func is_editable() -> bool:
 	return Main.is_editable()
+
+
+func lose_focus() -> void:
+	deselect_elements()
+	toggle_menu(false)
 
 
 func toggle_menu(is_visible: bool) -> void:

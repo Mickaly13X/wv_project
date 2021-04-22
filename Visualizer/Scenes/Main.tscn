@@ -33,11 +33,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Mask" type="ColorRect" parent="."]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
+[node name="Canvas" type="ColorRect" parent="."]
+margin_top = 880.0
+margin_bottom = 880.0
 color = Color( 0, 0, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -57,6 +55,7 @@ visible = false
 margin_right = 320.0
 margin_bottom = 1080.0
 rect_min_size = Vector2( 320, 1080 )
+mouse_filter = 2
 custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -80,13 +79,13 @@ __meta__ = {
 [node name="VBox" type="VBoxContainer" parent="HSplit"]
 margin_right = 1920.0
 margin_bottom = 1080.0
+mouse_filter = 2
 custom_constants/separation = 10
 
 [node name="MainPanel" type="Panel" parent="HSplit/VBox"]
 margin_right = 1920.0
 margin_bottom = 1080.0
 rect_min_size = Vector2( 1024, 870 )
-mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_styles/panel = SubResource( 2 )
@@ -97,6 +96,7 @@ __meta__ = {
 [node name="UI" type="VBoxContainer" parent="HSplit/VBox/MainPanel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -104,6 +104,7 @@ __meta__ = {
 [node name="HUD" type="HBoxContainer" parent="HSplit/VBox/MainPanel/UI"]
 margin_right = 1920.0
 margin_bottom = 34.0
+mouse_filter = 2
 
 [node name="OpenCoLa" type="Button" parent="HSplit/VBox/MainPanel/UI/HUD"]
 visible = false
@@ -120,6 +121,7 @@ __meta__ = {
 [node name="Main" type="HBoxContainer" parent="HSplit/VBox/MainPanel/UI/HUD"]
 margin_right = 1864.0
 margin_bottom = 34.0
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
@@ -236,6 +238,7 @@ visible = false
 margin_top = 880.0
 margin_right = 1920.0
 margin_bottom = 1080.0
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_styles/panel = SubResource( 3 )
@@ -300,7 +303,7 @@ __meta__ = {
 margin_right = 503.0
 margin_bottom = 46.0
 custom_fonts/font = ExtResource( 5 )
-text = "Set Configuration"
+text = "New Configuration"
 align = 1
 valign = 1
 __meta__ = {
@@ -480,7 +483,7 @@ __meta__ = {
 margin_right = 503.0
 margin_bottom = 46.0
 custom_fonts/font = ExtResource( 5 )
-text = "Set Universe"
+text = "New Universe"
 align = 1
 valign = 1
 __meta__ = {
@@ -1107,9 +1110,9 @@ popup_exclusive = true
 window_title = "Save as CoLa (.pl) file"
 access = 2
 filters = PoolStringArray( "*.pl ; CoLa Files" )
-current_dir = "/Users/erickim/wv_project/Visualizer"
+current_dir = "/Users/Joran/Git/wv_project/Visualizer"
 current_file = "~"
-current_path = "/Users/erickim/wv_project/Visualizer/~"
+current_path = "/Users/Joran/Git/wv_project/Visualizer/~"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1125,7 +1128,7 @@ text = "Edit"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="gui_input" from="Mask" to="." method="_gui_input"]
+[connection signal="gui_input" from="HSplit/VBox/MainPanel" to="." method="_gui_input"]
 [connection signal="button_up" from="HSplit/VBox/MainPanel/UI/HUD/OpenCoLa" to="." method="toggle_cola_panel"]
 [connection signal="about_to_show" from="HSplit/VBox/MainPanel/UI/HUD/Main/Problem" to="." method="_update_item_disabled"]
 [connection signal="button_up" from="HSplit/VBox/MainPanel/UI/HUD/Main/Import" to="." method="popup_import"]

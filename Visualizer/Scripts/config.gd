@@ -8,8 +8,6 @@ const INTERVAL = preload("res://Scripts/classes.gd").Interval
 
 onready var Buttons = $Menu/Buttons
 
-var elem_selected: int
-
 
 func _ready():
 	
@@ -27,8 +25,7 @@ func _gui_input(event):
 	
 	if is_editable():
 		if event.is_pressed():
-			deselect_elements()
-			toggle_menu(false)
+			Problem.lose_focus()
 
 
 func _pressed(button_name : String) -> void:
@@ -43,17 +40,17 @@ func _pressed(button_name : String) -> void:
 
 func set_problem(problem) -> void:
 	
-	set_size(problem.config.size)
+	set_no_elements(problem.config.size)
 	set_tag(problem.config.custom_name, problem.get_type().capitalize())
 
 
-func set_size(size: int) -> void:
+func set_no_elements(no_elements: int) -> void:
 	
 	for I in get_elements():
 		I.free()
-	var total_length = (size - 1) * (2*ELEMENT_SIZE + ELEMENT_OFFSET)
+	var total_length = (no_elements - 1) * (2*ELEMENT_SIZE + ELEMENT_OFFSET)
 	var starting_point = get_center() + (total_length / 2.0) * Vector2.UP
-	for i in range(size):
+	for i in range(no_elements):
 		var new_element = ELEMENT.instance()
 		new_element.init(self, i + 1)
 		new_element.position = \
@@ -75,8 +72,7 @@ func toggle_menu(is_visible : bool):
 	
 	$Menu.visible = is_visible
 	if is_visible:
-		Problem.close_menus(name)
-		$Menu.position = get_local_mouse_position()
+		$Menu.rect_position = get_local_mouse_position()
 		toggle_menu_button("PosConstraint", true)
 
 

@@ -6,12 +6,21 @@
 [ext_resource path="res://Scripts/problem.gd" type="Script" id=4]
 [ext_resource path="res://Scripts/venn.gd" type="Script" id=5]
 
-[node name="Problem" type="Node2D"]
+[node name="Problem" type="Control"]
 script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Config" type="Node2D" parent="."]
-position = Vector2( 422, 270 )
+[node name="Config" type="Control" parent="."]
+margin_left = 422.0
+margin_top = 270.0
+margin_right = 422.0
+margin_bottom = 270.0
 script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Mask" type="Control" parent="Config"]
 anchor_right = 1.0
@@ -20,9 +29,12 @@ margin_right = 175.0
 margin_bottom = 600.0
 mouse_filter = 1
 
-[node name="Elements" type="Node2D" parent="Config"]
+[node name="Elements" type="Control" parent="Config"]
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Menu" type="Node2D" parent="Config"]
+[node name="Menu" type="Control" parent="Config"]
 visible = false
 
 [node name="Buttons" type="VBoxContainer" parent="Config/Menu"]
@@ -51,9 +63,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Universe" type="Node2D" parent="."]
-position = Vector2( 755, 270 )
+[node name="Universe" type="Control" parent="."]
+margin_left = 755.0
+margin_top = 270.0
+margin_right = 755.0
+margin_bottom = 270.0
 script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Label" type="Label" parent="Universe"]
 margin_left = 4.49493
@@ -103,9 +121,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Elements" type="Node2D" parent="Universe"]
+[node name="Elements" type="Control" parent="Universe"]
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Menu" type="Node2D" parent="Universe"]
+[node name="Menu" type="Control" parent="Universe"]
 visible = false
 
 [node name="Buttons" type="VBoxContainer" parent="Universe/Menu"]

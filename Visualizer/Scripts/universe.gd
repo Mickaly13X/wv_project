@@ -97,9 +97,9 @@ func _gui_input(event):
 		if event.is_pressed():
 			
 			if event.button_index == BUTTON_LEFT:
-				toggle_menu(false)
-				deselect_elements()
+				Problem.lose_focus()
 			elif event.button_index == BUTTON_RIGHT:
+				Problem.lose_focus(name)
 				toggle_menu(true)
 
 
@@ -311,7 +311,7 @@ func has_selected_elements() -> bool:
 func scale_diagram(scalar : float, offset : Vector2) -> void:
 	
 	$Venn.position = offset
-	$Elements.position = offset
+	$Elements.rect_position = offset
 	
 	$Venn.set_scale(Vector2(scalar, scalar))
 	$Elements.set_scale(Vector2(scalar, scalar))
@@ -393,8 +393,7 @@ func toggle_menu(is_visible : bool):
 	
 	$Menu.visible = is_visible
 	if is_visible:
-		Problem.close_menus(name)
-		$Menu.position = get_local_mouse_position()
+		$Menu.rect_position = get_local_mouse_position()
 		var has_selected_elements = has_selected_elements()
 		toggle_menu_button("Add", !(has_max_elements() || has_selected_elements))
 		toggle_menu_button("Delete", has_selected_elements)

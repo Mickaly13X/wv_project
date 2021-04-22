@@ -25,9 +25,9 @@ func _gui_input(event):
 	if container.is_editable():
 		if event.is_pressed():
 			
+			container.Problem.lose_focus(container.name)
 			if is_in_universe():
 				if event.button_index == BUTTON_LEFT:
-					container.Problem.block_close = true
 					toggle_selected(!is_selected)
 				elif event.button_index == BUTTON_RIGHT:
 					toggle_selected(true)

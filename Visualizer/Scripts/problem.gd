@@ -15,7 +15,7 @@ func _draw() -> void:
 		var elem_position = $Config.rect_position + elem.position
 		draw_line(
 			elem_position + $Config.ELEMENT_SIZE * Vector2.RIGHT,
-			$Universe.get_domain_left_side(constraints[i]) + $Universe.rect_position,
+			$Universe.get_circle(constraints[i]).get_left() + $Universe.rect_position,
 			Color.white,
 			5
 		)

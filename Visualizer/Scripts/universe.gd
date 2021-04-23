@@ -1,9 +1,6 @@
 extends "res://Scripts/container.gd"
 
-const CIRCLE_COLORS = [
-	Color(0.244292, 0.300939, 0.367188, 0.33),
-	Color(0.244292, 0.300939, 0.367188, 0.33),
-	Color(0.244292, 0.300939, 0.367188, 0.33)]
+const CIRCLE = preload("res://Scripts/circle.gd")
 const ELEMENT = preload("res://Scenes/Element.tscn")
 const ELEMENT_COLORS = [
 	Color(1, 0.406122, 0.406122), 
@@ -30,11 +27,6 @@ const ELEMENT_COLORS = [
 
 onready var Buttons = $Menu/Buttons
 
-var circles_domain = []
-
-# element_object : Node, index : int
-#var elements = {}
-
 
 func _ready():
 	
@@ -45,50 +37,7 @@ func _ready():
 
 
 func _draw():
-	
 	draw_self()
-	$Venn.circles_domain = circles_domain
-	$Venn.CIRCLE_COLORS = CIRCLE_COLORS
-	$Venn.update()
-	
-	var most_right_pos = 0
-	var most_left_pos = 0
-	var r_right = 0
-	var r_left = 0
-	
-	var most_up_pos = 0
-	var most_down_pos = 0
-	var r_up = 0
-	var r_down = 0
-	
-	for i in range(len(circles_domain)):
-		
-		if circles_domain[i].pos[0] > most_right_pos:
-			most_right_pos = circles_domain[i].pos[0]
-			r_right = circles_domain[i].radius
-		if circles_domain[i].pos[0] < most_left_pos || most_left_pos == 0:
-			most_left_pos = circles_domain[i].pos[0]
-			r_left = circles_domain[i].radius
-		
-		if circles_domain[i].pos[0] > most_down_pos:
-			most_down_pos = circles_domain[i].pos[0]
-			r_down = circles_domain[i].radius
-		if circles_domain[i].pos[0] < most_up_pos || most_up_pos == 0:
-			most_up_pos = circles_domain[i].pos[0]
-			r_up = circles_domain[i].radius
-	
-	var diagram_width = r_left + (most_right_pos - most_left_pos) + r_right 
-	var diagram_height = r_up + (most_down_pos - most_up_pos) + r_down
-	var scaling = 1
-	
-	if diagram_width > get_size().x && diagram_width != 0:
-		scaling = get_size().x / float(diagram_width)
-	
-	if diagram_height > get_size().y && diagram_height != 0:
-		scaling = min(scaling, get_size().y / float(diagram_height))
-	
-	var offset = get_size() * (1 - scaling) / (1 + int(scaling != 1))
-	scale_diagram(scaling, offset)
 
 
 func _gui_input(event):
@@ -144,10 +93,6 @@ func add_elements(element_ids: PoolIntArray) -> void:
 		$Elements.add_child(new_element)
 	
 	update_element_colors()
-
-
-func clear_circles() -> void:
-	circles_domain = []
 
 
 # @return whether new circles need to be calculated
@@ -236,23 +181,20 @@ func fetch_venn_circles_formatted(venn_circles : Array, smallest_size: int) -> A
 	return venn_circles_formatted
 
 
-func get_circle_approx(circle : Dictionary) -> Rect2:
+func get_circle(domain) -> CIRCLE:
 	
-	return Rect2(
-		circle.pos - circle.radius * Vector2.ONE,
-		2 * circle.radius * Vector2.ONE
-	)
+	var index = get_problem().get_domains().find(domain)
+	return get_circles()[index]
 
 
-func get_domain_left_side(domain) -> Vector2:
+func get_circles() -> Array:
+	return $Venn.circles
+
+
+func get_domain(circle: CIRCLE):
 	
-	if domain == get_problem().universe:
-		return $Mask.rect_size.y / 2.0 * Vector2.DOWN
-	
-	for i in circles_domain:
-		if i.domain == domain:
-			return i.pos + i.radius * Vector2.LEFT
-	return Vector2.ZERO
+	var index = get_circles().find(circle)
+	return get_domains()[index]
 
 
 func get_domains() -> Array:
@@ -308,30 +250,43 @@ func has_selected_elements() -> bool:
 	return false
 
 
-func scale_diagram(scalar : float, offset : Vector2) -> void:
+func scale_diagram() -> void:
+	
+	var diagram_size = $Venn.get_size()
+	
+	var scaling = 1
+	if diagram_size.x > get_size().x && diagram_size.x != 0:
+		scaling = get_size().x / float(diagram_size.x)
+	if diagram_size.y > get_size().y && diagram_size.y != 0:
+		scaling = min(scaling, get_size().y / float(diagram_size.y))
+	
+	var offset = Vector2.ZERO
+	if scaling != 1:
+		offset = get_size() * (1 - scaling) / (2.0)
+#	print(get_size())
+#	print(diagram_size)
+#	print(offset)
 	
 	$Venn.position = offset
 	$Elements.rect_position = offset
-	
-	$Venn.set_scale(Vector2(scalar, scalar))
-	$Elements.set_scale(Vector2(scalar, scalar))
-	
-	
+	$Venn.set_scale(scaling * Vector2.ONE)
+	$Elements.set_scale(scaling * Vector2.ONE)
+
 
 func set_circles_domain(venn_circles: Array, domains = []) -> void:
 	
-	clear_circles()
-	if venn_circles != []:
-		for i in range(len(venn_circles)):
-			
-			var new_circle = {}
-			new_circle.pos = venn_circles[i][0]
-			new_circle.radius = venn_circles[i][1]
-			new_circle.domain = domains[i]
-			circles_domain.append(new_circle)
-		
+	var new_circles = []
+	
+	for i in venn_circles:
+		var new_circle = CIRCLE.new(i[0], i[1])
+		new_circles.append(new_circle)
+	$Venn.set_circles(new_circles)
+	
+	if !new_circles.empty():
 		update_element_positions()
+	
 	set_domain_tags(domains)
+	scale_diagram()
 	Problem.update()
 
 
@@ -349,8 +304,7 @@ func set_domain_tags(domains: Array = get_domains()) -> void:
 				DomainName.text += "\n(Size " + size_constraint.operator + \
 								   " " + str(size_constraint.size) + ")"
 			
-			DomainName.rect_position = \
-				circles_domain[i].pos - circles_domain[i].radius * Vector2.ONE
+			DomainName.rect_position = get_circles()[i].get_rect().position
 			DomainName.show()
 		else:
 			DomainName.hide()
@@ -446,8 +400,8 @@ func update_element_positions(elements = get_elements()) -> void:
 		var inside_circles = []
 		var outside_circles = []
 		
-		for i in circles_domain:
-			if Element.get_id() in i.domain.get_elements():
+		for i in get_circles():
+			if Element.get_id() in get_domain(i).get_elements():
 				inside_circles.append(i)
 			else:
 				outside_circles.append(i)
@@ -456,10 +410,10 @@ func update_element_positions(elements = get_elements()) -> void:
 		if inside_circles == []:
 			approx = get_perimeter()
 		else:
-			approx = get_circle_approx(inside_circles[0])
+			approx = inside_circles[0].get_rect()
 			for i in range(1, len(inside_circles)):
 				# rect intersection
-				approx = approx.clip(get_circle_approx(inside_circles[i]))
+				approx = approx.clip(inside_circles[i].get_rect())
 		
 		var new_assigned_pos = update_element_positions_loop(
 				approx, inside_circles, outside_circles, assigned_positions
@@ -490,13 +444,13 @@ func update_element_positions_loop(approx : Rect2, inside_circles : Array,
 		# if further checking is needed
 		if flag == true:
 			for i in inside_circles:
-				if new_pos.distance_to(i.pos) > i.radius - ELEMENT_SIZE:
+				if new_pos.distance_to(i.center) > i.radius - ELEMENT_SIZE:
 					flag = false
 					break
 		# if further checking is needed
 		if flag == true:
 			for i in outside_circles:
-				if new_pos.distance_to(i.pos) < i.radius + ELEMENT_SIZE:
+				if new_pos.distance_to(i.center) < i.radius + ELEMENT_SIZE:
 					flag = false
 					break
 		

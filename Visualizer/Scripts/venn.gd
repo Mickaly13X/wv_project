@@ -1,23 +1,22 @@
 extends Node2D
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-var circles_domain = []
-var CIRCLE_COLORS
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+const CIRCLE_COLORS = [
+	Color(0.244292, 0.300939, 0.367188, 0.33),
+	Color(0.244292, 0.300939, 0.367188, 0.33),
+	Color(0.244292, 0.300939, 0.367188, 0.33)]
+
+var circles = []
+
 
 func _draw():
-	for i in range(len(circles_domain)):
+	for i in range(len(circles)):
 		draw_circle_custom(
-			circles_domain[i].radius, circles_domain[i].pos, CIRCLE_COLORS[i]
+			circles[i].radius, circles[i].center, CIRCLE_COLORS[i]
 		)
 
 
-func draw_circle_custom(radius: float, pos: Vector2, \
+func draw_circle_custom(radius: float, center: Vector2, \
 	color: Color = Color.white, maxerror = 0.25):
 	
 	if radius <= 0.0: return
@@ -30,6 +29,22 @@ func draw_circle_custom(radius: float, pos: Vector2, \
 	for i in numpoints:
 		var phi = i * PI * 2.0 / numpoints
 		var v = Vector2(sin(phi), cos(phi))
-		points.push_back(v * radius + pos)
+		points.push_back(v * radius + center)
 	
 	draw_colored_polygon(points, color)
+
+
+func get_size() -> Vector2:
+	
+	if circles.empty():
+		return Vector2.ZERO
+	var diagram_width = \
+		abs(g.highest_func(circles, "get_right_x") - g.lowest_func(circles, "get_left_x"))
+	var diagram_height = \
+		abs(g.highest_func(circles, "get_top_y") - g.lowest_func(circles, "get_bottom_y"))
+	return Vector2(diagram_width, diagram_height)
+
+
+func set_circles(circles: Array) -> void:
+	self.circles = circles
+	update()

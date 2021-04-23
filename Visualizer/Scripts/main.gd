@@ -95,6 +95,7 @@ func _import(file_path):
 	CoLaInput.text = content #TODO
 	parse(content)
 	Problem.set_self(self, g.problem)
+	update_name_caches()
 
 
 func _export():
@@ -425,10 +426,8 @@ func group() -> void:
 				show_message("Please enter a group name")
 				return
 			
-			#TODO: duplicate groups
-			GroupInput.get_popup().add_item(group_name)
-			GroupInput.get_popup().set_item_as_checkable(GroupInput.get_popup().get_item_count() - 1,true)
 			Universe.group(group_name, group_dist)
+			update_name_caches()
 			
 		else: Universe.group(selected_name)
 	
@@ -513,8 +512,10 @@ func init_menus() -> void:
 	
 	# group menu
 	GroupInput.get_popup().connect("id_pressed", self, "_pressed_mb_group")
-	GroupInput.get_popup().set_item_as_checkable(GroupInput.get_popup().get_item_count()-1,true)
+	#GroupInput.get_popup().set_item_as_checkable(GroupInput.get_popup().get_item_count()-1,true)
 	GroupInput.get_popup().set_hide_on_checkable_item_selection(false)
+	
+	update_name_caches()
 
 
 func popup_import():
@@ -709,10 +710,6 @@ func toggle_menu_size_constraint(is_opened : bool) -> void:
 	var Menu = Popups.get_node("MenuSizeConstraint")
 	if is_opened:
 		SizeDomainInput.text = "-Select Domain-"
-		SizeDomainInput.get_popup().clear()
-		#SizeDomainInput.get_popup().add_item("Universe")
-		for domain in g.problem.get_domains():
-			SizeDomainInput.get_popup().add_item(domain.get_name())
 		Menu.popup()
 	else:
 		Menu.hide()
@@ -818,4 +815,18 @@ func _update_item_disabled():
 	#toggle_menu_problem_button("Delete", Universe.has_selected_elements)
 	toggle_menu_problem_button("Group", Universe.has_selected_elements())
 	toggle_menu_problem_button("Add Position Constraint", len(Config.get_elements()) != 0)
+
+
+func update_name_caches():
 	
+	GroupInput.get_popup().clear()
+	SizeDomainInput.get_popup().clear()
+	
+	GroupInput.get_popup().add_item("New group")
+	GroupInput.get_popup().set_item_as_checkable(0, true)
+	
+	for i in g.problem.get_domains():
+		SizeDomainInput.get_popup().add_item(i.get_name())
+		GroupInput.get_popup().add_item(i.get_name())
+		GroupInput.get_popup().set_item_as_checkable(
+			GroupInput.get_popup().get_item_count() - 1, true)

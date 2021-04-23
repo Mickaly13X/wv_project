@@ -101,6 +101,29 @@ func exclude_array(a: Array, b: Array) -> Array:
 	return exclude
 
 
+# returns highest value of 'attr' between members of 'group'
+# @pre 'group' not empty
+func highest(group: Array, attr: String):
+	
+	var highest = group[0].get(attr)
+	for i in range(1, len(group)):
+		if group[i].get(attr) > highest:
+			highest = group[i].get(attr)
+	return highest
+
+
+# returns highest value of 'func_name' between members of 'group'
+# @pre 'group' not empty
+func highest_func(group: Array, func_name: String):
+	
+	var highest = group[0].call(func_name)
+	for i in range(1, len(group)):
+		var func_value = group[i].call(func_name)
+		if func_value > highest:
+			highest = func_value
+	return highest
+
+
 # returns the intersection of 2 arrays
 func intersection(a: Array, b: Array) -> Array:
 	
@@ -121,6 +144,29 @@ func lengths(array2D: Array) -> PoolIntArray:
 	for i in array2D:
 		lengths.append(len(i))
 	return lengths
+
+
+# returns lowest value of 'attr' between members of 'group'
+# @pre 'group' not empty
+func lowest(group: Array, attr: String):
+	
+	var lowest = group[0].get(attr)
+	for i in range(1, len(group)):
+		if group[i].get(attr) < lowest:
+			lowest = group[i].get(attr)
+	return lowest
+
+
+# returns lowest value of 'func_name' between members of 'group'
+# @pre 'group' not empty
+func lowest_func(group: Array, func_name: String):
+	
+	var lowest = group[0].call(func_name)
+	for i in range(1, len(group)):
+		var func_value = group[i].call(func_name)
+		if func_value < lowest:
+			lowest = func_value
+	return lowest
 
 
 # returns the maximum value from a given list

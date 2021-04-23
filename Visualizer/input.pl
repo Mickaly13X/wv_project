@@ -1,5 +1,5 @@
-dutch = [1:3];
-french = [3:4];
-row in [| dutch+french];
-#row = 2;
-row[1] = dutch;
+indist oaks = [1:3];
+indist pines = [4:7];
+indist maples = [8:9];
+trees in [| oaks+pines+maples];
+#trees = 9;

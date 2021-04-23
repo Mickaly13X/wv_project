@@ -11,11 +11,18 @@ func _draw() -> void:
 	# pos constraints
 	var constraints = problem.pos_constraints
 	for i in constraints:
+		
 		var elem = $Config.get_element(int(i))
 		var elem_position = $Config.rect_position + elem.position
+		
+		var line_end = $Universe.get_size().y / 2.0 * Vector2.DOWN
+		if constraints[i] != problem.get_universe():
+			line_end = $Universe.get_circle(constraints[i]).get_left()
+		line_end += $Universe.rect_position
+		
 		draw_line(
 			elem_position + $Config.ELEMENT_SIZE * Vector2.RIGHT,
-			$Universe.get_circle(constraints[i]).get_left() + $Universe.rect_position,
+			line_end,
 			Color.white,
 			5
 		)

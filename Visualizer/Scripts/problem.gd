@@ -15,17 +15,14 @@ func _draw() -> void:
 		var elem = $Config.get_element(int(i))
 		var elem_position = $Config.rect_position + elem.position
 		
+		var line_start = elem_position + $Config.ELEMENT_SIZE * Vector2.RIGHT
+		
 		var line_end = $Universe.get_size().y / 2.0 * Vector2.DOWN
 		if constraints[i] != problem.get_universe():
-			line_end = $Universe.get_circle(constraints[i]).get_left()
-		line_end += $Universe.rect_position
+			var circle_pos_scaled = $Universe.get_circle(constraints[i]).get_left() * $Universe/Venn.scale
+			line_end = circle_pos_scaled + $Universe/Venn.global_position
 		
-		draw_line(
-			elem_position + $Config.ELEMENT_SIZE * Vector2.RIGHT,
-			line_end,
-			Color.white,
-			5
-		)
+		draw_line(line_start, line_end, Color.white, 5)
 
 
 func lose_focus(except = "") -> void:

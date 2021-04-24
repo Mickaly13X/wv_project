@@ -10,6 +10,7 @@ var circles = []
 
 
 func _draw():
+	
 	for i in range(len(circles)):
 		draw_circle_custom(
 			circles[i].radius, circles[i].center, CIRCLE_COLORS[i]

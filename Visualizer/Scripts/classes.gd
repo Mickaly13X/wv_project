@@ -167,6 +167,14 @@ class Problem:
 		return intersections
 	
 	
+	func get_domain_size(domain_name: String) -> int:
+		
+		var domain = get_domain(domain_name)
+		if g.is_null(domain):
+			return 0
+		return len(domain.get_elements())
+	
+	
 	func get_domain_sizes() -> PoolIntArray:
 		return g.lengths(get_domain_elements())
 	
@@ -265,11 +273,24 @@ class Problem:
 	
 	func group(elements: PoolIntArray, group_name: String, is_dist: bool) -> void:
 		
+		var elements_filtered = Array(elements)
 		if !is_domain(group_name):
-			var new_domain = g.Domain.new(group_name, elements, is_dist)
-			domains.append(new_domain)
+			for i in elements_filtered:
+				if is_bound_elem(i):
+					if is_dist_elem(i) != is_dist:
+						elements_filtered.erase(i)
+			elements_filtered = PoolIntArray(elements_filtered)
+			if !elements_filtered.empty():
+				var new_domain = g.Domain.new(group_name, elements_filtered, is_dist)
+				domains.append(new_domain)
 		else:
-			get_domain(group_name).add_elements(elements)
+			var domain = get_domain(group_name)
+			for i in elements_filtered:
+				if is_bound_elem(i):
+					if is_dist_elem(i) != domain.is_distinct:
+						elements_filtered.erase(i)
+			elements_filtered = PoolIntArray(elements_filtered)
+			domain.add_elements(elements_filtered)
 	
 	
 	func is_bound_elem(elem_id: int) -> bool:

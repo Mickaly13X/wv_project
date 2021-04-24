@@ -210,12 +210,18 @@ func get_problem():
 	return Problem.problem
 
 
-func group(group_name : String, is_dist = true) -> void:
+func group(group_name: String, is_dist = true) -> void:
 	
-	var selected_elements = PoolIntArray()
-	for i in get_element_ids(get_elements_selected()):
-		selected_elements.append(i)
+	var old_domain_size = get_problem().get_domain_size(group_name)
+	var selected_elements = get_element_ids(get_elements_selected())
 	get_problem().group(selected_elements, group_name, is_dist)
+	var new_domain_size = get_problem().get_domain_size(group_name)
+	
+	var no_conflicts = (old_domain_size + len(selected_elements)) - new_domain_size
+	if no_conflicts > 0:
+		Main.show_message(
+			"{} element(s) were not grouped because of conflicting distinguishabilities".format([no_conflicts], "{}")
+		)
 	
 	# update visual elements
 	update_problem(false)

@@ -25,7 +25,7 @@ func init(problem, number: int, is_selected: bool) -> void:
 	set_number(number)
 	toggle_selected(is_selected)
 	update_text()
-	#set_doc_ref(1)
+	set_doc_ref(1)
 
 
 func set_number(nb : int) -> void:

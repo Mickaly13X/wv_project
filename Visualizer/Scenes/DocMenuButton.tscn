@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Fonts/font medium.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Scripts/doc_menu_button.gd" type="Script" id=2]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.12549, 0.145098, 0.188235, 1 )
@@ -13,17 +14,38 @@ bg_color = Color( 0.141176, 0.160784, 0.219608, 1 )
 
 [sub_resource type="StyleBoxEmpty" id=4]
 
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.141176, 0.160784, 0.219608, 1 )
+
 [node name="Button" type="Button"]
 margin_right = 200.0
 margin_bottom = 28.0
 rect_min_size = Vector2( 0, 36 )
+focus_mode = 0
+mouse_filter = 1
 size_flags_horizontal = 3
 custom_styles/hover = SubResource( 1 )
 custom_styles/pressed = SubResource( 2 )
 custom_styles/focus = SubResource( 3 )
 custom_styles/normal = SubResource( 4 )
 custom_fonts/font = ExtResource( 1 )
+enabled_focus_mode = 0
 text = "Sequence"
+flat = true
+script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Panel" type="Panel" parent="."]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+custom_styles/panel = SubResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="button_up" from="." to="." method="toggle_select" binds= [ true ]]
+[connection signal="mouse_entered" from="." to="." method="toggle_hover" binds= [ true ]]
+[connection signal="mouse_exited" from="." to="." method="toggle_hover" binds= [ false ]]

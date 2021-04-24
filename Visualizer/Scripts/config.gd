@@ -48,13 +48,13 @@ func set_no_elements(no_elements: int) -> void:
 	
 	for I in get_elements():
 		I.free()
-	var total_length = (no_elements - 1) * (2*ELEMENT_SIZE + ELEMENT_OFFSET)
+	var total_length = (no_elements - 1) * (2*ELEMENT_RADIUS + ELEMENT_OFFSET)
 	var starting_point = get_center() + (total_length / 2.0) * Vector2.UP
 	for i in range(no_elements):
 		var new_element = ELEMENT.instance()
 		new_element.init(self, i + 1)
 		new_element.position = \
-			starting_point + (2*ELEMENT_SIZE + ELEMENT_OFFSET) * i * Vector2.DOWN
+			starting_point + (2*ELEMENT_RADIUS + ELEMENT_OFFSET) * i * Vector2.DOWN
 		$Elements.add_child(new_element)
 
 

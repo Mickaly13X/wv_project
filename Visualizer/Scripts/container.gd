@@ -1,7 +1,7 @@
 extends Control
 
 
-const ELEMENT_SIZE = 20
+const ELEMENT_RADIUS = 20
 const MAX_ELEMENTS = 20
 
 var custom_name: String = ""

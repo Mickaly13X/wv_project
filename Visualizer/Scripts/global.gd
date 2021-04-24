@@ -67,10 +67,10 @@ func choose_weighted(weights: Array) -> int:
 	
 	var x = random(sum(weights) - 1)
 	var cumsum = 0
-	for i in weights:
-		cumsum += i
+	for i in range(len(weights)):
+		cumsum += weights[i]
 		if x < cumsum:
-			return weights.find(i)
+			return i
 	return -1
 
 
@@ -211,6 +211,17 @@ func randomf(n: float) -> float:
 # returns a random Vector2 point inside a given rect
 func randomRect(rect: Rect2) -> Vector2:
 	return rect.position + randomVect(rect.size)
+
+
+# returns a random Vector2 point inside a given triangle
+# @pre 'triangle' contains exactly 3 points
+func randomTriangle(triangle: PoolVector2Array) -> Vector2:
+	
+	var r1 = randomf(1)
+	var r2 = randomf(1)
+	return (1 - sqrt(r1)) * triangle[0] \
+		  + sqrt(r1) * (1 - r2) * triangle[1] \
+		  + r2 * sqrt(r1) * triangle[2]
 
 
 # returns a Vector2 with as values 2 integer between [0, n]

@@ -234,6 +234,10 @@ class Problem:
 		return universe
 	
 	
+	func get_universe_strict():
+		return g.exclude_array(universe.get_elements(), get_domain_elements())
+	
+	
 	func get_parent() -> Problem:
 		return parent
 	

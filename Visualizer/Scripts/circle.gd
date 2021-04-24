@@ -8,7 +8,25 @@ func _init(center: Vector2, radius: float) -> void:
 	self.radius = radius
 
 
-func get_rect() -> Rect2:
+func polygon(max_points = 1024, max_error = 0.25) -> Polygon2D:
+	
+	if radius <= 0.0: return null
+	
+	var num_points = ceil(PI / acos(1.0 - max_error / radius))
+	num_points = clamp(num_points, 3, max_points)
+	var points = PoolVector2Array()
+	
+	for i in num_points:
+		var phi = i * PI * 2.0 / num_points
+		var v = Vector2(sin(phi), cos(phi))
+		points.push_back(v * radius + center)
+	
+	var polygon = Polygon2D.new()
+	polygon.polygon = points
+	return polygon
+
+
+func rect() -> Rect2:
 	
 	return Rect2(
 		center - radius * Vector2.ONE,
@@ -16,33 +34,33 @@ func get_rect() -> Rect2:
 	)
 
 
-func get_left() -> Vector2:
+func left() -> Vector2:
 	return center + radius * Vector2.LEFT
 
 
-func get_right() -> Vector2:
+func right() -> Vector2:
 	return center + radius * Vector2.RIGHT
 
 
-func get_top() -> Vector2:
+func top() -> Vector2:
 	return center + radius * Vector2.UP
 
 
-func get_bottom() -> Vector2:
+func bottom() -> Vector2:
 	return center + radius * Vector2.DOWN
 
 
-func get_left_x() -> float:
-	return get_left().x
+func left_x() -> float:
+	return left().x
 
 
-func get_right_x() -> float:
-	return get_right().x
+func right_x() -> float:
+	return right().x
 
 
-func get_top_y() -> float:
-	return get_top().y
+func top_y() -> float:
+	return top().y
 
 
-func get_bottom_y() -> float:
-	return get_bottom().y
+func bottom_y() -> float:
+	return bottom().y

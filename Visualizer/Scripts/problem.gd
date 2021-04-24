@@ -19,7 +19,7 @@ func _draw() -> void:
 		
 		var line_end = $Universe.get_size().y / 2.0 * Vector2.DOWN
 		if constraints[i] != problem.get_universe():
-			var circle_pos_scaled = $Universe.get_circle(constraints[i]).get_left() * $Universe/Venn.scale
+			var circle_pos_scaled = $Universe.get_circle(constraints[i]).left() * $Universe/Venn.scale
 			line_end = circle_pos_scaled + $Universe/Venn.global_position
 		
 		draw_line(line_start, line_end, Color.white, 5)

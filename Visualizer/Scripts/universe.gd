@@ -26,7 +26,7 @@ const ELEMENT_COLORS = [
 	Color(0.147169, 0.293623, 0.390625)]
 
 onready var Buttons = $Menu/Buttons
-
+var bruh = PoolVector2Array()
 
 func _ready():
 	
@@ -38,6 +38,8 @@ func _ready():
 
 func _draw():
 	draw_self()
+	#var bruh = Geometry.merge_polygons_2d(rect2polygon(Rect2(0, 0, 20, 20)), rect2polygon(Rect2(20, 20, 20, 20)))[0]
+	draw_colored_polygon(bruh, Color(1, 0, 0, 0.3))
 
 
 func _gui_input(event):
@@ -61,7 +63,7 @@ func _pressed(button_name : String) -> void:
 			"Add":
 				var new_id = get_problem().get_free_ids(1)[0]
 				get_problem().get_universe().add_elements([new_id])
-				add_elements([new_id])
+				add_elements([new_id], false)
 				update_element_positions([get_element(new_id)])
 			
 			"Delete":
@@ -84,7 +86,7 @@ func _pressed(button_name : String) -> void:
 
 
 # @pre: 'element_ids' does not contain ids already present
-func add_elements(element_ids: PoolIntArray) -> void:
+func add_elements(element_ids: PoolIntArray, is_update = true) -> void:
 	
 	for i in element_ids:
 	
@@ -92,6 +94,8 @@ func add_elements(element_ids: PoolIntArray) -> void:
 		new_element.init(self, i)
 		$Elements.add_child(new_element)
 	
+	if is_update:
+		update_element_positions()
 	update_element_colors()
 
 
@@ -210,6 +214,33 @@ func get_problem():
 	return Problem.problem
 
 
+func get_spawn_polygon(Element: Node) -> PoolVector2Array:
+	
+	var inside_polygon = PoolVector2Array()
+	var outside_polygons = Array()
+	
+	if Element.get_id() in get_problem().get_universe_strict():
+		# account for element size
+		inside_polygon = rect2polygon(Rect2(Vector2.ZERO, get_size()).grow(-ELEMENT_RADIUS))
+	
+	for i in get_circles():
+		if Element.get_id() in get_domain(i).get_elements():
+			# account for  element size
+			var new_polygon = \
+				CIRCLE.new(i.center, i.radius - ELEMENT_RADIUS).polygon(64).polygon
+			inside_polygon = Geometry.merge_polygons_2d(inside_polygon, new_polygon)[0]
+		else:
+			var new_polygon = i.polygon(64).polygon
+			outside_polygons.append(new_polygon)
+	
+	bruh = inside_polygon
+	if outside_polygons.empty():
+		return inside_polygon
+	for i in outside_polygons:
+		inside_polygon = Geometry.clip_polygons_2d(inside_polygon, i)[0]
+	return inside_polygon
+
+
 func group(group_name: String, is_dist = true) -> void:
 	
 	var old_domain_size = get_problem().get_domain_size(group_name)
@@ -247,6 +278,16 @@ func has_selected_elements() -> bool:
 		if I.is_selected:
 			return true
 	return false
+
+
+func rect2polygon(rect: Rect2) -> PoolVector2Array:
+	
+	var polygon = PoolVector2Array()
+	polygon.append(rect.position)
+	polygon.append(rect.position + rect.size.x * Vector2.RIGHT)
+	polygon.append(rect.end)
+	polygon.append(rect.position + rect.size.y * Vector2.DOWN)
+	return polygon
 
 
 func scale_diagram() -> void:
@@ -297,7 +338,7 @@ func set_domain_tags(domains: Array = get_domains()) -> void:
 				DomainName.text += "\n(Size " + size_constraint.operator + \
 								   " " + str(size_constraint.size) + ")"
 			
-			DomainName.rect_position = get_circles()[i].get_rect().position
+			DomainName.rect_position = get_circles()[i].rect().position
 			DomainName.show()
 		else:
 			DomainName.hide()
@@ -321,18 +362,13 @@ func set_name(custom_name : String) -> void:
 # @param 'ow_*': whether to ignore update optimizations
 func set_problem(new_problem, ow_uni = false, ow_dom = false) -> void:
 	
-	var has_changed = false
 	if ow_uni || has_new_universe(new_problem):
 		set_elements(new_problem.get_universe().get_elements())
-		has_changed = true
 	
 	if ow_dom || has_new_domains(new_problem):
 		update_circles(new_problem)
 		update_element_colors()
-		has_changed = true
 	
-	if has_changed:
-		update_element_positions()
 	set_name(new_problem.get_universe().get_name())
 
 
@@ -390,68 +426,27 @@ func update_element_positions(elements = get_elements()) -> void:
 	
 	for Element in elements:
 		
-		var inside_circles = []
-		var outside_circles = []
+		var spawn_polygon = get_spawn_polygon(Element)
+		#bruh = spawn_polygon
+		var triangulation = Geometry.triangulate_polygon(spawn_polygon)
+		var triangles = []
+		for i in range(len(triangulation) / 3):
+			var new_triangle = PoolVector2Array()
+			new_triangle.append(spawn_polygon[triangulation[i * 3]])
+			new_triangle.append(spawn_polygon[triangulation[i * 3 + 1]])
+			new_triangle.append(spawn_polygon[triangulation[i * 3 + 2]])
+			triangles.append(new_triangle)
 		
-		for i in get_circles():
-			if Element.get_id() in get_domain(i).get_elements():
-				inside_circles.append(i)
-			else:
-				outside_circles.append(i)
-		
-		var approx : Rect2
-		if inside_circles == []:
-			approx = get_perimeter()
-		else:
-			approx = inside_circles[0].get_rect()
-			for i in range(1, len(inside_circles)):
-				# rect intersection
-				approx = approx.clip(inside_circles[i].get_rect())
-		
-		var new_assigned_pos = update_element_positions_loop(
-				approx, inside_circles, outside_circles, assigned_positions
+		var triangle_areas = []
+		for i in triangles:
+			triangle_areas.append(
+				0.5 * abs(i[0].x * (i[1].y - i[2].y) + i[1].x * (i[2].y - i[0].y) + i[2].x * (i[0].y - i[1].y))
 			)
-		if new_assigned_pos == Vector2.ZERO: # invalid pos
-			print ("[error] No valid position arrangement found. Defaulting to (0, 0)...")
-		
-		Element.position = new_assigned_pos
-		assigned_positions.append(new_assigned_pos)
-
-
-# @return exit_code
-func update_element_positions_loop(approx : Rect2, inside_circles : Array,
-		outside_circles : Array, assigned_positions : PoolVector2Array
-	) -> Vector2:
-	
-	var attempt = 0
-	var new_pos : Vector2
-	var flag = false
-	while (flag == false):
-		
-		flag = true
-		new_pos = g.randomRect(approx.grow(-ELEMENT_SIZE))
-		for i in assigned_positions:
-			if new_pos.distance_to(i) < 2 * ELEMENT_SIZE:
-				flag = false
-				break
-		# if further checking is needed
-		if flag == true:
-			for i in inside_circles:
-				if new_pos.distance_to(i.center) > i.radius - ELEMENT_SIZE:
-					flag = false
-					break
-		# if further checking is needed
-		if flag == true:
-			for i in outside_circles:
-				if new_pos.distance_to(i.center) < i.radius + ELEMENT_SIZE:
-					flag = false
-					break
-		
-		if attempt < 64:
-			attempt += 1
-		else: return Vector2.ZERO
-	
-	return new_pos
+		var new_position: Vector2
+		new_position = g.randomTriangle(triangles[g.choose_weighted(triangle_areas)])
+#		print ("[error] No valid position arrangement found. Defaulting to (0, 0)...")
+		Element.position = new_position
+#		assigned_positions.append(new_assigned_pos)
 
 
 func update_problem(ow_uni = true, ow_dom = true) -> void:

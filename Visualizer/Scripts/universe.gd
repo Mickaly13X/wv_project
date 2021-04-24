@@ -129,54 +129,47 @@ func draw_circle_custom(radius: float, pos: Vector2, \
 # @param 'domain_inter_sizes': list of (sub)set SIZES 
 # @param 'smallest_size': scaling purposes
 # @pre domain_intersections NOT EMPTY
-# for 1-part venns, domain_intersections = [A]
-# for 2-part venns, domain_intersections = [A, B, AB]
-# for 3-part venns, domain_intersections = [A, B, C, AB, BC, AC, ABC]
+# for 1-part venns, domain_inter_sizes = [A]
+# for 2-part venns, domain_inter_sizes = [A, B, AB]
+# for 3-part venns, domain_inter_sizes = [A, B, C, AB, BC, AC, ABC]
 func fetch_venn_circles(domain_inter_sizes: Array, smallest_size: int) -> Array:
 	
 	var venn_circles = []
 	
 	if len(domain_inter_sizes) == 1: 
-		venn_circles.append([Vector2(0, 0), domain_inter_sizes[0]])
+		venn_circles.append(CIRCLE.new(Vector2.ZERO, domain_inter_sizes[0]))
 	else:
 		# external fetch
 		var venn_size = 2 + int(len(domain_inter_sizes) > 3)
 		var arguments = [venn_size] + domain_inter_sizes
 		var output: PoolStringArray = Main.fetch("venn", arguments)
-		
-		# convert to float[]
+		# interpret output
 		for i in range(len(output) / 3):
-			var pos = Vector2(float(output[i*3]), float(output[i*3 + 1]))
+			var center = Vector2(float(output[i*3]), float(output[i*3 + 1]))
 			var radius = float(output[i*3 + 2])
-			venn_circles.append([pos, radius])
+			venn_circles.append(CIRCLE.new(center, radius))
 	
 	return fetch_venn_circles_formatted(venn_circles, smallest_size)
 
 
-# venn_circles = [pos, radius]
-func fetch_venn_circles_formatted(venn_circles : Array, smallest_size: int) -> Array:
+func fetch_venn_circles_formatted(venn_circles: Array, smallest_size: int) -> Array:
 	
-	var average_pos = Vector2.ZERO
-	for i in venn_circles:
-		average_pos += i[0]
-	average_pos /= float(len(venn_circles))
+	var diagram_rect = $Venn.get_rect(venn_circles)
+	var diagram_center = diagram_rect.position + diagram_rect.size / 2.0
 	
 	var dviations = []
 	for i in venn_circles:
-		dviations.append(i[0] - average_pos)
+		dviations.append(i.center - diagram_center)
 	
-	var smallest_radius = venn_circles[0][1]
-	for i in range(1, len(venn_circles)):
-		if venn_circles[i][1] < smallest_radius:
-			smallest_radius = venn_circles[i][1]
+	var smallest_radius = g.lowest(venn_circles, "radius")
 	
 	# scaling
+	var scalar = sqrt(smallest_size) * 140.0 / smallest_radius
 	var venn_circles_formatted = []
 	for i in range(len(venn_circles)):
-		var scalar = sqrt(smallest_size) * 140 #+ int(len(domains) == 3) * 32)
-		var new_pos = get_center(dviations[i] / smallest_radius * scalar)
-		var new_radius = venn_circles[i][1] / smallest_radius * scalar
-		venn_circles_formatted.append([new_pos, new_radius])
+		var new_center = get_center(dviations[i]  * scalar)
+		var new_radius = venn_circles[i].radius * scalar
+		venn_circles_formatted.append(CIRCLE.new(new_center, new_radius))
 	
 	return venn_circles_formatted
 
@@ -275,14 +268,8 @@ func scale_diagram() -> void:
 
 func set_circles_domain(venn_circles: Array, domains = []) -> void:
 	
-	var new_circles = []
-	
-	for i in venn_circles:
-		var new_circle = CIRCLE.new(i[0], i[1])
-		new_circles.append(new_circle)
-	$Venn.set_circles(new_circles)
-	
-	if !new_circles.empty():
+	$Venn.set_circles(venn_circles)
+	if !venn_circles.empty():
 		update_element_positions()
 	
 	set_domain_tags(domains)

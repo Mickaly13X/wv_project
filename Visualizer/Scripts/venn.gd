@@ -34,15 +34,21 @@ func draw_circle_custom(radius: float, center: Vector2, \
 	draw_colored_polygon(points, color)
 
 
-func get_size() -> Vector2:
+func get_rect(circles = self.circles) -> Rect2:
+	
+	var rect = Rect2()
+	rect.position = Vector2(g.lowest_func(circles, "get_left_x"),
+							g.lowest_func(circles, "get_top_y"))
+	rect.end = Vector2(g.highest_func(circles, "get_right_x"),
+					   g.highest_func(circles, "get_bottom_y"))
+	return rect
+
+
+func get_size(circles = self.circles) -> Vector2:
 	
 	if circles.empty():
 		return Vector2.ZERO
-	var diagram_width = \
-		abs(g.highest_func(circles, "get_right_x") - g.lowest_func(circles, "get_left_x"))
-	var diagram_height = \
-		abs(g.highest_func(circles, "get_top_y") - g.lowest_func(circles, "get_bottom_y"))
-	return Vector2(diagram_width, diagram_height)
+	return get_rect().size
 
 
 func set_circles(circles: Array) -> void:

@@ -4,5 +4,5 @@
 font_path = "res://Fonts/louis_george_caf/Louis George Cafe.ttf"
 
 [resource]
-size = 24
+size = 28
 font_data = SubResource( 1 )

@@ -43,6 +43,7 @@ onready var UnivSizeInput = $Popups/MenuUniverse/VBox/Items/SizeInput
 onready var FileMenu = $HSplit/VBox/MainPanel/UI/HUD/Main/File
 onready var EditMenu = $HSplit/VBox/MainPanel/UI/HUD/Main/Edit
 onready var ProblemMenu = $HSplit/VBox/MainPanel/UI/HUD/Main/Problem
+onready var DocTabs = $Popups/Docs/VBox/HSplit/DocTabs
 
 var config = [Distinct.NONE_SAME, SetFunction.ANY]
 var container_menu : String
@@ -637,6 +638,14 @@ func toggle_cola_panel():
 		OpenCoLa.text = ">"
 
 
+func toggle_docs(is_opened : bool):
+	
+	if is_opened:
+		Popups.get_node("Docs").popup()
+	else:
+		Popups.get_node("Docs").hide()
+
+
 func toggle_main_panel(is_opened : bool) -> void:
 	
 	if is_opened:
@@ -830,3 +839,27 @@ func update_name_caches():
 		GroupInput.get_popup().add_item(i.get_name())
 		GroupInput.get_popup().set_item_as_checkable(
 			GroupInput.get_popup().get_item_count() - 1, true)
+
+
+func _change_doc_tab(idx : int):
+	
+	DocTabs.current_tab = idx
+	
+#	var buttons = Popups.get_node("Docs/VBox/HSplit/Index/Scroll/Buttons").get_children()
+#	for i in range(len(buttons)):
+#		print(i)
+#		if i == idx:
+#			buttons[i].pressed = true
+#			#$Popups/Docs/VBox/HSplit/Index/Scroll/Buttons/Permutation.pressed = true
+#		else:
+#			buttons[i].pressed = false
+
+
+
+
+
+
+
+
+
+

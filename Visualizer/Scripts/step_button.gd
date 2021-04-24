@@ -4,6 +4,13 @@ extends Button
 var is_selected = false
 var problem
 var number
+const REFS = [
+	"(sequence)",
+	"(permutation)",
+	"(subset)",
+	"(multisubset)"
+]
+var doc_ref
 
 
 func _press():
@@ -18,6 +25,7 @@ func init(problem, number: int, is_selected: bool) -> void:
 	set_number(number)
 	toggle_selected(is_selected)
 	update_text()
+	#set_doc_ref(1)
 
 
 func set_number(nb : int) -> void:
@@ -39,6 +47,21 @@ func update_text() -> void:
 	var solution_label = "solution"
 	if problem == g.problem:
 		solution_label = "Total solution"
-	self.text = tabulation + "Step {}) {}: {}".format(
+	$HBox/Text.text = tabulation + "Step {}) {}: {}".format(
 		[number, solution_label, problem.solution], "{}"
 	)
+
+
+func set_doc_ref(idx : int):
+	
+	$HBox/DocRef.text = REFS[idx]
+	doc_ref = idx
+	$HBox/DocRef.show()
+	
+	
+func open_doc_ref():
+	
+	var Main = get_parent().get_parent().get_parent().get_parent().get_parent().get_parent()
+	Main.toggle_docs(true)
+	Main._change_doc_tab(doc_ref)
+

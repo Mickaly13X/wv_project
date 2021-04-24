@@ -843,16 +843,14 @@ func update_name_caches():
 
 func _change_doc_tab(idx : int):
 	
-	DocTabs.current_tab = idx
+	var buttons = Popups.get_node("Docs/VBox/HSplit/Index/Scroll/Buttons").get_children()
+	for i in range(len(buttons)):
+		if i == idx:
+			buttons[i].toggle_select(true)
+		else:
+			buttons[i].toggle_select(false)
 	
-#	var buttons = Popups.get_node("Docs/VBox/HSplit/Index/Scroll/Buttons").get_children()
-#	for i in range(len(buttons)):
-#		print(i)
-#		if i == idx:
-#			buttons[i].pressed = true
-#			#$Popups/Docs/VBox/HSplit/Index/Scroll/Buttons/Permutation.pressed = true
-#		else:
-#			buttons[i].pressed = false
+	DocTabs.current_tab = idx
 
 
 

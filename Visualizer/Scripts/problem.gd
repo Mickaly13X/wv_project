@@ -6,8 +6,6 @@ var problem
 
 func _draw() -> void:
 	
-	$Config.update()
-	$Universe.update()
 	# pos constraints
 	var constraints = problem.pos_constraints
 	for i in constraints:
@@ -15,7 +13,7 @@ func _draw() -> void:
 		var elem = $Config.get_element(int(i))
 		var elem_position = $Config.rect_position + elem.position
 		
-		var line_start = elem_position + $Config.ELEMENT_SIZE * Vector2.RIGHT
+		var line_start = elem_position + $Config.ELEMENT_RADIUS * Vector2.RIGHT
 		
 		var line_end = $Universe.get_size().y / 2.0 * Vector2.DOWN
 		if constraints[i] != problem.get_universe():

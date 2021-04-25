@@ -27,6 +27,8 @@ const ELEMENT_COLORS = [
 
 onready var Buttons = $Menu/Buttons
 var bruh = PoolVector2Array()
+var broh = PoolVector2Array()
+var brah = PoolVector2Array()
 
 func _ready():
 	
@@ -38,8 +40,10 @@ func _ready():
 
 func _draw():
 	draw_self()
-	#var bruh = Geometry.merge_polygons_2d(rect2polygon(Rect2(0, 0, 20, 20)), rect2polygon(Rect2(20, 20, 20, 20)))[0]
-	draw_colored_polygon(bruh, Color(1, 0, 0, 0.3))
+	#var bruh = Geometry.clip_polygons_2d(rect2polygon(Rect2(0, 0, 100, 100)), rect2polygon(Rect2(0, 00, 20, 20)))[0]
+	#draw_colored_polygon(bruh, Color(1, 0, 0, 0.3))
+	#draw_colored_polygon(broh, Color(0, 0, 1, 0.3))
+	draw_colored_polygon(brah, Color(1, 0, 0, 0.5))
 
 
 func _gui_input(event):
@@ -63,7 +67,7 @@ func _pressed(button_name : String) -> void:
 			"Add":
 				var new_id = get_problem().get_free_ids(1)[0]
 				get_problem().get_universe().add_elements([new_id])
-				add_elements([new_id], false)
+				add_elements([new_id])
 				update_element_positions([get_element(new_id)])
 			
 			"Delete":
@@ -86,7 +90,7 @@ func _pressed(button_name : String) -> void:
 
 
 # @pre: 'element_ids' does not contain ids already present
-func add_elements(element_ids: PoolIntArray, is_update = true) -> void:
+func add_elements(element_ids: PoolIntArray) -> void:
 	
 	for i in element_ids:
 	
@@ -94,8 +98,6 @@ func add_elements(element_ids: PoolIntArray, is_update = true) -> void:
 		new_element.init(self, i)
 		$Elements.add_child(new_element)
 	
-	if is_update:
-		update_element_positions()
 	update_element_colors()
 
 
@@ -110,24 +112,6 @@ func delete_elements(element_ids: PoolIntArray = get_element_ids()) -> bool:
 				needs_new_circles = true
 			element.free()
 	return needs_new_circles
-
-
-func draw_circle_custom(radius: float, pos: Vector2, \
-	color: Color = Color.white, maxerror = 0.25):
-	
-	if radius <= 0.0: return
-	
-	var maxpoints = 1024  # I think this is renderer limit
-	var numpoints = ceil(PI / acos(1.0 - maxerror / radius))
-	numpoints = clamp(numpoints, 3, maxpoints)
-	var points = PoolVector2Array([])
-	
-	for i in numpoints:
-		var phi = i * PI * 2.0 / numpoints
-		var v = Vector2(sin(phi), cos(phi))
-		points.push_back(v * radius + pos)
-	
-	draw_colored_polygon(points, color)
 
 
 # @param 'domain_inter_sizes': list of (sub)set SIZES 
@@ -199,11 +183,7 @@ func get_domains() -> Array:
 
 
 func get_element_ids(elements: Array = get_elements()) -> PoolIntArray:
-	
-	var element_ids = PoolIntArray()
-	for I in elements:
-		element_ids.append(I.get_id())
-	return element_ids
+	return PoolIntArray(g.getall_func(elements, "get_id"))
 
 
 func get_perimeter() -> Rect2:
@@ -212,33 +192,6 @@ func get_perimeter() -> Rect2:
 
 func get_problem():
 	return Problem.problem
-
-
-func get_spawn_polygon(Element: Node) -> PoolVector2Array:
-	
-	var inside_polygon = PoolVector2Array()
-	var outside_polygons = Array()
-	
-	if Element.get_id() in get_problem().get_universe_strict():
-		# account for element size
-		inside_polygon = rect2polygon(Rect2(Vector2.ZERO, get_size()).grow(-ELEMENT_RADIUS))
-	
-	for i in get_circles():
-		if Element.get_id() in get_domain(i).get_elements():
-			# account for  element size
-			var new_polygon = \
-				CIRCLE.new(i.center, i.radius - ELEMENT_RADIUS).polygon(64).polygon
-			inside_polygon = Geometry.merge_polygons_2d(inside_polygon, new_polygon)[0]
-		else:
-			var new_polygon = i.polygon(64).polygon
-			outside_polygons.append(new_polygon)
-	
-	bruh = inside_polygon
-	if outside_polygons.empty():
-		return inside_polygon
-	for i in outside_polygons:
-		inside_polygon = Geometry.clip_polygons_2d(inside_polygon, i)[0]
-	return inside_polygon
 
 
 func group(group_name: String, is_dist = true) -> void:
@@ -280,13 +233,31 @@ func has_selected_elements() -> bool:
 	return false
 
 
-func rect2polygon(rect: Rect2) -> PoolVector2Array:
+# high precision for custom exlusion function
+func rect2polygon(rect: Rect2, no_points = 256) -> PoolVector2Array:
 	
 	var polygon = PoolVector2Array()
-	polygon.append(rect.position)
-	polygon.append(rect.position + rect.size.x * Vector2.RIGHT)
-	polygon.append(rect.end)
-	polygon.append(rect.position + rect.size.y * Vector2.DOWN)
+	# right
+	for i in range(no_points / 4):
+		var start = rect.position
+		var step = rect.size.x / float(no_points / 4) * i
+		polygon.append(start + step * Vector2.RIGHT)
+	# down
+	for i in range(no_points / 4):
+		var start = rect.position + rect.size.x * Vector2.RIGHT
+		var step = rect.size.y / float(no_points / 4) * i
+		polygon.append(start + step * Vector2.DOWN)
+	# left
+	for i in range(no_points / 4):
+		var start = rect.end
+		var step = rect.size.x / float(no_points / 4) * i
+		polygon.append(start + step * Vector2.LEFT)
+	# up
+	for i in range(no_points / 4):
+		var start = rect.position + rect.size.y * Vector2.DOWN
+		var step = rect.size.y / float(no_points / 4) * i
+		polygon.append(start + step * Vector2.UP)
+	
 	return polygon
 
 
@@ -427,7 +398,6 @@ func update_element_positions(elements = get_elements()) -> void:
 	for Element in elements:
 		
 		var spawn_polygon = get_spawn_polygon(Element)
-		#bruh = spawn_polygon
 		var triangulation = Geometry.triangulate_polygon(spawn_polygon)
 		var triangles = []
 		for i in range(len(triangulation) / 3):
@@ -442,11 +412,96 @@ func update_element_positions(elements = get_elements()) -> void:
 			triangle_areas.append(
 				0.5 * abs(i[0].x * (i[1].y - i[2].y) + i[1].x * (i[2].y - i[0].y) + i[2].x * (i[0].y - i[1].y))
 			)
+		
 		var new_position: Vector2
-		new_position = g.randomTriangle(triangles[g.choose_weighted(triangle_areas)])
-#		print ("[error] No valid position arrangement found. Defaulting to (0, 0)...")
+		var flag = true
+		var attempt = 1
+		while flag == true:
+			
+			if attempt > 64:
+				print ("[error] No valid position found. Defaulting to (0, 0)...")
+				new_position = Vector2.ZERO
+				break
+			new_position = g.randomTriangle(triangles[g.choose_weighted(triangle_areas)])
+			flag = false
+			for i in assigned_positions:
+				if new_position.distance_to(i) < 2*ELEMENT_RADIUS:
+					flag = true
+					break
+			attempt += 1
 		Element.position = new_position
-#		assigned_positions.append(new_assigned_pos)
+		assigned_positions.append(new_position)
+
+
+func get_spawn_polygon(Element: Node) -> PoolVector2Array:
+	
+	var inside_polygon = PoolVector2Array()
+	var current_inside_union = []
+	var current_inside_domains = []
+	
+	if Element.get_id() in get_problem().get_universe_strict():
+		# account for element size
+		inside_polygon = rect2polygon(Rect2(Vector2.ZERO, get_size()).grow(-ELEMENT_RADIUS))
+		current_inside_union = Array(get_problem().get_universe().get_elements())
+	else:
+		for i in get_domains():
+			if Element.get_id() in i.get_elements():
+				current_inside_union = g.union_array(
+					[current_inside_union, Array(i.get_elements())])
+				current_inside_domains.append(i)
+				# account for  element size
+				var circle = get_circle(i)
+				var new_polygon = CIRCLE.new(
+					circle.center, circle.radius - ELEMENT_RADIUS).polygon(16)
+				if inside_polygon.empty():
+					inside_polygon = new_polygon
+				else:
+					inside_polygon = Geometry. \
+						intersect_polygons_2d(inside_polygon, new_polygon)[0]
+	for i in get_domains():
+		if !i in current_inside_domains:
+			var is_inside = (g.union_array(
+				[current_inside_union, Array(i.get_elements())]
+					) == current_inside_union)
+				# account for  element size
+			var circle = get_circle(i)
+			var new_polygon = CIRCLE.new(
+				circle.center, circle.radius + ELEMENT_RADIUS).polygon(16)
+			inside_polygon = exclude_polygon_custom(inside_polygon, new_polygon, is_inside)
+	
+	return inside_polygon
+
+
+func exclude_polygon_custom(
+	a: PoolVector2Array, b: PoolVector2Array, is_inside = false) -> PoolVector2Array:
+	
+	if is_inside:
+		
+		if Geometry.is_polygon_clockwise(a): a.invert()
+		if Geometry.is_polygon_clockwise(b): b.invert()
+		var seg_a_i
+		var seg_b_j
+		var current_distance = -1
+		for i in range(len(a) - 1):
+			for j in range(len(b) - 1):
+				var seg_a = [a[i], a[i + 1]]
+				var seg_b = [b[j], b[j + 1]]
+				var closest_pair = Geometry.get_closest_points_between_segments_2d(
+					seg_a[0], seg_a[1], seg_b[0], seg_b[1]
+				)
+				var new_distance = closest_pair[0].distance_to(closest_pair[1])
+				if new_distance < current_distance || current_distance == -1:
+					current_distance = new_distance
+					seg_a_i = i
+					seg_b_j = j
+		var new_polygon = PoolVector2Array()
+		new_polygon += PoolVector2Array(Array(a).slice(0, seg_a_i))
+		new_polygon += PoolVector2Array(g.reverse(Array(b).slice(0, seg_b_j)))
+		new_polygon += PoolVector2Array(g.reverse(Array(b)).slice(0, len(b) - seg_b_j - 2))
+		new_polygon += PoolVector2Array(Array(a).slice(seg_a_i + 1, len(a) - 1))
+		return new_polygon
+		
+	return Geometry.clip_polygons_2d(a, b)[0]
 
 
 func update_problem(ow_uni = true, ow_dom = true) -> void:

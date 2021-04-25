@@ -101,6 +101,24 @@ func exclude_array(a: Array, b: Array) -> Array:
 	return exclude
 
 
+# returns the value of 'attr' for each member of 'group'
+func getall(group: Array, attr: String) -> Array:
+	
+	var values = []
+	for i in group:
+		values.append(i.get(attr))
+	return values
+
+
+# returns the value of 'func_name' for each member of 'group'
+func getall_func(group: Array, func_name: String) -> Array:
+	
+	var values = []
+	for i in group:
+		values.append(i.call(func_name))
+	return values
+
+
 # returns highest value of 'attr' between members of 'group'
 # @pre 'group' not empty
 func highest(group: Array, attr: String):
@@ -227,6 +245,14 @@ func randomTriangle(triangle: PoolVector2Array) -> Vector2:
 # returns a Vector2 with as values 2 integer between [0, n]
 func randomVect(vect: Vector2) -> Vector2:
 	return Vector2(random(vect.x), random(vect.y))
+
+
+# returns an array with the elements from 'a', reversed in order
+func reverse(a: Array) -> Array:
+	
+	var a_reverse = Array(a)
+	a_reverse.invert()
+	return a_reverse
 
 
 # returns the sum of all elements from the given list

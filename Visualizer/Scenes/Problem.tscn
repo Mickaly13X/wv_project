@@ -90,6 +90,9 @@ anchor_bottom = 1.0
 margin_right = 750.0
 margin_bottom = 600.0
 mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Venn" type="Node2D" parent="Universe"]
 script = ExtResource( 5 )

@@ -12,7 +12,7 @@ var circles = []
 func _draw():
 	
 	for i in range(len(circles)):
-		draw_colored_polygon(circles[i].polygon().polygon, CIRCLE_COLORS[i])
+		draw_colored_polygon(circles[i].polygon(), CIRCLE_COLORS[i])
 
 
 func get_rect(circles = self.circles) -> Rect2:

@@ -8,9 +8,9 @@ func _init(center: Vector2, radius: float) -> void:
 	self.radius = radius
 
 
-func polygon(max_points = 1024, max_error = 0.25) -> Polygon2D:
+func polygon(max_points = 1024, max_error = 0.25) -> PoolVector2Array:
 	
-	if radius <= 0.0: return null
+	if radius <= 0.0: return PoolVector2Array()
 	
 	var num_points = ceil(PI / acos(1.0 - max_error / radius))
 	num_points = clamp(num_points, 3, max_points)
@@ -21,9 +21,7 @@ func polygon(max_points = 1024, max_error = 0.25) -> Polygon2D:
 		var v = Vector2(sin(phi), cos(phi))
 		points.push_back(v * radius + center)
 	
-	var polygon = Polygon2D.new()
-	polygon.polygon = points
-	return polygon
+	return points
 
 
 func rect() -> Rect2:

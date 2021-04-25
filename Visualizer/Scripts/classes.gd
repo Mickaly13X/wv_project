@@ -136,11 +136,7 @@ class Problem:
 	
 	
 	func get_domain_elements() -> Array:
-		
-		var domains_elements = []
-		for i in get_domains():
-			domains_elements.append(i.get_elements())
-		return domains_elements
+		return g.getall_func(get_domains(), "get_elements")
 	
 	
 	# no_domains == 1, return = [A]
@@ -194,6 +190,7 @@ class Problem:
 	
 	
 	func get_domain_name_from_elements(elements : Array) -> String:
+		
 		for domain in domains:
 			if elements.sort() == Array(domain.get_elements()).sort():
 				return domain.get_name()

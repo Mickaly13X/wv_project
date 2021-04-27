@@ -101,6 +101,22 @@ func add_elements(element_ids: PoolIntArray) -> void:
 	update_element_colors()
 
 
+# @return always <= 1
+func calc_scaling() -> float:
+	
+	var diagram_size = $Venn.get_size()
+	# adjust to prevent weird polygon exclusion behavior
+	diagram_size.y += 5*ELEMENT_RADIUS
+	
+	var scaling = 1
+	if diagram_size.x > get_size().x && diagram_size.x != 0:
+		scaling = get_size().x / float(diagram_size.x)
+	if diagram_size.y > get_size().y && diagram_size.y != 0:
+		scaling = min(scaling, get_size().y / float(diagram_size.y))
+	
+	return scaling
+
+
 # @return whether new circles need to be calculated
 func delete_elements(element_ids: PoolIntArray = get_element_ids()) -> bool:
 	
@@ -263,17 +279,10 @@ func rect2polygon(rect: Rect2, no_points = 256) -> PoolVector2Array:
 
 func scale_diagram() -> void:
 	
-	var diagram_size = $Venn.get_size()
-	
-	var scaling = 1
-	if diagram_size.x > get_size().x && diagram_size.x != 0:
-		scaling = get_size().x / float(diagram_size.x)
-	if diagram_size.y > get_size().y && diagram_size.y != 0:
-		scaling = min(scaling, get_size().y / float(diagram_size.y))
-	
+	var scaling = calc_scaling()
 	var offset = Vector2.ZERO
 	if scaling != 1:
-		offset = get_size() * (1 - scaling) / (2.0)
+		offset = get_size() * (1 - scaling) / 2.0
 #	print(get_size())
 #	print(diagram_size)
 #	print(offset)
@@ -402,9 +411,13 @@ func update_element_positions(elements = get_elements()) -> void:
 	for i in g.exclude(get_elements(), elements):
 		assigned_positions.append(i.position)
 	
-	for Element in elements:
+	for spawn_members in get_spawn_divisions():
 		
-		var spawn_polygon = get_spawn_polygon(Element)
+		if spawn_members.empty(): continue
+		
+		var spawn_polygon = get_spawn_polygon(spawn_members)
+		brah = spawn_polygon
+		update()
 		var triangulation = Geometry.triangulate_polygon(spawn_polygon)
 		var triangles = []
 		for i in range(len(triangulation) / 3):
@@ -413,46 +426,60 @@ func update_element_positions(elements = get_elements()) -> void:
 			new_triangle.append(spawn_polygon[triangulation[i * 3 + 1]])
 			new_triangle.append(spawn_polygon[triangulation[i * 3 + 2]])
 			triangles.append(new_triangle)
-		
 		var triangle_areas = []
 		for i in triangles:
 			triangle_areas.append(
 				0.5 * abs(i[0].x * (i[1].y - i[2].y) + i[1].x * (i[2].y - i[0].y) + i[2].x * (i[0].y - i[1].y))
 			)
 		
-		var new_position: Vector2
-		var flag = true
-		var attempt = 1
-		while flag == true:
+		for i in spawn_members:
 			
-			if attempt > 64:
-				print ("[error] No valid position found. Defaulting to (0, 0)...")
-				new_position = Vector2.ZERO
-				break
-			new_position = g.randomTriangle(triangles[g.choose_weighted(triangle_areas)])
-			flag = false
-			for i in assigned_positions:
-				if new_position.distance_to(i) < 2*ELEMENT_RADIUS:
-					flag = true
+			var new_position: Vector2
+			var flag = true
+			var attempt = 1
+			while flag == true:
+				
+				if attempt > 64:
+					print ("[error] No valid position found. Defaulting to (0, 0)...")
+					new_position = Vector2.ZERO
 					break
-			attempt += 1
-		Element.position = new_position
-		assigned_positions.append(new_position)
+				new_position = g.randomTriangle(triangles[g.choose_weighted(triangle_areas)])
+				flag = false
+				for j in assigned_positions:
+					if new_position.distance_to(j) < 2*ELEMENT_RADIUS:
+						flag = true
+						break
+				attempt += 1
+				
+			get_element(i).position = new_position
+			assigned_positions.append(new_position)
 
 
-func get_spawn_polygon(Element: Node) -> PoolVector2Array:
+func get_spawn_divisions() -> Array:
+	
+	var spawn_divisions = get_problem().get_domain_intersections()
+	spawn_divisions.append(get_problem().get_universe_strict())
+	return spawn_divisions
+
+
+# @pre all elements given by 'element_ids' must share a common spawn polygon
+func get_spawn_polygon(element_ids: PoolIntArray) -> PoolVector2Array:
 	
 	var inside_polygon = PoolVector2Array()
 	var current_inside_union = []
 	var current_inside_domains = []
 	
-	if Element.get_id() in get_problem().get_universe_strict():
+	var repr = element_ids[0]
+	if repr in get_problem().get_universe_strict():
 		# account for element size
-		inside_polygon = rect2polygon(Rect2(Vector2.ZERO, get_size()).grow(-ELEMENT_RADIUS))
+		inside_polygon = rect2polygon(
+			get_container_rect(1.0 / calc_scaling()).grow(-ELEMENT_RADIUS)
+		)
+		print(get_container_rect(1.0 / calc_scaling()).grow(-ELEMENT_RADIUS))
 		current_inside_union = Array(get_problem().get_universe().get_elements())
 	else:
 		for i in get_domains():
-			if Element.get_id() in i.get_elements():
+			if repr in i.get_elements():
 				current_inside_union = g.union_array(
 					[current_inside_union, Array(i.get_elements())])
 				current_inside_domains.append(i)
@@ -467,48 +494,66 @@ func get_spawn_polygon(Element: Node) -> PoolVector2Array:
 						intersect_polygons_2d(inside_polygon, new_polygon)[0]
 	for i in get_domains():
 		if !i in current_inside_domains:
-			var is_inside = (g.union_array(
-				[current_inside_union, Array(i.get_elements())]
-					) == current_inside_union)
-				# account for  element size
+			# account for  element size
 			var circle = get_circle(i)
+			print(circle.radius*2)
 			var new_polygon = CIRCLE.new(
 				circle.center, circle.radius + ELEMENT_RADIUS).polygon(16)
-			inside_polygon = exclude_polygon_custom(inside_polygon, new_polygon, is_inside)
+			inside_polygon = exclude_polygon_custom(inside_polygon, new_polygon)
 	
 	return inside_polygon
 
 
-func exclude_polygon_custom(
-	a: PoolVector2Array, b: PoolVector2Array, is_inside = false) -> PoolVector2Array:
+func exclude_polygon_custom(a: PoolVector2Array, b: PoolVector2Array) -> PoolVector2Array:
 	
-	if is_inside:
-		
+	var exclusion = Geometry.clip_polygons_2d(a, b)
+	
+	# if default polygon exclusion fails
+	# custom implementation
+	if len(exclusion) != 1 || len(exclusion[0]) == 4:
 		if Geometry.is_polygon_clockwise(a): a.invert()
 		if Geometry.is_polygon_clockwise(b): b.invert()
-		var seg_a_i
-		var seg_b_j
+#		var seg_a_i
+#		var seg_b_j
+#		var current_distance = -1
+#		for i in range(len(a) - 1):
+#			for j in range(len(b) - 1):
+#				var seg_a = [a[i], a[i + 1]]
+#				var seg_b = [b[j], b[j + 1]]
+#				var closest_pair = Geometry.get_closest_points_between_segments_2d(
+#					seg_a[0], seg_a[1], seg_b[0], seg_b[1]
+#				)
+#				var new_distance = closest_pair[0].distance_to(closest_pair[1])
+#				if new_distance < current_distance || current_distance == -1:
+#					current_distance = new_distance
+#					seg_a_i = i
+#					seg_b_j = j
+#		var new_polygon = PoolVector2Array()
+#		new_polygon += PoolVector2Array(Array(a).slice(0, seg_a_i))
+#		new_polygon += PoolVector2Array(g.reverse(Array(b).slice(0, seg_b_j)))
+#		new_polygon += PoolVector2Array(g.reverse(Array(b)).slice(0, len(b) - seg_b_j - 2))
+#		new_polygon += PoolVector2Array(Array(a).slice(seg_a_i + 1, len(a) - 1))
+		var a_i
+		var b_j
 		var current_distance = -1
-		for i in range(len(a) - 1):
-			for j in range(len(b) - 1):
-				var seg_a = [a[i], a[i + 1]]
-				var seg_b = [b[j], b[j + 1]]
-				var closest_pair = Geometry.get_closest_points_between_segments_2d(
-					seg_a[0], seg_a[1], seg_b[0], seg_b[1]
-				)
-				var new_distance = closest_pair[0].distance_to(closest_pair[1])
+		for i in range(len(a)):
+			for j in range(len(b)):
+				var new_distance = a[i].distance_to(b[j])
 				if new_distance < current_distance || current_distance == -1:
 					current_distance = new_distance
-					seg_a_i = i
-					seg_b_j = j
+					a_i = i
+					b_j = j
+		print(a[a_i])
+		print(b[b_j])
 		var new_polygon = PoolVector2Array()
-		new_polygon += PoolVector2Array(Array(a).slice(0, seg_a_i))
-		new_polygon += PoolVector2Array(g.reverse(Array(b).slice(0, seg_b_j)))
-		new_polygon += PoolVector2Array(g.reverse(Array(b)).slice(0, len(b) - seg_b_j - 2))
-		new_polygon += PoolVector2Array(Array(a).slice(seg_a_i + 1, len(a) - 1))
+		new_polygon += PoolVector2Array(Array(a).slice(0, a_i))
+		new_polygon += PoolVector2Array(g.reverse(Array(b).slice(0, b_j)))
+		new_polygon += PoolVector2Array(g.reverse(Array(b).slice(b_j, len(b) - 1)))
+		new_polygon += PoolVector2Array(Array(a).slice(a_i, len(a) - 1))
+		print(len(new_polygon))
 		return new_polygon
 		
-	return Geometry.clip_polygons_2d(a, b)[0]
+	return exclusion[0]
 
 
 func update_problem(ow_uni = true, ow_dom = true) -> void:

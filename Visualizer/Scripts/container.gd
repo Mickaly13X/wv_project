@@ -25,6 +25,10 @@ func get_center(offset = Vector2.ZERO) -> Vector2:
 	return $Mask.rect_position + $Mask.rect_size / 2.0 + offset
 
 
+func get_container_rect(scaling = 1.0) -> Rect2:
+	return Rect2(get_size() * (1 - scaling) / 2.0, get_size() * scaling)
+
+
 func get_element(element_id: int) -> Node:
 	
 	for I in get_elements():

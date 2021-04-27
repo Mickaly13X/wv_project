@@ -53,14 +53,21 @@ class Problem:
 		
 		domain.set_problem(self)
 		domains.append(domain)
+		universe.elements = PoolIntArray(
+			g.union(Array(universe.elements), Array(domain.elements))
+		)
 	
 	
 	func add_pos_constraint(pos: int, domain_name: String) -> void:
 		pos_constraints[pos] = get_domain(domain_name)
 	
 	
-	func add_to_domain(domain_name: String, elem_id : int) -> void:
-		get_domain(domain_name).add_element(elem_id)
+	func add_to_domain(domain: Domain, element_ids: PoolIntArray) -> void:
+		
+		domain.add_elements(element_ids)
+		universe.elements = PoolIntArray(
+			g.union(Array(universe.elements), Array(domain.elements))
+		)
 	
 	
 	func add_strlist_to_domain(domain: Domain, elem_names: PoolStringArray) -> void:
@@ -80,7 +87,7 @@ class Problem:
 			var new_elem_ids = get_free_ids(len(new_elem_names))
 			for i in range(len(new_elem_names)):
 				elem_map[new_elem_names[i]] = new_elem_ids[i]
-			domain.add_elements(elem_ids + new_elem_ids)
+			add_to_domain(domain, elem_ids + new_elem_ids)
 	
 	
 	func check_empty_domains() -> void:
@@ -283,7 +290,7 @@ class Problem:
 			elements_filtered = PoolIntArray(elements_filtered)
 			if !elements_filtered.empty():
 				var new_domain = g.Domain.new(group_name, elements_filtered, is_dist)
-				domains.append(new_domain)
+				add_domain(new_domain)
 		else:
 			var domain = get_domain(group_name)
 			for i in elements_filtered:
@@ -291,7 +298,7 @@ class Problem:
 					if is_dist_elem(i) != domain.is_distinct:
 						elements_filtered.erase(i)
 			elements_filtered = PoolIntArray(elements_filtered)
-			domain.add_elements(elements_filtered)
+			add_to_domain(domain, elements_filtered)
 	
 	
 	func is_bound_elem(elem_id: int) -> bool:
@@ -332,6 +339,10 @@ class Problem:
 	
 	
 	func remove_domain(index : int) -> void:
+		
+		for i in pos_constraints:
+			if pos_constraints[i] == domains[index]:
+				pos_constraints.erase(i)
 		domains.remove(index)
 	
 	
@@ -359,7 +370,7 @@ class Problem:
 	func set_size_constraint(domain_name: String, operator: String, size: int) -> void:
 		
 		var domain = get_domain(domain_name)
-		domain.set_size_constraint(domain, operator, size)
+		domain.set_size_constraint(operator, size)
 	
 	
 	func set_size_constraint_array(domain_name: String, sizes : Array) -> void:
@@ -472,11 +483,7 @@ class Domain:
 	
 	
 	func add_elements(new_elements : PoolIntArray) -> void:
-		
 		elements = g.union(elements, new_elements)
-		if problem != null:
-			if self != problem.get_universe():
-				problem.get_universe().add_elements(new_elements)
 	
 	
 	func erase_elem(element : int) -> void:
@@ -532,8 +539,8 @@ class Domain:
 		return self.problem
 	
 	
-	func set_size_constraint(domain : Domain, operator : String, size : int):
-		size_constraint.init(domain, operator, size)
+	func set_size_constraint(operator : String, size : int):
+		size_constraint.init(self, operator, size)
 	
 	
 	func set_size_constraint_array(domain : Domain, sizes : Array):
@@ -884,12 +891,17 @@ class CoLaExpression:
 				
 			"constraint_count":
 				
-				var list = cola_string.split(" ")
-				var name = list[0].replace("#","")
-				var operator = list[1]
-				var size = list[2]
+				var args: Array
+				var operator: String
+				for i in g.OPERATORS:
+					if i in cola_string: 
+						args = cola_string.lstrip("#").replace(" ", "").split(i)
+						operator = i
+						break
+				var name = args[0]
+				var count = int(args[1])
 				func_str = "parse_size_cs('{n}','{op}',{s})" \
-					.format({"n" : name, "op" : operator, "s" : size})
+					.format({"n" : name, "op" : operator, "s" : count})
 			
 			"constraint_position":
 				

@@ -8,6 +8,8 @@ func _init(center: Vector2, radius: float) -> void:
 	self.radius = radius
 
 
+# returns an approximate of this circle with 'max_points' verteces, e.g. a polygon
+# @post polygon lies strictly inside circle
 func polygon(max_points = 1024, max_error = 0.25) -> PoolVector2Array:
 	
 	if radius <= 0.0: return PoolVector2Array()
@@ -24,6 +26,7 @@ func polygon(max_points = 1024, max_error = 0.25) -> PoolVector2Array:
 	return points
 
 
+# returns a rectangle which minimally encloses this circle
 func rect() -> Rect2:
 	
 	return Rect2(
@@ -32,33 +35,41 @@ func rect() -> Rect2:
 	)
 
 
+# returns the left most point
 func left() -> Vector2:
 	return center + radius * Vector2.LEFT
 
 
+# returns the right most point
 func right() -> Vector2:
 	return center + radius * Vector2.RIGHT
 
 
+# returns the top point
 func top() -> Vector2:
 	return center + radius * Vector2.UP
 
 
+# returns the bottom point
 func bottom() -> Vector2:
 	return center + radius * Vector2.DOWN
 
 
+# returns the lowest x-value of this circle
 func left_x() -> float:
 	return left().x
 
 
+# returns the highest x-value of this circle
 func right_x() -> float:
 	return right().x
 
 
+# returns the lowest y-value of this circle
 func top_y() -> float:
 	return top().y
 
 
+# returns the highest y-value of this circle
 func bottom_y() -> float:
 	return bottom().y

@@ -284,10 +284,10 @@ func scale_diagram() -> void:
 	$Elements.set_scale(scaling * Vector2.ONE)
 
 
-func set_circles_domain(venn_circles: Array, domains = []) -> void:
+func set_circles_domain(venn_circles: Array, is_rebuilt = true, domains = []) -> void:
 	
 	$Venn.set_circles(venn_circles)
-	if !venn_circles.empty():
+	if is_rebuilt && !venn_circles.empty():
 		update_element_positions()
 	
 	set_domain_tags(domains)
@@ -333,12 +333,18 @@ func set_name(custom_name : String) -> void:
 # @param 'ow_*': whether to ignore update optimizations
 func set_problem(new_problem, ow_uni = false, ow_dom = false) -> void:
 	
+	var needs_repos = false
 	if ow_uni || has_new_universe(new_problem):
 		set_elements(new_problem.get_universe().get_elements())
+		needs_repos = true
 	
 	if ow_dom || has_new_domains(new_problem):
-		update_circles(new_problem)
+		update_circles(new_problem, false)
 		update_element_colors()
+		needs_repos = true
+	
+	if needs_repos:
+		update_element_positions()
 	
 	set_name(new_problem.get_universe().get_name())
 
@@ -358,16 +364,17 @@ func toggle_menu_button(buttom_name: String, is_pressable : bool):
 	Buttons.get_node(buttom_name).disabled = !is_pressable
 
 
-func update_circles(problem = get_problem()):
+func update_circles(problem = get_problem(), is_rebuilt = true):
 	
 	if problem.get_domains().empty():
-		set_circles_domain([])
+		set_circles_domain([], is_rebuilt)
 	else:
 		set_circles_domain(
 			fetch_venn_circles(
 				g.lengths(problem.get_domain_intersections()),
 				Array(problem.get_domain_sizes()).min()
 			),
+			is_rebuilt,
 			problem.get_domains()
 		)
 

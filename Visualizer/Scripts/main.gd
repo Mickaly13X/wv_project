@@ -95,6 +95,7 @@ func _import(file_path):
 	#if is_cola()
 	CoLaInput.text = content #TODO
 	parse(content)
+	print()
 	Problem.set_self(self, g.problem)
 	update_name_caches()
 
@@ -675,11 +676,9 @@ func toggle_menu_problem_button(button_name : String, is_pressable : bool):
 	ProblemMenu.get_popup().set_item_disabled(get_item_idx_from_string(ProblemMenu.get_popup(), button_name), !is_pressable)
 
 
-# ref = N or X
 func toggle_menu_universe(is_opened : bool) -> void:
 	
 	if is_opened:
-		$Popups/MenuUniverse/VBox/Title.text = "Set Universe"
 		$Popups/MenuUniverse.popup()
 	else:
 		$Popups/MenuUniverse.hide()

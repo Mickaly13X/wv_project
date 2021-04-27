@@ -104,6 +104,8 @@ __meta__ = {
 [node name="UI" type="VBoxContainer" parent="HSplit/VBox/MainPanel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = -0.476685
+margin_right = -0.476685
 mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
@@ -501,7 +503,7 @@ __meta__ = {
 [node name="Items" type="GridContainer" parent="Popups/MenuUniverse/VBox"]
 margin_top = 50.0
 margin_right = 503.0
-margin_bottom = 181.0
+margin_bottom = 177.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/vseparation = 16
@@ -513,8 +515,8 @@ __meta__ = {
 
 [node name="NameLabel" type="Label" parent="Popups/MenuUniverse/VBox/Items"]
 margin_top = 5.0
-margin_right = 64.0
-margin_bottom = 33.0
+margin_right = 74.0
+margin_bottom = 37.0
 custom_fonts/font = ExtResource( 4 )
 text = "Name"
 valign = 1
@@ -523,9 +525,9 @@ __meta__ = {
 }
 
 [node name="NameInput" type="LineEdit" parent="Popups/MenuUniverse/VBox/Items"]
-margin_left = 80.0
+margin_left = 90.0
 margin_right = 503.0
-margin_bottom = 38.0
+margin_bottom = 42.0
 rect_min_size = Vector2( 128, 24 )
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 4 )
@@ -537,9 +539,9 @@ __meta__ = {
 }
 
 [node name="SizeLabel" type="Label" parent="Popups/MenuUniverse/VBox/Items"]
-margin_top = 57.0
-margin_right = 64.0
-margin_bottom = 85.0
+margin_top = 61.0
+margin_right = 74.0
+margin_bottom = 93.0
 custom_fonts/font = ExtResource( 4 )
 text = "Size"
 __meta__ = {
@@ -547,10 +549,10 @@ __meta__ = {
 }
 
 [node name="SizeInput" type="MenuButton" parent="Popups/MenuUniverse/VBox/Items"]
-margin_left = 80.0
-margin_top = 54.0
-margin_right = 128.0
-margin_bottom = 88.0
+margin_left = 90.0
+margin_top = 58.0
+margin_right = 138.0
+margin_bottom = 96.0
 rect_min_size = Vector2( 48, 0 )
 size_flags_horizontal = 0
 custom_fonts/font = ExtResource( 4 )
@@ -561,23 +563,23 @@ __meta__ = {
 }
 
 [node name="Buttons" type="HBoxContainer" parent="Popups/MenuUniverse/VBox"]
-margin_top = 185.0
+margin_top = 181.0
 margin_right = 503.0
 margin_bottom = 219.0
 custom_constants/separation = 256
 alignment = 1
 
 [node name="CancelButton" type="Button" parent="Popups/MenuUniverse/VBox/Buttons"]
-margin_left = 48.0
-margin_right = 132.0
-margin_bottom = 34.0
+margin_left = 38.0
+margin_right = 134.0
+margin_bottom = 38.0
 custom_fonts/font = ExtResource( 4 )
 text = "Cancel"
 
 [node name="AddButton" type="Button" parent="Popups/MenuUniverse/VBox/Buttons"]
-margin_left = 388.0
-margin_right = 454.0
-margin_bottom = 34.0
+margin_left = 390.0
+margin_right = 465.0
+margin_bottom = 38.0
 focus_mode = 0
 custom_fonts/font = ExtResource( 4 )
 enabled_focus_mode = 0
@@ -587,14 +589,15 @@ __meta__ = {
 }
 
 [node name="MenuGroup" type="PopupDialog" parent="Popups"]
+visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -277.0
-margin_top = -109.0
-margin_right = 278.0
-margin_bottom = 169.0
+margin_left = -317.0
+margin_top = -162.5
+margin_right = 317.0
+margin_bottom = 162.5
 rect_min_size = Vector2( 296, 128 )
 custom_styles/panel = SubResource( 3 )
 popup_exclusive = true
@@ -614,7 +617,7 @@ __meta__ = {
 }
 
 [node name="Title" type="Label" parent="Popups/MenuGroup/VBox"]
-margin_right = 491.0
+margin_right = 570.0
 margin_bottom = 46.0
 custom_fonts/font = ExtResource( 5 )
 text = "Group Selected Elements"
@@ -626,8 +629,8 @@ __meta__ = {
 
 [node name="Items" type="GridContainer" parent="Popups/MenuGroup/VBox"]
 margin_top = 50.0
-margin_right = 491.0
-margin_bottom = 140.0
+margin_right = 570.0
+margin_bottom = 165.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/vseparation = 16
@@ -638,9 +641,10 @@ __meta__ = {
 }
 
 [node name="SelectGroup" type="Label" parent="Popups/MenuGroup/VBox/Items"]
-margin_top = 5.0
-margin_right = 73.0
-margin_bottom = 33.0
+margin_top = -1.0
+margin_right = 86.0
+margin_bottom = 41.0
+rect_min_size = Vector2( 0, 42 )
 custom_fonts/font = ExtResource( 4 )
 text = "Group:"
 __meta__ = {
@@ -648,11 +652,10 @@ __meta__ = {
 }
 
 [node name="GroupInput" type="MenuButton" parent="Popups/MenuGroup/VBox/Items"]
-margin_left = 89.0
-margin_right = 267.0
-margin_bottom = 38.0
-rect_min_size = Vector2( 178, 38 )
-size_flags_horizontal = 0
+margin_left = 102.0
+margin_right = 308.0
+margin_bottom = 42.0
+rect_min_size = Vector2( 206, 42 )
 custom_fonts/font = ExtResource( 4 )
 text = "-Select Groups-"
 flat = false
@@ -663,9 +666,9 @@ __meta__ = {
 }
 
 [node name="NewGroupInput" type="LineEdit" parent="Popups/MenuGroup/VBox/Items"]
-margin_left = 283.0
-margin_right = 491.0
-margin_bottom = 38.0
+margin_left = 324.0
+margin_right = 570.0
+margin_bottom = 42.0
 rect_min_size = Vector2( 128, 24 )
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 4 )
@@ -677,22 +680,22 @@ __meta__ = {
 }
 
 [node name="Filler" type="Label" parent="Popups/MenuGroup/VBox/Items"]
-margin_top = 65.0
-margin_right = 73.0
-margin_bottom = 79.0
+margin_top = 71.0
+margin_right = 86.0
+margin_bottom = 85.0
 
 [node name="Filler2" type="Label" parent="Popups/MenuGroup/VBox/Items"]
-margin_left = 89.0
-margin_top = 54.0
-margin_right = 267.0
-margin_bottom = 90.0
+margin_left = 102.0
+margin_top = 60.0
+margin_right = 308.0
+margin_bottom = 96.0
 rect_min_size = Vector2( 0, 36 )
 
 [node name="DistInput" type="CheckBox" parent="Popups/MenuGroup/VBox/Items"]
-margin_left = 283.0
-margin_top = 54.0
-margin_right = 491.0
-margin_bottom = 90.0
+margin_left = 324.0
+margin_top = 58.0
+margin_right = 570.0
+margin_bottom = 98.0
 focus_mode = 0
 custom_fonts/font = ExtResource( 4 )
 pressed = true
@@ -703,9 +706,9 @@ __meta__ = {
 }
 
 [node name="GroupsLabel" type="Label" parent="Popups/MenuGroup/VBox"]
-margin_top = 144.0
-margin_right = 491.0
-margin_bottom = 172.0
+margin_top = 169.0
+margin_right = 570.0
+margin_bottom = 201.0
 custom_fonts/font = ExtResource( 4 )
 text = "Selected:"
 autowrap = true
@@ -714,21 +717,21 @@ __meta__ = {
 }
 
 [node name="Filler" type="Label" parent="Popups/MenuGroup/VBox"]
-margin_top = 176.0
-margin_right = 491.0
-margin_bottom = 190.0
+margin_top = 205.0
+margin_right = 570.0
+margin_bottom = 219.0
 
 [node name="Buttons" type="HBoxContainer" parent="Popups/MenuGroup/VBox"]
-margin_top = 194.0
-margin_right = 491.0
-margin_bottom = 228.0
+margin_top = 223.0
+margin_right = 570.0
+margin_bottom = 261.0
 custom_constants/separation = 256
 alignment = 1
 
 [node name="CancelButton" type="Button" parent="Popups/MenuGroup/VBox/Buttons"]
-margin_left = 36.0
-margin_right = 120.0
-margin_bottom = 34.0
+margin_left = 64.0
+margin_right = 160.0
+margin_bottom = 38.0
 focus_mode = 0
 custom_fonts/font = ExtResource( 4 )
 enabled_focus_mode = 0
@@ -738,9 +741,9 @@ __meta__ = {
 }
 
 [node name="Group" type="Button" parent="Popups/MenuGroup/VBox/Buttons"]
-margin_left = 376.0
-margin_right = 455.0
-margin_bottom = 34.0
+margin_left = 416.0
+margin_right = 506.0
+margin_bottom = 38.0
 focus_mode = 0
 custom_fonts/font = ExtResource( 4 )
 enabled_focus_mode = 0
@@ -1242,9 +1245,9 @@ window_title = "Open een Bestand"
 mode = 0
 access = 2
 filters = PoolStringArray( "*.pl ; CoLa Files" )
-current_dir = "/Users/Joran/Git/wv_project/Visualizer"
+current_dir = "/Users/erickim/wv_project/Visualizer"
 current_file = "~"
-current_path = "/Users/Joran/Git/wv_project/Visualizer/~"
+current_path = "/Users/erickim/wv_project/Visualizer/~"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1263,9 +1266,9 @@ popup_exclusive = true
 window_title = "Save as CoLa (.pl) file"
 access = 2
 filters = PoolStringArray( "*.pl ; CoLa Files" )
-current_dir = "/Users/Joran/Git/wv_project/Visualizer"
+current_dir = "/Users/erickim/wv_project/Visualizer"
 current_file = "~"
-current_path = "/Users/Joran/Git/wv_project/Visualizer/~"
+current_path = "/Users/erickim/wv_project/Visualizer/~"
 __meta__ = {
 "_edit_use_anchors_": false
 }

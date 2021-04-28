@@ -658,6 +658,9 @@ func toggle_main_panel(is_opened : bool) -> void:
 func toggle_menu_group(is_opened : bool) -> void:
 	
 	if is_opened:
+		if !Universe.has_selected_elements():
+			show_message("No elements selected to group.")
+			return
 		NewGroupInput.hide()
 		DistInput.pressed = true
 		DistInput.hide()
@@ -819,7 +822,7 @@ func _update_item_disabled():
 	
 	toggle_menu_problem_button("Add Elements", !(Universe.has_max_elements() || Universe.has_selected_elements()))
 	#toggle_menu_problem_button("Delete", Universe.has_selected_elements)
-	toggle_menu_problem_button("Group", Universe.has_selected_elements())
+	#toggle_menu_problem_button("Group", Universe.has_selected_elements())
 	toggle_menu_problem_button("Add Position Constraint", len(Config.get_elements()) != 0)
 
 

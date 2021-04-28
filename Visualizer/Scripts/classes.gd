@@ -241,7 +241,7 @@ class Problem:
 	func get_universe_strict() -> PoolIntArray:
 		
 		return PoolIntArray(
-			g.exclude_array(universe.get_elements(), get_domain_elements())
+			g.exclude_list(universe.get_elements(), get_domain_elements())
 		)
 	
 	
@@ -253,7 +253,7 @@ class Problem:
 		
 		if domains.empty():
 			return [universe]
-		if g.union_array(get_domain_elements()).size() == universe.get_size():
+		if g.union_list(get_domain_elements()).size() == universe.get_size():
 			return get_domains()
 		return get_domains() + [universe]
 	
@@ -305,7 +305,7 @@ class Problem:
 	
 	
 	func is_bound_elem(elem_id: int) -> bool:
-		return elem_id in g.union_array(get_domain_elements())
+		return elem_id in g.union_list(get_domain_elements())
 	
 	
 	func is_dist_elem(elem_id: int) -> bool:
@@ -548,11 +548,6 @@ class Domain:
 	
 	func set_size_constraint_array(domain : Domain, sizes : Array):
 		size_constraint.init_array(domain, sizes)
-	
-	
-# warning-ignore:function_conflicts_variable
-	func is_distinct() -> bool:
-		return is_distinct
 
 
 class DomainFormula:
@@ -585,10 +580,6 @@ class Configuration:
 		set_type(_type)
 	
 	
-	func set_size(_size: int):
-		size = _size
-	
-	
 	func get_size() -> int:
 		return size
 	
@@ -602,10 +593,6 @@ class Configuration:
 		if not custom_name:
 			return "config"
 		return custom_name.strip_edges().to_lower()
-	
-	
-	func set_name(_name : String):
-		custom_name = _name
 	
 	
 	func get_type():
@@ -640,10 +627,6 @@ class Configuration:
 		return domain
 	
 	
-	func set_domain(_domain : Domain):
-		domain = _domain
-	
-	
 	func to_cola() -> String:
 		
 		var cola = "{c} in {h0}{h1}{u}{h2};".format(
@@ -654,7 +637,6 @@ class Configuration:
 			 "h2": type_string_list[2]}
 		)
 		cola += "\n#{c} = {s};".format({"c": get_name_cola(), "s": size})
-		
 		return cola
 
 
@@ -731,7 +713,7 @@ class SizeConstraint:
 	
 	func get_domain() -> Domain:
 		return domain
-		
+
 
 # Class for CoLa Expressions
 class CoLaExpression:
@@ -915,6 +897,7 @@ class CoLaExpression:
 					.format({"p" : position, "d" : domain_name})
 				
 		return func_str
+
 
 # Interval class
 class Interval extends IntervalString:

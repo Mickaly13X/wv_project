@@ -95,7 +95,6 @@ func _import(file_path):
 	#if is_cola()
 	CoLaInput.text = content #TODO
 	parse(content)
-	print()
 	Problem.set_self(self, g.problem)
 	update_name_caches()
 
@@ -466,7 +465,7 @@ func init_menus() -> void:
 	EditMenu.get_popup().connect("id_pressed", self, "_pressed_mb_main", [EditMenu])
 	EditMenu.get_popup().add_item("Clear")
 	
-	#problem
+	# problem
 	ProblemMenu.get_popup().connect("id_pressed", self, "_pressed_mb_main", [ProblemMenu])
 	ProblemMenu.get_popup().add_item("New Universe")
 	ProblemMenu.get_popup().add_item("New Configuration")
@@ -667,7 +666,6 @@ func toggle_menu_group(is_opened : bool) -> void:
 		Popups.get_node("MenuGroup").popup()
 	else:
 		Universe.deselect_elements()
-		
 		Popups.get_node("MenuGroup").hide()
 
 
@@ -850,13 +848,3 @@ func _change_doc_tab(idx : int):
 			buttons[i].toggle_select(false)
 	
 	DocTabs.current_tab = idx
-
-
-
-
-
-
-
-
-
-

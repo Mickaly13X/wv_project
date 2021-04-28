@@ -91,7 +91,7 @@ func exclude(a: Array, b: Array) -> Array:
 
 # returns a / b
 # @param 'b': 2D Array
-func exclude_array(a: Array, b: Array) -> Array:
+func exclude_list(a: Array, b: Array) -> Array:
 	
 	var exclude = a
 	for b_sub in b:
@@ -274,7 +274,7 @@ func union(a: Array, b: Array) -> Array:
 
 # returns the union of multiple arrays
 # Note: result = set
-func union_array(arrays: Array) -> Array:
+func union_list(arrays: Array) -> Array:
 	
 	var sum = sum(arrays)
 	if is_null(sum):

@@ -1,4 +1,3 @@
-dutch = [1:3];
-french = [3:4];
-config in [|| dutch+french];
+uni = [1:1];
+config in [|| uni];
 #config = 1;

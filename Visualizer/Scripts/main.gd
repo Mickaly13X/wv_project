@@ -103,6 +103,9 @@ func _export():
 	
 	var file = File.new()
 	var file_path = Popups.get_node("SaveFile").current_path
+	if !("." in file_path):
+		file_path += ".pl"
+	
 	file.open(file_path, File.WRITE)
 	file.store_string(g.problem.to_cola())
 	file.close()

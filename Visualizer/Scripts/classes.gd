@@ -155,7 +155,6 @@ class Problem:
 		var intersections = []
 		for i in domain_elements:
 			intersections.append(i)
-		
 		# intersections if there are at least 2 domains
 		match len(domain_elements):
 			2:
@@ -168,6 +167,14 @@ class Problem:
 					g.intersection(domain_elements[0], domain_elements[1]), domain_elements[2])
 				)
 		return intersections
+	
+	
+	func get_domain_name_from_elements(elements : Array) -> String:
+		
+		for domain in domains:
+			if elements.sort() == Array(domain.get_elements()).sort():
+				return domain.get_name()
+		return ""
 	
 	
 	func get_domain_size(domain_name: String) -> int:
@@ -186,6 +193,25 @@ class Problem:
 		return domains
 	
 	
+	# @return [intersecting domains, enclosed domains]
+#	func get_domains_attached(to_domain: Domain) -> Array:
+#
+#		var intersecting_domains = []
+#		var enclosed_domains = []
+#		for i in get_domains():
+#			if i != to_domain:
+#				if g.has_list(to_domain.get_elements(), i.get_elements()):
+#					for j in enclosed_domains:
+#						if g.has_list(i.get_elements(), j.get_elements()):
+#							break
+#						elif g.has_list(j.get_elements(), i.get_elements()):
+#							i = j
+#							break
+#				elif !g.intersection(to_domain.get_elements(), i).empty():
+#					intersecting_domains.append(i)
+#		return [intersecting_domains, enclosed_domains]
+	
+	
 	func get_domains_strict() -> Array:
 	
 		var domains_strict = get_domain_elements()
@@ -194,14 +220,6 @@ class Problem:
 			for j in range(len(domains), len(intersections)):
 				i = g.exclude(i, intersections[j])
 		return domains_strict
-	
-	
-	func get_domain_name_from_elements(elements : Array) -> String:
-		
-		for domain in domains:
-			if elements.sort() == Array(domain.get_elements()).sort():
-				return domain.get_name()
-		return ""
 	
 	
 	func get_elem_count() -> int:
@@ -364,9 +382,9 @@ class Problem:
 	func set_config(_type : String, _size : int, _name : String, _domain = get_universe()) -> void:
 		
 		self.config.set_type(_type)
-		self.config.set_size(_size)
-		self.config.set_name(_name)
-		self.config.set_domain(_domain)
+		self.config.size = _size
+		self.config.custom_name = _name
+		self.config.domain = _domain
 		pos_constraints = Dictionary()
 	
 	
@@ -625,6 +643,10 @@ class Configuration:
 	
 	func get_domain():
 		return domain
+	
+	
+	func set_size(size: int) -> void:
+		self.size = size
 	
 	
 	func to_cola() -> String:

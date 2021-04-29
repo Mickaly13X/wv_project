@@ -66,9 +66,22 @@ func _ready():
 func init_docs() -> void:
 	
 	DocTabs.get_node("Sequence").set_content(
-		"""
-		This case is equivalent to counting sequences of n elements of X with no restriction: a function f : N → X is determined by the n images of the elements of N, which can each be independently chosen among the elements of x. This gives a total of xn possibilities.
-		"""
+		"This case is equivalent to counting sequences of n elements of X with no restriction: a function f : N → X is determined by the n images of the elements of N, which can each be independently chosen among the elements of x. This gives a total of xn possibilities."
+	)
+	DocTabs.get_node("Permutation").set_content(
+		"This case is equivalent to counting sequences of n distinct elements of X, also called n-permutations of X, or sequences without repetitions; again this sequence is formed by the n images of the elements of N. This case differs from the one of unrestricted sequences in that there is one choice fewer for the second element, two fewer for the third element, and so on. Therefore instead of by an ordinary power of x, the value is given by a falling factorial power of x, in which each successive factor is one fewer than the previous one."
+	)
+	DocTabs.get_node("Subset").set_content(
+		"This case is equivalent to counting subsets with n elements of X, also called n-combinations of X: among the sequences of n distinct elements of X, those that differ only in the order of their terms are identified by permutations of N. Since in all cases this groups together exactly n! different sequences, we can divide the number of such sequences by n! to get the number of n-combinations of X."
+	)
+	DocTabs.get_node("MultiSubset").set_content(
+		"This case is equivalent to counting multisets with n elements from X (also called n-multicombinations). The reason is that for each element of X it is determined how many elements of N are mapped to it by f, while two functions that give the same such 'multiplicities' to each element of X can always be transformed into another by a permutation of N. The formula counting all functions N → X is not useful here, because the number of them grouped together by permutations of N varies from one function to another. Rather, as explained under combinations, the number of n-multicombinations from a set with x elements can be seen to be the same as the number of n-combinations from a set with x + n − 1 elements."
+	)
+	DocTabs.get_node("Partition").set_content(
+		"This case is equivalent to counting partitions of N into x (non-empty) subsets, or counting equivalence relations on N with exactly x classes. Indeed, for any surjective function f : N → X, the relation of having the same image under f is such an equivalence relation, and it does not change when a permutation of X is subsequently applied; conversely one can turn such an equivalence relation into a surjective function by assigning the elements of X in some manner to the x equivalence classes."
+	)
+	DocTabs.get_node("Composition").set_content(
+		"This case is equivalent to counting sequences of n elements of X with no restriction: a function f : N → X is determined by the n images of the elements of N, which can each be independently chosen among the elements of x. This gives a total of xn possibilities."
 	)
 
 

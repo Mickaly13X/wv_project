@@ -40,10 +40,6 @@ func _ready():
 
 func _draw():
 	draw_self()
-	#var bruh = Geometry.clip_polygons_2d(rect2polygon(Rect2(0, 0, 100, 100)), rect2polygon(Rect2(0, 00, 20, 20)))[0]
-	#draw_colored_polygon(bruh, Color(1, 0, 0, 0.3))
-	#draw_colored_polygon(broh, Color(0, 0, 1, 0.3))
-	draw_colored_polygon(brah, Color(1, 0, 0, 0.5))
 
 
 func _gui_input(event):
@@ -68,7 +64,7 @@ func _pressed(button_name : String) -> void:
 				var new_id = get_problem().get_free_ids(1)[0]
 				get_problem().get_universe().add_elements([new_id])
 				add_elements([new_id])
-				update_element_positions([get_element(new_id)])
+				update_element_positions([new_id])
 			
 			"Delete":
 				#TODO: popup confirmation
@@ -78,7 +74,6 @@ func _pressed(button_name : String) -> void:
 				if needs_new_circles:
 					update_circles()
 					update_elements()
-			
 			
 			"Group":
 				Main.toggle_menu_group(true)
@@ -106,6 +101,7 @@ func calc_scaling() -> float:
 	
 	var diagram_size = $Venn.get_size()
 	# adjust to prevent weird polygon exclusion behavior
+	diagram_size.x += 5*ELEMENT_RADIUS
 	diagram_size.y += 5*ELEMENT_RADIUS
 	
 	var scaling = 1
@@ -220,7 +216,8 @@ func group(group_name: String, is_dist = true) -> void:
 	var no_conflicts = (old_domain_size + len(selected_elements)) - new_domain_size
 	if no_conflicts > 0:
 		Main.show_message(
-			"{} element(s) were not grouped because of conflicting distinguishabilities".format([no_conflicts], "{}")
+			"{} element(s) were not grouped because of conflicting distinguishabilities" \
+				.format([no_conflicts], "{}")
 		)
 	
 	# update visual elements
@@ -249,8 +246,7 @@ func has_selected_elements() -> bool:
 	return false
 
 
-# high precision for custom exlusion function
-func rect2polygon(rect: Rect2, no_points = 256) -> PoolVector2Array:
+func rect2polygon(rect: Rect2, no_points = 12) -> PoolVector2Array:
 	
 	var polygon = PoolVector2Array()
 	# right
@@ -283,9 +279,6 @@ func scale_diagram() -> void:
 	var offset = Vector2.ZERO
 	if scaling != 1:
 		offset = get_size() * (1 - scaling) / 2.0
-#	print(get_size())
-#	print(diagram_size)
-#	print(offset)
 	
 	$Venn.position = offset
 	$Elements.rect_position = offset
@@ -332,11 +325,9 @@ func set_elements(element_ids: PoolIntArray) -> void:
 
 func set_name(custom_name : String) -> void:
 	
+	print(custom_name)
 	self.custom_name = custom_name
-	if custom_name == "":
-		$Label.text = "Universe"
-	else:
-		$Label.text = "Universe (" + custom_name + ")"
+	$Label.text = "Universe" + (" (" + custom_name + ")").repeat(int(bool(custom_name)))
 
 
 # @param 'ow_*': whether to ignore update optimizations
@@ -388,7 +379,7 @@ func update_circles(problem = get_problem(), is_rebuilt = true):
 		)
 
 
-func update_elements(element_ids: PoolIntArray = get_element_ids()) -> void:
+func update_elements() -> void:
 	
 	update_element_colors()
 	update_element_positions()
@@ -404,20 +395,22 @@ func update_element_colors() -> void:
 		else:
 			I.set_color(Color.white)
 
+#####################################################
 
-func update_element_positions(elements = get_elements()) -> void:
+func update_element_positions(universe_elems = []) -> void:
 	
-	var assigned_positions = PoolVector2Array()
-	for i in g.exclude(get_elements(), elements):
-		assigned_positions.append(i.position)
+	var venn_divisions: Array
+	if universe_elems.empty():
+		venn_divisions = get_venn_divisions()
+	else:
+		# for optimalization only universe is considered
+		venn_divisions = [get_problem().get_universe_strict()]
 	
-	for spawn_members in get_spawn_divisions():
+	for element_ids in venn_divisions:
 		
-		if spawn_members.empty(): continue
+		if element_ids.empty(): continue
 		
-		var spawn_polygon = get_spawn_polygon(spawn_members)
-		brah = spawn_polygon
-		update()
+		var spawn_polygon = get_spawn_polygon(element_ids)
 		var triangulation = Geometry.triangulate_polygon(spawn_polygon)
 		var triangles = []
 		for i in range(len(triangulation) / 3):
@@ -432,13 +425,21 @@ func update_element_positions(elements = get_elements()) -> void:
 				0.5 * abs(i[0].x * (i[1].y - i[2].y) + i[1].x * (i[2].y - i[0].y) + i[2].x * (i[0].y - i[1].y))
 			)
 		
-		for i in spawn_members:
+		var assigned_positions = PoolVector2Array()
+		# optimalization
+		var new_elems = element_ids
+		if !universe_elems.empty():
+			for i in element_ids:
+				if !i in universe_elems:
+					assigned_positions.append(get_element(i).position)
+			new_elems = universe_elems
+		
+		for i in new_elems:
 			
 			var new_position: Vector2
 			var flag = true
 			var attempt = 1
 			while flag == true:
-				
 				if attempt > 64:
 					print ("[error] No valid position found. Defaulting to (0, 0)...")
 					new_position = Vector2.ZERO
@@ -450,23 +451,29 @@ func update_element_positions(elements = get_elements()) -> void:
 						flag = true
 						break
 				attempt += 1
-				
+			
 			get_element(i).position = new_position
 			assigned_positions.append(new_position)
 
 
-func get_spawn_divisions() -> Array:
+func calc_inner_exclusion() -> PoolVector2Array:
 	
-	var spawn_divisions = get_problem().get_domain_intersections()
-	spawn_divisions.append(get_problem().get_universe_strict())
-	return spawn_divisions
+	var inner_exlusion = PoolVector2Array()
+	for circle in get_circles():
+		# account for  element size
+		var new_polygon = CIRCLE.new(
+			circle.center, circle.radius + ELEMENT_RADIUS).polygon(16)
+		if inner_exlusion.empty():
+			inner_exlusion = new_polygon
+		else:
+			inner_exlusion = merge_polygons_custom(inner_exlusion, new_polygon)
+	return inner_exlusion
 
 
 # @pre all elements given by 'element_ids' must share a common spawn polygon
 func get_spawn_polygon(element_ids: PoolIntArray) -> PoolVector2Array:
 	
 	var inside_polygon = PoolVector2Array()
-	var current_inside_union = []
 	var current_inside_domains = []
 	
 	var repr = element_ids[0]
@@ -475,13 +482,10 @@ func get_spawn_polygon(element_ids: PoolIntArray) -> PoolVector2Array:
 		inside_polygon = rect2polygon(
 			get_container_rect(1.0 / calc_scaling()).grow(-ELEMENT_RADIUS)
 		)
-		print(get_container_rect(1.0 / calc_scaling()).grow(-ELEMENT_RADIUS))
-		current_inside_union = Array(get_problem().get_universe().get_elements())
+		inside_polygon = exclude_polygon_custom(inside_polygon, calc_inner_exclusion())
 	else:
 		for i in get_domains():
 			if repr in i.get_elements():
-				current_inside_union = g.union_array(
-					[current_inside_union, Array(i.get_elements())])
 				current_inside_domains.append(i)
 				# account for  element size
 				var circle = get_circle(i)
@@ -492,16 +496,28 @@ func get_spawn_polygon(element_ids: PoolIntArray) -> PoolVector2Array:
 				else:
 					inside_polygon = Geometry. \
 						intersect_polygons_2d(inside_polygon, new_polygon)[0]
-	for i in get_domains():
-		if !i in current_inside_domains:
-			# account for  element size
-			var circle = get_circle(i)
-			print(circle.radius*2)
-			var new_polygon = CIRCLE.new(
-				circle.center, circle.radius + ELEMENT_RADIUS).polygon(16)
-			inside_polygon = exclude_polygon_custom(inside_polygon, new_polygon)
+		for i in get_domains():
+			if !i in current_inside_domains:
+				var circle = get_circle(i)
+				# account for  element size
+				var new_polygon = CIRCLE.new(
+					circle.center, circle.radius + ELEMENT_RADIUS).polygon(16)
+				inside_polygon = exclude_polygon_custom(inside_polygon, new_polygon)
 	
 	return inside_polygon
+
+
+func get_venn_divisions() -> Array:
+	
+	var spawn_divisions = get_problem().get_domain_intersections()
+	if len(spawn_divisions) == 3:
+		for i in range(2):
+			spawn_divisions[i] = g.exclude(spawn_divisions[i], spawn_divisions[2])
+	if len(spawn_divisions) == 7:
+		for i in range(3):
+			spawn_divisions[i] = g.exclude_list(spawn_divisions[i], spawn_divisions.slice(3, 6))
+	spawn_divisions.append(get_problem().get_universe_strict())
+	return spawn_divisions
 
 
 func exclude_polygon_custom(a: PoolVector2Array, b: PoolVector2Array) -> PoolVector2Array:
@@ -510,51 +526,49 @@ func exclude_polygon_custom(a: PoolVector2Array, b: PoolVector2Array) -> PoolVec
 	
 	# if default polygon exclusion fails
 	# custom implementation
-	if len(exclusion) != 1 || len(exclusion[0]) == 4:
-		if Geometry.is_polygon_clockwise(a): a.invert()
-		if Geometry.is_polygon_clockwise(b): b.invert()
-#		var seg_a_i
-#		var seg_b_j
-#		var current_distance = -1
-#		for i in range(len(a) - 1):
-#			for j in range(len(b) - 1):
-#				var seg_a = [a[i], a[i + 1]]
-#				var seg_b = [b[j], b[j + 1]]
-#				var closest_pair = Geometry.get_closest_points_between_segments_2d(
-#					seg_a[0], seg_a[1], seg_b[0], seg_b[1]
-#				)
-#				var new_distance = closest_pair[0].distance_to(closest_pair[1])
-#				if new_distance < current_distance || current_distance == -1:
-#					current_distance = new_distance
-#					seg_a_i = i
-#					seg_b_j = j
-#		var new_polygon = PoolVector2Array()
-#		new_polygon += PoolVector2Array(Array(a).slice(0, seg_a_i))
-#		new_polygon += PoolVector2Array(g.reverse(Array(b).slice(0, seg_b_j)))
-#		new_polygon += PoolVector2Array(g.reverse(Array(b)).slice(0, len(b) - seg_b_j - 2))
-#		new_polygon += PoolVector2Array(Array(a).slice(seg_a_i + 1, len(a) - 1))
-		var a_i
-		var b_j
-		var current_distance = -1
-		for i in range(len(a)):
-			for j in range(len(b)):
-				var new_distance = a[i].distance_to(b[j])
-				if new_distance < current_distance || current_distance == -1:
-					current_distance = new_distance
-					a_i = i
-					b_j = j
-		print(a[a_i])
-		print(b[b_j])
-		var new_polygon = PoolVector2Array()
-		new_polygon += PoolVector2Array(Array(a).slice(0, a_i))
-		new_polygon += PoolVector2Array(g.reverse(Array(b).slice(0, b_j)))
-		new_polygon += PoolVector2Array(g.reverse(Array(b).slice(b_j, len(b) - 1)))
-		new_polygon += PoolVector2Array(Array(a).slice(a_i, len(a) - 1))
-		print(len(new_polygon))
-		return new_polygon
+	if len(exclusion) != 1:
+		# force different orientation
+		if Geometry.is_polygon_clockwise(a) == Geometry.is_polygon_clockwise(b):
+			return stitch(a, g.reverse(b))
+		return stitch(a, b)
 		
 	return exclusion[0]
 
+
+func merge_polygons_custom(a: PoolVector2Array, b: PoolVector2Array) -> PoolVector2Array:
+	
+	var merge = Geometry.merge_polygons_2d(a, b)
+	# if default polygon merge fails
+	# custom implementation
+	if len(merge) != 1:
+		# force same orientation
+		if Geometry.is_polygon_clockwise(a) != Geometry.is_polygon_clockwise(b):
+			return stitch(a, g.reverse(b))
+		return stitch(a, b)
+		
+	return merge[0]
+
+
+func stitch(a: PoolVector2Array, b: PoolVector2Array) -> PoolVector2Array:
+	
+	var a_i
+	var b_j
+	var shortest_distance = -1
+	for i in range(len(a)):
+		for j in range(len(b)):
+			var new_distance = a[i].distance_to(b[j])
+			if new_distance < shortest_distance || shortest_distance == -1:
+				shortest_distance = new_distance
+				a_i = i
+				b_j = j
+	var new_polygon = PoolVector2Array()
+	new_polygon += PoolVector2Array(Array(a).slice(0, a_i))
+	new_polygon += PoolVector2Array(Array(b).slice(b_j, len(b) - 1))
+	new_polygon += PoolVector2Array(Array(b).slice(0, b_j))
+	new_polygon += PoolVector2Array(Array(a).slice(a_i, len(a) - 1))
+	return new_polygon
+
+#####################################################
 
 func update_problem(ow_uni = true, ow_dom = true) -> void:
 	set_problem(get_problem(), ow_uni, ow_dom)

@@ -1,3 +1,5 @@
-uni = [0:0];
-config in {| uni};
-#config = 2;
+
+fffff = [0:7];
+config in [| fffff];
+#config = 3;
+

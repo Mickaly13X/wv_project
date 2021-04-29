@@ -307,7 +307,6 @@ func set_circles_domain(venn_circles: Array, is_rebuilt = true, domains = []) ->
 	
 	set_domain_tags(domains)
 	scale_diagram()
-	print(Problem)
 	Problem.update()
 
 

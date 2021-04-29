@@ -1,6 +1,4 @@
-dutch = [1:2];
-french = [4:4];
-uni = Null;
-row in [| dutch+french+uni];
-#row = 2;
-row[1] = dutch;
+lol = [2:2];
+uni = [1:3];
+config in [|| lol+uni];
+#config = 2;

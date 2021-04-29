@@ -1,6 +1,5 @@
-dutch = [1:2];
-french = [4:4];
-uni = Null;
-row in [| dutch+french+uni];
+dutch = [1:3];
+french = [3:4];
+row in [| dutch+french];
 #row = 2;
 row[1] = dutch;

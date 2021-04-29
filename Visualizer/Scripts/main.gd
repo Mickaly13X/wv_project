@@ -563,10 +563,7 @@ func run():
 		for i in range(1, len(function_steps)):
 			eval(function_steps[i])
 		
-		for I in Config.get_elements():
-			I.toggle_selected(false)
-		for I in Universe.get_elements():
-			I.toggle_selected(false)
+		Problem.lose_focus()
 		set_mode(Mode.STEPS)
 
 

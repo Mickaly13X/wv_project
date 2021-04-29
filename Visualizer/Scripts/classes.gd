@@ -232,7 +232,7 @@ class Problem:
 		var free_ids: PoolIntArray
 		var current_id = MIN_ELEM_ID
 		while (len(free_ids) < no_ids):
-			if !current_id in universe.elements:
+			if !current_id in universe.get_elements():
 				free_ids.append(current_id)
 			current_id += 1
 		return free_ids

@@ -752,14 +752,15 @@ __meta__ = {
 }
 
 [node name="MenuPosConstraint" type="PopupDialog" parent="Popups"]
+visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -277.0
-margin_top = -109.0
-margin_right = 278.0
-margin_bottom = 169.0
+margin_left = -311.5
+margin_top = -157.0
+margin_right = 311.5
+margin_bottom = 157.0
 rect_min_size = Vector2( 296, 128 )
 custom_styles/panel = SubResource( 3 )
 popup_exclusive = true
@@ -779,7 +780,7 @@ __meta__ = {
 }
 
 [node name="Title" type="Label" parent="Popups/MenuPosConstraint/VBox"]
-margin_right = 493.0
+margin_right = 561.0
 margin_bottom = 46.0
 custom_fonts/font = ExtResource( 5 )
 text = "Add a Position Constraint"
@@ -791,8 +792,8 @@ __meta__ = {
 
 [node name="Items" type="GridContainer" parent="Popups/MenuPosConstraint/VBox"]
 margin_top = 50.0
-margin_right = 493.0
-margin_bottom = 126.0
+margin_right = 561.0
+margin_bottom = 154.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/vseparation = 16
@@ -802,10 +803,33 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SelectDomain" type="Label" parent="Popups/MenuPosConstraint/VBox/Items"]
+[node name="Position" type="Label" parent="Popups/MenuPosConstraint/VBox/Items"]
+visible = false
 margin_top = 5.0
-margin_right = 89.0
-margin_bottom = 33.0
+margin_right = 105.0
+margin_bottom = 37.0
+custom_fonts/font = ExtResource( 4 )
+text = "Position:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PositionInput" type="LineEdit" parent="Popups/MenuPosConstraint/VBox/Items"]
+visible = false
+margin_right = 94.0
+margin_bottom = 42.0
+rect_min_size = Vector2( 32, 24 )
+custom_fonts/font = ExtResource( 4 )
+max_length = 2
+caret_blink = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SelectDomain" type="Label" parent="Popups/MenuPosConstraint/VBox/Items"]
+margin_top = 3.0
+margin_right = 103.0
+margin_bottom = 35.0
 custom_fonts/font = ExtResource( 4 )
 text = "Domain:"
 __meta__ = {
@@ -813,8 +837,8 @@ __meta__ = {
 }
 
 [node name="DomainInput" type="MenuButton" parent="Popups/MenuPosConstraint/VBox/Items"]
-margin_left = 105.0
-margin_right = 288.0
+margin_left = 119.0
+margin_right = 330.0
 margin_bottom = 38.0
 rect_min_size = Vector2( 64, 38 )
 size_flags_horizontal = 0
@@ -825,37 +849,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Position" type="Label" parent="Popups/MenuPosConstraint/VBox/Items"]
-visible = false
-margin_left = 304.0
-margin_top = 5.0
-margin_right = 395.0
-margin_bottom = 33.0
-custom_fonts/font = ExtResource( 4 )
-text = "Position:"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="PositionInput" type="LineEdit" parent="Popups/MenuPosConstraint/VBox/Items"]
-visible = false
-margin_left = 304.0
-margin_right = 386.0
-margin_bottom = 38.0
-rect_min_size = Vector2( 32, 24 )
-size_flags_horizontal = 13
-size_flags_vertical = 13
-custom_fonts/font = ExtResource( 4 )
-max_length = 2
-caret_blink = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="ConstraintLabel" type="Label" parent="Popups/MenuPosConstraint/VBox"]
-margin_top = 130.0
-margin_right = 493.0
-margin_bottom = 158.0
+margin_top = 158.0
+margin_right = 561.0
+margin_bottom = 190.0
 custom_fonts/font = ExtResource( 4 )
 text = "Constraint:"
 autowrap = true
@@ -864,21 +861,21 @@ __meta__ = {
 }
 
 [node name="Filler" type="Label" parent="Popups/MenuPosConstraint/VBox"]
-margin_top = 162.0
-margin_right = 493.0
-margin_bottom = 176.0
+margin_top = 194.0
+margin_right = 561.0
+margin_bottom = 208.0
 
 [node name="Buttons" type="HBoxContainer" parent="Popups/MenuPosConstraint/VBox"]
-margin_top = 180.0
-margin_right = 493.0
-margin_bottom = 214.0
+margin_top = 212.0
+margin_right = 561.0
+margin_bottom = 250.0
 custom_constants/separation = 256
 alignment = 1
 
 [node name="CancelButton" type="Button" parent="Popups/MenuPosConstraint/VBox/Buttons"]
-margin_left = 43.0
-margin_right = 127.0
-margin_bottom = 34.0
+margin_left = 67.0
+margin_right = 163.0
+margin_bottom = 38.0
 focus_mode = 0
 custom_fonts/font = ExtResource( 4 )
 enabled_focus_mode = 0
@@ -888,9 +885,9 @@ __meta__ = {
 }
 
 [node name="DoneButton" type="Button" parent="Popups/MenuPosConstraint/VBox/Buttons"]
-margin_left = 383.0
-margin_right = 449.0
-margin_bottom = 34.0
+margin_left = 419.0
+margin_right = 494.0
+margin_bottom = 38.0
 focus_mode = 0
 custom_fonts/font = ExtResource( 4 )
 enabled_focus_mode = 0

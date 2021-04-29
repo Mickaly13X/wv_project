@@ -323,15 +323,20 @@ func check_pos_constraint() -> void:
 		if DomainInput.text == "-Select Domain-":
 			show_message("Please choose a domain")
 			return
-		var position = Config.get_elements_selected()[0].get_id()
+		var position
 		if $Popups/MenuPosConstraint/VBox/Items/Position.visible:
 			if $Popups/MenuPosConstraint/VBox/Items/PositionInput.text == "":
 				show_message("Please specify a position")
 				return
 			position = int($Popups/MenuPosConstraint/VBox/Items/PositionInput.text)
+			if position == 0:
+				show_message("Position must be an integer")
+				return
 #			if position != OK:
 #				show_message("Size must be an integer")
 #				return
+		else:
+			position = Config.get_elements_selected()[0].get_id()
 			
 		
 		var domain_name = DomainInput.get_text()

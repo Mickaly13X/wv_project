@@ -119,6 +119,10 @@ func getall_func(group: Array, func_name: String) -> Array:
 	return values
 
 
+func has_list(a: Array, list: Array) -> bool:
+	return a == union(a, list)
+
+
 # returns highest value of 'attr' between members of 'group'
 # @pre 'group' not empty
 func highest(group: Array, attr: String):
@@ -231,20 +235,19 @@ func randomRect(rect: Rect2) -> Vector2:
 	return rect.position + randomVect(rect.size)
 
 
-# returns a random Vector2 point inside a given triangle
-# @pre 'triangle' contains exactly 3 points
-func randomTriangle(triangle: PoolVector2Array) -> Vector2:
-	
-	var r1 = randomf(1)
-	var r2 = randomf(1)
-	return (1 - sqrt(r1)) * triangle[0] \
-		  + sqrt(r1) * (1 - r2) * triangle[1] \
-		  + r2 * sqrt(r1) * triangle[2]
-
-
 # returns a Vector2 with as values 2 integer between [0, n]
 func randomVect(vect: Vector2) -> Vector2:
 	return Vector2(random(vect.x), random(vect.y))
+
+
+# returns an array containing the elements of 'a', but duplicated with respect 
+# 	to the order 'n' times 
+func repeat(a: Array, n: int) -> Array:
+	
+	var a_repeated = Array()
+	for i in range(n):
+		a_repeated += a.duplicate(true)
+	return a_repeated
 
 
 # returns an array with the elements from 'a', reversed in order

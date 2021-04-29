@@ -114,7 +114,6 @@ func _pressed_mb_group(id):
 	var popup = GroupInput.get_popup()
 	popup.toggle_item_checked(id)
 	groups_selection[id] = popup.is_item_checked(id)
-	#var selected_group = popup.get_item_text(id)
 	
 	if is_checked("New group"):
 		NewGroupInput.show()
@@ -124,20 +123,6 @@ func _pressed_mb_group(id):
 		NewGroupInput.hide()
 		DistInput.hide()
 		GroupInput.text = "-Select Groups-"
-#	if selected_group == "New group":
-#		if popup.is_item_checked(id):
-#			NewGroupInput.show()
-#			GroupInput.text = selected_group
-#		else:
-#			NewGroupInput.hide()
-#			GroupInput.text = "-Select Groups-"
-#	else:
-#		if !popup.is_item_checked(id):
-#			NewGroupInput.show()
-#			GroupInput.text = selected_group
-#		else:
-#			NewGroupInput.hide()
-		#GroupInput.text = selected_group
 	GroupsLabel.text = "Selected: " + get_selected_group_names_as_string()
 
 
@@ -152,10 +137,8 @@ func _pressed_mb_input(index, TypeInput):
 
 func _pressed_mb_main(index, TypeInput):
 	
-	Problem.lose_focus()
-	var PUMenu = TypeInput.get_popup()
-	var SelectedText = PUMenu.get_item_text(index)
-	match SelectedText:
+	var selected_text = TypeInput.get_popup().get_item_text(index)
+	match selected_text:
 		
 		"Import":
 			popup_import()
@@ -183,6 +166,8 @@ func _pressed_mb_main(index, TypeInput):
 		
 		"Add Size Constraint":
 			toggle_menu_size_constraint(true)
+	
+	#Problem.lose_focus()
 
 
 func add_step(problem : g.Problem):
@@ -414,7 +399,6 @@ func group() -> void:
 		return
 	
 	for selected_name in get_selected_group_names():
-		
 		if selected_name == "New group":
 			
 			if len(g.problem.get_domains()) >= MAX_DOMAINS:
@@ -436,7 +420,6 @@ func group() -> void:
 		GroupInput.get_popup().set_item_checked(id,false)
 		groups_selection[id] = false
 	toggle_menu_group(false)
-	return
 
 
 func is_checked(group_name : String) -> bool:

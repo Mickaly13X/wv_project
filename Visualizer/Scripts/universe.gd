@@ -40,6 +40,7 @@ func _ready():
 
 func _draw():
 	draw_self()
+	draw_colored_polygon(bruh, Color(1, 0, 0, 0.3))
 
 
 func _gui_input(event):
@@ -325,7 +326,6 @@ func set_elements(element_ids: PoolIntArray) -> void:
 
 func set_name(custom_name : String) -> void:
 	
-	print(custom_name)
 	self.custom_name = custom_name
 	$Label.text = "Universe" + (" (" + custom_name + ")").repeat(int(bool(custom_name)))
 
@@ -444,7 +444,7 @@ func update_element_positions(universe_elems = []) -> void:
 					print ("[error] No valid position found. Defaulting to (0, 0)...")
 					new_position = Vector2.ZERO
 					break
-				new_position = g.randomTriangle(triangles[g.choose_weighted(triangle_areas)])
+				new_position = randomTriangle(triangles[g.choose_weighted(triangle_areas)])
 				flag = false
 				for j in assigned_positions:
 					if new_position.distance_to(j) < 2*ELEMENT_RADIUS:
@@ -456,10 +456,11 @@ func update_element_positions(universe_elems = []) -> void:
 			assigned_positions.append(new_position)
 
 
-func calc_inner_exclusion() -> PoolVector2Array:
+func calc_inner_exclusion(inner_domains: Array) -> PoolVector2Array:
 	
 	var inner_exlusion = PoolVector2Array()
-	for circle in get_circles():
+	for domain in inner_domains:
+		var circle = get_circle(domain)
 		# account for  element size
 		var new_polygon = CIRCLE.new(
 			circle.center, circle.radius + ELEMENT_RADIUS).polygon(16)
@@ -471,22 +472,29 @@ func calc_inner_exclusion() -> PoolVector2Array:
 
 
 # @pre all elements given by 'element_ids' must share a common spawn polygon
-func get_spawn_polygon(element_ids: PoolIntArray) -> PoolVector2Array:
+func get_spawn_polygon(venn_division_ids: PoolIntArray) -> PoolVector2Array:
 	
 	var inside_polygon = PoolVector2Array()
+	var current_inside_elements = []
 	var current_inside_domains = []
 	
-	var repr = element_ids[0]
+	var repr = venn_division_ids[0]
 	if repr in get_problem().get_universe_strict():
 		# account for element size
 		inside_polygon = rect2polygon(
 			get_container_rect(1.0 / calc_scaling()).grow(-ELEMENT_RADIUS)
 		)
-		inside_polygon = exclude_polygon_custom(inside_polygon, calc_inner_exclusion())
+		inside_polygon = exclude_polygon_custom(inside_polygon, calc_inner_exclusion(get_domains()))
 	else:
 		for i in get_domains():
 			if repr in i.get_elements():
 				current_inside_domains.append(i)
+				if current_inside_elements.empty():
+					current_inside_elements = i.get_elements()
+				else:
+					current_inside_elements = g.intersection(
+						current_inside_domains, i.get_elements()
+					)
 				# account for  element size
 				var circle = get_circle(i)
 				var new_polygon = CIRCLE.new(
@@ -496,28 +504,47 @@ func get_spawn_polygon(element_ids: PoolIntArray) -> PoolVector2Array:
 				else:
 					inside_polygon = Geometry. \
 						intersect_polygons_2d(inside_polygon, new_polygon)[0]
+		var inner_domains = []
 		for i in get_domains():
 			if !i in current_inside_domains:
-				var circle = get_circle(i)
-				# account for  element size
-				var new_polygon = CIRCLE.new(
-					circle.center, circle.radius + ELEMENT_RADIUS).polygon(16)
-				inside_polygon = exclude_polygon_custom(inside_polygon, new_polygon)
+				if g.has_list(current_inside_elements, i.get_elements()):
+					if len(inner_domains) == 1:
+						if g.has_list(inner_domains[0].get_elements(), i.get_elements()):
+							continue
+						elif g.has_list(i.get_elements(), inner_domains[0].get_elements()):
+							inner_domains = [i]
+							continue
+					inner_domains.append(i)
+				else:
+					var circle = get_circle(i)
+					# account for  element size
+					var new_polygon = CIRCLE.new(
+						circle.center, circle.radius + ELEMENT_RADIUS).polygon(16)
+					inside_polygon = exclude_polygon_custom(inside_polygon, new_polygon)
+		inside_polygon = exclude_polygon_custom(inside_polygon, calc_inner_exclusion(inner_domains))
 	
 	return inside_polygon
 
 
 func get_venn_divisions() -> Array:
 	
-	var spawn_divisions = get_problem().get_domain_intersections()
-	if len(spawn_divisions) == 3:
-		for i in range(2):
-			spawn_divisions[i] = g.exclude(spawn_divisions[i], spawn_divisions[2])
-	if len(spawn_divisions) == 7:
-		for i in range(3):
-			spawn_divisions[i] = g.exclude_list(spawn_divisions[i], spawn_divisions.slice(3, 6))
-	spawn_divisions.append(get_problem().get_universe_strict())
-	return spawn_divisions
+	var no_domains = len(get_domains())
+	var no_divisions = pow(2, no_domains)
+	var divisions = g.repeat([[]], no_divisions)
+	
+	for element_id in get_problem().get_universe().get_elements():
+		var count = 0
+		var division_index = 0
+		for domain_index in range(no_domains):
+			if element_id in get_domains()[domain_index].get_elements():
+				count += 1
+				division_index += \
+					domain_index + (1 + int(no_domains == 3)) * int(count == 2) + int(count == 3)
+		if count == 0:
+			division_index = -1
+		divisions[division_index].append(element_id)
+	
+	return divisions
 
 
 func exclude_polygon_custom(a: PoolVector2Array, b: PoolVector2Array) -> PoolVector2Array:
@@ -547,6 +574,17 @@ func merge_polygons_custom(a: PoolVector2Array, b: PoolVector2Array) -> PoolVect
 		return stitch(a, b)
 		
 	return merge[0]
+
+
+# returns a random Vector2 point inside a given triangle
+# @pre 'triangle' contains exactly 3 points
+func randomTriangle(triangle: PoolVector2Array) -> Vector2:
+	
+	var r1 = g.randomf(1)
+	var r2 = g.randomf(1)
+	return (1 - sqrt(r1)) * triangle[0] \
+		  + sqrt(r1) * (1 - r2) * triangle[1] \
+		  + r2 * sqrt(r1) * triangle[2]
 
 
 func stitch(a: PoolVector2Array, b: PoolVector2Array) -> PoolVector2Array:

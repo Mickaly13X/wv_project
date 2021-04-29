@@ -1,3 +1,6 @@
-fffff = [0:7];
-config in [| fffff];
-#config = 3;
+indist oaks = Null;
+indist pines = [4:7];
+indist maples = [8:9];
+trees in [| oaks+pines+maples];
+#trees = 9;
+trees[1] = oaks;

@@ -8,7 +8,9 @@ const REFS = [
 	"sequence",
 	"permutation",
 	"subset",
-	"multisubset"
+	"multisubset",
+	"composition",
+	"partition"
 ]
 var doc_ref
 

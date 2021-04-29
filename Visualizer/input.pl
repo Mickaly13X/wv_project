@@ -1,3 +1,3 @@
-uni = [1:2];
-config in [|| uni];
-#config = 1;
+uni = [1:1];
+config in compositions(uni);
+#config = 2;

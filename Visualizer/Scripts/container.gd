@@ -2,7 +2,7 @@ extends Control
 
 
 const ELEMENT_RADIUS = 20
-const MAX_ELEMENTS = 20
+const MAX_ELEMENTS = 30
 
 var custom_name: String = ""
 var shape: StyleBoxFlat

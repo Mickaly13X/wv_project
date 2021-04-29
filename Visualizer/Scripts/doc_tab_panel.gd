@@ -50,8 +50,7 @@ func set_index(idx : int) -> void:
 		$VBox/Table.show()
 	else:
 		$VBox/Table.hide()
-	
+
 
 func set_content(content : String) -> void:
-	$VBox/Content.text = content
-
+	$VBox/VBox/Content.text = content

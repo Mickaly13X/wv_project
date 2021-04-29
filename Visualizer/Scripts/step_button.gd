@@ -5,10 +5,10 @@ var is_selected = false
 var problem
 var number
 const REFS = [
-	"(sequence)",
-	"(permutation)",
-	"(subset)",
-	"(multisubset)"
+	"sequence",
+	"permutation",
+	"subset",
+	"multisubset"
 ]
 var doc_ref
 
@@ -25,7 +25,8 @@ func init(problem, number: int, is_selected: bool) -> void:
 	set_number(number)
 	toggle_selected(is_selected)
 	update_text()
-	set_doc_ref(1)
+	set_doc_ref(REFS.find(problem.get_config().get_type()))
+	
 
 
 func set_number(nb : int) -> void:
@@ -54,7 +55,7 @@ func update_text() -> void:
 
 func set_doc_ref(idx : int):
 	
-	$HBox/DocRef.text = REFS[idx]
+	$HBox/DocRef.text = "("+ str(REFS[idx]) + ")"
 	doc_ref = idx
 	$HBox/DocRef.show()
 	

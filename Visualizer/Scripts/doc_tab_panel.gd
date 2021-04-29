@@ -4,7 +4,9 @@ var TITLES = [
 	"n-sequence in x:",
 	"n-permutation of x:",
 	"n-subset of x:",
-	"n-multisubset of x:"
+	"n-multisubset of x:",
+	"composition of n with x subsets:",
+	"partition of n into x subsets:"
 ]
 
 export var index = 0

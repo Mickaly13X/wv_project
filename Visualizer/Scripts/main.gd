@@ -329,8 +329,11 @@ func check_pos_constraint() -> void:
 				show_message("Please specify a position")
 				return
 			position = int($Popups/MenuPosConstraint/VBox/Items/PositionInput.text)
-			if position == 0:
-				show_message("Position must be an integer")
+			if position < 1:
+				show_message("Position must be an positive integer")
+				return
+			if position > g.problem.get_no_vars():
+				show_message("This position doesn't exist in your configuration")
 				return
 #			if position != OK:
 #				show_message("Size must be an integer")

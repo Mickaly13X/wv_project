@@ -202,6 +202,7 @@ func check_config() -> void:
 		
 		g.problem.set_config(type.to_lower(), size, custom_name)
 		Config.set_problem(g.problem)
+		Problem.update()
 		toggle_menu_config(false)
 
 

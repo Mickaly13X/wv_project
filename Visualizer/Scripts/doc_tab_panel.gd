@@ -10,6 +10,7 @@ var TITLES = [
 export var index = 0
 var title
 
+
 func _ready():
 	set_image_index(index)
 	set_title(TITLES[index])
@@ -26,10 +27,12 @@ func set_title(title : String) -> void:
 
 
 func set_index(idx : int) -> void:
+	
 	self.index = idx
 	set_image_index(idx)
 	set_title(TITLES[idx])
 	
 
-
+func set_content(content : String) -> void:
+	$VBox/Content.text = content
 

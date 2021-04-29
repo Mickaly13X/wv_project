@@ -1,6 +1,4 @@
-indist oaks = Null;
-indist pines = [4:7];
-indist maples = [8:9];
-trees in [| oaks+pines+maples];
-#trees = 9;
-trees[1] = oaks;
+dutch = [1:3];
+french = [3:4];
+config in [|| dutch+french];
+#config = 1;

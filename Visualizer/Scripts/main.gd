@@ -829,8 +829,9 @@ func _update_item_disabled():
 	
 	toggle_menu_problem_button("Add Elements", !(Universe.has_max_elements() || Universe.has_selected_elements()))
 	#toggle_menu_problem_button("Delete", Universe.has_selected_elements)
-	#toggle_menu_problem_button("Group", Universe.has_selected_elements())
+	toggle_menu_problem_button("Group", g.problem.get_no_elements() > 0)
 	toggle_menu_problem_button("Add Position Constraint", len(Config.get_elements()) != 0)
+	toggle_menu_problem_button("Add Size Constraint", len(g.problem.get_domains()) > 0)
 
 
 func update_name_caches():

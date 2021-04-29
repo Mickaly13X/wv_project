@@ -55,6 +55,9 @@ class Problem:
 		if len(domains) >= MAX_DOMAINS:
 			print("[Error] cannot add more than 3 domains")
 			return
+		for i in get_domains():
+			if i.get_elements() == domain.get_elements():
+				remove_domain(i)
 		
 		domain.set_problem(self)
 		domains.append(domain)
@@ -126,10 +129,9 @@ class Problem:
 	
 	func erase_elements(elements_ids : PoolIntArray):
 		
-		for i in elements_ids:
-			universe.erase_elem(i)
-			for domain in domains:
-				domain.erase_elem(i)
+		universe.erase_elements(elements_ids)
+		for domain in get_domains():
+			domain.erase_elements(elements_ids)
 		check_empty_domains()
 	
 	
@@ -364,11 +366,23 @@ class Problem:
 			return children[index]
 	
 	
-	func remove_domain(index : int) -> void:
+	func remove_domain(index: int) -> void:
 		
 		for i in pos_constraints:
 			if pos_constraints[i] == domains[index]:
 				pos_constraints.erase(i)
+		
+		var deleted_elements = PoolIntArray()
+		for i in domains[index].get_elements():
+			var flag = true
+			for domain_elements in get_domain_elements():
+				if i in domain_elements:
+					flag = false
+					break
+			if flag == true:
+				deleted_elements.append(i)
+		universe.erase_elements(deleted_elements)
+		
 		domains.remove(index)
 	
 	
@@ -478,6 +492,10 @@ class Domain:
 		return domain_name
 	
 	
+	func set_elements(elements: PoolIntArray) -> void:
+		self.elements = elements
+	
+	
 	func get_name_cola() -> String:
 		
 		if not domain_name:
@@ -501,11 +519,12 @@ class Domain:
 		elements = g.union(elements, new_elements)
 	
 	
-	func erase_elem(element : int) -> void:
+	func erase_elements(elements: PoolIntArray) -> void:
 		
-		var elements_casted = Array(elements)
-		elements_casted.erase(element)
-		elements = PoolIntArray(elements_casted)
+		var cast = Array(get_elements())
+		for i in elements:
+			cast.erase(i)
+		set_elements(PoolIntArray(cast))
 	
 	
 	# Get domain size

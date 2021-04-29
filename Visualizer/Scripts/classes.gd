@@ -1,6 +1,7 @@
 class Problem:
 	
 	
+	const MAX_DOMAINS = 3
 	const MIN_ELEM_ID = 1
 	
 	var children: Array
@@ -50,6 +51,10 @@ class Problem:
 	
 	
 	func add_domain(domain: Domain) -> void:
+		
+		if len(domains) >= MAX_DOMAINS:
+			print("[Error] cannot add more than 3 domains")
+			return
 		
 		domain.set_problem(self)
 		domains.append(domain)
@@ -222,10 +227,6 @@ class Problem:
 		return domains_strict
 	
 	
-	func get_elem_count() -> int:
-		return universe.get_size()
-	
-	
 	# returns a number of element id that are not in use
 	func get_free_ids(no_ids: int) -> PoolIntArray:
 		
@@ -246,6 +247,14 @@ class Problem:
 			current_problem = current_problem.parent
 			level += 1
 		return level
+	
+	
+	func get_no_elements() -> int:
+		return universe.get_size()
+	
+	
+	func get_no_vars() -> int:
+		return config.get_size()
 	
 	
 	func get_type() -> String:
@@ -274,10 +283,6 @@ class Problem:
 		if g.union_list(get_domain_elements()).size() == universe.get_size():
 			return get_domains()
 		return get_domains() + [universe]
-	
-	
-	func get_no_vars() -> int:
-		return config.size
 	
 	
 	func get_universe_formula() -> String:
@@ -379,12 +384,10 @@ class Problem:
 		clear_domains()
 	
 	
-	func set_config(_type : String, _size : int, _name : String, _domain = get_universe()) -> void:
+	func set_config(type : String, size : int, custom_name : String, domain = get_universe()) -> void:
 		
-		self.config.set_type(_type)
-		self.config.size = _size
-		self.config.custom_name = _name
-		self.config.domain = _domain
+		config = g.Configuration.new(type, size, custom_name, domain)
+		config.problem = self
 		pos_constraints = Dictionary()
 	
 	
@@ -428,9 +431,6 @@ class Problem:
 				 "i": int(i),
 				 "domain": pos_constraints[i].get_name_cola()}
 			)
-#			if flag != pos_constraints.size():
-#				cola += ";"
-#			flag += 1
 		
 		# Size Constraints
 		for domain in domains:
@@ -441,13 +441,12 @@ class Problem:
 					 "i": domain.size_constraint.size}
 				)
 		
-		#cola.erase(cola.length() - 1, 1)
 		cola += "\n"
-		
 		return cola
 	
 	
 	func _print():
+		
 		print("universe: " + str(universe.get_elements()))
 		for dom in domains:
 			print(dom.get_name() + ": " + str(dom.get_elements()))
@@ -475,10 +474,6 @@ class Domain:
 		elements = PoolIntArray()
 	
 	
-#	func copy() -> Domain:
-#		return g.Domain.new(domain_name, elements, size_constraint)
-	
-	
 	func get_name() -> String:
 		return domain_name
 	
@@ -498,7 +493,6 @@ class Domain:
 		domain_name = _name
 	
 	
-	# Get a list containing all elements
 	func get_elements() -> PoolIntArray:
 		return elements
 	
@@ -552,12 +546,12 @@ class Domain:
 		return null
 	
 	
-	func set_problem(problem : Problem):
-		self.problem = problem
-	
-	
 	func get_problem() -> Problem:
 		return self.problem
+	
+	
+	func set_problem(problem: Problem):
+		self.problem = problem
 	
 	
 	func set_size_constraint(operator : String, size : int):
@@ -741,7 +735,7 @@ class SizeConstraint:
 class CoLaExpression:
 	
 	var type = ""
-	var global_type
+	var subtype = ""
 	var cola_string
 	
 	func _init(cola_string : String):
@@ -750,54 +744,55 @@ class CoLaExpression:
 		
 		# Comment
 		if "%" in cola_string:
-			type = "comment"
-		
-		#Counts
+			set_type("comment")
+		# Counts
 		elif "#" in cola_string:
-			type = "constraint_count"
+			set_type("constraint", "count")
 		
-		# Domain or  positionconstraint
+		# Domain or PosConstraint
 		elif "=" in cola_string:
 			# Domain
 			if "[" in cola_string:
 				var list = cola_string.split("=")
 				if "[" in list[0]:
-					type = "constraint_position"
+					set_type("constraint", "position")
 				else:
-					type = "domain_interval"
+					set_type("domain", "interval")
 			elif "{" in cola_string:
-				type = "domain_enum"
+				set_type("domain", "enum")
 		
 		# Coniguration
 		elif "in" in cola_string:
 			
 			if "[" in cola_string:
-				
 				if "||" in cola_string:
-					type = "config_sequence"
+					set_type("config", "sequence")
 				elif "|" in cola_string:
-					type = "config_permutation"
+					set_type("config", "permutation")
 					
 			elif "{" in cola_string:
-				
 				if "||" in cola_string:
-					type = "config_multisubset"
+					set_type("config", "multisubset")
 				elif "|" in cola_string:
-					type = "config_subset"
+					set_type("config", "subset")
 			
 			elif "partitions" in  cola_string:
-				type = "config_partition"
+				set_type("config", "partition")
 			
 			elif "compositions" in cola_string:
-				type = "config_composition"
+				set_type("config", "composition")
 		
 		else:
-			type = "newline"
+			set_type("newline")
+	
+	
+	func set_type(type: String, subtype = "") -> void:
 		
-		global_type = type.split("_")[0] + "s"
+		self.type = type
+		self.subtype = subtype
 	
 	
-	# translates CoLa string to func string
+	# returns function string for eval() function
 	func translate() -> String:
 		
 		var func_str = ""
@@ -810,21 +805,7 @@ class CoLaExpression:
 			"newline":
 				pass
 			
-			"domain_interval":
-				
-				var dist = "true"
-				var list = cola_string.split("=")
-				var _name = list[0].replace(" ","")
-				if "indist" in list[0]:
-					dist = "false"
-					_name = list[0].replace("indist","").replace(" ","")
-				list[1] = list[1].replace(" ","")
-				var interval_string = list[1].replace(":",",")
-				func_str = "parse_domain_interval('{n}','{s}',{d})" \
-					.format({"n" : _name, "s" : interval_string, "d" : dist})
-			
-			"domain_enum":
-				
+			"domain":
 				var dist = "true"
 				var list = cola_string.split("=")
 				var _name = list[0].replace(" ", "")
@@ -832,92 +813,48 @@ class CoLaExpression:
 					dist = "false"
 					_name = list[0].replace("indist", "").replace(" ", "")
 				list[1] = list[1].replace(" ", "")
-				var array_string = list[1].replace("{", "[").replace("}", "]")
-				func_str = "parse_domain_enum('{n}','{s}',{d})" \
-					.format({"n" : _name, "s" : array_string, "d" : dist})
-			
-			"config_sequence":
 				
+				if subtype == "interval":
+					var interval_string = list[1].replace(":",",")
+					func_str = "parse_domain_interval('{n}','{s}',{d})" \
+						.format({"n" : _name, "s" : interval_string, "d" : dist})
+				
+				elif subtype == "enum":
+					var array_string = list[1].replace("{", "[").replace("}", "]")
+					func_str = "parse_domain_enum('{n}','{s}',{d})" \
+						.format({"n" : _name, "s" : array_string, "d" : dist})
+			
+			"config":
 				var list = cola_string.split(" in ")
 				var name = list[0].replace(" ","")
-				var domain_name = list[1].replace(" ","").replace("[","").replace("]","").replace("{","").replace("}","").replace("|","")
-				var type = "sequence"
+				var domain_name = list[1].replace("partitions","").replace("compositions","").replace("(","").replace(")","").replace(" ","").replace("[","").replace("]","").replace("{","").replace("}","").replace("|","")
 				var size = "0"
-				func_str = "parse_config('{t}',{s},'{n}','{d}')" \
-					.format({"t" : type, "s" : size, "n" : name, "d" : domain_name})
+				func_str = "parse_config('{t}', {s}, '{n}', '{d}')" \
+					.format({"t": subtype, "s": size, "n": name, "d": domain_name})
 			
-			"config_permutation":
-				
-				var list = cola_string.split(" in ")
-				var name = list[0].replace(" ","")
-				var domain_name = list[1].replace(" ","").replace("[","").replace("]","").replace("{","").replace("}","").replace("|","")
-				var type = "permutation"
-				var size = "0"
-				func_str = "parse_config('{t}',{s},'{n}','{d}')" \
-					.format({"t" : type, "s" : size,"n" : name, "d" : domain_name})
-			
-			"config_mulitsubset":
-				
-				var list = cola_string.split(" in ")
-				var name = list[0].replace(" ","")
-				var domain_name = list[1].replace(" ","").replace("[","").replace("]","").replace("{","").replace("}","").replace("|","")
-				var type = "multisubset"
-				var size = "0"
-				func_str = "parse_config('{t}',{s},'{n}','{d}')" \
-					.format({"t" : type, "s" : size,"n" : name, "d" : domain_name})
-			
-			"config_subset":
-				
-				var list = cola_string.split(" in ")
-				var name = list[0].replace(" ","")
-				var domain_name = list[1].replace(" ","").replace("[","").replace("]","").replace("{","").replace("}","").replace("|","")
-				var type = "subset"
-				var size = "0"
-				func_str = "parse_config('{t}',{s},'{n}','{d}')" \
-					.format({"t" : type, "s" : size,"n" : name, "d" : domain_name})
-			
-			"config_partition":
-				
-				var list = cola_string.split(" in ")
-				var name = list[0].replace(" ","")
-				var domain_name = list[1].replace("partitions","").replace("(","").replace(")","")
-				var type = "partition"
-				var size = "0"
-				func_str = "parse_config('{t}',{s},'{n}','{d}')" \
-					.format({"t" : type, "s" : size,"n" : name, "d" : domain_name})
-				
-			"config_composition":
-				
-				var list = cola_string.split(" in ")
-				var name = list[0].replace(" ","")
-				var domain_name = list[1].replace("compositions","").replace("(","").replace(")","")
-				var type = "composition"
-				var size = "0"
-				func_str = "parse_config('{t}',{s},'{n}','{d}')" \
-					.format({"t" : type, "s" : size,"n" : name, "d" : domain_name})
-				
-			"constraint_count":
-				
-				var args: Array
-				var operator: String
-				for i in g.OPERATORS:
-					if i in cola_string: 
-						args = cola_string.lstrip("#").replace(" ", "").split(i)
-						operator = i
-						break
-				var name = args[0]
-				var count = int(args[1])
-				func_str = "parse_size_cs('{n}','{op}',{s})" \
-					.format({"n" : name, "op" : operator, "s" : count})
-			
-			"constraint_position":
-				
-				var list = cola_string.split("=")
-				var position = list[0].split("[")[1].replace(" ","").replace("]","")
-				var domain_name = list[1].replace(" ","")
-				func_str = "parse_pos_cs({p},'{d}')" \
-					.format({"p" : position, "d" : domain_name})
-				
+			"constraint":
+				match subtype:
+					
+					"count":
+						var args: Array
+						var operator: String
+						for i in g.OPERATORS:
+							if i in cola_string: 
+								args = cola_string.lstrip("#").replace(" ", "").split(i)
+								operator = i
+								break
+						var name = args[0]
+						var count = int(args[1])
+						func_str = "parse_size_cs('{n}','{op}',{s})" \
+							.format({"n" : name, "op" : operator, "s" : count})
+					
+					"position":
+						var list = cola_string.split("=")
+						var position = list[0].split("[")[1].replace(" ","").replace("]","")
+						var domain_name = list[1].replace(" ","")
+						func_str = "parse_pos_cs({p},'{d}')" \
+							.format({"p" : position, "d" : domain_name})
+		
 		return func_str
 
 

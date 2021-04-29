@@ -1,4 +1,6 @@
-dutch = [1:3];
-french = [3:4];
-config in [|| dutch+french];
-#config = 1;
+indist black = [1:6];
+indist red = [7:10];
+indist white = [11:11];
+uni = [1:16];
+line in [| black+red+white+uni];
+#line = 12;

@@ -7,8 +7,8 @@ const CONFIG_NAMES = [ \
 	["partition", "partition", "partition", "partition"],
 	["integer partition", "integer partition", "integer partition", "integer partition"]]
 const MAX_DOMAINS = 3
-const MAX_CONFIG_SIZE = 10
-const MAX_UNI_SIZE = 10
+const MAX_CONFIG_SIZE = 18
+const MAX_UNI_SIZE = 30
 const NOT_DOMAINS = ["structure", "size", "pos", "count", "not", "inter", "union", "in"]
 const PROBLEM = preload("res://Scenes/Problem.tscn")
 const STEPBUTTON = preload("res://Scenes/StepButton.tscn")
@@ -57,9 +57,86 @@ func _ready():
 	
 	randomize()
 	Problem.set_self(self, g.problem)
+	init_docs()
 	init_menus()
 	Popups.get_node("OpenFile").current_dir = ""
 	Popups.get_node("OpenFile").current_path = ""
+
+
+func init_docs() -> void:
+	
+	DocTabs.get_node("Sequence").set_content(
+		"""
+		This case is equivalent to counting sequences of n elements of X with no restriction: a function f : N → X is determined by the n images of the elements of N, which can each be independently chosen among the elements of x. This gives a total of xn possibilities.
+		"""
+	)
+
+
+func init_menus() -> void:
+	
+	# MAIN
+	
+	# file
+	FileMenu.get_popup().connect("id_pressed", self, "_pressed_mb_main", [FileMenu])
+	FileMenu.get_popup().add_item("Import")
+	FileMenu.get_popup().add_item("Export")
+	
+	# edit
+	EditMenu.get_popup().connect("id_pressed", self, "_pressed_mb_main", [EditMenu])
+	EditMenu.get_popup().add_item("Clear")
+	
+	# problem
+	ProblemMenu.get_popup().connect("id_pressed", self, "_pressed_mb_main", [ProblemMenu])
+	ProblemMenu.get_popup().add_item("New Universe")
+	ProblemMenu.get_popup().add_item("New Configuration")
+	ProblemMenu.get_popup().add_item("",100)
+	ProblemMenu.get_popup().add_item("Add Element")
+	ProblemMenu.get_popup().add_item("Group")
+	ProblemMenu.get_popup().add_item("",101)
+	ProblemMenu.get_popup().add_item("Add Position Constraint")
+	ProblemMenu.get_popup().add_item("Add Size Constraint")
+	ProblemMenu.get_popup().set_item_as_separator(ProblemMenu.get_popup().get_item_index(100), true)
+	ProblemMenu.get_popup().set_item_as_separator(ProblemMenu.get_popup().get_item_index(101), true)
+	
+	# config menu
+	FuncInput.get_popup().connect("id_pressed", self, "_pressed_mb_input", [FuncInput])
+	ConfigSizeInput.get_popup().connect(
+		"id_pressed", self, "_pressed_mb_input", [ConfigSizeInput])
+	
+	# universe menu
+	UnivSizeInput.get_popup().connect(
+		"id_pressed", self, "_pressed_mb_input", [UnivSizeInput])
+	
+	# constraint menu
+	DomainInput.get_popup().connect(
+		"id_pressed", self, "_pressed_mb_input", [DomainInput])
+	
+	SizeDomainInput.get_popup().connect(
+		"id_pressed", self, "_pressed_mb_input", [SizeDomainInput])
+	
+	OperatorInput.get_popup().connect(
+		"id_pressed", self, "_pressed_mb_input", [OperatorInput])
+	
+	OperatorInput.get_popup().add_item("")
+	for op in g.OPERATORS:
+		OperatorInput.get_popup().add_item(op)
+	
+	for i in range(MAX_UNI_SIZE):
+		#to add zero before single digits like 01, 02 instead of 1, 2
+		var numberstr = "0" + str(i + 1) if i + 1 < 10 else str(i + 1)
+		UnivSizeInput.get_popup().add_item(numberstr)
+	
+	for i in range(MAX_CONFIG_SIZE):
+		#to add zero before single digits like 01, 02 instead of 1, 2
+		var numberstr = "0" + str(i + 1) if i + 1 < 10 else str(i + 1)
+		ConfigSizeInput.get_popup().add_item(numberstr)
+	
+	# group menu
+	GroupInput.get_popup().connect("id_pressed", self, "_pressed_mb_group")
+	#GroupInput.get_popup().set_item_as_checkable(GroupInput.get_popup().get_item_count()-1,true)
+	GroupInput.get_popup().set_hide_on_checkable_item_selection(false)
+	
+	update_name_caches()
 
 
 func _process(_delta):
@@ -434,73 +511,6 @@ func is_checked(group_name : String) -> bool:
 
 func is_editable() -> bool:
 	return mode == Mode.EDIT
-
-
-func init_menus() -> void:
-	
-	# MAIN
-	
-	# file
-	FileMenu.get_popup().connect("id_pressed", self, "_pressed_mb_main", [FileMenu])
-	FileMenu.get_popup().add_item("Import")
-	FileMenu.get_popup().add_item("Export")
-	
-	# edit
-	EditMenu.get_popup().connect("id_pressed", self, "_pressed_mb_main", [EditMenu])
-	EditMenu.get_popup().add_item("Clear")
-	
-	# problem
-	ProblemMenu.get_popup().connect("id_pressed", self, "_pressed_mb_main", [ProblemMenu])
-	ProblemMenu.get_popup().add_item("New Universe")
-	ProblemMenu.get_popup().add_item("New Configuration")
-	ProblemMenu.get_popup().add_item("",100)
-	ProblemMenu.get_popup().add_item("Add Element")
-	ProblemMenu.get_popup().add_item("Group")
-	ProblemMenu.get_popup().add_item("",101)
-	ProblemMenu.get_popup().add_item("Add Position Constraint")
-	ProblemMenu.get_popup().add_item("Add Size Constraint")
-	ProblemMenu.get_popup().set_item_as_separator(ProblemMenu.get_popup().get_item_index(100), true)
-	ProblemMenu.get_popup().set_item_as_separator(ProblemMenu.get_popup().get_item_index(101), true)
-	
-	# config menu
-	FuncInput.get_popup().connect("id_pressed", self, "_pressed_mb_input", [FuncInput])
-	ConfigSizeInput.get_popup().connect(
-		"id_pressed", self, "_pressed_mb_input", [ConfigSizeInput])
-	
-	# universe menu
-	UnivSizeInput.get_popup().connect(
-		"id_pressed", self, "_pressed_mb_input", [UnivSizeInput])
-	
-	# constraint menu
-	DomainInput.get_popup().connect(
-		"id_pressed", self, "_pressed_mb_input", [DomainInput])
-	
-	SizeDomainInput.get_popup().connect(
-		"id_pressed", self, "_pressed_mb_input", [SizeDomainInput])
-	
-	OperatorInput.get_popup().connect(
-		"id_pressed", self, "_pressed_mb_input", [OperatorInput])
-	
-	OperatorInput.get_popup().add_item("")
-	for op in g.OPERATORS:
-		OperatorInput.get_popup().add_item(op)
-	
-	for i in range(MAX_UNI_SIZE):
-		#to add zero before single digits like 01, 02 instead of 1, 2
-		var numberstr = "0" + str(i + 1) if i + 1 < 10 else str(i + 1)
-		UnivSizeInput.get_popup().add_item(numberstr)
-	
-	for i in range(MAX_CONFIG_SIZE):
-		#to add zero before single digits like 01, 02 instead of 1, 2
-		var numberstr = "0" + str(i + 1) if i + 1 < 10 else str(i + 1)
-		ConfigSizeInput.get_popup().add_item(numberstr)
-	
-	# group menu
-	GroupInput.get_popup().connect("id_pressed", self, "_pressed_mb_group")
-	#GroupInput.get_popup().set_item_as_checkable(GroupInput.get_popup().get_item_count()-1,true)
-	GroupInput.get_popup().set_hide_on_checkable_item_selection(false)
-	
-	update_name_caches()
 
 
 func popup_import():

@@ -37,54 +37,62 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBox" type="VBoxContainer" parent="."]
-margin_left = 16.0
-margin_top = 10.0
-margin_right = 239.0
-margin_bottom = 150.0
+[node name="Scroll" type="ScrollContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 32.0
+margin_top = 32.0
+margin_right = -32.0
+margin_bottom = -32.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBox" type="VBoxContainer" parent="Scroll"]
+margin_right = 1856.0
+margin_bottom = 1016.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 custom_constants/separation = 32
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Title" type="Label" parent="VBox"]
-margin_right = 223.0
+[node name="Title" type="Label" parent="Scroll/VBox"]
+margin_right = 1856.0
 margin_bottom = 36.0
 custom_fonts/font = SubResource( 3 )
 text = "n-sequence in x:"
 
-[node name="VBox" type="VBoxContainer" parent="VBox"]
+[node name="Formula" type="Control" parent="Scroll/VBox"]
 margin_top = 68.0
-margin_right = 223.0
-margin_bottom = 108.0
-
-[node name="Formula" type="Control" parent="VBox/VBox"]
-margin_right = 223.0
+margin_right = 1856.0
+margin_bottom = 68.0
 size_flags_horizontal = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Image" type="AnimatedSprite" parent="VBox/VBox/Formula"]
+[node name="Image" type="AnimatedSprite" parent="Scroll/VBox/Formula"]
 scale = Vector2( 0.5, 0.5 )
 frames = SubResource( 4 )
 centered = false
 
-[node name="Content" type="Label" parent="VBox/VBox"]
-margin_top = 4.0
-margin_right = 223.0
-margin_bottom = 40.0
+[node name="Content" type="Label" parent="Scroll/VBox"]
+margin_top = 100.0
+margin_right = 1856.0
+margin_bottom = 136.0
 custom_fonts/font = SubResource( 3 )
 text = "a sequence"
 autowrap = true
 
-[node name="Table" type="Control" parent="VBox"]
-margin_top = 140.0
-margin_right = 223.0
-margin_bottom = 140.0
+[node name="Table" type="Control" parent="Scroll/VBox"]
+margin_top = 168.0
+margin_right = 1856.0
+margin_bottom = 168.0
 
-[node name="sterling_table" type="Sprite" parent="VBox/Table"]
+[node name="sterling_table" type="Sprite" parent="Scroll/VBox/Table"]
 modulate = Color( 1, 1, 1, 0.705882 )
-scale = Vector2( 0.472388, 0.472388 )
+scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 8 )
 centered = false

@@ -6,7 +6,6 @@ class Problem:
 	
 	var children: Array
 	var config # static typing gives error
-	var count_formulas: Array
 	var domains: Array
 	var elem_map: Dictionary # used during import
 	var parent: Problem
@@ -61,13 +60,18 @@ class Problem:
 		
 		domain.set_problem(self)
 		domains.append(domain)
-		universe.elements = PoolIntArray(
-			g.union(Array(universe.elements), Array(domain.elements))
-		)
+		universe.set_elements(PoolIntArray(
+			g.union(Array(universe.get_elements()), Array(domain.get_elements()))
+		))
 	
 	
 	func add_pos_constraint(pos: int, domain_name: String) -> void:
-		pos_constraints[pos] = get_domain(domain_name)
+		
+		var domain = get_domain(domain_name)
+		if g.is_null(domain):
+			print("[Error] '{}' is not a valid domain".format([domain_name], "{}"))
+			return
+		pos_constraints[pos] = domain
 	
 	
 	func add_to_domain(domain: Domain, element_ids: PoolIntArray) -> void:
@@ -82,8 +86,8 @@ class Problem:
 		
 		if domain in domains:
 			
-			var elem_ids: PoolIntArray
-			var new_elem_names: PoolStringArray
+			var elem_ids = PoolIntArray()
+			var new_elem_names = PoolStringArray()
 			for i in elem_names:
 				if i.is_valid_integer():
 					elem_ids.append(int(i))
@@ -232,7 +236,7 @@ class Problem:
 	# returns a number of element id that are not in use
 	func get_free_ids(no_ids: int) -> PoolIntArray:
 		
-		var free_ids: PoolIntArray
+		var free_ids = PoolIntArray()
 		var current_id = MIN_ELEM_ID
 		while (len(free_ids) < no_ids):
 			if !current_id in universe.get_elements():
@@ -389,7 +393,6 @@ class Problem:
 	# TODO
 	func reset():
 		
-		count_formulas = []
 		pos_constraints = {}
 		solution = 0
 		children = []
@@ -426,7 +429,6 @@ class Problem:
 	
 	func to_cola() -> String:
 		
-		var universe_formula: String = get_universe_formula()
 		var cola = ""
 		
 		# Domains
@@ -438,13 +440,13 @@ class Problem:
 		cola += config.to_cola()
 		
 		# Pos Constraints
-		var flag = 1
 		for i in pos_constraints:
-			cola += "\n{name}[{i}] = {domain};".format(
-				{"name": config.get_name_cola(),
-				 "i": int(i),
-				 "domain": pos_constraints[i].get_name_cola()}
-			)
+			if pos_constraints[i] != universe:
+				cola += "\n{name}[{i}] = {domain};".format(
+					{"name": config.get_name_cola(),
+					 "i": int(i),
+					 "domain": pos_constraints[i].get_name_cola()}
+				)
 		
 		# Size Constraints
 		for domain in domains:
@@ -484,16 +486,20 @@ class Domain:
 		is_distinct = _is_distinct
 	
 	
-	func clear() -> void:
-		elements = PoolIntArray()
+	func get_elements() -> PoolIntArray:
+		return elements
+	
+	
+	func set_elements(elements: PoolIntArray) -> void:
+		self.elements = elements
 	
 	
 	func get_name() -> String:
 		return domain_name
 	
 	
-	func set_elements(elements: PoolIntArray) -> void:
-		self.elements = elements
+	func set_name(_name) -> void:
+		domain_name = _name
 	
 	
 	func get_name_cola() -> String:
@@ -503,20 +509,24 @@ class Domain:
 		return domain_name.strip_edges().to_lower()
 	
 	
-	func has_size_cs() -> bool:
-		return size_constraint.operator != ""
+	func get_problem() -> Problem:
+		return self.problem
 	
 	
-	func set_name(_name) -> void:
-		domain_name = _name
+	func set_problem(problem: Problem):
+		self.problem = problem
 	
 	
-	func get_elements() -> PoolIntArray:
-		return elements
+	func get_size() -> int:
+		return elements.size()
 	
 	
 	func add_elements(new_elements : PoolIntArray) -> void:
 		elements = g.union(elements, new_elements)
+	
+	
+	func clear() -> void:
+		elements = PoolIntArray()
 	
 	
 	func erase_elements(elements: PoolIntArray) -> void:
@@ -527,20 +537,20 @@ class Domain:
 		set_elements(PoolIntArray(cast))
 	
 	
-	# Get domain size
-	func get_size() -> int:
-		return len(self.elements)
-	
-
-	# Translates to cola expression
-	func to_cola() -> String:
+	# return interval object
+	func get_interval() -> Interval:
 		
-		var elements = str(elements).replace("[","{").replace("]","}").replace(" ","")
 		if is_interval():
-			elements = get_interval().string().replace(",",":").replace(" ","")
-		var dist = "indist ".repeat(int(!is_distinct))
-		var cola = "{}{} = {};".format([dist, get_name_cola(), elements], "{}")
-		return cola
+			# sorted by is_interval()
+			var lo = elements[0]
+			var hi = elements[-1]
+			var interval = g.Interval.new(lo, hi)
+			return interval
+		return null
+	
+	
+	func has_size_cs() -> bool:
+		return size_constraint.operator != ""
 	
 	
 	# Checks if this domain is an interval
@@ -553,45 +563,23 @@ class Domain:
 		return true
 	
 	
-	# Return interval object
-	func get_interval() -> Interval:
-		
-		if is_interval():
-			# sorted by is_interval()
-			var lo = elements[0]
-			var hi = elements[-1]
-			var interval = g.Interval.new(lo, hi)
-			return interval
-		return null
-	
-	
-	func get_problem() -> Problem:
-		return self.problem
-	
-	
-	func set_problem(problem: Problem):
-		self.problem = problem
-	
-	
 	func set_size_constraint(operator : String, size : int):
 		size_constraint.init(self, operator, size)
 	
 	
 	func set_size_constraint_array(domain : Domain, sizes : Array):
 		size_constraint.init_array(domain, sizes)
-
-
-class DomainFormula:
 	
 	
-	var arguments : Array
-	var operator : String
-	
-	
-	func _init(universe : Domain):
+	# translates to cola expression
+	func to_cola() -> String:
 		
-		self.universe = universe
-		
+		var dist = "indist ".repeat(int(!is_distinct))
+		var elems = str(get_elements()).replace("[","{").replace("]","}").replace(" ","")
+		if is_interval():
+			elems = get_interval().string().replace(",",":").replace(" ","")
+		var cola = "{}{} = {};".format([dist, get_name_cola(), elems], "{}")
+		return cola
 
 
 class Configuration:

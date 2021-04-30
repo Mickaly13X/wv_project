@@ -1,4 +1,4 @@
-extends Control
+extends Node2D
 
 
 var problem
@@ -7,6 +7,7 @@ var problem
 func _draw() -> void:
 	
 	# pos constraints
+	$Universe/Venn.update()
 	var constraints = problem.pos_constraints
 	for i in constraints:
 		
@@ -15,10 +16,12 @@ func _draw() -> void:
 		
 		var line_start = elem_position + $Config.ELEMENT_RADIUS * Vector2.RIGHT
 		
-		var line_end = $Universe.rect_position + $Universe.get_size().y / 2.0 * Vector2.DOWN
+		var line_end = $Universe.rect_position \
+			+ $Universe.get_size().y / 2.0 * Vector2.DOWN
 		if constraints[i] != problem.get_universe():
 			var circle_pos_scaled = $Universe.get_circle(constraints[i]).left() * $Universe/Venn.scale
 			line_end = circle_pos_scaled + $Universe/Venn.global_position
+		line_end -= global_position
 		
 		draw_line(line_start, line_end, Color.white, 5)
 

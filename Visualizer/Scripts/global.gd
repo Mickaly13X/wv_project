@@ -49,6 +49,17 @@ func bool2sign(b: bool) -> int:
 	else: return -1
 
 
+# returns representations of 'links', seperated by 'seperator'
+func chain(links: Array, seperator: String) -> String:
+	
+	var chain = String()
+	for i in range(len(links)):
+		chain += str(links[i])
+		if i != len(links) - 1:
+			chain += seperator
+	return chain
+
+
 # returns true with a chance of 1 / n
 func chance(n: int) -> bool:
 	return random(n - 1) == 0

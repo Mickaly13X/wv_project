@@ -47,11 +47,21 @@ func toggle_selected(is_selected: bool) -> void:
 func update_text() -> void:
 	
 	var tabulation = "         ".repeat(2 + problem.get_level())
+	
 	var solution_label = "solution"
 	if problem == g.problem:
 		solution_label = "Total solution"
+	
+	var multiple_terms = []
+	for i in problem.get_children():
+		if i.solution != 0:
+			multiple_terms.append(i.solution)
+	var solution = str(problem.solution)
+	if multiple_terms.size() >= 2:
+		solution += " = " + g.chain(multiple_terms, " x ")
+				
 	$HBox/Text.text = tabulation + "Step {}) {}: {}".format(
-		[number, solution_label, problem.solution], "{}"
+		[number, solution_label, solution], "{}"
 	)
 
 

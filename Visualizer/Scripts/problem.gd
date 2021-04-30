@@ -3,6 +3,8 @@ extends Node2D
 
 var problem
 
+onready var Main: Node
+
 
 func _draw() -> void:
 	
@@ -28,7 +30,7 @@ func _draw() -> void:
 
 func lose_focus(except = "") -> void:
 	
-	for I in get_children():
+	for I in [$Config, $Universe]:
 		
 		if I.name != except:
 			I.lose_focus()
@@ -38,10 +40,11 @@ func has_open_menu() -> bool:
 	return $Config/Menu.visible || $Universe/Menu.visible
 
 
-func set_self(Main, problem) -> void:
+func init(Main, problem) -> void:
 	
 	# parent Node refs
 	if !g.is_null(Main):
+		self.Main = Main
 		$Config.Main = Main
 		$Universe.Main = Main
 	$Config.Problem = self
@@ -52,3 +55,17 @@ func set_self(Main, problem) -> void:
 	$Config.set_problem(problem)
 	$Universe.set_problem(problem, true, true)
 	update()
+
+
+func toggle_combinations(show: bool) -> void:
+	
+	if show:
+		for i in range(g.problem.solution):
+			var new_element = Main.ELEMENT.instance()
+			new_element.init(null, 0, new_element.Type.BOX)
+			new_element.position = i * 20 * Vector2.DOWN
+			$Combinations/Elements.add_child(new_element)
+	else:
+		for i in $Combinations/Elements.get_children():
+			remove_child(i)
+			i.queue_free()

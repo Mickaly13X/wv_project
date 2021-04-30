@@ -1,7 +1,6 @@
 extends "res://Scripts/container.gd"
 
 const CIRCLE = preload("res://Scripts/circle.gd")
-const ELEMENT = preload("res://Scenes/Element.tscn")
 const ELEMENT_COLORS = [
 	Color(1, 0.406122, 0.406122), 
 	Color(0.406122, 0.540673, 1), 
@@ -102,7 +101,7 @@ func add_elements(element_ids: PoolIntArray) -> void:
 	
 	for i in element_ids:
 	
-		var new_element = ELEMENT.instance()
+		var new_element = Main.ELEMENT.instance()
 		new_element.init(self, i)
 		$Elements.add_child(new_element)
 	
@@ -318,10 +317,11 @@ func set_domain_tags(domains: Array = get_domains()) -> void:
 		
 		if i < len(domains):
 			
-			DomainName.text = domains[i].get_name()
+			DomainName.text = (domains[i].get_name() + "\n") \
+				.repeat(int(get_problem() == g.problem))
 			var size_constraint = domains[i].size_constraint
 			if size_constraint.operator != "":
-				DomainName.text += "\n(Size " + size_constraint.operator + \
+				DomainName.text += "(Size " + size_constraint.operator + \
 								   " " + str(size_constraint.size) + ")"
 			
 			DomainName.rect_position = get_circles()[i].rect().position

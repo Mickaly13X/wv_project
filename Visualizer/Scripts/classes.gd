@@ -39,6 +39,10 @@ class Problem:
 			set_size_constraint_array(get_domain_name_from_elements(domain_elements), sizes)
 	
 	
+	func get_children() -> Array:
+		return children
+	
+	
 	func add_child(child: Problem) -> void:
 		
 		children.append(child)

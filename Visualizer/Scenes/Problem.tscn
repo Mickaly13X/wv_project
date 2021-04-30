@@ -178,6 +178,39 @@ text = "Size Constraints"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Combinations" type="Control" parent="."]
+margin_left = 1320.0
+margin_top = 270.0
+margin_right = 1320.0
+margin_bottom = 270.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Mask" type="Control" parent="Combinations"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 175.0
+margin_bottom = 600.0
+mouse_filter = 1
+
+[node name="Elements" type="Control" parent="Combinations"]
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Combinations"]
+margin_left = 4.49493
+margin_top = -51.0371
+margin_right = 44.4949
+margin_bottom = -5.03708
+grow_vertical = 0
+custom_fonts/font = ExtResource( 1 )
+text = "Combinations"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="gui_input" from="Config/Mask" to="Config" method="_gui_input"]
 [connection signal="button_up" from="Config/Menu/Buttons/PosConstraint" to="Config" method="_pressed" binds= [ "Constraint" ]]
 [connection signal="gui_input" from="Universe/Mask" to="Universe" method="_gui_input"]
@@ -185,3 +218,4 @@ __meta__ = {
 [connection signal="button_up" from="Universe/Menu/Buttons/Delete" to="Universe" method="_pressed" binds= [ "Delete" ]]
 [connection signal="button_up" from="Universe/Menu/Buttons/Group" to="Universe" method="_pressed" binds= [ "Group" ]]
 [connection signal="button_up" from="Universe/Menu/Buttons/SizeConstraints" to="Universe" method="_pressed" binds= [ "SizeConstraints" ]]
+[connection signal="gui_input" from="Combinations/Mask" to="Combinations" method="_gui_input"]

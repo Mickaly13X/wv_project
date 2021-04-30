@@ -1,7 +1,6 @@
 extends "res://Scripts/container.gd"
 
 
-const ELEMENT = preload("res://Scenes/Element.tscn")
 const ELEMENT_OFFSET = 24
 const DOMAIN = preload("res://Scripts/classes.gd").Domain
 const INTERVAL = preload("res://Scripts/classes.gd").Interval
@@ -47,7 +46,7 @@ func set_problem(problem) -> void:
 func add_elements(no_elements: int, origin: Vector2) -> void:
 	
 	for i in range(no_elements):
-		var new_element = ELEMENT.instance()
+		var new_element = Main.ELEMENT.instance()
 		new_element.init(self, i + 1)
 		new_element.position = \
 			origin + (2*ELEMENT_RADIUS + ELEMENT_OFFSET) * i * Vector2.DOWN

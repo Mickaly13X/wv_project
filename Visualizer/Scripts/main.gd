@@ -6,6 +6,7 @@ const CONFIG_NAMES = [ \
 	["multisubset",  "subset", "integer composition"],
 	["partition", "partition", "partition", "partition"],
 	["integer partition", "integer partition", "integer partition", "integer partition"]]
+const ELEMENT = preload("res://Scenes/Element.tscn")
 const MAX_DOMAINS = 3
 const MAX_CONFIG_SIZE = 18
 const MAX_UNI_SIZE = 30
@@ -56,7 +57,7 @@ var running_problem
 func _ready():
 	
 	randomize()
-	Problem.set_self(self, g.problem)
+	Problem.init(self, g.problem)
 	init_docs()
 	init_menus()
 	Popups.get_node("OpenFile").current_dir = ""
@@ -72,7 +73,10 @@ func init_docs() -> void:
 		"This case is equivalent to counting sequences of n distinct elements of X, also called n-permutations of X, or sequences without repetitions; again this sequence is formed by the n images of the elements of N. This case differs from the one of unrestricted sequences in that there is one choice fewer for the second element, two fewer for the third element, and so on. Therefore instead of by an ordinary power of x, the value is given by a falling factorial power of x, in which each successive factor is one fewer than the previous one."
 	)
 	DocTabs.get_node("Subset").set_content(
-		"This case is equivalent to counting subsets with n elements of X, also called n-combinations of X: among the sequences of n distinct elements of X, those that differ only in the order of their terms are identified by permutations of N. Since in all cases this groups together exactly n! different sequences, we can divide the number of such sequences by n! to get the number of n-combinations of X."
+		"""	Also known as a Combination. This case counts the number of subsets with N elements that can be selected from the total set (universe) of X elements. The solution is given by the binomial coefficient that is shown left of the equation.
+			
+			In the balls-and-boxes model, this is equivalent with distributing all balls over the boxes 
+		"""
 	)
 	DocTabs.get_node("MultiSubset").set_content(
 		"This case is equivalent to counting multisets with n elements from X (also called n-multicombinations). The reason is that for each element of X it is determined how many elements of N are mapped to it by f, while two functions that give the same such 'multiplicities' to each element of X can always be transformed into another by a permutation of N. The formula counting all functions N → X is not useful here, because the number of them grouped together by permutations of N varies from one function to another. Rather, as explained under combinations, the number of n-multicombinations from a set with x elements can be seen to be the same as the number of n-combinations from a set with x + n − 1 elements."
@@ -536,7 +540,6 @@ func run():
 		for i in range(1, len(function_steps)):
 			eval(function_steps[i])
 		
-		#Problem.update()
 		Problem.lose_focus()
 		set_mode(Mode.STEPS)
 
@@ -628,26 +631,22 @@ func toggle_cola_panel():
 		OpenCoLa.text = ">"
 
 
-func toggle_docs(is_opened : bool):
-	
-	if is_opened:
-		Popups.get_node("Docs").popup()
-	else:
-		Popups.get_node("Docs").hide()
+func toggle_docs(show : bool):
+	Popups.get_node("Docs").visible = show
 
 
-func toggle_main_panel(is_opened : bool) -> void:
+func toggle_main_panel(show : bool) -> void:
 	
-	if is_opened:
+	if show:
 		Problems.rect_position.y -= $HSplit/VBox/MainPanel/UI/HUD.rect_size[1] + 60
 
 	else:
 		Problems.rect_position.y += $HSplit/VBox/MainPanel/UI/HUD.rect_size[1] + 60
 
 
-func toggle_menu_group(is_opened : bool) -> void:
+func toggle_menu_group(show : bool) -> void:
 	
-	if is_opened:
+	if show:
 		if !Universe.has_selected_elements():
 			show_message("No elements selected to group.")
 			return
@@ -667,27 +666,27 @@ func toggle_menu_problem_button(button_name : String, is_pressable : bool):
 	ProblemMenu.get_popup().set_item_disabled(get_item_idx_from_string(ProblemMenu.get_popup(), button_name), !is_pressable)
 
 
-func toggle_menu_universe(is_opened : bool) -> void:
+func toggle_menu_universe(show : bool) -> void:
 	
-	if is_opened:
+	if show:
 		$Popups/MenuUniverse.popup()
 	else:
 		$Popups/MenuUniverse.hide()
 
 
-func toggle_menu_config(is_opened : bool) -> void:
+func toggle_menu_config(show : bool) -> void:
 	
-	if is_opened:
+	if show:
 		FuncInput.text = FuncInput.get_popup().get_item_text(config[1])
 		$Popups/MenuConfig.popup()
 	else:
 		$Popups/MenuConfig.hide()
 
 
-func toggle_menu_pos_constraint(is_opened : bool, ask_position : bool = false) -> void:
+func toggle_menu_pos_constraint(show : bool, ask_position : bool = false) -> void:
 	
 	var Menu = Popups.get_node("MenuPosConstraint")
-	if is_opened:
+	if show:
 		DomainInput.text = "-Select Domain-"
 		DomainInput.get_popup().clear()
 		DomainInput.get_popup().add_item("Universe")
@@ -704,10 +703,10 @@ func toggle_menu_pos_constraint(is_opened : bool, ask_position : bool = false) -
 		Menu.hide()
 
 
-func toggle_menu_size_constraint(is_opened : bool) -> void:
+func toggle_menu_size_constraint(show : bool) -> void:
 	
 	var Menu = Popups.get_node("MenuSizeConstraint")
-	if is_opened:
+	if show:
 		SizeDomainInput.text = "-Select Domain-"
 		Menu.popup()
 	else:

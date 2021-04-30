@@ -274,6 +274,7 @@ func add_step(problem : g.Problem):
 		new_problem.name = "Problem" + str(no_steps)
 		new_problem.hide()
 		Problems.add_child(new_problem)
+		new_problem.update()
 	
 	running_problem = problem
 	var new_step = STEPBUTTON.instance()
@@ -437,42 +438,14 @@ func get_path_os(godot_path: String, os: String):
 		return godot_path.replace("/", "\\")
 
 
-##Returns a dictionary with name(of domain):value
-#func get_domains(input):
+#func get_domain_name(domain_string):
 #
-#	var domain = {}  #the dict to be returned
-#	var domain_strings = []
-#	for i in input:
-#		var is_domain = true
-#		for j in NOT_DOMAINS:
-#			if j in i or i == "":
-#				is_domain = false
-#				break
-#		if is_domain:
-#			domain_strings.append(i)
-#	for i in domain_strings:
-#		var key = get_domain_name(i)
-#		var value = get_domain_value(i)
-#		domain[key] = value
-#	#delete domain with highest length -> universe
-#	var highest = [0, ""]
-#	for key in domain:
-#		if len(domain[key]) > highest[0]:
-#			highest[0] = len(domain[key])
-#			highest[1] = key
-#		domain.erase(highest[1])
-#
-#	return domain
-
-
-func get_domain_name(domain_string):
-	
-	var regex = RegEx.new()
-	regex.compile("^\\w*")  #regex: ^\w*
-	var result = regex.search(domain_string)
-	if result:
-		return result.get_string()
-	return -1
+#	var regex = RegEx.new()
+#	regex.compile("^\\w*")  #regex: ^\w*
+#	var result = regex.search(domain_string)
+#	if result:
+#		return result.get_string()
+#	return -1
 
 
 #Only works for intervals for now
@@ -497,7 +470,7 @@ func group() -> void:
 	
 	var selected_ids = get_selected_group_ids()
 	if len(selected_ids) == 0:
-		print("Exception in group(): no elements selected")
+		print("[Error] no elements selected")
 		return
 	
 	for selected_name in get_selected_group_names():
@@ -563,6 +536,7 @@ func run():
 		for i in range(1, len(function_steps)):
 			eval(function_steps[i])
 		
+		#Problem.update()
 		Problem.lose_focus()
 		set_mode(Mode.STEPS)
 
@@ -625,6 +599,7 @@ func set_step(step: int) -> void:
 				Problems.get_node("Problem" + str(i)) \
 					.visible = (i == step)
 				Steps.get_child(i).toggle_selected(i == step)
+				Problems.get_node("Problem" + str(step)).update()
 
 
 func set_step_next() -> void:

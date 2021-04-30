@@ -219,6 +219,7 @@ __meta__ = {
 margin_left = 1862.0
 margin_right = 1920.0
 margin_bottom = 38.0
+grow_horizontal = 0
 focus_mode = 0
 custom_fonts/font = ExtResource( 4 )
 enabled_focus_mode = 0
@@ -752,7 +753,6 @@ __meta__ = {
 }
 
 [node name="MenuPosConstraint" type="PopupDialog" parent="Popups"]
-visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -1402,9 +1402,9 @@ window_title = "Open een Bestand"
 mode = 0
 access = 2
 filters = PoolStringArray( "*.pl ; CoLa Files" )
-current_dir = "/Users/erickim/wv_project/Visualizer"
+current_dir = "/Users/Joran/Git/wv_project/Visualizer"
 current_file = "~"
-current_path = "/Users/erickim/wv_project/Visualizer/~"
+current_path = "/Users/Joran/Git/wv_project/Visualizer/~"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1423,18 +1423,19 @@ popup_exclusive = true
 window_title = "Save as CoLa (.pl) file"
 access = 2
 filters = PoolStringArray( "*.pl ; CoLa Files" )
-current_dir = "/Users/erickim/wv_project/Visualizer"
+current_dir = "/Users/Joran/Git/wv_project/Visualizer"
 current_file = "~"
-current_path = "/Users/erickim/wv_project/Visualizer/~"
+current_path = "/Users/Joran/Git/wv_project/Visualizer/~"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Edit" type="Button" parent="."]
 visible = false
-margin_left = 1867.0
-margin_right = 1920.0
-margin_bottom = 34.0
+margin_left = 1861.94
+margin_top = 0.18729
+margin_right = 1919.94
+margin_bottom = 38.1873
 custom_fonts/font = ExtResource( 4 )
 text = "Edit"
 __meta__ = {

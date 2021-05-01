@@ -280,7 +280,7 @@ func set_domain_tags(domains: Array = get_domains()) -> void:
 			
 			DomainName.text = (domains[i].get_name() + "\n") \
 				.repeat(int(get_problem() == g.problem))
-			var size_constraint = domains[i].size_constraint
+			var size_constraint = domains[i].get_size_cs()
 			if size_constraint.operator != "":
 				DomainName.text += "(Size " + size_constraint.operator + \
 								   " " + str(size_constraint.size) + ")"

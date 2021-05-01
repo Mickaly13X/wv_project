@@ -392,7 +392,7 @@ func check_group() -> void:
 func clear() -> void:
 	
 	g.problem = g.Problem.new()
-	get_tree().reload_current_scene()
+	Problem.init(self, g.problem)
 
 
 func create_cola_file() -> void:

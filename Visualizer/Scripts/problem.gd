@@ -95,7 +95,6 @@ func toggle_combinations(show = problem.get_children().empty()) -> void:
 				Vector2($Combinations/Scroll.rect_min_size.x, distri[0].distance_to(distri[-1]) + 20)
 			)
 		var solutions = get_solutions()
-		print(solutions)
 		remove_size_cs_conflicts(solutions)
 		var no_elems = problem.get_no_elements()
 		var no_vars = problem.get_no_vars()
@@ -122,14 +121,20 @@ func toggle_combinations(show = problem.get_children().empty()) -> void:
 
 
 func remove_size_cs_conflicts(arrangements: Array) -> void:
-	pass
-#	var delete = []
-#	for i in arrangements:
-#		var domain_count = g.repeat([[]], problem.get_no_domains())
-#		if len(i) != size:
-#			delete.append(i)
-#	for i in delete:
-#		arrangements.erase(i)
+	
+	var delete = []
+	for i in arrangements:
+		var domain_counts = g.repeat([0], problem.get_no_domains())
+		for element_id in i:
+			for domain_index in problem.calc_element_domains(element_id):
+				domain_counts[domain_index] += 1
+		for j in range(len(domain_counts)):
+			if problem.get_domains()[j].has_size_cs():
+				if !domain_counts[j] in problem.get_domains()[j].get_size_cs().calc_sizes():
+					delete.append(i)
+		
+	for i in delete:
+		arrangements.erase(i)
 
 
 func get_ball_position(pos : int, no_elements : int) -> Vector2:

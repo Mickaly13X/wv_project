@@ -1,3 +1,3 @@
-uni = [1:4];
-config in {|| uni};
-#config = 2;
+trrrrr = [0:25];
+config in [|| trrrrr];
+#config = 7;

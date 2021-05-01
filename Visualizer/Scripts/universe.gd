@@ -41,16 +41,9 @@ var bruh = PoolVector2Array()
 var broh = PoolVector2Array()
 var brah = PoolVector2Array()
 
-func _ready():
-	
-	shape = StyleBoxFlat.new()
-	shape.bg_color = Color.transparent
-	shape.set_border_width_all(3)
-	shape.set_corner_radius_all(30)
-
 
 func _draw():
-	draw_self()
+	._draw()
 	draw_colored_polygon(bruh, Color(1, 0, 0, 0.3))
 
 
@@ -101,7 +94,7 @@ func add_elements(element_ids: PoolIntArray) -> void:
 	
 	for i in element_ids:
 	
-		var new_element = Main.ELEMENT.instance()
+		var new_element = g.ELEMENT.instance()
 		new_element.init(self, i)
 		$Elements.add_child(new_element)
 	
@@ -113,8 +106,8 @@ func calc_scaling() -> float:
 	
 	var diagram_size = $Venn.get_size()
 	# adjust to prevent weird polygon exclusion behavior
-	diagram_size.x += 5*ELEMENT_RADIUS
-	diagram_size.y += 5*ELEMENT_RADIUS
+	diagram_size.x += 5*g.ELEMENT_RADIUS
+	diagram_size.y += 5*g.ELEMENT_RADIUS
 	
 	var scaling = 1
 	if diagram_size.x > get_size().x && diagram_size.x != 0:
@@ -459,7 +452,7 @@ func update_element_positions(universe_elems = []) -> void:
 				new_position = randomTriangle(triangles[g.choose_weighted(triangle_areas)])
 				flag = false
 				for j in assigned_positions:
-					if new_position.distance_to(j) < 2*ELEMENT_RADIUS:
+					if new_position.distance_to(j) < 2*g.ELEMENT_RADIUS:
 						flag = true
 						break
 				attempt += 1
@@ -475,7 +468,7 @@ func calc_inner_exclusion(inner_domains: Array) -> PoolVector2Array:
 		var circle = get_circle(domain)
 		# account for  element size
 		var new_polygon = CIRCLE.new(
-			circle.center, circle.radius + ELEMENT_RADIUS).polygon(16)
+			circle.center, circle.radius + g.ELEMENT_RADIUS).polygon(16)
 		if inner_exlusion.empty():
 			inner_exlusion = new_polygon
 		else:
@@ -494,7 +487,7 @@ func get_spawn_polygon(venn_division_ids: PoolIntArray) -> PoolVector2Array:
 	if repr in get_problem().get_universe_strict():
 		# account for element size
 		inside_polygon = rect2polygon(
-			get_container_rect(1.0 / calc_scaling()).grow(-ELEMENT_RADIUS)
+			get_container_rect(1.0 / calc_scaling()).grow(-g.ELEMENT_RADIUS)
 		)
 		inside_polygon = exclude_polygon_custom(inside_polygon, calc_inner_exclusion(get_domains()))
 	else:
@@ -510,7 +503,7 @@ func get_spawn_polygon(venn_division_ids: PoolIntArray) -> PoolVector2Array:
 				# account for  element size
 				var circle = get_circle(i)
 				var new_polygon = CIRCLE.new(
-					circle.center, circle.radius - ELEMENT_RADIUS).polygon(16)
+					circle.center, circle.radius - g.ELEMENT_RADIUS).polygon(16)
 				if inside_polygon.empty():
 					inside_polygon = new_polygon
 				else:
@@ -531,7 +524,7 @@ func get_spawn_polygon(venn_division_ids: PoolIntArray) -> PoolVector2Array:
 					var circle = get_circle(i)
 					# account for  element size
 					var new_polygon = CIRCLE.new(
-						circle.center, circle.radius + ELEMENT_RADIUS).polygon(16)
+						circle.center, circle.radius + g.ELEMENT_RADIUS).polygon(16)
 					inside_polygon = exclude_polygon_custom(inside_polygon, new_polygon)
 		inside_polygon = exclude_polygon_custom(inside_polygon, calc_inner_exclusion(inner_domains))
 	

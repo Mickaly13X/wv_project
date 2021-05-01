@@ -4,7 +4,7 @@ class Problem:
 	const MAX_DOMAINS = 3
 	const MIN_ELEM_ID = 1
 	
-	var children: Array
+	var children = Array()
 	var config # static typing gives error
 	var domains: Array
 	var elem_map: Dictionary # used during import

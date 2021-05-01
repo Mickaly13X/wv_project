@@ -1323,6 +1323,14 @@ tabs_visible = false
 visible = false
 index = 1
 
+[node name="Panel3" parent="Popups/Tutorial/VBox/TutTabs" instance=ExtResource( 7 )]
+visible = false
+index = 2
+
+[node name="Panel4" parent="Popups/Tutorial/VBox/TutTabs" instance=ExtResource( 7 )]
+visible = false
+index = 3
+
 [node name="HSplit" type="HSplitContainer" parent="Popups/Tutorial/VBox"]
 visible = false
 margin_top = 50.0

@@ -321,7 +321,7 @@ func check_universe() -> void:
 			show_message("Please choose a size")
 			return
 		
-		g.problem.set_universe(range(int(new_size)), new_name)
+		g.problem.set_universe(range(1, int(new_size) + 1), new_name)
 		Universe.set_problem(g.problem, true, true)
 		
 		CoLaInput.text += new_name + "{[1," + str(new_size) + "]}"
@@ -392,7 +392,7 @@ func check_group() -> void:
 func clear() -> void:
 	
 	g.problem = g.Problem.new()
-	get_tree().reload_current_scene()
+	Problem.init(self, g.problem)
 
 
 func create_cola_file() -> void:

@@ -77,8 +77,8 @@ func toggle_combinations(show = problem.get_children().empty()) -> void:
 	$Combinations.visible = show
 	if show:
 		# Don't support too large combinations
-		if problem.solution > 20:
-			Main.show_message("Visualization of combinations is not support when the solution exeeds 20.")
+		if problem.solution > g.MAX_COMBINATIONS:
+			Main.show_message("Visualization of combinations is not support when the solution exeeds " + str(g.MAX_COMBINATIONS))
 			return
 		
 		$Combinations/Label.text = "Combinations (" + str(problem.solution) + ")"
@@ -96,15 +96,19 @@ func toggle_combinations(show = problem.get_children().empty()) -> void:
 			)
 		var solutions = get_solutions()
 		print(solutions)
-		print(get_multi_subsets([1,2,3,4],2))
 		remove_size_cs_conflicts(solutions)
+		print(solutions)
+		solutions.sort_custom(CustomSort, "sort_int_array_2d")
 		var no_elems = problem.get_no_elements()
 		var no_vars = problem.get_no_vars()
 		var config_type = problem.get_type()
 		var flag = 0
 		
-		for i in range(len(distri)):
+		if len(solutions) != problem.solution:
+			Main.show_message("Oops! Something went wrong in the solver")
+			return
 			
+		for i in range(len(distri)):
 			var new_box = g.ELEMENT.instance()
 			new_box.init(null, 0, new_box.Type.BOX)
 			new_box.position = distri[i]
@@ -123,14 +127,20 @@ func toggle_combinations(show = problem.get_children().empty()) -> void:
 
 
 func remove_size_cs_conflicts(arrangements: Array) -> void:
-	pass
-#	var delete = []
-#	for i in arrangements:
-#		var domain_count = g.repeat([[]], problem.get_no_domains())
-#		if len(i) != size:
-#			delete.append(i)
-#	for i in delete:
-#		arrangements.erase(i)
+	
+	var delete = []
+	for i in arrangements:
+		var domain_counts = g.repeat([0], problem.get_no_domains())
+		for element_id in i:
+			for domain_index in problem.calc_element_domains(element_id):
+				domain_counts[domain_index] += 1
+		for j in range(len(domain_counts)):
+			if problem.get_domains()[j].has_size_cs():
+				if !domain_counts[j] in problem.get_domains()[j].get_size_cs().calc_sizes():
+					delete.append(i)
+		
+	for i in delete:
+		arrangements.erase(i)
 
 
 func get_ball_position(pos : int, no_elements : int) -> Vector2:
@@ -153,7 +163,7 @@ func add_balls_to_box(ball_ids: PoolIntArray, box) -> void:
 		new_ball.position = get_ball_position(i, no_elems)
 		new_ball.scale = 0.3 * Vector2.ONE
 		new_ball.z_index = 1
-		new_ball.set_color(g.ELEMENT_COLORS[ball_ids[len(ball_ids) - 1 - i] - 1])
+		new_ball.set_color(g.ELEMENT_COLORS[ball_ids[len(ball_ids) - i - 1] - 1])
 		box.add_child(new_ball)
 
 
@@ -212,7 +222,6 @@ func get_sequences(n, k):
 		tmp.append(arr.duplicate(true))
 		if get_sequence_successor(arr, k, n) == 0:
 			break
-	tmp.sort()
 	return tmp
 
 
@@ -222,7 +231,6 @@ func get_permutations(n, k):
 	for i in sequences:
 		if g.check_duplicates(i):
 			sequences.remove(sequences.find(i))
-	sequences.sort()
 	return sequences
 
 
@@ -238,7 +246,6 @@ func get_all_subsets(elems : Array):
 	for partial_subset in get_all_subsets(remaining_list):
 		subsets.append(partial_subset)
 		subsets.append(partial_subset.duplicate() + [first_element])
-	subsets.sort()
 	return subsets
 
 
@@ -251,7 +258,8 @@ func get_subsets(elems : Array, size : int):
 			delete.append(i)
 	for i in delete:
 		multisubsets.erase(i)
-	multisubsets.sort()
+	for i in multisubsets:
+		i.sort()
 	return multisubsets
 
 
@@ -261,15 +269,15 @@ func get_multi_subsets(elems : Array, size : int):
 	tmp = tmp + get_sequences(len(elems), size)
 	var multisets = []
 	for i in tmp:
-		i.sort()
 		if !(i in multisets):
 			multisets.append(i.duplicate())
-	print(multisets)
-	multisets.sort_custom(custom_sort, "sort_int_array_2d")
 	return multisets
 
-class custom_sort:
+
+class CustomSort:
+	
 	static func sort_int_array_2d(a, b):
+		
 		var sorted = false
 		var i = 0
 		while (i < len(a)):
@@ -283,6 +291,4 @@ class custom_sort:
 				break
 			i += 1
 		return sorted
-
-
 

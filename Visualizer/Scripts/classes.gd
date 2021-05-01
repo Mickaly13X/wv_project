@@ -106,6 +106,16 @@ class Problem:
 			add_to_domain(domain, elem_ids + new_elem_ids)
 	
 	
+	# returns indexes of domains
+	func calc_element_domains(element_id: int) -> PoolIntArray:
+		
+		var domain_indexes = PoolIntArray()
+		for i in range(len(domains)):
+			if element_id in domains[i].get_elements():
+				domain_indexes.append(i)
+		return domain_indexes
+	
+	
 	func check_empty_domains() -> void:
 	
 		for i in domains:
@@ -458,11 +468,11 @@ class Problem:
 		
 		# Size Constraints
 		for domain in domains:
-			if domain.size_constraint.operator != "":
+			if domain.get_size_cs().get_operator() != "":
 				cola += "\n#{d} {op} {i};".format(
 					{"d": domain.get_name_cola(),
-					 "op": domain.size_constraint.operator,
-					 "i": domain.size_constraint.size}
+					 "op": domain.get_size_cs().get_operator(),
+					 "i": domain.get_size_cs().size}
 				)
 		
 		cola += "\n"
@@ -483,7 +493,7 @@ class Domain:
 	var domain_name: String
 	var elements: PoolIntArray
 	var is_distinct: bool
-	var size_constraint = g.SizeConstraint.new()
+	var size_cs = g.SizeConstraint.new()
 	var problem : Problem
 	
 	
@@ -506,8 +516,12 @@ class Domain:
 		return domain_name
 	
 	
-	func set_name(_name) -> void:
-		domain_name = _name
+	func set_name(name) -> void:
+		
+		if name.strip_edges().to_lower() == "universe":
+			domain_name = ""
+		else:
+			domain_name = name
 	
 	
 	func get_name_cola() -> String:
@@ -527,6 +541,10 @@ class Domain:
 	
 	func get_size() -> int:
 		return elements.size()
+	
+	
+	func get_size_cs() -> SizeConstraint:
+		return size_cs
 	
 	
 	func add_elements(new_elements : PoolIntArray) -> void:
@@ -558,7 +576,7 @@ class Domain:
 	
 	
 	func has_size_cs() -> bool:
-		return size_constraint.operator != ""
+		return size_cs.operator != ""
 	
 	
 	# Checks if this domain is an interval
@@ -572,11 +590,11 @@ class Domain:
 	
 	
 	func set_size_constraint(operator : String, size : int):
-		size_constraint.init(self, operator, size)
+		size_cs.init(self, operator, size)
 	
 	
 	func set_size_constraint_array(domain : Domain, sizes : Array):
-		size_constraint.init_array(domain, sizes)
+		size_cs.init_array(domain, sizes)
 	
 	
 	# translates to cola expression
@@ -689,8 +707,8 @@ class SizeConstraint:
 	
 	var operator = ""
 	var size = 0
-	var domain : Domain
-	var values : Array
+	var domain: Domain
+	var size_list = PoolIntArray()
 	
 	
 	func _init():
@@ -704,47 +722,81 @@ class SizeConstraint:
 		self.size = size
 	
 	
-	func init_array(domain : Domain, sizes : Array):
+	func init_array(domain : Domain, sizes: PoolIntArray):
 		
 		self.domain = domain
-		self.values = sizes
-		var tmp = get_operator().split(" ")
+		self.size_list = sizes
+		print(sizes)
+		print(calc_operator())
+		var tmp = calc_operator().split(" ")
 		self.operator = tmp[0]
 		self.size = tmp[1]
 	
 	
 	func get_operator() -> String:
+		return operator
+	
+	
+	func calc_operator() -> String:
 		
-		if values.empty():
+		if size_list.empty():
 			return ""
 		
-		if len(values) == 1:
-			return "= " + str(values[0])
+		if len(size_list) == 1:
+			return "= " + str(size_list[0])
 		
 		var no_vars = get_domain().get_problem().get_no_vars()
 		
-		if len(values) - 1 == no_vars:
+		if len(size_list) - 1 == no_vars:
 			return ""
-		if len(values) == no_vars:
-			return "!= " + str(g.exclude(range(no_vars), values))
+		if len(size_list) == no_vars:
+			return "!= " + str(g.exclude(range(no_vars), size_list))
 		
 		var is_continious = true
-		for i in range(values[0] + 1, values[0] + len(values)):
-			if values[i] != i:
+		for i in range(size_list[0] + 1, size_list[0] + len(size_list)):
+			if size_list[i] != i:
 				is_continious = false
 				break
 		if is_continious:
-			if values[0] == 0:
-				return "< " + str(values[-1] + 1)
-			if values[-1] == no_vars:
-				return ">= " + str(values[0])
+			if size_list[0] == 0:
+				return "< " + str(size_list[-1] + 1)
+			if size_list[-1] == no_vars:
+				return ">= " + str(size_list[0])
 		
-		return "in " + str(values)
+		return "in " + str(size_list)
 	
 	
 	func get_domain() -> Domain:
 		return domain
-
+	
+	
+	func calc_sizes() -> PoolIntArray:
+		
+		if size_list.empty():
+			
+			var sizes = PoolIntArray()
+			var no_elements = len(domain.get_elements())
+			
+			match operator:
+				
+				"=":
+					sizes.append(size)
+				"!=":
+					for i in range(no_elements):
+						if i != size:
+							sizes.append(size)
+				">":
+					sizes += range(size + 1, no_elements + 1)
+				">=":
+					sizes += range(size, no_elements + 1)
+				"<":
+					sizes += range(0, size)
+				"<=":
+					sizes += range(0, size + 1)
+			
+			return sizes
+		
+		return size_list
 
 # Class for CoLa Expressions
 class CoLaExpression:

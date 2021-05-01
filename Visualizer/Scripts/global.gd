@@ -5,9 +5,10 @@ extends Node
 const ELEMENT = preload("res://Scenes/Element.tscn")
 const ELEMENT_RADIUS = 20
 const ELEMENT_BORDER_WIDTH = 5
+const MAX_COMBINATIONS = 30
 const MAX_DOMAINS = 3
 const MAX_CONFIG_SIZE = 18
-const MAX_ELEMENTS = 30
+const MAX_ELEMENTS = 26
 const Problem = preload("res://Scripts/classes.gd").Problem
 const Domain = preload("res://Scripts/classes.gd").Domain
 const Configuration = preload("res://Scripts/classes.gd").Configuration

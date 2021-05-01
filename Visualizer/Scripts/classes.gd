@@ -726,8 +726,6 @@ class SizeConstraint:
 		
 		self.domain = domain
 		self.size_list = sizes
-		print(sizes)
-		print(calc_operator())
 		var tmp = calc_operator().split(" ")
 		self.operator = tmp[0]
 		self.size = tmp[1]

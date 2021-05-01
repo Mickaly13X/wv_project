@@ -259,6 +259,10 @@ class Problem:
 		return level
 	
 	
+	func get_no_domains() -> int:
+		return len(domains)
+	
+	
 	func get_no_elements() -> int:
 		return universe.get_size()
 	

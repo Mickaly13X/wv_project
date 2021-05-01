@@ -411,8 +411,10 @@ func fetch(function_name: String, arguments: Array = []) -> PoolStringArray:
 	print(">terminal call {} {}".format([command, str(args)], "{}"))
 
 	var exit_code = OS.execute(command, args, true, output)
-
 	print(">exit_code: " + str(exit_code))
+	if exit_code != 0:
+		return PoolStringArray()
+		
 	return output[0].rstrip("\n").split("\n")
 	
 #	var command = "lib/fetch_osx/fetch" # path structure os dependent
@@ -598,6 +600,8 @@ func set_mode(mode: int) -> void:
 		for I in Problems.get_children():
 			if I.name != "Problem0":
 				I.free()
+		g.problem.children = []
+		g.problem.solution = 0
 		Problem.toggle_combinations(false)
 	
 	self.mode = mode

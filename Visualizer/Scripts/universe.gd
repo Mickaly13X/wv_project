@@ -46,6 +46,7 @@ func _pressed(button_name : String) -> void:
 				if needs_new_circles:
 					update_circles()
 					update_elements()
+				update_element_colors()
 			
 			"Group":
 				Main.toggle_menu_group(true)
@@ -359,11 +360,9 @@ func update_elements() -> void:
 
 func update_element_colors() -> void:
 	
-	var color_count = 0
 	for I in get_elements():
 		if get_problem().is_dist_elem(I.get_id()):
-			I.set_color(ELEMENT_COLORS[color_count])
-			color_count += 1
+			I.set_color(ELEMENT_COLORS[I.get_id() - 1])
 		else:
 			I.set_color(Color.white)
 

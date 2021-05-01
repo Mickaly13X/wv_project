@@ -78,9 +78,12 @@ func toggle_combinations(show = problem.get_children().empty()) -> void:
 	if show:
 		# Don't support too large combinations
 		if problem.solution > 20:
+			Main.show_message("Visualization of combinations is not support when the solution exeeds 20.")
 			return
+		
+		$Combinations/Label.text = "Combinations (" + str(problem.solution) + ")"
 		is_shifted = true
-		position += 100 * Vector2.LEFT
+		position += 160 * Vector2.LEFT
 		var distri: PoolVector2Array
 		if problem.solution < 10:
 			distri = calc_v_distri($Combinations.get_center(), problem.solution)
@@ -92,30 +95,41 @@ func toggle_combinations(show = problem.get_children().empty()) -> void:
 				Vector2($Combinations/Scroll.rect_min_size.x, distri[0].distance_to(distri[-1]) + 20)
 			)
 		var solutions = get_solutions()
-		#print(solutions)
+		print(solutions)
+		remove_size_cs_conflicts(solutions)
 		var no_elems = problem.get_no_elements()
 		var no_vars = problem.get_no_vars()
 		var config_type = problem.get_type()
 		var flag = 0
 		
-		for point in distri:
+		for i in range(len(distri)):
 			
 			var new_box = g.ELEMENT.instance()
 			new_box.init(null, 0, new_box.Type.BOX)
-			new_box.position = point
-			#new_box.size = g.ELEMENT_RADIUS * Vector2.ONE
+			new_box.position = distri[i]
 			$Combinations/Scroll/Elements.add_child(new_box)
 			var pos = 0
-			for el_id in solutions[flag]:
-				add_ball_to_box(el_id-1, new_box, pos)
-				pos += 1
+			add_balls_to_box(solutions[i], new_box)
 			flag += 1
 	else:
+		$Combinations/Label.text = "Combinations"
 		if is_shifted:
-			position += 100 * Vector2.RIGHT
+			position += 160 * Vector2.RIGHT
+			is_shifted = false
 		for i in $Combinations/Scroll/Elements.get_children():
 			remove_child(i)
 			i.queue_free()
+
+
+func remove_size_cs_conflicts(arrangements: Array) -> void:
+	pass
+#	var delete = []
+#	for i in arrangements:
+#		var domain_count = g.repeat([[]], problem.get_no_domains())
+#		if len(i) != size:
+#			delete.append(i)
+#	for i in delete:
+#		arrangements.erase(i)
 
 
 func get_ball_position(pos : int, no_elements : int) -> Vector2:
@@ -124,26 +138,26 @@ func get_ball_position(pos : int, no_elements : int) -> Vector2:
 	var border_width = g.ELEMENT_BORDER_WIDTH
 	var positions = []
 	var length = 2*box_r - border_width - box_r/5 - box_r/10
-	var offset = length/no_elements # -10 for border width*2, - 2 for margin 1 px - 4 for element
+	var offset = 10#length/no_elements # -10 for border width*2, - 2 for margin 1 px - 4 for element
 	return Vector2(0, box_r - border_width - box_r/5 - box_r/5*2 - pos*offset)
 	
 
-func add_ball_to_box(ball_id : int, box, pos) -> void:
+func add_balls_to_box(ball_ids: PoolIntArray, box) -> void:
 	
-	var no_elems = g.problem.get_no_elements()
-	var new_ball = g.ELEMENT.instance()
-	new_ball.init(null, ball_id, new_ball.Type.BALL)
-	new_ball.position = get_ball_position(pos, no_elems)
-	new_ball.scale = 0.2 * Vector2.ONE
-	new_ball.z_index = 1
-	new_ball.set_color(g.ELEMENT_COLORS[ball_id])
-	box.add_child(new_ball)
+	for i in range(len(ball_ids)):
+		
+		var no_elems = g.problem.get_no_elements()
+		var new_ball = g.ELEMENT.instance()
+		new_ball.init(null, ball_ids[i], new_ball.Type.BALL)
+		new_ball.position = get_ball_position(i, no_elems)
+		new_ball.scale = 0.3 * Vector2.ONE
+		new_ball.z_index = 1
+		new_ball.set_color(g.ELEMENT_COLORS[ball_ids[len(ball_ids) - 1 - i] - 1])
+		box.add_child(new_ball)
 
 
 func get_solutions() -> Array:
 	
-	if problem.solution > 20:
-		return []
 	var solutions = []
 	var no_elems = problem.get_no_elements()
 	var no_vars = problem.get_no_vars()
@@ -191,14 +205,11 @@ func get_sequences(n, k):
 	var tmp = []
 	var arr = []
 	for i in range(k):
-		arr += [0]
-	
-	for i in range(k):
-		arr[i] = 1
+		arr += [1]
 	
 	while(1):
 		tmp.append(arr.duplicate(true))
-		if(get_sequence_successor(arr, k, n) == 0):
+		if get_sequence_successor(arr, k, n) == 0:
 			break
 	return tmp
 
@@ -231,13 +242,11 @@ func get_all_subsets(elems : Array):
 
 func get_subsets(elems : Array, size : int):
 	
-	var tmp = get_all_subsets(elems)
-	for i in tmp:
+	var multisubsets = get_all_subsets(elems)
+	var delete = []
+	for i in multisubsets:
 		if len(i) != size:
-			tmp.remove(tmp.find(i))
-	# repeat because for some stupid reason it doesn't delete everything??
-	# ex: config = 2, elems = 3
-	for i in tmp:
-		if len(i) != size:
-			tmp.remove(tmp.find(i))
-	return tmp
+			delete.append(i)
+	for i in delete:
+		multisubsets.erase(i)
+	return multisubsets

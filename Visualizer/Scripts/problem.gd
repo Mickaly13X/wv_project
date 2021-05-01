@@ -77,8 +77,8 @@ func toggle_combinations(show = problem.get_children().empty()) -> void:
 	$Combinations.visible = show
 	if show:
 		# Don't support too large combinations
-		if problem.solution > 20:
-			Main.show_message("Visualization of combinations is not support when the solution exeeds 20.")
+		if problem.solution > g.MAX_COMBINATIONS:
+			Main.show_message("Visualization of combinations is not support when the solution exeeds " + str(g.MAX_COMBINATIONS))
 			return
 		
 		$Combinations/Label.text = "Combinations (" + str(problem.solution) + ")"
@@ -95,14 +95,20 @@ func toggle_combinations(show = problem.get_children().empty()) -> void:
 				Vector2($Combinations/Scroll.rect_min_size.x, distri[0].distance_to(distri[-1]) + 20)
 			)
 		var solutions = get_solutions()
+		print(solutions)
 		remove_size_cs_conflicts(solutions)
+		print(solutions)
+		solutions.sort_custom(CustomSort, "sort_int_array_2d")
 		var no_elems = problem.get_no_elements()
 		var no_vars = problem.get_no_vars()
 		var config_type = problem.get_type()
 		var flag = 0
 		
-		for i in range(len(distri)):
+		if len(solutions) != problem.solution:
+			Main.show_message("Oops! Something went wrong in the solver")
+			return
 			
+		for i in range(len(distri)):
 			var new_box = g.ELEMENT.instance()
 			new_box.init(null, 0, new_box.Type.BOX)
 			new_box.position = distri[i]
@@ -157,7 +163,7 @@ func add_balls_to_box(ball_ids: PoolIntArray, box) -> void:
 		new_ball.position = get_ball_position(i, no_elems)
 		new_ball.scale = 0.3 * Vector2.ONE
 		new_ball.z_index = 1
-		new_ball.set_color(g.ELEMENT_COLORS[ball_ids[len(ball_ids) - 1 - i] - 1])
+		new_ball.set_color(g.ELEMENT_COLORS[ball_ids[len(ball_ids) - i - 1] - 1])
 		box.add_child(new_ball)
 
 
@@ -181,7 +187,7 @@ func get_solutions() -> Array:
 			solutions = get_subsets(elems, no_vars)
 		
 		"multisubset":
-			solutions = get_all_subsets(elems)
+			solutions = get_multi_subsets(elems, no_vars)
 		
 		_:
 			pass # no support for partitions or compositions
@@ -225,7 +231,6 @@ func get_permutations(n, k):
 	for i in sequences:
 		if g.check_duplicates(i):
 			sequences.remove(sequences.find(i))
-	
 	return sequences
 
 
@@ -241,7 +246,6 @@ func get_all_subsets(elems : Array):
 	for partial_subset in get_all_subsets(remaining_list):
 		subsets.append(partial_subset)
 		subsets.append(partial_subset.duplicate() + [first_element])
-
 	return subsets
 
 
@@ -254,4 +258,37 @@ func get_subsets(elems : Array, size : int):
 			delete.append(i)
 	for i in delete:
 		multisubsets.erase(i)
+	for i in multisubsets:
+		i.sort()
 	return multisubsets
+
+
+func get_multi_subsets(elems : Array, size : int):
+	
+	var tmp = get_subsets(elems, size)
+	tmp = tmp + get_sequences(len(elems), size)
+	var multisets = []
+	for i in tmp:
+		if !(i in multisets):
+			multisets.append(i.duplicate())
+	return multisets
+
+
+class CustomSort:
+	
+	static func sort_int_array_2d(a, b):
+		
+		var sorted = false
+		var i = 0
+		while (i < len(a)):
+			if a[i] == b[i]:
+				sorted = true
+			elif a[i] < b[i]:
+				sorted = true
+				break
+			elif a[i] > b[i]:
+				sorted = false
+				break
+			i += 1
+		return sorted
+

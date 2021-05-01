@@ -516,8 +516,12 @@ class Domain:
 		return domain_name
 	
 	
-	func set_name(_name) -> void:
-		domain_name = _name
+	func set_name(name) -> void:
+		
+		if name.strip_edges().to_lower() == "universe":
+			domain_name = ""
+		else:
+			domain_name = name
 	
 	
 	func get_name_cola() -> String:
@@ -722,6 +726,8 @@ class SizeConstraint:
 		
 		self.domain = domain
 		self.size_list = sizes
+		print(sizes)
+		print(calc_operator())
 		var tmp = calc_operator().split(" ")
 		self.operator = tmp[0]
 		self.size = tmp[1]

@@ -1,0 +1,98 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scripts/tut_tab_panel.gd" type="Script" id=4]
+[ext_resource path="res://Fonts/font medium.tres" type="DynamicFont" id=9]
+[ext_resource path="res://Textures/arrow_right.png" type="Texture" id=10]
+[ext_resource path="res://Textures/arrow_left.png" type="Texture" id=11]
+[ext_resource path="res://Textures/tut_menu.png" type="Texture" id=13]
+
+[sub_resource type="StyleBoxEmpty" id=6]
+
+[node name="Panel" type="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 600, 0 )
+custom_styles/panel = SubResource( 6 )
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBox" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PrevButton" type="VBoxContainer" parent="HBox"]
+margin_right = 64.0
+margin_bottom = 1080.0
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Image" type="TextureButton" parent="HBox/PrevButton"]
+margin_top = 501.0
+margin_right = 64.0
+margin_bottom = 578.0
+texture_normal = ExtResource( 11 )
+
+[node name="VBox" type="VBoxContainer" parent="HBox"]
+margin_left = 68.0
+margin_right = 1852.0
+margin_bottom = 1080.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 24
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBox" type="HBoxContainer" parent="HBox/VBox"]
+margin_right = 1784.0
+margin_bottom = 954.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Image" type="TextureRect" parent="HBox/VBox/HBox"]
+margin_right = 1784.0
+margin_bottom = 954.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 13 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Description" type="Label" parent="HBox/VBox"]
+margin_top = 977.0
+margin_right = 1784.0
+margin_bottom = 1079.0
+rect_min_size = Vector2( 0, 102 )
+custom_fonts/font = ExtResource( 9 )
+text = "This is a description"
+align = 1
+autowrap = true
+
+[node name="NextButton" type="VBoxContainer" parent="HBox"]
+margin_left = 1856.0
+margin_right = 1920.0
+margin_bottom = 1080.0
+size_flags_vertical = 3
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Image" type="TextureButton" parent="HBox/NextButton"]
+margin_top = 501.0
+margin_right = 64.0
+margin_bottom = 578.0
+texture_normal = ExtResource( 10 )
+[connection signal="button_up" from="HBox/PrevButton/Image" to="." method="prev"]
+[connection signal="button_up" from="HBox/NextButton/Image" to="." method="next"]

@@ -45,6 +45,7 @@ onready var FileMenu = $HSplit/VBox/MainPanel/UI/HUD/Main/File
 onready var EditMenu = $HSplit/VBox/MainPanel/UI/HUD/Main/Edit
 onready var ProblemMenu = $HSplit/VBox/MainPanel/UI/HUD/Main/Problem
 onready var DocTabs = $Popups/Docs/VBox/HSplit/DocTabs
+onready var TutTabs = $Popups/Tutorial/VBox/TutTabs
 
 var config = [Distinct.NONE_SAME, SetFunction.ANY]
 var container_menu : String
@@ -62,6 +63,7 @@ func _ready():
 	init_menus()
 	Popups.get_node("OpenFile").current_dir = ""
 	Popups.get_node("OpenFile").current_path = ""
+	Popups.get_node("Tutorial").popup()
 
 
 func init_docs() -> void:
@@ -713,6 +715,10 @@ func toggle_menu_size_constraint(show : bool) -> void:
 		Menu.hide()
 
 
+func toggle_tutorial(show : bool):
+	Popups.get_node("Tutorial").visible = show
+
+
 func get_selected_group_names_as_string() -> String:
 	
 	var group_names = ""
@@ -841,3 +847,11 @@ func _change_doc_tab(idx : int):
 			buttons[i].toggle_select(false)
 	
 	DocTabs.current_tab = idx
+
+
+func next_tut_tab() -> void:
+	TutTabs.current_tab = TutTabs.current_tab + 1
+
+
+func prev_tut_tab() -> void:
+	TutTabs.current_tab = TutTabs.current_tab - 1

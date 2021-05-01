@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scripts/main.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Problem.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Fonts/font medium.tres" type="DynamicFont" id=4]
 [ext_resource path="res://Fonts/font.tres" type="DynamicFont" id=5]
 [ext_resource path="res://Scenes/DocTabPanel.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/TutorialTabPanel.tscn" type="PackedScene" id=7]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.054902, 0.054902, 0.0588235, 1 )
@@ -31,6 +32,8 @@ bg_color = Color( 0.0941176, 0.101961, 0.12549, 1 )
 
 [sub_resource type="StyleBoxFlat" id=5]
 bg_color = Color( 0.0941176, 0.101961, 0.12549, 1 )
+
+[sub_resource type="StyleBoxEmpty" id=6]
 
 [node name="Main" type="Control"]
 anchor_right = 1.0
@@ -105,7 +108,9 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -0.476685
+margin_top = -1.08893
 margin_right = -0.476685
+margin_bottom = -1.08887
 mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1146,6 +1151,7 @@ focus_mode = 0
 custom_fonts/font = ExtResource( 4 )
 enabled_focus_mode = 0
 text = "x"
+flat = true
 
 [node name="HSplit" type="HSplitContainer" parent="Popups/Docs/VBox"]
 margin_top = 50.0
@@ -1278,7 +1284,7 @@ margin_right = 871.0
 margin_bottom = 46.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 5 )
-text = "Documentation"
+text = "Tutorial"
 align = 1
 valign = 1
 
@@ -1299,8 +1305,25 @@ focus_mode = 0
 custom_fonts/font = ExtResource( 4 )
 enabled_focus_mode = 0
 text = "x"
+flat = true
+
+[node name="TutTabs" type="TabContainer" parent="Popups/Tutorial/VBox"]
+margin_top = 50.0
+margin_right = 1309.0
+margin_bottom = 864.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 6 )
+tabs_visible = false
+
+[node name="Panel1" parent="Popups/Tutorial/VBox/TutTabs" instance=ExtResource( 7 )]
+
+[node name="Panel2" parent="Popups/Tutorial/VBox/TutTabs" instance=ExtResource( 7 )]
+visible = false
+index = 1
 
 [node name="HSplit" type="HSplitContainer" parent="Popups/Tutorial/VBox"]
+visible = false
 margin_top = 50.0
 margin_right = 1309.0
 margin_bottom = 864.0
@@ -1311,6 +1334,7 @@ __meta__ = {
 }
 
 [node name="Index" type="Panel" parent="Popups/Tutorial/VBox/HSplit"]
+visible = false
 margin_right = 200.0
 margin_bottom = 814.0
 rect_min_size = Vector2( 200, 0 )
@@ -1359,7 +1383,7 @@ margin_bottom = 216.0
 text = "Partition"
 
 [node name="DocTabs" type="TabContainer" parent="Popups/Tutorial/VBox/HSplit"]
-margin_left = 212.0
+visible = false
 margin_right = 1309.0
 margin_bottom = 814.0
 custom_styles/panel = SubResource( 5 )
@@ -1402,9 +1426,9 @@ window_title = "Open een Bestand"
 mode = 0
 access = 2
 filters = PoolStringArray( "*.pl ; CoLa Files" )
-current_dir = "/Users/Joran/Git/wv_project/Visualizer"
+current_dir = "/Users/erickim/wv_project/Visualizer"
 current_file = "~"
-current_path = "/Users/Joran/Git/wv_project/Visualizer/~"
+current_path = "/Users/erickim/wv_project/Visualizer/~"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1423,9 +1447,9 @@ popup_exclusive = true
 window_title = "Save as CoLa (.pl) file"
 access = 2
 filters = PoolStringArray( "*.pl ; CoLa Files" )
-current_dir = "/Users/Joran/Git/wv_project/Visualizer"
+current_dir = "/Users/erickim/wv_project/Visualizer"
 current_file = "~"
-current_path = "/Users/Joran/Git/wv_project/Visualizer/~"
+current_path = "/Users/erickim/wv_project/Visualizer/~"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1477,7 +1501,7 @@ __meta__ = {
 [connection signal="button_up" from="Popups/Docs/VBox/HSplit/Index/Scroll/Buttons/MultiSubset" to="." method="_change_doc_tab" binds= [ 3 ]]
 [connection signal="button_up" from="Popups/Docs/VBox/HSplit/Index/Scroll/Buttons/Composition" to="." method="_change_doc_tab" binds= [ 4 ]]
 [connection signal="button_up" from="Popups/Docs/VBox/HSplit/Index/Scroll/Buttons/Partition" to="." method="_change_doc_tab" binds= [ 5 ]]
-[connection signal="button_up" from="Popups/Tutorial/VBox/Head/Buttons/Exit" to="." method="toggle_docs" binds= [ false ]]
+[connection signal="button_up" from="Popups/Tutorial/VBox/Head/Buttons/Exit" to="." method="toggle_tutorial" binds= [ false ]]
 [connection signal="button_up" from="Popups/Tutorial/VBox/HSplit/Index/Scroll/Buttons/Sequence" to="." method="_change_doc_tab" binds= [ 0 ]]
 [connection signal="button_up" from="Popups/Tutorial/VBox/HSplit/Index/Scroll/Buttons/Permutation" to="." method="_change_doc_tab" binds= [ 1 ]]
 [connection signal="button_up" from="Popups/Tutorial/VBox/HSplit/Index/Scroll/Buttons/Subset" to="." method="_change_doc_tab" binds= [ 2 ]]

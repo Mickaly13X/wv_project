@@ -6,10 +6,6 @@ const CONFIG_NAMES = [ \
 	["multisubset",  "subset", "integer composition"],
 	["partition", "partition", "partition", "partition"],
 	["integer partition", "integer partition", "integer partition", "integer partition"]]
-const ELEMENT = preload("res://Scenes/Element.tscn")
-const MAX_DOMAINS = 3
-const MAX_CONFIG_SIZE = 18
-const MAX_UNI_SIZE = 30
 const NOT_DOMAINS = ["structure", "size", "pos", "count", "not", "inter", "union", "in"]
 const PROBLEM = preload("res://Scenes/Problem.tscn")
 const STEPBUTTON = preload("res://Scenes/StepButton.tscn")
@@ -67,25 +63,34 @@ func _ready():
 func init_docs() -> void:
 	
 	DocTabs.get_node("Sequence").set_content(
-		"This case is equivalent to counting sequences of n elements of X with no restriction: a function f : N → X is determined by the n images of the elements of N, which can each be independently chosen among the elements of x. This gives a total of xn possibilities."
+		"""This case counts the number of sequences/rows containing N elements. Elements may appear multiple times in the sequence/row and the order of a row matters, meaning the row (a, b) is a different case than the row (b, a).
+		"""
 	)
 	DocTabs.get_node("Permutation").set_content(
-		"This case is equivalent to counting sequences of n distinct elements of X, also called n-permutations of X, or sequences without repetitions; again this sequence is formed by the n images of the elements of N. This case differs from the one of unrestricted sequences in that there is one choice fewer for the second element, two fewer for the third element, and so on. Therefore instead of by an ordinary power of x, the value is given by a falling factorial power of x, in which each successive factor is one fewer than the previous one."
+		"""This case counts the number of sequences/rows containing N elements. Every element may only appear once in the sequence/row and the order of a row matters, meaning the row (a, b) is a different case than the row (b, a).
+		"""
 	)
 	DocTabs.get_node("Subset").set_content(
-		"""	Also known as a Combination. This case counts the number of subsets with N elements that can be selected from the total set (universe) of X elements. The solution is given by the binomial coefficient that is shown left of the equation.
+		"""	Also known as a Combination. This case counts the number of subsets with N elements that can be selected from the total set (universe) of X elements. The order of elements in a given subset does not matter, meaning the set (a, b) is the same as the set (b, a). Contrary to a multi-subset configuration, every element may only appear once in a given subset.
 			
-			In the balls-and-boxes model, this is equivalent with distributing all balls over the boxes 
+			The solution is given by the binomial coefficient that is shown left of the equation.
 		"""
 	)
 	DocTabs.get_node("MultiSubset").set_content(
-		"This case is equivalent to counting multisets with n elements from X (also called n-multicombinations). The reason is that for each element of X it is determined how many elements of N are mapped to it by f, while two functions that give the same such 'multiplicities' to each element of X can always be transformed into another by a permutation of N. The formula counting all functions N → X is not useful here, because the number of them grouped together by permutations of N varies from one function to another. Rather, as explained under combinations, the number of n-multicombinations from a set with x elements can be seen to be the same as the number of n-combinations from a set with x + n − 1 elements."
+		"""	Also known as a Multi-Combination. This case counts the number of subsets with N elements that can be selected from the total set (universe) of X elements. The order of elements in a given subset does not matter, meaning the set (a, b) is the same as the set (b, a). Contrary to a subset configuration, elements may appear multiple times in a given subset.
+		"""
 	)
 	DocTabs.get_node("Partition").set_content(
-		"This case is equivalent to counting partitions of N into x (non-empty) subsets, or counting equivalence relations on N with exactly x classes. Indeed, for any surjective function f : N → X, the relation of having the same image under f is such an equivalence relation, and it does not change when a permutation of X is subsequently applied; conversely one can turn such an equivalence relation into a surjective function by assigning the elements of X in some manner to the x equivalence classes."
+		"""	This case is equivalent to counting partitions of N into x (non-empty) subsets, or counting equivalence relations on N with exactly x classes. Indeed, for any surjective function f : N → X, the relation of having the same image under f is such an equivalence relation, and it does not change when a permutation of X is subsequently applied; conversely one can turn such an equivalence relation into a surjective function by assigning the elements of X in some manner to the x equivalence classes.
+			
+			The solution is given by the sterling number of the second kind that is shown above. As this number cannot be expressed as a mathematical equation, we provide a table with some of its values.
+		"""
 	)
 	DocTabs.get_node("Composition").set_content(
-		"This case is equivalent to counting sequences of n elements of X with no restriction: a function f : N → X is determined by the n images of the elements of N, which can each be independently chosen among the elements of x. This gives a total of xn possibilities."
+		"""	This case is equivalent to counting sequences of n elements of X with no restriction: a function f : N → X is determined by the n images of the elements of N, which can each be independently chosen among the elements of x. This gives a total of xn possibilities.
+			
+			The expression with curly brackets is called the sterling number of the second kind. As this number cannot be expressed as a mathematical equation, we provide a table with some of its values.
+		"""
 	)
 
 
@@ -138,12 +143,12 @@ func init_menus() -> void:
 	for op in g.OPERATORS:
 		OperatorInput.get_popup().add_item(op)
 	
-	for i in range(MAX_UNI_SIZE):
+	for i in range(g.MAX_ELEMENTS):
 		#to add zero before single digits like 01, 02 instead of 1, 2
 		var numberstr = "0" + str(i + 1) if i + 1 < 10 else str(i + 1)
 		UnivSizeInput.get_popup().add_item(numberstr)
 	
-	for i in range(MAX_CONFIG_SIZE):
+	for i in range(g.MAX_CONFIG_SIZE):
 		#to add zero before single digits like 01, 02 instead of 1, 2
 		var numberstr = "0" + str(i + 1) if i + 1 < 10 else str(i + 1)
 		ConfigSizeInput.get_popup().add_item(numberstr)
@@ -189,7 +194,7 @@ func _import(file_path):
 	#if is_cola()
 	CoLaInput.text = content #TODO
 	parse(content)
-	Problem.set_self(self, g.problem)
+	Problem.init(self, g.problem)
 	update_name_caches()
 
 
@@ -274,7 +279,7 @@ func add_step(problem : g.Problem):
 	# order matters
 	if problem != g.problem:
 		var new_problem = PROBLEM.instance()
-		new_problem.set_self(self, problem)
+		new_problem.init(self, problem)
 		new_problem.name = "Problem" + str(no_steps)
 		new_problem.hide()
 		Problems.add_child(new_problem)
@@ -480,8 +485,8 @@ func group() -> void:
 	for selected_name in get_selected_group_names():
 		if selected_name == "New group":
 			
-			if len(g.problem.get_domains()) >= MAX_DOMAINS:
-				show_message("There cannot be more than " + str(MAX_DOMAINS) + " groups")
+			if len(g.problem.get_domains()) >= g.MAX_DOMAINS:
+				show_message("There cannot be more than " + str(g.MAX_DOMAINS) + " groups")
 				return
 			
 			var group_name: String = NewGroupInput.text
@@ -532,6 +537,9 @@ func run():
 		if Universe.get_no_elements() ==  0:
 			show_message("Universe not defined!")
 			return
+		if g.problem.get_type() == "partition" || g.problem.get_type() == "composition":
+			show_message(g.problem.get_type().capitalize() + "s are not yet supported by the solver")
+			return
 		
 		create_cola_file()
 		add_step(g.problem)
@@ -540,7 +548,6 @@ func run():
 		for i in range(1, len(function_steps)):
 			eval(function_steps[i])
 		
-		Problem.lose_focus()
 		set_mode(Mode.STEPS)
 
 
@@ -578,13 +585,18 @@ func get_step_button(problem: g.Problem) -> Node:
 
 func set_mode(mode: int) -> void:
 	
-	if mode == Mode.EDIT:
+	if mode == Mode.STEPS:
+		for i in $HSplit/VBox/MainPanel/Problems.get_children():
+			i.toggle_combinations()
+		Problem.lose_focus()
+	elif mode == Mode.EDIT:
 		set_step(0)
 		for I in Steps.get_children():
 			I.free()
 		for I in Problems.get_children():
 			if I.name != "Problem0":
 				I.free()
+		Problem.toggle_combinations(false)
 	
 	self.mode = mode
 	$HSplit/VBox/StepPanel.visible = (mode == Mode.STEPS)

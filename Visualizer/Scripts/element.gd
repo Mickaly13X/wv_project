@@ -94,7 +94,7 @@ func set_type(type: int) -> void:
 	if type == Type.BALL:
 		shape.set_corner_radius_all(R)
 	elif type == Type.BOX:
-		set_color(Color.white)
+		set_color(Color.blue)
 		shape.bg_color = Color.transparent
 		shape.set_border_width_all(BORDER_WIDTH)
 		shape.border_width_top = 0

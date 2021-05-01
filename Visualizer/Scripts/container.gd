@@ -1,9 +1,6 @@
 extends Control
 
 
-const ELEMENT_RADIUS = 20
-const MAX_ELEMENTS = 30
-
 var custom_name: String = ""
 var shape: StyleBoxFlat
 
@@ -11,14 +8,23 @@ onready var Main: Node
 onready var Problem: Node
 
 
+func _ready():
+	
+	shape = StyleBoxFlat.new()
+	shape.bg_color = Color.transparent
+	shape.set_border_width_all(3)
+	shape.set_corner_radius_all(30)
+	update()
+
+
+func _draw():
+	draw_style_box(shape, Rect2(Vector2(0, 0), $Mask.rect_size))
+
+
 func deselect_elements():
 	
 	for I in get_elements():
 		I.toggle_selected(false)
-
-
-func draw_self() -> void:
-	draw_style_box(shape, Rect2(Vector2(0, 0), $Mask.rect_size))
 
 
 func get_center(offset = Vector2.ZERO) -> Vector2:
@@ -71,7 +77,7 @@ func has_element(id : int):
 
 
 func has_max_elements() -> bool:
-	return get_no_elements() == MAX_ELEMENTS
+	return get_no_elements() == g.MAX_ELEMENTS
 
 
 func is_editable() -> bool:

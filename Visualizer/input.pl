@@ -1,3 +1,3 @@
-uni = [1:4];
-config in {|| uni};
-#config = 2;
+uni = [1:1];
+config in [|| uni];
+#config = 1;

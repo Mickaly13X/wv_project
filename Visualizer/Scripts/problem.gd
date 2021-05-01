@@ -96,6 +96,7 @@ func toggle_combinations(show = problem.get_children().empty()) -> void:
 			)
 		var solutions = get_solutions()
 		print(solutions)
+		print(get_multi_subsets([1,2,3,4],2))
 		remove_size_cs_conflicts(solutions)
 		var no_elems = problem.get_no_elements()
 		var no_vars = problem.get_no_vars()
@@ -176,7 +177,7 @@ func get_solutions() -> Array:
 			solutions = get_subsets(elems, no_vars)
 		
 		"multisubset":
-			solutions = get_all_subsets(elems)
+			solutions = get_multi_subsets(elems, no_vars)
 		
 		_:
 			pass # no support for partitions or compositions
@@ -211,6 +212,7 @@ func get_sequences(n, k):
 		tmp.append(arr.duplicate(true))
 		if get_sequence_successor(arr, k, n) == 0:
 			break
+	tmp.sort()
 	return tmp
 
 
@@ -220,7 +222,7 @@ func get_permutations(n, k):
 	for i in sequences:
 		if g.check_duplicates(i):
 			sequences.remove(sequences.find(i))
-	
+	sequences.sort()
 	return sequences
 
 
@@ -236,7 +238,7 @@ func get_all_subsets(elems : Array):
 	for partial_subset in get_all_subsets(remaining_list):
 		subsets.append(partial_subset)
 		subsets.append(partial_subset.duplicate() + [first_element])
-
+	subsets.sort()
 	return subsets
 
 
@@ -249,4 +251,38 @@ func get_subsets(elems : Array, size : int):
 			delete.append(i)
 	for i in delete:
 		multisubsets.erase(i)
+	multisubsets.sort()
 	return multisubsets
+
+
+func get_multi_subsets(elems : Array, size : int):
+	
+	var tmp = get_subsets(elems, size)
+	tmp = tmp + get_sequences(len(elems), size)
+	var multisets = []
+	for i in tmp:
+		i.sort()
+		if !(i in multisets):
+			multisets.append(i.duplicate())
+	print(multisets)
+	multisets.sort_custom(custom_sort, "sort_int_array_2d")
+	return multisets
+
+class custom_sort:
+	static func sort_int_array_2d(a, b):
+		var sorted = false
+		var i = 0
+		while (i < len(a)):
+			if a[i] == b[i]:
+				sorted = true
+			elif a[i] < b[i]:
+				sorted = true
+				break
+			elif a[i] > b[i]:
+				sorted = false
+				break
+			i += 1
+		return sorted
+
+
+

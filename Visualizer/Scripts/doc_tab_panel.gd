@@ -5,8 +5,8 @@ var TITLES = [
 	"n-permutation of x:",
 	"n-subset of x:",
 	"n-multisubset of x:",
-	"composition of n with x subsets:",
-	"partition of n into x subsets:"
+	"partition of n into x subsets:",
+	"composition of n with x subsets:"
 ]
 
 onready var FORMULAS = [
@@ -14,8 +14,9 @@ onready var FORMULAS = [
 	load("Textures/permutation.png"),
 	load("Textures/subset.png"),
 	load("Textures/multisubset.png"),
-	load("Textures/composition.png"),
-	load("Textures/partition.png")
+	load("Textures/partition.png"),
+	load("Textures/composition.png")
+	
 	
 ]
 

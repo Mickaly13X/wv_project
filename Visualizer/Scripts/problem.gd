@@ -76,6 +76,9 @@ func toggle_combinations(show = problem.get_children().empty()) -> void:
 	
 	$Combinations.visible = show
 	if show:
+		# Don't support too large combinations
+		if problem.solution > 20:
+			return
 		is_shifted = true
 		position += 100 * Vector2.LEFT
 		var distri: PoolVector2Array
@@ -88,6 +91,13 @@ func toggle_combinations(show = problem.get_children().empty()) -> void:
 			$Combinations/Scroll/Elements.set_custom_minimum_size(
 				Vector2($Combinations/Scroll.rect_min_size.x, distri[0].distance_to(distri[-1]) + 20)
 			)
+		var solutions = get_solutions()
+		#print(solutions)
+		var no_elems = problem.get_no_elements()
+		var no_vars = problem.get_no_vars()
+		var config_type = problem.get_type()
+		var flag = 0
+		
 		for point in distri:
 			
 			var new_box = g.ELEMENT.instance()
@@ -95,17 +105,139 @@ func toggle_combinations(show = problem.get_children().empty()) -> void:
 			new_box.position = point
 			#new_box.size = g.ELEMENT_RADIUS * Vector2.ONE
 			$Combinations/Scroll/Elements.add_child(new_box)
-			
-			for j in range(1):
-				var new_ball = g.ELEMENT.instance()
-				new_ball.init(null, 0, new_ball.Type.BALL)
-				#new_ball.position = Vector2.ZERO
-				new_ball.scale = 0.2 * Vector2.ONE
-				new_ball.z_index = 1
-				new_box.add_child(new_ball)
+			var pos = 0
+			for el_id in solutions[flag]:
+				add_ball_to_box(el_id-1, new_box, pos)
+				pos += 1
+			flag += 1
 	else:
 		if is_shifted:
 			position += 100 * Vector2.RIGHT
 		for i in $Combinations/Scroll/Elements.get_children():
 			remove_child(i)
 			i.queue_free()
+
+
+func get_ball_position(pos : int, no_elements : int) -> Vector2:
+	
+	var box_r = g.ELEMENT_RADIUS
+	var border_width = g.ELEMENT_BORDER_WIDTH
+	var positions = []
+	var length = 2*box_r - border_width - box_r/5 - box_r/10
+	var offset = length/no_elements # -10 for border width*2, - 2 for margin 1 px - 4 for element
+	return Vector2(0, box_r - border_width - box_r/5 - box_r/5*2 - pos*offset)
+	
+
+func add_ball_to_box(ball_id : int, box, pos) -> void:
+	
+	var no_elems = g.problem.get_no_elements()
+	var new_ball = g.ELEMENT.instance()
+	new_ball.init(null, ball_id, new_ball.Type.BALL)
+	new_ball.position = get_ball_position(pos, no_elems)
+	new_ball.scale = 0.2 * Vector2.ONE
+	new_ball.z_index = 1
+	new_ball.set_color(g.ELEMENT_COLORS[ball_id])
+	box.add_child(new_ball)
+
+
+func get_solutions() -> Array:
+	
+	if problem.solution > 20:
+		return []
+	var solutions = []
+	var no_elems = problem.get_no_elements()
+	var no_vars = problem.get_no_vars()
+	var config_type = problem.get_type()
+	var elems = problem.get_universe().get_elements()
+	
+	match config_type:
+		
+		"sequence":
+			solutions = get_sequences(no_elems, no_vars)
+		
+		"permutation":
+			solutions = get_permutations(no_elems, no_vars)
+		
+		"subset":
+			solutions = get_subsets(elems, no_vars)
+		
+		"multisubset":
+			solutions = get_all_subsets(elems)
+		
+		_:
+			pass # no support for partitions or compositions
+	return solutions
+
+
+func get_sequence_successor(arr, k, n):
+	
+	var p = k - 1
+	while (arr[p] == n and 0 <= p and p < k):
+		p -= 1
+	
+	if (p < 0):
+		return 0
+
+	arr[p] = arr[p] + 1
+	var i = p + 1
+	while(i < k):
+		arr[i] = 1
+		i += 1
+	return 1
+
+
+func get_sequences(n, k):
+	
+	var tmp = []
+	var arr = []
+	for i in range(k):
+		arr += [0]
+	
+	for i in range(k):
+		arr[i] = 1
+	
+	while(1):
+		tmp.append(arr.duplicate(true))
+		if(get_sequence_successor(arr, k, n) == 0):
+			break
+	return tmp
+
+
+func get_permutations(n, k):
+	
+	var sequences = get_sequences(n, k)
+	for i in sequences:
+		if g.check_duplicates(i):
+			sequences.remove(sequences.find(i))
+	
+	return sequences
+
+
+func get_all_subsets(elems : Array):
+	
+	if len(elems) == 0:
+		return [[]]
+
+	var subsets = []
+	var first_element = elems[0]
+	var remaining_list = elems.slice(1,len(elems))
+	
+	for partial_subset in get_all_subsets(remaining_list):
+		subsets.append(partial_subset)
+		subsets.append(partial_subset.duplicate() + [first_element])
+
+	return subsets
+
+
+func get_subsets(elems : Array, size : int):
+	
+	var tmp = get_all_subsets(elems)
+	for i in tmp:
+		if len(i) != size:
+			tmp.remove(tmp.find(i))
+	# repeat because for some stupid reason it doesn't delete everything??
+	# ex: config = 2, elems = 3
+	for i in tmp:
+		if len(i) != size:
+			tmp.remove(tmp.find(i))
+	return tmp

@@ -1201,15 +1201,15 @@ margin_top = 108.0
 margin_bottom = 144.0
 text = "Multi-subset"
 
-[node name="Composition" parent="Popups/Docs/VBox/HSplit/Index/Scroll/Buttons" instance=ExtResource( 3 )]
-margin_top = 144.0
-margin_bottom = 180.0
-text = "Composition"
-
 [node name="Partition" parent="Popups/Docs/VBox/HSplit/Index/Scroll/Buttons" instance=ExtResource( 3 )]
 margin_top = 180.0
 margin_bottom = 216.0
 text = "Partition"
+
+[node name="Composition" parent="Popups/Docs/VBox/HSplit/Index/Scroll/Buttons" instance=ExtResource( 3 )]
+margin_top = 144.0
+margin_bottom = 180.0
+text = "Composition"
 
 [node name="DocTabs" type="TabContainer" parent="Popups/Docs/VBox/HSplit"]
 margin_left = 212.0
@@ -1232,11 +1232,11 @@ index = 2
 visible = false
 index = 3
 
-[node name="Composition" parent="Popups/Docs/VBox/HSplit/DocTabs" instance=ExtResource( 6 )]
+[node name="Partition" parent="Popups/Docs/VBox/HSplit/DocTabs" instance=ExtResource( 6 )]
 visible = false
 index = 4
 
-[node name="Partition" parent="Popups/Docs/VBox/HSplit/DocTabs" instance=ExtResource( 6 )]
+[node name="Composition" parent="Popups/Docs/VBox/HSplit/DocTabs" instance=ExtResource( 6 )]
 visible = false
 index = 5
 
@@ -1499,8 +1499,8 @@ __meta__ = {
 [connection signal="button_up" from="Popups/Docs/VBox/HSplit/Index/Scroll/Buttons/Permutation" to="." method="_change_doc_tab" binds= [ 1 ]]
 [connection signal="button_up" from="Popups/Docs/VBox/HSplit/Index/Scroll/Buttons/Subset" to="." method="_change_doc_tab" binds= [ 2 ]]
 [connection signal="button_up" from="Popups/Docs/VBox/HSplit/Index/Scroll/Buttons/MultiSubset" to="." method="_change_doc_tab" binds= [ 3 ]]
-[connection signal="button_up" from="Popups/Docs/VBox/HSplit/Index/Scroll/Buttons/Composition" to="." method="_change_doc_tab" binds= [ 4 ]]
-[connection signal="button_up" from="Popups/Docs/VBox/HSplit/Index/Scroll/Buttons/Partition" to="." method="_change_doc_tab" binds= [ 5 ]]
+[connection signal="button_up" from="Popups/Docs/VBox/HSplit/Index/Scroll/Buttons/Partition" to="." method="_change_doc_tab" binds= [ 4 ]]
+[connection signal="button_up" from="Popups/Docs/VBox/HSplit/Index/Scroll/Buttons/Composition" to="." method="_change_doc_tab" binds= [ 5 ]]
 [connection signal="button_up" from="Popups/Tutorial/VBox/Head/Buttons/Exit" to="." method="toggle_tutorial" binds= [ false ]]
 [connection signal="button_up" from="Popups/Tutorial/VBox/HSplit/Index/Scroll/Buttons/Sequence" to="." method="_change_doc_tab" binds= [ 0 ]]
 [connection signal="button_up" from="Popups/Tutorial/VBox/HSplit/Index/Scroll/Buttons/Permutation" to="." method="_change_doc_tab" binds= [ 1 ]]

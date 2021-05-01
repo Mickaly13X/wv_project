@@ -4,6 +4,7 @@ extends Node
 
 const ELEMENT = preload("res://Scenes/Element.tscn")
 const ELEMENT_RADIUS = 20
+const ELEMENT_BORDER_WIDTH = 5
 const MAX_DOMAINS = 3
 const MAX_CONFIG_SIZE = 18
 const MAX_ELEMENTS = 30
@@ -20,6 +21,40 @@ const OPERATORS = [
 		"=",
 		"<",
 		"<="
+	]
+const ELEMENT_COLORS = [
+	Color(1, 0.406122, 0.406122), 
+	Color(0.406122, 0.540673, 1), 
+	Color(0.406122, 1, 0.554592), 
+	Color(0.967522, 1, 0.406122),
+	Color(0.675223, 0.406122, 1), 
+	Color(1, 0.684503, 0.406122), 
+	Color(1, 0.406122, 0.781936), 
+	Color(0.406122, 0.958243, 1), 
+	Color(0.558594, 0.218878, 0.218878), 
+	Color(0.237456, 0.218878, 0.558594),
+	
+	Color(0.527344, 0.522786, 0.235667), 
+	Color(0.641367, 0.497714, 0.730469), 
+	Color(0.5625, 0.363865, 0.171343), 
+	Color(0.09519, 0.371094, 0.325828),
+	Color(0.25906, 0.075941, 0.425781), 
+	Color(0.082449, 0.367188, 0.080207), 
+	Color(0.402344, 0.104013, 0.15995), 
+	Color(0.255135, 0.4375, 0.300726), 
+	Color(0.515625, 0.322395, 0.485433), 
+	Color(0.147169, 0.293623, 0.390625),
+	
+	Color(0.235667, 0.527344, 0.452146), 
+	Color(0.509753, 0.141312, 0.738281), 
+	Color(0.5625, 0.363865, 0.171343), 
+	Color(0.148863, 0.089767, 0.433594),
+	Color(0.425781, 0.075941, 0.34652), 
+	Color(0.330711, 0.523438, 0.329193), 
+	Color(0.261719, 0.198653, 0.089966),
+	Color(0.826383, 0.752792, 0.988281), 
+	Color(0.972656, 0.661102, 0.923976), 
+	Color(0.667969, 0.391388, 0)
 	]
 
 onready var problem = Problem.new()
@@ -68,6 +103,21 @@ func chain(links: Array, seperator: String) -> String:
 # returns true with a chance of 1 / n
 func chance(n: int) -> bool:
 	return random(n - 1) == 0
+
+
+func check_duplicates(a):
+	var is_dupe = false
+	var found_dupe = false 
+
+	for i in range(a.size()):
+		if is_dupe == true:
+			break
+		for j in range(a.size()):
+			if a[j] == a[i] && i != j:
+				is_dupe = true
+				found_dupe = true
+				return is_dupe
+				break
 
 
 # returns random value from given list

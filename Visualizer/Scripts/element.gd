@@ -2,8 +2,8 @@ extends Node2D
 
 # name is an int from 1 to max elem size
 
-const BORDER_WIDTH = 5
-const R = 20
+var BORDER_WIDTH = g.ELEMENT_BORDER_WIDTH
+var R = g.ELEMENT_RADIUS
 
 enum Type {BALL, BOX}
 

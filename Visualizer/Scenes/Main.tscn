@@ -1202,13 +1202,13 @@ margin_bottom = 144.0
 text = "Multi-subset"
 
 [node name="Partition" parent="Popups/Docs/VBox/HSplit/Index/Scroll/Buttons" instance=ExtResource( 3 )]
-margin_top = 180.0
-margin_bottom = 216.0
+margin_top = 144.0
+margin_bottom = 180.0
 text = "Partition"
 
 [node name="Composition" parent="Popups/Docs/VBox/HSplit/Index/Scroll/Buttons" instance=ExtResource( 3 )]
-margin_top = 144.0
-margin_bottom = 180.0
+margin_top = 180.0
+margin_bottom = 216.0
 text = "Composition"
 
 [node name="DocTabs" type="TabContainer" parent="Popups/Docs/VBox/HSplit"]
@@ -1241,6 +1241,7 @@ visible = false
 index = 5
 
 [node name="Tutorial" type="PopupDialog" parent="Popups"]
+visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5

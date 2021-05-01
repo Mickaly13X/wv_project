@@ -1241,6 +1241,7 @@ visible = false
 index = 5
 
 [node name="Tutorial" type="PopupDialog" parent="Popups"]
+visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -1321,6 +1322,14 @@ tabs_visible = false
 [node name="Panel2" parent="Popups/Tutorial/VBox/TutTabs" instance=ExtResource( 7 )]
 visible = false
 index = 1
+
+[node name="Panel3" parent="Popups/Tutorial/VBox/TutTabs" instance=ExtResource( 7 )]
+visible = false
+index = 2
+
+[node name="Panel4" parent="Popups/Tutorial/VBox/TutTabs" instance=ExtResource( 7 )]
+visible = false
+index = 3
 
 [node name="HSplit" type="HSplitContainer" parent="Popups/Tutorial/VBox"]
 visible = false
@@ -1426,9 +1435,9 @@ window_title = "Open een Bestand"
 mode = 0
 access = 2
 filters = PoolStringArray( "*.pl ; CoLa Files" )
-current_dir = "/Users/Joran/Git/wv_project/Visualizer"
+current_dir = "/Users/erickim/wv_project/Visualizer"
 current_file = "~"
-current_path = "/Users/Joran/Git/wv_project/Visualizer/~"
+current_path = "/Users/erickim/wv_project/Visualizer/~"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1447,9 +1456,9 @@ popup_exclusive = true
 window_title = "Save as CoLa (.pl) file"
 access = 2
 filters = PoolStringArray( "*.pl ; CoLa Files" )
-current_dir = "/Users/Joran/Git/wv_project/Visualizer"
+current_dir = "/Users/erickim/wv_project/Visualizer"
 current_file = "~"
-current_path = "/Users/Joran/Git/wv_project/Visualizer/~"
+current_path = "/Users/erickim/wv_project/Visualizer/~"
 __meta__ = {
 "_edit_use_anchors_": false
 }

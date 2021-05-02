@@ -370,6 +370,8 @@ func update_element_colors() -> void:
 
 func update_element_positions(universe_elems = []) -> void:
 	
+	var time_start = OS.get_ticks_usec()
+	
 	var venn_divisions: Array
 	if universe_elems.empty():
 		venn_divisions = get_venn_divisions()
@@ -425,6 +427,8 @@ func update_element_positions(universe_elems = []) -> void:
 			
 			get_element(i).position = new_position
 			assigned_positions.append(new_position)
+	
+	print(OS.get_ticks_usec() - time_start)
 
 
 func calc_inner_exclusion(inner_domains: Array) -> PoolVector2Array:

@@ -4,7 +4,7 @@ var DESCRIPTIONS = [
 	"Right click anywhere in Universe or Config to open a quick menu of options",
 	"Left click on elements to select them. You can then delete these elements or group them into a new or existing set.",
 	"When you're done constructing a problem, click 'Run' to run the solver and see the solving steps.",
-	"By clicking on some of the simpler subproblems, you can see the different combinations it has found to the right."
+	"By clicking on basic solving steps, you can see all the arrangements that were considered for the solution."
 ]
 
 onready var IMAGES = [

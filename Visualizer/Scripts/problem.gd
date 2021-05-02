@@ -78,7 +78,7 @@ func toggle_combinations(show = problem.get_children().empty()) -> void:
 	if show:
 		# Don't support too large combinations
 		if problem.solution > g.MAX_COMBINATIONS:
-			Main.show_message("Visualization of combinations is not support when the solution exeeds " + str(g.MAX_COMBINATIONS))
+			Main.show_message("Visualization of combinations is not supported when the solution exeeds " + str(g.MAX_COMBINATIONS))
 			return
 		
 		$Combinations/Label.text = "Combinations (" + str(problem.solution) + ")"
@@ -213,7 +213,7 @@ func get_sequences(n, k):
 	
 	var tmp = []
 	var arr = []
-	for i in range(k):
+	for _i in range(k):
 		arr += [1]
 	
 	while(1):

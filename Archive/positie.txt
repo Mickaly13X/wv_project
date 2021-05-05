@@ -1,0 +1,222 @@
+#####################################################
+
+func update_element_positions(universe_elems = []) -> void:
+	
+	var time_start = OS.get_ticks_usec()
+	
+	var inside_domains = [[]]
+	var inside_elements = [[]]
+	var venn_divisions: Array
+	if universe_elems.empty():
+		inside_domains = get_problem().get_domain_intersection_indexes()
+		inside_elements = get_problem().get_domain_intersections(inside_domains)
+		inside_domains += []
+		inside_elements += []
+		venn_divisions = get_venn_divisions()
+	else:
+		# for optimalization only universe is considered
+		venn_divisions = [get_problem().get_universe_strict()]
+	
+	for division in venn_divisions:
+		
+		if division.empty(): continue
+		
+		var div_index = venn_divisions.find(division)
+		var time_start_tr = OS.get_ticks_usec()
+		var spawn_polygon = calc_spawn_polygon(
+			inside_domains[div_index], inside_elements[div_index]
+		)
+		print("T: " + str(OS.get_ticks_usec() - time_start_tr))
+		var time_start_loop = OS.get_ticks_usec()
+		var triangulation = Geometry.triangulate_polygon(spawn_polygon)
+		var triangles = []
+		for i in range(len(triangulation) / 3):
+			var new_triangle = PoolVector2Array()
+			new_triangle.append(spawn_polygon[triangulation[i * 3]])
+			new_triangle.append(spawn_polygon[triangulation[i * 3 + 1]])
+			new_triangle.append(spawn_polygon[triangulation[i * 3 + 2]])
+			triangles.append(new_triangle)
+		var triangle_areas = []
+		for i in triangles:
+			triangle_areas.append(
+				0.5 * abs(i[0].x * (i[1].y - i[2].y) + i[1].x * (i[2].y - i[0].y) + i[2].x * (i[0].y - i[1].y))
+			)
+		print("L: " + str(OS.get_ticks_usec() - time_start_loop))
+		var time_start_pos = OS.get_ticks_usec()
+		var assigned_positions = PoolVector2Array()
+		# optimalization
+		var new_elems = division
+		if !universe_elems.empty():
+			for i in division:
+				if !i in universe_elems:
+					assigned_positions.append(get_element(i).position)
+			new_elems = universe_elems
+		
+		for i in new_elems:
+			
+			var new_position: Vector2
+			var flag = true
+			var attempt = 0
+			while flag == true:
+				attempt += 1
+				if attempt > 64:
+					print ("[error] No valid position found. Defaulting to (0, 0)...")
+					new_position = Vector2.ZERO
+					break
+				new_position = randomTriangle(triangles[g.choose_weighted(triangle_areas)])
+				flag = false
+				for j in assigned_positions:
+					if new_position.distance_to(j) < 2*g.ELEMENT_RADIUS:
+						flag = true
+						break
+				
+			get_element(i).position = new_position
+			assigned_positions.append(new_position)
+		print("P: " + str(OS.get_ticks_usec() - time_start_pos))
+	
+	print("Alg 2 time: " + str(OS.get_ticks_usec() - time_start))
+
+
+func calc_inner_exclusion(enclosed_domains: PoolIntArray) -> PoolVector2Array:
+	
+	var inner_exlusion = PoolVector2Array()
+	for i in enclosed_domains:
+		var circle = get_circles()[i]
+		# account for  element size
+		var new_polygon = CIRCLE.new(
+			circle.center, circle.radius + g.ELEMENT_RADIUS).polygon(CIRCLE_PRESISION)
+		if inner_exlusion.empty():
+			inner_exlusion = new_polygon
+		else:
+			inner_exlusion = try_merge(inner_exlusion, new_polygon)
+	return inner_exlusion
+
+
+func calc_spawn_polygon(inside_domains: PoolIntArray, inside_elements: PoolIntArray) -> PoolVector2Array:
+	
+	var inside_polygon = PoolVector2Array()
+	var domains = get_domains()
+	print(inside_domains)
+	print(inside_elements)
+	
+	# inside universe
+	if inside_domains.empty():
+		
+		inside_polygon = rect2polygon(
+			get_container_rect(1.0 / calc_scaling()).grow(-g.ELEMENT_RADIUS)
+		)
+		return stitch(
+			inside_polygon, calc_inner_exclusion(range(len(domains) - 1)), false, true
+		)
+		
+	else:
+		
+		for i in inside_domains:
+			var circle = get_circles()[i]
+			var new_polygon = CIRCLE.new(
+				circle.center, circle.radius - g.ELEMENT_RADIUS).polygon(CIRCLE_PRESISION)
+			if inside_polygon.empty():
+				inside_polygon = new_polygon
+			else:
+				inside_polygon = Geometry. \
+					intersect_polygons_2d(inside_polygon, new_polygon)[0]
+		
+		var enclosed = []
+		# outside domains
+		for i in g.exclude(range(len(domains) - 1), enclosed):
+			if g.has_list(inside_elements, domains[i].get_elements()):
+				if len(enclosed) == 1:
+					if g.has_list(domains[enclosed[0]].get_elements(), i.get_elements()):
+						continue
+					elif g.has_list(domains[i].get_elements(), domains[enclosed[0]].get_elements()):
+						enclosed = [i]
+						continue
+				enclosed.append(i)
+			else:
+				var circle = get_circles()[i]
+				var new_polygon = CIRCLE.new(
+					circle.center, circle.radius + g.ELEMENT_RADIUS).polygon(CIRCLE_PRESISION)
+				inside_polygon = try_exclude(inside_polygon, new_polygon)
+		
+		return stitch(inside_polygon, calc_inner_exclusion(enclosed), false, true)
+
+
+func get_venn_divisions() -> Array:
+	
+	var no_domains = len(get_domains())
+	var no_divisions = pow(2, no_domains)
+	var divisions = g.repeat([[]], no_divisions)
+	
+	for element_id in get_problem().get_universe().get_elements():
+		var count = 0
+		var division_index = 0
+		for domain_index in range(no_domains):
+			if element_id in get_domains()[domain_index].get_elements():
+				count += 1
+				division_index += \
+					domain_index + (1 + int(no_domains == 3)) * int(count == 2) + int(count == 3)
+		if count == 0:
+			division_index = -1
+		divisions[division_index].append(element_id)
+	
+	return divisions
+
+
+func try_exclude(a: PoolVector2Array, b: PoolVector2Array) -> PoolVector2Array:
+	
+	var exclusion = Geometry.clip_polygons_2d(a, b)
+	# if default polygon exclusion fails
+	if len(exclusion) != 1:
+		return stitch(a, b, false)
+	return exclusion[0]
+
+
+func try_merge(a: PoolVector2Array, b: PoolVector2Array) -> PoolVector2Array:
+	
+	var merge = Geometry.merge_polygons_2d(a, b)
+	# if default polygon merge fails
+	if len(merge) != 1:
+		return stitch(a, b, true)
+	return merge[0]
+
+
+# returns a random Vector2 point inside a given triangle
+# @pre 'triangle' contains exactly 3 points
+func randomTriangle(triangle: PoolVector2Array) -> Vector2:
+	
+	var r1 = g.randomf(1)
+	var r2 = g.randomf(1)
+	return (1 - sqrt(r1)) * triangle[0] \
+		  + sqrt(r1) * (1 - r2) * triangle[1] \
+		  + r2 * sqrt(r1) * triangle[2]
+
+
+func stitch(a: PoolVector2Array, b: PoolVector2Array, same_orient: bool, any_point = false) -> PoolVector2Array:
+	
+	var compare = Geometry.is_polygon_clockwise(a) == Geometry.is_polygon_clockwise(b)
+	if compare != same_orient:
+		if len(a) < len(b):
+			a.invert()
+		else:
+			b.invert()
+	
+	var a_i = 0
+	var b_j = 0
+	if !any_point:
+		var shortest_distance = -1
+		for i in range(len(a)):
+			for j in range(len(b)):
+				var new_distance = a[i].distance_to(b[j])
+				if new_distance < shortest_distance || shortest_distance == -1:
+					shortest_distance = new_distance
+					a_i = i
+					b_j = j
+	
+	var new_polygon = PoolVector2Array()
+	new_polygon += PoolVector2Array(Array(a).slice(0, a_i))
+	new_polygon += PoolVector2Array(Array(b).slice(b_j, len(b) - 1))
+	new_polygon += PoolVector2Array(Array(b).slice(0, b_j))
+	new_polygon += PoolVector2Array(Array(a).slice(a_i, len(a) - 1))
+	return new_polygon
+
+#####################################################

@@ -49,6 +49,7 @@ var current_step: int
 var groups_selection = {} # key : idx, value : bool selected, is reset when group is called
 var mode: int
 var running_problem
+var show_tutorial = false
 
 
 func _ready():
@@ -59,7 +60,8 @@ func _ready():
 	init_menus()
 	Popups.get_node("OpenFile").current_dir = ""
 	Popups.get_node("OpenFile").current_path = ""
-	Popups.get_node("Tutorial").popup()
+	if show_tutorial:
+		Popups.get_node("Tutorial").popup()
 
 
 func init_docs() -> void:

@@ -194,6 +194,42 @@ class Problem:
 		return intersections
 	
 	
+	# no_domains == 1, return = [A]
+	# no_domains == 2, return = [A, B, AB]
+	# no_domains == 3, return = [A, B, C, AB, BC, AC, ABC]
+#	func get_domain_intersections(intersection_indexes = get_domain_intersection_indexes()) -> PoolIntArray:
+#
+#		var intersections = []
+#
+#		var domain_elements = get_domain_elements()
+#		for i in intersection_indexes:
+#			var new_intersection = domain_elements[i[0]]
+#			for j in range(1, len(i)):
+#				new_intersection = g.intersection(new_intersection, domain_elements[i[j]])
+#			intersections.append(new_intersection)
+#
+#		return intersections
+	
+	
+	# no_domains == 1, return = [[0]]
+	# no_domains == 2, return = [[0], [1], [0, 1]]
+	# no_domains == 3, return = [[0], [1], [2], [0, 1], [0, 2], [1, 2], [1, 2, 3]]
+#	func get_domain_intersection_indexes() -> Array:
+#
+#		var indexes = []
+#		for i in range(len(domains)):
+#			indexes.append([i])
+#		# intersections if there are at least 2 domains
+#		match len(domains):
+#			2:
+#				indexes.append([0, 1])
+#			3:
+#				indexes.append([0, 2])
+#				indexes.append([1, 2])
+#				indexes.append([1, 2, 3])
+#		return indexes
+	
+	
 	func get_domain_name_from_elements(elements : Array) -> String:
 		
 		for domain in domains:

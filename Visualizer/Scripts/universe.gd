@@ -1,17 +1,20 @@
 extends "res://Scripts/container.gd"
 
 const CIRCLE = preload("res://Scripts/circle.gd")
+const CIRCLE_PRESISION = 12
 var ELEMENT_COLORS = g.ELEMENT_COLORS
 
 onready var Buttons = $Menu/Buttons
-var bruh = PoolVector2Array()
-var broh = PoolVector2Array()
-var brah = PoolVector2Array()
+
+
+func _process(_delta):
+	if Input.is_action_just_released("control_A"):
+		for I in get_elements():
+			I.toggle_selected(true)
 
 
 func _draw():
 	._draw()
-	draw_colored_polygon(bruh, Color(1, 0, 0, 0.3))
 
 
 func _gui_input(event):
@@ -317,6 +320,7 @@ func set_problem(new_problem, ow_uni = false, ow_dom = false) -> void:
 		needs_repos = true
 	
 	if needs_repos:
+		update_element_positions_old()
 		update_element_positions()
 	
 	set_name(new_problem.get_universe().get_name())
@@ -428,7 +432,7 @@ func update_element_positions(universe_elems = []) -> void:
 			get_element(i).position = new_position
 			assigned_positions.append(new_position)
 	
-	print(OS.get_ticks_usec() - time_start)
+	print("Alg 2 time: " + str(OS.get_ticks_usec() - time_start))
 
 
 func calc_inner_exclusion(inner_domains: Array) -> PoolVector2Array:
@@ -582,6 +586,82 @@ func stitch(a: PoolVector2Array, b: PoolVector2Array) -> PoolVector2Array:
 	return new_polygon
 
 #####################################################
+
+
+func update_element_positions_old(elements = get_elements()) -> void:
+	
+	var time_start = OS.get_ticks_usec()
+	
+	var assigned_positions = PoolVector2Array()
+	for i in g.exclude(get_elements(), elements):
+		assigned_positions.append(i.position)
+	
+	for Element in elements:
+		
+		var inside_circles = []
+		var outside_circles = []
+		
+		for i in get_circles():
+			if Element.get_id() in get_domain(i).get_elements():
+				inside_circles.append(i)
+			else:
+				outside_circles.append(i)
+		
+		var approx : Rect2
+		if inside_circles == []:
+			approx = get_perimeter()
+		else:
+			approx = inside_circles[0].rect()
+			for i in range(1, len(inside_circles)):
+				# rect intersection
+				approx = approx.clip(inside_circles[i].rect())
+		
+		var new_assigned_pos = update_element_positions_loop(
+				approx, inside_circles, outside_circles, assigned_positions
+			)
+		if new_assigned_pos == Vector2.ZERO: # invalid pos
+			print ("[error] No valid position arrangement found. Defaulting to (0, 0)...")
+		
+		Element.position = new_assigned_pos
+		assigned_positions.append(new_assigned_pos)
+		
+	print("Alg 1 time: " + str(OS.get_ticks_usec() - time_start))
+
+# @return exit_code
+func update_element_positions_loop(approx : Rect2, inside_circles : Array,
+		outside_circles : Array, assigned_positions : PoolVector2Array
+	) -> Vector2:
+	
+	var attempt = 0
+	var new_pos : Vector2
+	var flag = false
+	while (flag == false):
+		
+		flag = true
+		new_pos = g.randomRect(approx.grow(-g.ELEMENT_RADIUS))
+		for i in assigned_positions:
+			if new_pos.distance_to(i) < 2 * g.ELEMENT_RADIUS:
+				flag = false
+				break
+		# if further checking is needed
+		if flag == true:
+			for i in inside_circles:
+				if new_pos.distance_to(i.center) > i.radius - g.ELEMENT_RADIUS:
+					flag = false
+					break
+		# if further checking is needed
+		if flag == true:
+			for i in outside_circles:
+				if new_pos.distance_to(i.center) < i.radius + g.ELEMENT_RADIUS:
+					flag = false
+					break
+		
+		if attempt < 64:
+			attempt += 1
+		else: return Vector2.ZERO
+	
+	return new_pos
+
 
 func update_problem(ow_uni = true, ow_dom = true) -> void:
 	set_problem(get_problem(), ow_uni, ow_dom)

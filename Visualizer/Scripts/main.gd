@@ -291,7 +291,7 @@ func add_step(problem : g.Problem):
 	
 	running_problem = problem
 	var new_step = STEPBUTTON.instance()
-	new_step.init(problem, no_steps, (problem == g.problem))
+	new_step.init(problem, (problem == g.problem))
 	Steps.add_child(new_step)
 
 

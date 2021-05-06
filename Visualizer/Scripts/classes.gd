@@ -153,6 +153,17 @@ class Problem:
 		check_empty_domains()
 	
 	
+	func det_ref_from_root() -> String:
+		
+		if g.is_null(parent):
+			return ""
+		
+		var parent_ref = parent.det_ref_from_root()
+		if parent_ref:
+			return parent_ref + "." + str(parent.get_children().find(self) + 1)
+		return str(parent.get_children().find(self) + 1)
+	
+	
 	func get_config() -> Configuration:
 		return config
 	
